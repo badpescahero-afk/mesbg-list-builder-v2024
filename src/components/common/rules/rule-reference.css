@@ -1,0 +1,32 @@
+.rule-reference {
+  appearance: none;
+  border: 0;
+  padding: 0.2em 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+.rule-reference:hover {
+  text-decoration-style: solid;
+}
+.rule-reference:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.rule-reference-mark {
+  font-size: 0.8em;
+}
+@media print {
+  .rule-reference {
+    text-decoration: none;
+    padding: 0;
+  }
+  .rule-reference-mark {
+    display: none;
+  }
+}

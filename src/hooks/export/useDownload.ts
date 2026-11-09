@@ -1,7 +1,7 @@
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import { useState } from "react";
-import { heroConstraintData } from "../../assets/data.ts";
+import { heroConstraintData, profileData } from "../../assets/data.ts";
 import { isSelectedUnit } from "../../types/roster.ts";
 import { useRosterInformation } from "../calculations-and-displays/useRosterInformation.ts";
 
@@ -32,8 +32,8 @@ export const useDownload = () => {
         );
         if (
           _warband.hero.unit_type !== "Siege Engine" &&
-          heroConstraintData[_warband.hero.model_id]["extra_profiles"].length >
-            0
+          (heroConstraintData[_warband.hero.model_id]?.extra_profiles || [])
+            .length > 0
         ) {
           heroConstraintData[_warband.hero.model_id]["extra_profiles"].map(
             (_profile) => {
@@ -53,24 +53,44 @@ export const useDownload = () => {
       });
       return null;
     });
+    for (const unit of roster.warbands
+      .flatMap((warband) => [warband.hero, ...warband.units])
+      .filter(isSelectedUnit)) {
+      for (const overflow of profileData[unit.profile_origin]?.[unit.name]
+        ?.overflow_cards || []) {
+        profileCards.push([unit.profile_origin, overflow].join("|"));
+      }
+    }
     const profileCardsSet = new Set(profileCards);
     const finalProfileCards = [...profileCardsSet];
 
-    const zip = new JSZip();
-    for (const card of finalProfileCards) {
-      const [origin, profile] = card.split("|");
-      const cardUrl = `${RESOURCES_URL}/images/profiles/${encodeURIComponent(origin)}/cards/${encodeURIComponent(profile)}.jpg`;
-      const blob = await fetch(cardUrl).then((res) => res.blob());
-      zip.file(profile + ".jpg", blob, { binary: true });
-    }
-    zip.generateAsync({ type: "blob" }).then((blob) => {
-      const ts = new Date();
+    try {
+      const zip = new JSZip();
+      for (const card of finalProfileCards) {
+        const [origin, profile] = card.split("|");
+        const cardUrl = encodeURI(
+          `${RESOURCES_URL}/images/profiles/${origin}/cards/${profile}.jpg`,
+        );
+        const response = await fetch(cardUrl);
+        if (
+          !response.ok ||
+          !response.headers.get("content-type")?.startsWith("image/")
+        )
+          throw new Error(`Missing original card: ${origin}/${profile}`);
+        zip.file(`${origin}/${profile}.jpg`, await response.blob(), {
+          binary: true,
+        });
+      }
+      const blob = await zip.generateAsync({ type: "blob" });
       saveAs(
         blob,
-        "MESBG-Army-Profiles-" + ts.toISOString().substring(0, 19) + ".zip",
+        "MESBG-Army-Profiles-" +
+          new Date().toISOString().substring(0, 19).replaceAll(":", "-") +
+          ".zip",
       );
-    });
-    setDownloading(false);
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return {

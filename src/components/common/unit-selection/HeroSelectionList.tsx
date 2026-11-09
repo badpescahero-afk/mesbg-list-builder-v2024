@@ -5,6 +5,7 @@ import { mesbgData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { byHeroicTier } from "../../../hooks/profiles/profile-utils/sorting.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
+import { translateGameText } from "../../../i18n/game-text";
 import { Unit } from "../../../types/mesbg-data.types.ts";
 import { UnitSelectionButton } from "./UnitSelectionButton.tsx";
 import { WithRibbon } from "./WithRibbon.tsx";
@@ -49,7 +50,9 @@ export const HeroSelectionList: FunctionComponent<HeroSelectionListProps> = ({
       />
       {heroes
         .filter((hero) =>
-          hero.name.toLowerCase().includes(filter.toLowerCase()),
+          [hero.name, translateGameText("es", hero.name)].some((name) =>
+            name.toLowerCase().includes(filter.toLowerCase()),
+          ),
         )
         .map((hero) => (
           <WithRibbon

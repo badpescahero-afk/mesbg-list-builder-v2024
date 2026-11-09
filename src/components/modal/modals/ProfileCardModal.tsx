@@ -1,4 +1,4 @@
-import { Button, DialogContent } from "@mui/material";
+import { Alert, Button, DialogContent, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
@@ -11,7 +11,11 @@ import { Unit } from "../../../types/mesbg-data.types.ts";
 import { SelectedUnit } from "../../../types/roster.ts";
 import { UnitProfileCard } from "../../atoms/unit-profile/UnitProfileCard.tsx";
 import { ConfiguredProfileCard } from "../../common/configured-cards/ConfiguredProfileCard";
-import { configuredCardForUnit } from "../../common/configured-cards/card-model";
+import {
+  configuredCardForUnit,
+  referenceCard,
+} from "../../common/configured-cards/card-model";
+import { downloadConfiguredCards } from "../../common/configured-cards/export-cards";
 
 export const ProfileCardModal = () => {
   const {
@@ -23,14 +27,18 @@ export const ProfileCardModal = () => {
     () =>
       unit && typeof unit.pointsPerUnit === "number"
         ? configuredCardForUnit(unit as SelectedUnit)
-        : null,
+        : unit
+          ? referenceCard(unit.profile_origin, unit.name)
+          : null,
     [unit],
   );
   const { palette } = useTheme();
+  const [downloading, setDownloading] = useState(false);
+  const [failed, setFailed] = useState(false);
   const { isMobile } = useScreenSize();
 
   const OverflowProfileCards = ({ unit }: { unit: Unit }) => {
-    const data = profileData[unit.profile_origin][unit.name];
+    const data = profileData[unit.profile_origin]?.[unit.name];
     if (!data) return null;
     return data.overflow_cards?.map((profile) => (
       <Fragment key={profile}>
@@ -52,29 +60,40 @@ export const ProfileCardModal = () => {
   return (
     <>
       <DialogContent>
+        {failed && <Alert severity="error">{t("Download failed")}</Alert>}
         {selectedCard && (
-          <Button onClick={() => setConfigured(!configured)} sx={{ mb: 2 }}>
-            {configured
-              ? t("Show original card")
-              : t("Show card with selected equipment")}
-          </Button>
+          <Stack direction="row" spacing={1} flexWrap="wrap">
+            <Button onClick={() => setConfigured(!configured)} sx={{ mb: 2 }}>
+              {configured
+                ? t("Show original card")
+                : t("Show card with selected equipment")}
+            </Button>
+            {configured && (
+              <Button
+                disabled={downloading}
+                onClick={async () => {
+                  setDownloading(true);
+                  setFailed(false);
+                  try {
+                    await downloadConfiguredCards([selectedCard]);
+                  } catch {
+                    setFailed(true);
+                  } finally {
+                    setDownloading(false);
+                  }
+                }}
+              >
+                {downloading ? t("Generating cards...") : t("Download")}
+              </Button>
+            )}
+          </Stack>
         )}
         {configured && selectedCard ? (
           <ConfiguredProfileCard card={selectedCard} />
         ) : (
           <>
-            <Typography variant="body2">
-              You can download a zip of all profile cards for your current army
-              list by clicking on the floating action button in the bottom
-              right, and selecting{" "}
-              <Typography
-                variant="body2"
-                component="strong"
-                fontWeight={800}
-                color={palette.primary.main}
-              >
-                Download profile cards
-              </Typography>
+            <Typography variant="body2" color={palette.text.secondary}>
+              {t("Download all cards from the roster's export menu.")}
             </Typography>
 
             {unit != null && (

@@ -4,12 +4,14 @@ import {
   DialogContent,
   ImageList,
   ImageListItem,
+  LinearProgress,
+  Typography,
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { heroConstraintData, profileData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useDownload } from "../../../hooks/export/useDownload.ts";
@@ -29,6 +31,9 @@ export const DownloadProfileCardModal = () => {
   const { language, t } = useTranslation();
   const [configured, setConfigured] = useState(language === "es");
   const [downloading, setDownloading] = useState(false);
+  const controller = useRef<AbortController | null>(null);
+  const [progress, setProgress] = useState(0);
+  useEffect(() => () => controller.current?.abort(), []);
   const [downloadError, setDownloadError] = useState(false);
   const prepared = useMemo(() => configuredCardsForRoster(roster), [roster]);
   const { closeModal, triggerAlert } = useAppState();
@@ -56,7 +61,8 @@ export const DownloadProfileCardModal = () => {
         }
         if (
           warband.hero.unit_type !== "Siege Engine" &&
-          heroConstraintData[warband.hero.model_id]["extra_profiles"].length > 0
+          (heroConstraintData[warband.hero.model_id]?.extra_profiles || [])
+            .length > 0
         ) {
           heroConstraintData[warband.hero.model_id]["extra_profiles"].forEach(
             (profile: string) => {
@@ -90,10 +96,14 @@ export const DownloadProfileCardModal = () => {
       setDownloading(true);
       setDownloadError(false);
       try {
-        await downloadConfiguredCards(prepared.cards);
+        controller.current = new AbortController();
+        await downloadConfiguredCards(prepared.cards, {
+          signal: controller.current.signal,
+          onProgress: setProgress,
+        });
         closeModal();
       } catch {
-        setDownloadError(true);
+        if (!controller.current?.signal.aborted) setDownloadError(true);
       } finally {
         setDownloading(false);
       }
@@ -164,12 +174,30 @@ export const DownloadProfileCardModal = () => {
           </>
         )}
       </DialogContent>
+      {downloading && (
+        <div role="status" style={{ padding: "8px 24px" }}>
+          <Typography>
+            {progress > prepared.cards.length
+              ? t("Preparing ZIP...")
+              : t("Generating card {{current}} of {{total}}", {
+                  current: progress,
+                  total: prepared.cards.length,
+                })}
+          </Typography>
+          <LinearProgress
+            variant="determinate"
+            value={Math.min(100, (progress / prepared.cards.length) * 100)}
+          />
+        </div>
+      )}
       <DialogActions>
         <Button
           variant="text"
           color="inherit"
-          onClick={closeModal}
-          disabled={downloading}
+          onClick={() => {
+            controller.current?.abort();
+            closeModal();
+          }}
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >

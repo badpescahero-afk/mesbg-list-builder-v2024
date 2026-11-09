@@ -2,7 +2,6 @@ import { BookmarkAdd, Edit } from "@mui/icons-material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Collapse, Stack } from "@mui/material";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,10 +14,9 @@ import { useTheme } from "@mui/material/styles";
 import { Fragment, useState } from "react";
 import { BsFillPersonVcardFill } from "react-icons/bs";
 import { SquareIconButton } from "../../../components/atoms/icon-button/SquareIconButton.tsx";
-import { DrawerTypes } from "../../../components/drawer/drawers.tsx";
+import { RuleReference } from "../../../components/common/rules/RuleReference";
 import { ModalTypes } from "../../../components/modal/modals.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
-import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { translateGameText } from "../../../i18n/game-text";
@@ -37,7 +35,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
   const { mode } = useThemeContext();
 
   const screen = useScreenSize();
-  const { setCurrentModal, openSidebar } = useAppState();
+  const { setCurrentModal } = useAppState();
   const [open, setOpen] = useState(false);
 
   const existsInInv =
@@ -60,7 +58,15 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{row.name}</TableCell>
+        <TableCell>
+          {language === "es" &&
+            translateGameText(language, row.name) !== row.name && (
+              <Typography fontWeight="bold">
+                {translateGameText(language, row.name)}
+              </Typography>
+            )}
+          {row.name}
+        </TableCell>
         <TableCell>{row.profile_origin}</TableCell>
         <TableCell align="center">
           <SquareIconButton
@@ -208,52 +214,20 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                   <Typography>
                     {row.profile.special_rules.map((rule, index, self) => (
                       <Fragment key={rule}>
-                        <Box
-                          component="span"
-                          sx={{
-                            textDecoration: "underline",
-                            cursor: "pointer",
-                            "&:hover": {
-                              color: (theme) => theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => {
-                            openSidebar(DrawerTypes.KEYWORD_SEARCH, {
-                              searchKeyword: rule.replace(/\(.*?\)/g, ""),
-                            });
-                          }}
-                        >
-                          <GameText text={rule} />
-                        </Box>
-                        {index < self.length - 1 ||
-                          (row.profile.active_or_passive_rules.length > 0 &&
-                            ",")}{" "}
+                        <RuleReference name={rule} />
+                        {(index < self.length - 1 ||
+                          row.profile.active_or_passive_rules.length > 0) &&
+                          ","}{" "}
                       </Fragment>
                     ))}
                     {row.profile.active_or_passive_rules.map(
                       (rule, index, self) => (
                         <Fragment key={rule.name}>
-                          <Box
-                            component="span"
-                            sx={{
-                              textDecoration: "underline",
-                              cursor: "pointer",
-                              "&:hover": {
-                                color: (theme) => theme.palette.primary.main,
-                              },
-                            }}
-                            onClick={() => {
-                              setCurrentModal(ModalTypes.PROFILE_CARD, {
-                                unit: {
-                                  name: row.name,
-                                  profile_origin: row.profile_origin,
-                                },
-                                title: row.name,
-                              });
-                            }}
-                          >
-                            <GameText text={rule.name} />
-                          </Box>
+                          <RuleReference
+                            name={rule.name}
+                            description={rule.description}
+                            type={rule.type}
+                          />
                           {index < self.length - 1 && ","}{" "}
                         </Fragment>
                       ),
@@ -266,23 +240,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                   <Typography>
                     {row.profile.magic_powers.map((power, index, self) => (
                       <Fragment key={power.name}>
-                        <Box
-                          component="span"
-                          sx={{
-                            textDecoration: "underline",
-                            cursor: "pointer",
-                            "&:hover": {
-                              color: (theme) => theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => {
-                            openSidebar(DrawerTypes.KEYWORD_SEARCH, {
-                              searchKeyword: power.name,
-                            });
-                          }}
-                        >
-                          <GameText text={power.name} />
-                        </Box>
+                        <RuleReference name={power.name} />
                         {index < self.length - 1 && ","}{" "}
                       </Fragment>
                     ))}
@@ -294,23 +252,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                   <Typography>
                     {row.profile.heroic_actions.map((action, index, self) => (
                       <Fragment key={action}>
-                        <Box
-                          component="span"
-                          sx={{
-                            textDecoration: "underline",
-                            cursor: "pointer",
-                            "&:hover": {
-                              color: (theme) => theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => {
-                            openSidebar(DrawerTypes.KEYWORD_SEARCH, {
-                              searchKeyword: action,
-                            });
-                          }}
-                        >
-                          <GameText text={action} />
-                        </Box>
+                        <RuleReference name={action} />
                         {index < self.length - 1 && ","}{" "}
                       </Fragment>
                     ))}

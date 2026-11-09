@@ -54,6 +54,13 @@ export const useMenuItems = () => {
       action: () => navigate("/database"),
       active: location.pathname === "/database",
     },
+    {
+      icon: <HiIdentification />,
+      label: "Card library",
+      translateLabel: true,
+      action: () => navigate("/cards"),
+      active: location.pathname === "/cards",
+    },
     { divider: true },
     {
       icon: <HiIdentification style={{ fontSize: "1.5rem" }} />,

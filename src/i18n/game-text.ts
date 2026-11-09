@@ -1,10 +1,12 @@
 import armies from "./content/armies.es.json";
 import equipment from "./content/equipment.es.json";
 import keywords from "./content/keywords.es.json";
+import names from "./content/names.es.json";
 import profiles from "./content/profiles.es.json";
 import { Language } from "./locale";
 
 const translations: Readonly<Record<string, string>> = {
+  ...names,
   ...keywords,
   ...armies,
   ...profiles,

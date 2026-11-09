@@ -1,4 +1,4 @@
-import { profileData } from "../../../assets/data.ts";
+import { mesbgData, profileData } from "../../../assets/data.ts";
 import { Profile } from "../../../hooks/profiles/profile-utils/profile.type.ts";
 import {
   isMissingProfile,
@@ -31,11 +31,78 @@ export type ConfiguredCard = {
   origin: string;
   army: string;
   modelId: string;
-  points: number;
-  quantity: number;
+  points: number | null;
+  quantity: number | null;
+  reference?: boolean;
   options: Option[];
   profiles: Profile[];
 };
+
+/** Catalogue view: no army/loadout is implied, so no configured cost is guessed. */
+export function referenceCard(
+  origin: string,
+  name: string,
+): ConfiguredCard | null {
+  const catalogue = profileData[origin];
+  if (!catalogue) return null;
+  let raw = catalogue[name];
+  if (!raw) {
+    const find = (profiles: Profile[]): Profile | undefined => {
+      for (const profile of profiles) {
+        if (profile.name === name) return profile;
+        const nested = find(profile.additional_stats || []);
+        if (nested) return nested;
+      }
+    };
+    raw = find(
+      Object.values(catalogue).flatMap(
+        (profile) => profile.additional_stats || [],
+      ),
+    );
+  }
+  if (!raw) return null;
+  const candidates = Object.values(mesbgData).filter(
+    (unit) => unit.profile_origin === origin,
+  );
+  const withResources = (profile: Profile): Profile => {
+    const values = [
+      ...new Set(
+        candidates.flatMap((unit) =>
+          unit.MWFW.filter(
+            ([n]) =>
+              n === profile.name ||
+              (unit.name === profile.name && unit.MWFW.length === 1),
+          ).map(([, value]) => value),
+        ),
+      ),
+    ];
+    const [HM, HW, HF] =
+      values.length === 1
+        ? values[0].split(":")
+        : values.length > 1
+          ? ["*", "*", "*"]
+          : [];
+    return {
+      ...profile,
+      HM,
+      HW,
+      HF,
+      additional_stats: profile.additional_stats?.map(withResources),
+    };
+  };
+  return {
+    key: `reference:${origin}:${name}`,
+    name,
+    origin,
+    army: "",
+    modelId: "",
+    points: null,
+    quantity: null,
+    reference: true,
+    options: [],
+    profiles: [withResources({ ...structuredClone(raw), name })],
+  };
+}
 
 /** One immutable snapshot per model/loadout. Never merge different equipment. */
 export function configuredCardForUnit(
@@ -118,10 +185,21 @@ export function configuredCardsForRoster(roster: Roster) {
   const missing: string[] = [];
   for (const unit of roster.warbands
     .flatMap((warband) => [warband.hero, ...warband.units])
-    .filter(
-      (unit) => !!unit && isSelectedUnit(unit) && !isSiegeEquipment(unit),
-    ) as SelectedUnit[]) {
-    const card = configuredCardForUnit(unit);
+    .filter((unit) => !!unit && isSelectedUnit(unit)) as SelectedUnit[]) {
+    const card = isSiegeEquipment(unit)
+      ? (() => {
+          const reference = referenceCard(unit.profile_origin, unit.name);
+          return (
+            reference && {
+              ...reference,
+              reference: false,
+              modelId: unit.model_id,
+              points: unit.base_points,
+              quantity: 1,
+            }
+          );
+        })()
+      : configuredCardForUnit(unit);
     if (!card) {
       missing.push(`${unit.profile_origin}: ${unit.name}`);
       continue;

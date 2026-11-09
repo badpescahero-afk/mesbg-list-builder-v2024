@@ -1,18 +1,27 @@
-import { ImageList, ImageListItem } from "@mui/material";
+import {
+  ImageList,
+  ImageListItem,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { heroConstraintData, profileData } from "../../../../assets/data.ts";
 import { UnitProfileCard } from "../../../../components/atoms/unit-profile/UnitProfileCard.tsx";
+import { ConfiguredProfileCard } from "../../../../components/common/configured-cards/ConfiguredProfileCard";
+import { configuredCardsForRoster } from "../../../../components/common/configured-cards/card-model";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useScreenSize } from "../../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import {
   isSelectedUnit,
   isSiegeEquipment,
   SelectedUnit,
 } from "../../../../types/roster.ts";
 
-export const ProfileCards = () => {
+const OriginalProfileCards = () => {
   const { roster } = useRosterInformation();
+  const { t } = useTranslation();
   const screen = useScreenSize();
   const [bigCard, setBigCard] = useState(null);
 
@@ -105,7 +114,7 @@ export const ProfileCards = () => {
     <>
       <center>
         <Typography color="textDisabled" variant="body2">
-          Click on one of the cards to enlarge them
+          {t("Click on one of the cards to enlarge them")}
         </Typography>
       </center>
       <ImageList cols={defaultColums}>
@@ -121,6 +130,42 @@ export const ProfileCards = () => {
           </ImageListItem>
         ))}
       </ImageList>
+    </>
+  );
+};
+
+export const ProfileCards = () => {
+  const { roster } = useRosterInformation();
+  const { language, t } = useTranslation();
+  const [configured, setConfigured] = useState(language === "es");
+  const prepared = useMemo(() => configuredCardsForRoster(roster), [roster]);
+  return (
+    <>
+      <ToggleButtonGroup
+        exclusive
+        value={configured ? "configured" : "original"}
+        onChange={(_, value) => value && setConfigured(value === "configured")}
+        sx={{ mb: 2 }}
+      >
+        <ToggleButton value="configured">
+          {t("Spanish cards with selected equipment")}
+        </ToggleButton>
+        <ToggleButton value="original">{t("Original cards")}</ToggleButton>
+      </ToggleButtonGroup>
+      {configured ? (
+        <>
+          <Typography>
+            {t("Read the explanation by selecting an underlined name.")}
+          </Typography>
+          {prepared.cards.map((card) => (
+            <div key={card.key} style={{ marginTop: 16 }}>
+              <ConfiguredProfileCard card={card} />
+            </div>
+          ))}
+        </>
+      ) : (
+        <OriginalProfileCards />
+      )}
     </>
   );
 };

@@ -13,13 +13,16 @@ const currentDate = new Date()
 export default defineConfig(({ command }) => ({
   base: "/",
   plugins: [react()],
+  // Keep a single React instance when the browser test renders the catalogue.
+  optimizeDeps: { include: ["react-dom/server"] },
   define: {
     BUILD_VERSION: JSON.stringify(process.env.npm_package_version),
     BUILD_DATE: JSON.stringify(currentDate),
     RESOURCES_URL: JSON.stringify(
-      command === "serve"
-        ? "/static-resources"
-        : "https://resources.mesbg-list-builder.com/v2024",
+      process.env.VITE_RESOURCES_URL ||
+        (command === "serve"
+          ? "/static-resources"
+          : "https://resources.mesbg-list-builder.com/v2024"),
     ),
     API_URL: JSON.stringify("https://api.mesbg-list-builder.com/v2024"),
   },

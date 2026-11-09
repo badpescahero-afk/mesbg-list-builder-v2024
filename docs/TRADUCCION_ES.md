@@ -43,15 +43,21 @@ La base de datos, los resúmenes de texto e imagen y la vista PDF usan esta capa
 Las cartas originales siguen disponibles. La exportación adicional de cartas
 configuradas en español se describe en [CARTAS_CONFIGURADAS_ES.md](CARTAS_CONFIGURADAS_ES.md).
 
-Se conservan los nombres canónicos de miniaturas, ejércitos y mejoras para poder
-identificarlos en el catálogo original. También se conservan los ejemplos con
+Los nombres canónicos se conservan como claves y referencias visibles. El catálogo
+`names.es.json` añade 550 nombres de presentación, incluidos perfiles anidados y
+alias; las cartas y las descripciones españolas utilizan estas traducciones.
+Los selectores y la base de datos admiten también búsquedas por el nombre español. También se conservan los ejemplos con
 sintaxis de consulta, el registro histórico de cambios y los diagnósticos técnicos
 externos. No se modifican los archivos originales de datos, las estadísticas,
 puntos, restricciones, cálculos, identificadores JSON ni los algoritmos de
 importación/exportación. Las traducciones nunca se usan como claves de selección.
 
-El sistema de cartas, sus archivos, diseño, rutas y lógica de descarga permanecen intactos. Los textos de la vista PDF y del resumen para compartir también se traducen, conservando sus tablas de atributos originales. Las referencias españolas aprobadas se utilizan en la nueva alternativa de
-cartas configuradas, con coste y equipo de la lista.
+Los JPG originales y su diseño permanecen intactos. La descarga original comprueba
+las respuestas HTTP, incluye las páginas de continuación y admite nombres con comas
+y caracteres reservados. La alternativa española genera cartas con coste y equipo
+de la lista. La biblioteca permite consultar todos los perfiles y los nombres
+subrayados de reglas y magias abren su explicación. Los textos del PDF y del resumen
+para compartir también se traducen, conservando sus tablas de atributos originales.
 
 ## Validación
 
@@ -86,8 +92,9 @@ y lo detiene al finalizar, incluso ante errores. Comprueba:
 
 El navegador de pruebas es independiente del navegador personal. No mantiene
 servicios ejecutándose después de terminar. La autenticación real, la sincronización
-remota y las descargas de cartas requieren sus servicios y no se simulan como
-verificados por estas pruebas.
+remota requieren sus servicios y no se simulan como verificados por estas pruebas.
+Las descargas reales de cartas están cubiertas por las pruebas adicionales descritas
+en `CARTAS_CONFIGURADAS_ES.md`.
 
 ## Excepciones y último cierre de interfaz
 

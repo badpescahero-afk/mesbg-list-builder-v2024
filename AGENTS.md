@@ -46,3 +46,24 @@
 - Entregar una copia del perfil al transformador de consulta, para que los casos históricos que asignan atributos (Nazgûl) no escriban en los datos compartidos. El comportamiento predeterminado del constructor no cambia.
 
 - Validar las cartas con `npx vitest run src/i18n src/components/common/configured-cards/card-model.test.ts --environment node` y `node scripts/test-configured-cards.mjs`, además de las comprobaciones generales. El script nuevo usa Vite en el puerto 5198 y lo detiene al terminar.
+
+## Biblioteca, explicaciones y entrega
+
+- La etapa actual autoriza completar nombres de presentación, consulta de todas las
+  cartas y explicaciones al pulsar reglas y magias. Mantener `names.es.json` separado
+  de las claves originales; los nombres canónicos siguen disponibles para referencia.
+- `RuleReference` resuelve una regla general o recibe la descripción del propio perfil.
+  Nunca utilizar la descripción de otro perfil solo porque comparta el nombre.
+  Mantener teclado, restauración de foco y el modo no interactivo para PNG/impresión.
+- Las cartas de referencia no tienen una selección de ejército/equipo: no inventar
+  un coste ni recursos heroicos cuando los datos son ambiguos. Las configuradas siguen
+  usando el coste y las opciones de la lista; incluir también equipo de asedio.
+- La biblioteca y modo partida deben mantener el acceso a los JPG originales.
+- `npm run build:standalone` genera `build/` con los recursos originales locales.
+  `npm run preview:standalone` sirve esa compilación en 4173. Para dejar una vista
+  previa disponible, iniciar este servidor aparte con PID y registro; no mantener
+  una comprobación bloqueada ni Vite en primer plano.
+- Validar además `node scripts/test-complete-es.mjs` y las pruebas de
+  `src/components/common/rules`. La exportación y cancelación nunca escriben datos
+  de la lista. No publicar sobre main ni usar etiquetas `v*`: los workflows originales
+  despliegan a producción y envían una notificación externa con esas etiquetas.

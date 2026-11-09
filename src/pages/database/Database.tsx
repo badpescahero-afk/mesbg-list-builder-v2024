@@ -14,6 +14,7 @@ import { useSearchParams } from "react-router-dom";
 import { Link } from "../../components/atoms/link/Link.tsx";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { TranslatedText } from "../../i18n/TranslatedText";
+import { translateGameText } from "../../i18n/game-text";
 import { DatabaseTable } from "./components/DatabaseTable.tsx";
 import { rows } from "./data.ts";
 import { getComparator, Order } from "./utils/sorting.ts";
@@ -81,14 +82,37 @@ export const Database = () => {
       return filter
         .split(";")
         .map((criteria) => criteria.toLowerCase().trim())
-        .every((criteria) => row.searchString.includes(criteria));
+        .every((criteria) =>
+          [
+            row.searchString,
+            translateGameText("es", row.name),
+            ...row.profile.special_rules.map((name) =>
+              translateGameText("es", name),
+            ),
+            ...row.profile.heroic_actions.map((name) =>
+              translateGameText("es", name),
+            ),
+            ...row.profile.magic_powers.map(({ name }) =>
+              translateGameText("es", name),
+            ),
+            ...row.profile.active_or_passive_rules.map(({ name }) =>
+              translateGameText("es", name),
+            ),
+          ]
+            .join(",")
+            .toLowerCase()
+            .includes(criteria),
+        );
     });
   }, [filter]);
 
   const visibleRows = useMemo(() => {
     return [...filteredRows]
       .sort(getComparator(order, orderBy))
-      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+      .slice(
+        rowsPerPage === -1 ? 0 : page * rowsPerPage,
+        rowsPerPage === -1 ? undefined : page * rowsPerPage + rowsPerPage,
+      );
   }, [order, orderBy, filteredRows, page, rowsPerPage]);
 
   return (

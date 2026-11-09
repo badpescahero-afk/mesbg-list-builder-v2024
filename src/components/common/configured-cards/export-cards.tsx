@@ -14,7 +14,9 @@ export async function configuredCardPng(card: ConfiguredCard): Promise<Blob> {
   document.body.appendChild(host);
   const root = createRoot(host);
   try {
-    flushSync(() => root.render(<ConfiguredProfileCard card={card} />));
+    flushSync(() =>
+      root.render(<ConfiguredProfileCard card={card} interactive={false} />),
+    );
     await document.fonts.ready;
     await Promise.all(
       [...host.querySelectorAll("img")].map(async (img) => {
@@ -52,13 +54,24 @@ export async function configuredCardPng(card: ConfiguredCard): Promise<Blob> {
   }
 }
 
-export async function downloadConfiguredCards(cards: ConfiguredCard[]) {
+export async function downloadConfiguredCards(
+  cards: ConfiguredCard[],
+  options: {
+    signal?: AbortSignal;
+    onProgress?: (current: number, total: number) => void;
+  } = {},
+) {
   const zip = new JSZip();
   // Index keeps variants and equal names in different factions from overwriting.
   for (const [index, card] of cards.entries()) {
+    options.signal?.throwIfAborted();
+    options.onProgress?.(index + 1, cards.length);
     const filename = `${String(index + 1).padStart(3, "0")}-${card.name.replace(/[\\/:*?"<>|]/g, "-")}.png`;
     zip.file(filename, await configuredCardPng(card));
   }
+  options.signal?.throwIfAborted();
+  options.onProgress?.(cards.length + 1, cards.length);
   const blob = await zip.generateAsync({ type: "blob" });
+  options.signal?.throwIfAborted();
   saveAs(blob, `MESBG-Cartas-ES-${new Date().toISOString().slice(0, 10)}.zip`);
 }

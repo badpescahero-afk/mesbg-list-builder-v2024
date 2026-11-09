@@ -13,10 +13,9 @@ import { Fragment } from "react";
 import { keywords } from "../../../../assets/data.ts";
 import { Profile } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
 import { GameText } from "../../../../i18n/GameText";
-import { useTranslation } from "../../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../../i18n/TranslatedText";
-import { translateGameText } from "../../../../i18n/game-text";
 import { useUserPreferences } from "../../../../state/preference";
+import { RuleReference } from "../../rules/RuleReference";
 import { Stats } from "./Stats.tsx";
 
 interface UnitListProps {
@@ -42,7 +41,6 @@ const AdditionalText = ({ profile }: { profile: Profile }) => {
 };
 
 const SpecialRules = ({ profile }: { profile: Profile }) => {
-  const { language } = useTranslation();
   const {
     preferences: { includePdfSpecialRuleDescriptions },
   } = useUserPreferences();
@@ -75,7 +73,10 @@ const SpecialRules = ({ profile }: { profile: Profile }) => {
           <Box key={index} sx={{ my: 1, ml: 2 }}>
             <Typography>
               <b>
-                <GameText text={rule.name} />
+                <RuleReference
+                  name={rule.name}
+                  description={rule.description}
+                />
               </b>
               <br />
               <GameText text={rule.description || ""} />
@@ -91,9 +92,12 @@ const SpecialRules = ({ profile }: { profile: Profile }) => {
       <b>
         <TranslatedText message="Special Rules:" />
       </b>{" "}
-      {specialRules
-        .map((rule) => translateGameText(language, rule.name))
-        .join(", ")}{" "}
+      {specialRules.map((rule, index) => (
+        <Fragment key={rule.name}>
+          {index > 0 && ", "}
+          <RuleReference name={rule.name} description={rule.description} />
+        </Fragment>
+      ))}{" "}
       {specialRules.length === 0 && (
         <i>
           <TranslatedText message="None" />
@@ -135,7 +139,7 @@ const MagicalPowers = ({ profile }: { profile: Profile }) => {
                 {profile.magic_powers.map((power, index) => (
                   <TableRow key={index}>
                     <TableCell>
-                      <GameText text={power.name} />
+                      <RuleReference name={power.name} />
                     </TableCell>
                     <TableCell align="center">{power.range}</TableCell>
                     <TableCell align="center">{power.cast}</TableCell>
@@ -151,7 +155,6 @@ const MagicalPowers = ({ profile }: { profile: Profile }) => {
 };
 
 const HeroicActions = ({ profile }: { profile: Profile }) => {
-  const { language } = useTranslation();
   const {
     preferences: { includePdfHeroicActionDescriptions },
   } = useUserPreferences();
@@ -176,7 +179,10 @@ const HeroicActions = ({ profile }: { profile: Profile }) => {
           <Box key={index} sx={{ my: 1, ml: 2 }}>
             <Typography>
               <b>
-                <GameText text={rule.name} />
+                <RuleReference
+                  name={rule.name}
+                  description={rule.description}
+                />
               </b>
               <br />
               <GameText text={rule.description || ""} />
@@ -194,9 +200,12 @@ const HeroicActions = ({ profile }: { profile: Profile }) => {
           <b>
             <TranslatedText message="Heroic actions:" />
           </b>{" "}
-          {profile.heroic_actions
-            .map((action) => translateGameText(language, action))
-            .join(", ")}{" "}
+          {profile.heroic_actions.map((action, index) => (
+            <Fragment key={action}>
+              {index > 0 && ", "}
+              <RuleReference name={action} />
+            </Fragment>
+          ))}{" "}
         </Typography>
       )}
     </>

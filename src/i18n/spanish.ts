@@ -1,5 +1,19 @@
 // English source messages are keys; never use these labels as game identifiers.
 export const spanish = {
+  "Card library": "Biblioteca de cartas",
+  "Browse every profile, including mounts, passengers and siege equipment. Add models to a roster to export cards with the chosen equipment and points.":
+    "Consulta todos los perfiles, incluidas monturas, pasajeros y equipo de asedio. Añade las miniaturas a una lista para exportar sus cartas con el equipo y los puntos elegidos.",
+  "Profile origin": "Origen del perfil",
+  "Download all cards from the roster's export menu.":
+    "Descarga todas las cartas desde el menú de exportación de la lista.",
+  "Download failed": "No se ha podido descargar. Puedes volver a intentarlo.",
+  "Read the explanation by selecting an underlined name.":
+    "Pulsa un nombre subrayado para leer su explicación.",
+  "Generating card {{current}} of {{total}}":
+    "Generando carta {{current}} de {{total}}",
+  "Preparing ZIP...": "Preparando ZIP…",
+  "Click on one of the cards to enlarge them": "Pulsa una carta para ampliarla",
+
   Language: "Idioma",
   Menu: "Menú",
   "My Rosters": "Mis listas",

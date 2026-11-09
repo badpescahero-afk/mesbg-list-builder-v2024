@@ -8,6 +8,7 @@ import { Settings } from "../pages/Settings.tsx";
 import { About } from "../pages/about/About.tsx";
 import { SignIn } from "../pages/account/SignIn.tsx";
 import { SignUp } from "../pages/account/SignUp.tsx";
+import { CardLibrary } from "../pages/cards/CardLibrary";
 import { Database } from "../pages/database/Database.tsx";
 import { Gamemode } from "../pages/gamemode/Gamemode.tsx";
 import { Home } from "../pages/home/Home.tsx";
@@ -67,6 +68,11 @@ export const routes: RouteObject[] = [
       {
         path: "settings",
         element: <Settings />,
+        errorElement: <AppFallback />,
+      },
+      {
+        path: "cards",
+        element: <CardLibrary />,
         errorElement: <AppFallback />,
       },
       {

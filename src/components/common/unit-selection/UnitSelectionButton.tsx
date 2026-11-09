@@ -9,6 +9,7 @@ import { BsFillPersonVcardFill } from "react-icons/bs";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { useUserPreferences } from "../../../state/preference";
@@ -36,7 +37,7 @@ export function UnitSelectionButton({
   unit,
   onClick,
 }: UnitSelectionButtonProps) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const { palette } = useTheme();
   const { setCurrentModal } = useAppState();
   const { inventory } = useCollectionState();
@@ -88,6 +89,12 @@ export function UnitSelectionButton({
         <UnitProfilePicture army={unit.profile_origin} profile={unit.name} />
 
         <Stack direction="column" alignItems="start" flexGrow={1}>
+          {language === "es" &&
+            translateGameText(language, unit.name) !== unit.name && (
+              <Typography fontWeight="bold">
+                {translateGameText(language, unit.name)}
+              </Typography>
+            )}
           <Stack direction="row" alignItems="center" sx={{ width: "100%" }}>
             <Box flexGrow={1}>
               <Typography sx={{ pl: 0.5 }} variant="body1">

@@ -15,34 +15,38 @@ import { chromium } from "playwright";
 const directory = mkdtempSync(join(tmpdir(), "mesbg-cards-"));
 const logPath = join(directory, "vite.log");
 const log = openSync(logPath, "w");
-const server = spawn(
-  process.execPath,
-  [
-    "node_modules/vite/bin/vite.js",
-    "--host",
-    "127.0.0.1",
-    "--port",
-    "5198",
-    "--strictPort",
-  ],
-  {
-    stdio: ["ignore", log, log],
-    // Reproduce the version variable supplied by the real npm start script.
-    env: {
-      ...process.env,
-      npm_package_version: JSON.parse(readFileSync("package.json", "utf8"))
-        .version,
-    },
-  },
-);
+const externalURL = process.env.MESBG_TEST_URL;
+const baseURL = externalURL || "http://127.0.0.1:5198";
+const server = externalURL
+  ? null
+  : spawn(
+      process.execPath,
+      [
+        "node_modules/vite/bin/vite.js",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5198",
+        "--strictPort",
+      ],
+      {
+        stdio: ["ignore", log, log],
+        // Reproduce the version variable supplied by the real npm start script.
+        env: {
+          ...process.env,
+          npm_package_version: JSON.parse(readFileSync("package.json", "utf8"))
+            .version,
+        },
+      },
+    );
 closeSync(log);
 let browser;
 try {
   let ready = false;
   for (let attempt = 0; attempt < 100; attempt++) {
-    assert.equal(server.exitCode, null, `Vite exited: ${logPath}`);
+    if (server) assert.equal(server.exitCode, null, `Vite exited: ${logPath}`);
     try {
-      const response = await fetch("http://127.0.0.1:5198", {
+      const response = await fetch(baseURL, {
         signal: AbortSignal.timeout(1000),
       });
       if (response.ok) {
@@ -64,7 +68,7 @@ try {
   });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("http://127.0.0.1:5198/rosters");
+  await page.goto(`${baseURL}/rosters`);
   await page.getByText("Todavía no hay listas.", { exact: true }).waitFor();
   await page
     .getByRole("button", { name: "action-buttons", exact: true })
@@ -198,19 +202,78 @@ try {
     await page.evaluate(() => localStorage.getItem("mlb-rosters")),
     before,
   );
+  await page
+    .getByRole("button", { name: "share-buttons", exact: true })
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Descargar cartas de perfil", exact: true })
+    .click();
+  dialog = page.getByRole("dialog");
+  await dialog
+    .getByRole("button", { name: "Cartas originales", exact: true })
+    .click();
+  const originalDownloadPromise = page.waitForEvent("download", {
+    timeout: 90000,
+  });
+  await dialog.locator('[data-test-id="dialog--submit-button"]').click();
+  const originalDownload = await originalDownloadPromise;
+  const originalPath = join(directory, originalDownload.suggestedFilename());
+  await originalDownload.saveAs(originalPath);
+  const originalZip = await JSZip.loadAsync(readFileSync(originalPath));
+  const jpgs = Object.values(originalZip.files).filter((file) =>
+    file.name.endsWith(".jpg"),
+  );
+  assert.ok(jpgs.length >= 2);
+  for (const entry of jpgs) {
+    const jpg = await entry.async("nodebuffer");
+    assert.equal(jpg.readUInt16BE(0), 0xffd8);
+  }
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("mlb-rosters")),
+    before,
+  );
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+  await page
+    .getByRole("button", { name: "share-buttons", exact: true })
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Descargar cartas de perfil", exact: true })
+    .click();
+  dialog = page.getByRole("dialog");
+  let unexpectedDownload = false;
+  const onCancelledDownload = () => {
+    unexpectedDownload = true;
+  };
+  page.on("download", onCancelledDownload);
+  await dialog.locator('[data-test-id="dialog--submit-button"]').click();
+  await dialog.getByRole("status").waitFor();
+  await dialog.locator('[data-test-id="dialog--cancel-button"]').click();
+  await page.waitForFunction(
+    () => !document.querySelector('[style*="-100000px"]'),
+  );
+  assert.equal(unexpectedDownload, false);
+  page.off("download", onCancelledDownload);
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("mlb-rosters")),
+    before,
+  );
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: configured hero and two warrior loadouts; correct costs/stats/mount; original cards accessible; ZIP has 3 distinct high-resolution PNGs; roster unchanged.",
+    "PASS: configured hero and two warrior loadouts; correct costs/stats/mount; original cards accessible; ZIP has 3 distinct high-resolution PNGs; original ZIP contains valid JPGs; cancellation cleans up without a partial download; roster unchanged.",
   );
   console.log(`Artifacts: ${directory}`);
 } finally {
   await browser?.close();
-  if (server.exitCode === null) {
+  if (server?.exitCode === null) {
     const stopped = once(server, "exit");
     server.kill("SIGTERM");
     const killTimer = globalThis.setTimeout(() => server.kill("SIGKILL"), 5000);
     await stopped;
     clearTimeout(killTimer);
   }
-  console.log(`Vite stopped. Log: ${logPath}`);
+  console.log(
+    server
+      ? `Vite stopped. Log: ${logPath}`
+      : `External preview checked: ${baseURL}`,
+  );
 }

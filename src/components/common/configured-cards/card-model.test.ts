@@ -3,8 +3,13 @@ import { mesbgData, profileData } from "../../../assets/data.ts";
 // This existing factory does not use React hooks; exercise its real point calculation.
 import { useCalculator as createCalculator } from "../../../hooks/calculations-and-displays/useCalculator.ts";
 import { convertRosterToProfiles } from "../../../hooks/profiles/profile-utils/profiles.ts";
+import names from "../../../i18n/content/names.es.json";
 import { Roster, SelectedUnit } from "../../../types/roster.ts";
-import { configuredCardForUnit, configuredCardsForRoster } from "./card-model";
+import {
+  configuredCardForUnit,
+  configuredCardsForRoster,
+  referenceCard,
+} from "./card-model";
 
 function select(
   name: string,
@@ -159,7 +164,48 @@ describe("configured cards use real loadouts without changing game data", () => 
         expect(card.profiles.length, raw.model_id).toBeGreaterThan(0);
       }
     }
-    expect(prepared).toBeGreaterThan(500);
+    expect(prepared).toBe(Object.keys(mesbgData).length);
     expect(JSON.stringify([mesbgData, profileData])).toBe(before);
   });
+});
+
+it("provides a reference card and Spanish display name for every source profile and nested profile", () => {
+  const before = JSON.stringify(profileData);
+  const visit = (
+    origin: string,
+    name: string,
+    profile: (typeof profileData)[string][string],
+  ) => {
+    expect(names[name], name).toBeTruthy();
+    const card = referenceCard(origin, name);
+    expect(card, `${origin}: ${name}`).not.toBeNull();
+    expect(card.points).toBeNull();
+    expect(card.profiles[0].D).toBe(profile.D);
+    profile.additional_stats?.forEach((extra) =>
+      visit(origin, extra.name, extra),
+    );
+  };
+  for (const [origin, profiles] of Object.entries(profileData)) {
+    for (const [name, profile] of Object.entries(profiles))
+      visit(origin, name, profile);
+  }
+  expect(
+    referenceCard("Gondor", "Boromir, Captain of the White Tower").profiles[0]
+      .HM,
+  ).toBe("6");
+  expect(JSON.stringify(profileData)).toBe(before);
+});
+it("prepares every individual option without changing points, option ids or shared profiles", () => {
+  const before = JSON.stringify([mesbgData, profileData]);
+  for (const raw of Object.values(mesbgData)) {
+    for (const option of raw.options) {
+      const unit = select(raw.name, [option.name], 1, raw.army_list);
+      const saved = JSON.stringify(unit);
+      const card = configuredCardForUnit(unit);
+      expect(card, raw.model_id + option.name).not.toBeNull();
+      expect(card.points).toBe(unit.pointsPerUnit);
+      expect(JSON.stringify(unit)).toBe(saved);
+    }
+  }
+  expect(JSON.stringify([mesbgData, profileData])).toBe(before);
 });

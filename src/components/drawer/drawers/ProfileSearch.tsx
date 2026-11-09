@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { Fragment, useState } from "react";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { DatabaseRow, rows } from "../../../pages/database/data.ts";
 import { useAppState } from "../../../state/app";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
@@ -80,7 +81,9 @@ export const ProfileSearch = () => {
       return;
     }
     const newKeywordList = rows.filter((kw) =>
-      kw.name.toLowerCase().includes(filter),
+      [kw.name, translateGameText("es", kw.name)].some((name) =>
+        name.toLowerCase().includes(filter),
+      ),
     );
     setProfiles(newKeywordList);
   };

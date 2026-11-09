@@ -184,3 +184,57 @@
 .configured-profile-card > section {
   margin-top: 1.3cqw;
 }
+
+@container (max-width: 700px) {
+  .configured-card-interactive .configured-profile-card {
+    font-size: 16px;
+    gap: 16px;
+    padding: 20px;
+  }
+  .configured-card-interactive .configured-profile-card h1 {
+    font-size: 24px;
+  }
+  .configured-card-interactive .configured-profile-card h3 {
+    font-size: 18px;
+  }
+  .configured-card-interactive .configured-profile-card h4 {
+    font-size: 16px;
+  }
+  .configured-card-interactive .configured-card-header {
+    padding-right: 0;
+    padding-top: 96px;
+  }
+  .configured-card-interactive .configured-card-portrait {
+    width: 80px;
+    left: 0;
+  }
+  .configured-card-interactive .configured-card-cost,
+  .configured-card-interactive .configured-card-note,
+  .configured-card-interactive .configured-profile-card footer {
+    font-size: 13px;
+  }
+  .configured-card-interactive .configured-card-stats th,
+  .configured-card-interactive .configured-card-stats td {
+    font-size: 12px;
+    padding: 8px 0;
+  }
+  .configured-card-interactive .configured-card-upper {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .configured-card-interactive .configured-card-additional {
+    flex-basis: 100%;
+    padding: 12px;
+  }
+  .configured-card-interactive .configured-card-options li {
+    gap: 12px;
+    margin: 8px 0;
+  }
+  .configured-card-interactive .configured-profile-card ul {
+    padding-left: 20px;
+  }
+  .configured-card-interactive .rule-reference {
+    min-height: 36px;
+  }
+}
