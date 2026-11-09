@@ -425,7 +425,7 @@ export const spanish = {
     "¡Los datos de colección coincidentes se sustituirán por los importados!",
   "For example:": "Por ejemplo:",
   "if you already have an collection entry for the Warrior of Minas Tirith and it is also present in your imported data, your collection will be updated to match the import.":
-    "si ya tienes una entrada para Warrior of Minas Tirith y también aparece en los datos importados, tu colección se actualizará con los valores importados.",
+    "si ya tienes una entrada para Guerrero de Minas Tirith y también aparece en los datos importados, tu colección se actualizará con los valores importados.",
   "Entries imported which are not part of the profile database will be visible on the collections table but will not have any other effect.":
     "Las entradas que no pertenezcan a la base de datos de perfiles se mostrarán en la tabla de colección, pero no tendrán ningún otro efecto.",
   "Collection data": "Datos de la colección",
@@ -629,12 +629,12 @@ export const spanish = {
   "*not usable as book replacement.": "*No sustituyen a los libros.",
   "PDF print-out": "PDF imprimible",
   "for your list, providing all a quick reference table for the stats, summary for the special rules and magical powers you have in play. Comes with Might/Will/Fate/Wounds tracking.":
-    "de tu lista, con una tabla de atributos y resúmenes de las reglas especiales y los poderes mágicos utilizados. Incluye contadores de Might, Will, Fate y Wounds.",
+    "de tu lista, con una tabla de atributos y resúmenes de las reglas especiales y los poderes mágicos utilizados. Incluye contadores de Poder, Voluntad, Destino y Heridas.",
   "Game Mode": "Modo de juego",
   "which provides digital stat trackers as an interactive alternative to the PDF print-out, allowing you to;":
     "con contadores digitales como alternativa interactiva al PDF, que te permite:",
   "Track the Might/Will/Fate/Wounds of your heroes.":
-    "Controlar el Might, Will, Fate y Wounds de tus héroes.",
+    "Controlar el Poder, Voluntad, Destino y Heridas de tus héroes.",
   "Track the casualties and break point calculation of your army.":
     "Controlar las bajas y el punto de desmoralización de tu ejército.",
   "Additionally displays army bonuses and profile cards all on one screen.":
@@ -881,7 +881,7 @@ export const spanish = {
   "Enemy Supply Marker 3": "Marcador de suministros enemigo 3",
   "Your Nominated Hero": "Tu héroe designado",
   "Their Nominated Hero": "Su héroe designado",
-  "Used Fate but no Wounds": "Ha usado Fate, pero no ha sufrido Wounds",
+  "Used Fate but no Wounds": "Ha usado Destino, pero no ha sufrido Heridas",
   "Your selected Enemy Hero": "El héroe enemigo que has elegido",
   "Their selected Enemy Hero": "El héroe enemigo que ha elegido",
   "Killed in combat": "Muerto en combate",
@@ -978,7 +978,7 @@ export const spanish = {
   "Keep track of your game using the *digital trackers*":
     "Controla tu partida con los *contadores digitales*",
   "Might/Will/Fate trackers for all your *heroes*":
-    "Contadores de Might, Will y Fate para todos tus *héroes*",
+    "Contadores de Poder, Voluntad y Destino para todos tus *héroes*",
   "Additional trackers for all your *multi-wound models*":
     "Contadores adicionales para miniaturas con *varias Heridas*",
   "Add *custom trackers* to keep track of turns, foresight points or anything you need":

@@ -264,6 +264,9 @@ try {
   const armySpanish = JSON.parse(
     readFileSync("src/i18n/content/armies.es.json", "utf8"),
   );
+  const namesSpanish = JSON.parse(
+    readFileSync("src/i18n/content/names.es.json", "utf8"),
+  );
   await page.goto(
     `http://127.0.0.1:5197/roster/${savedRoster.id}/pdf-printable`,
   );
@@ -276,7 +279,7 @@ try {
   }
   await page
     .locator("#pdf-profiles")
-    .getByText(savedRoster.warbands[0].hero.name, { exact: true })
+    .getByText(namesSpanish[savedRoster.warbands[0].hero.name], { exact: true })
     .first()
     .waitFor();
   assert.equal(
@@ -284,7 +287,7 @@ try {
     roster,
   );
   console.log(
-    "PASS: translated PDF army rules and canonical profile names preserve the populated roster",
+    "PASS: translated PDF army rules and profile names preserve the canonical populated roster",
   );
 
   await page.goto("http://127.0.0.1:5197/rosters");

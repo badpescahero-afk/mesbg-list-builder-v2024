@@ -51,7 +51,7 @@ export const RosterTextView = forwardRef<
     const lines = units
       .map((unit) => {
         const quantity = !unit.unique ? `${unit.quantity}x ` : ``;
-        const name = `  ${quantity}${unit.name} (${unit.pointsTotal} ${t("points")})`;
+        const name = `  ${quantity}${translateGameText(language, unit.name)} (${unit.pointsTotal} ${t("points")})`;
         const options = unit.options
           .map((option) => {
             if (!option.quantity || option.quantity === 0) return null;

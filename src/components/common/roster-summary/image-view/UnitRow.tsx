@@ -24,7 +24,8 @@ export const UnitRow = ({
     <Stack direction="row" gap={1} justifyContent="space-between">
       <Typography>
         <strong>
-          {(!unique || quantity > 1) && <>{quantity}</>} {name}
+          {(!unique || quantity > 1) && <>{quantity}</>}{" "}
+          {translateGameText(language, name)}
           {legacy ? <sup>&#10013;</sup> : ""}
         </strong>{" "}
         {options.length > 0 && (

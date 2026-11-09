@@ -132,6 +132,30 @@ try {
     )
     .check();
   const before = await page.evaluate(() => localStorage.getItem("mlb-rosters"));
+  await page.getByText("Gandalf el Blanco", { exact: true }).waitFor();
+  await page
+    .getByText("1x Guerrero de Minas Tirith", { exact: true })
+    .waitFor();
+  await page.locator('[data-test-id="open-profile-card--w1-i1"]').click();
+  const profile = page.getByRole("dialog");
+  await profile.locator('button[data-rule-name="Shieldwall"]').click();
+  const rule = page.getByRole("dialog").last();
+  const explanation = await rule.innerText();
+  assert.ok(explanation.includes("Defensa"));
+  assert.ok(explanation.includes("Caballería"));
+  assert.doesNotMatch(explanation, /\b(?:Defence|Cavalry|Warrior)\b/);
+  await rule.getByRole("button", { name: "Cerrar", exact: true }).click();
+  await profile.locator('[data-test-id="dialog--close-button"]').click();
+  await page.getByRole("combobox", { name: /^Idioma(?:\s|$)/ }).click();
+  await page.getByRole("option", { name: "English", exact: true }).click();
+  await page.getByText("Gandalf the White", { exact: true }).waitFor();
+  await page.getByText("1x Warrior of Minas Tirith", { exact: true }).waitFor();
+  await page.getByRole("combobox", { name: /^Language(?:\s|$)/ }).click();
+  await page.getByRole("option", { name: "Español", exact: true }).click();
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("mlb-rosters")),
+    before,
+  );
   const saved = JSON.parse(before).state.rosters[0];
   assert.equal(saved.warbands[0].hero.pointsPerUnit, 200);
   assert.equal(saved.warbands[0].units[0].pointsPerUnit, 10);

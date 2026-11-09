@@ -55,7 +55,7 @@ describe("original stats and localised warnings", () => {
         "This Army may not include more Goblin models than Orc models. Currently counting 12 Orcs and 15 Goblins.",
       ),
     ).toBe(
-      "El ejército no puede incluir más Goblins que Orcs. Actualmente hay 12 Orcs y 15 Goblins.",
+      "El ejército no puede incluir más Trasgos que Orcos. Actualmente hay 12 Orcos y 15 Trasgos.",
     );
     expect(
       translateWarning(

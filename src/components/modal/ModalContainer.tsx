@@ -6,12 +6,13 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../i18n/LanguageContext";
+import { translateGameText } from "../../i18n/game-text";
 import { useAppState } from "../../state/app";
 import { slugify } from "../../utils/string.ts";
 import { modals, ModalTypes } from "./modals.tsx";
 
 export const ModalContainer = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const state = useAppState();
   const { isMobile } = useScreenSize();
 
@@ -50,7 +51,9 @@ export const ModalContainer = () => {
                 {title
                   ? state.currentlyOpenendModal === ModalTypes.CHART
                     ? t(title)
-                    : title
+                    : state.currentlyOpenendModal === ModalTypes.PROFILE_CARD
+                      ? translateGameText(language, title)
+                      : title
                   : t(currentModal.title)}
               </Typography>
               <IconButton

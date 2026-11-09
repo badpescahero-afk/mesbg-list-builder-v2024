@@ -1,23 +1,24 @@
+import { translateGameText } from "./game-text";
 import { Language } from "./locale";
 import { spanishWarnings } from "./warnings.es";
 
 // Only match the engine's known message formats; never alter its output, state
-// or validation. Captured numbers and names are inserted literally in the view.
+// or validation. Numbers stay literal; names are localised only in the view.
 const patterns: [RegExp, (...values: string[]) => string][] = [
   [
     /^The army general should always be the hero with the highest tier available\. You should select a (.+) to be your army general\.$/,
     (tier) =>
-      `El general debe ser el héroe de mayor rango disponible. Debes seleccionar un ${tier} como general.`,
+      `El general debe ser el héroe de mayor rango disponible. Debes seleccionar un ${translateGameText("es", tier)} como general.`,
   ],
   [
     /^(.+) may not include more Fledgeling Great Eagles than Great Eagles\. There are currently (\d+) Fledgeling Great Eagle too many\.$/,
     (army, count) =>
-      `${army} no puede incluir más Fledgeling Great Eagles que Great Eagles. Actualmente sobran ${count} Fledgeling Great Eagles.`,
+      `${translateGameText("es", army)} no puede incluir más Crías de Gran Águila que Grandes Águilas. Actualmente sobran ${count} Crías de Gran Águila.`,
   ],
   [
     /^This Army may not include more Goblin models than Orc models\. Currently counting (\d+) Orcs and (\d+) Goblins\.$/,
     (orcs, goblins) =>
-      `El ejército no puede incluir más Goblins que Orcs. Actualmente hay ${orcs} Orcs y ${goblins} Goblins.`,
+      `El ejército no puede incluir más Trasgos que Orcos. Actualmente hay ${orcs} Orcos y ${goblins} Trasgos.`,
   ],
   [
     /^Warbands without a hero require 6 or more models\. Warband (\d+) only has (\d+)$/,

@@ -54,7 +54,7 @@ const UnitRow = ({
         )}
         {unit.name === "-- NO HERO SELECTED --"
           ? t("No Hero selected")
-          : unit.name}{" "}
+          : translateGameText(language, unit.name)}{" "}
         {leader && (
           <Typography component="span" variant="body2">
             - <GiQueenCrown /> <TranslatedText message="General" />

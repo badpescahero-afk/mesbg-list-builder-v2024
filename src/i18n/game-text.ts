@@ -3,9 +3,11 @@ import equipment from "./content/equipment.es.json";
 import keywords from "./content/keywords.es.json";
 import names from "./content/names.es.json";
 import profiles from "./content/profiles.es.json";
+import terms from "./content/terms.es.json";
 import { Language } from "./locale";
 
 const translations: Readonly<Record<string, string>> = {
+  ...terms,
   ...names,
   ...keywords,
   ...armies,
@@ -26,7 +28,17 @@ export function translateGameText(
   if (parameterised) {
     const key = `${parameterised[1]}(X)`;
     if (Object.prototype.hasOwnProperty.call(translations, key)) {
-      return translations[key].replace("(X)", `(${parameterised[2]})`);
+      const parameter = parameterised[2]
+        .split(/(,\s*|\s+or\s+|\s+and\s+)/)
+        .map((part) =>
+          /^\s+or\s+$/.test(part)
+            ? " o "
+            : /^\s+and\s+$/.test(part)
+              ? " y "
+              : translations[part] || part,
+        )
+        .join("");
+      return translations[key].replace("(X)", `(${parameter})`);
     }
   }
   return original;

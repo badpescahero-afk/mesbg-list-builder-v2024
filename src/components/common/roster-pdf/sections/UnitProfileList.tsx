@@ -222,7 +222,9 @@ const AdditionalProfiles = ({
       {additionalProfiles.map((profile, index) => (
         <Box key={index} sx={{ mt: 2 }}>
           <Typography>
-            <b>{profile.name}</b>
+            <b>
+              <GameText text={profile.name} />
+            </b>
           </Typography>
           <Box sx={{ pl: 2 }}>
             <AdditionalText profile={profile} />
@@ -241,7 +243,9 @@ const ListItem = ({ profile }: { profile: Profile }) => {
     <>
       <Box sx={{ py: 2, pageBreakInside: "avoid" }}>
         <Typography variant="h6">
-          <b>{profile.name}</b>
+          <b>
+            <GameText text={profile.name} />
+          </b>
         </Typography>
         <AdditionalText profile={profile} />
         <Stats profile={profile} />

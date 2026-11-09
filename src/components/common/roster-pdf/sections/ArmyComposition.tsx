@@ -41,7 +41,7 @@ function UnitRow({ unit }: { unit: FreshUnit | SelectedUnit }) {
         {unit.quantity}x
       </TableCell>
       <TableCell size="small">
-        {unit.name}{" "}
+        {translateGameText(language, unit.name)}{" "}
         {options.length > 0 && (
           <>
             (

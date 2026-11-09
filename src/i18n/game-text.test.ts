@@ -7,6 +7,7 @@ import armyTranslations from "./content/armies.es.json";
 import equipmentTranslations from "./content/equipment.es.json";
 import translations from "./content/keywords.es.json";
 import profileTranslations from "./content/profiles.es.json";
+import terms from "./content/terms.es.json";
 import { translateGameText } from "./game-text";
 
 describe("localised rules with original game data", () => {
@@ -41,8 +42,8 @@ describe("localised rules with original game data", () => {
     }
   });
 
-  it("localises parameterised names without altering their range or keyword", () => {
-    expect(translateGameText("es", "Fury (Orc)")).toBe("Furia (Orc)");
+  it("localises visible keyword parameters without altering their range or source", () => {
+    expect(translateGameText("es", "Fury (Orc)")).toBe("Furia (Orco)");
     expect(translateGameText("es", "Harbinger of Evil (12)")).toBe(
       "Heraldo del mal (12)",
     );
@@ -50,6 +51,12 @@ describe("localised rules with original game data", () => {
       "Unknown future rule",
     );
     expect(translateGameText("es", "Strength")).toBe("Strength");
+    expect(translateGameText("es", "Fury (Goblin, Orc)")).toBe(
+      "Furia (Trasgo, Orco)",
+    );
+    expect(translateGameText("en", "Fury (Goblin, Orc)")).toBe(
+      "Fury (Goblin, Orc)",
+    );
   });
 });
 
@@ -73,6 +80,31 @@ type GameProfile = {
 };
 
 describe("complete current game content", () => {
+  it("uses Spanish rules terminology in prose while preserving stat headings", () => {
+    for (const text of Object.values(allTranslations)) {
+      expect(text).not.toMatch(
+        /\b(?:Defence|Strength|Courage|Intelligence|Might|Fate|Wounds?|Attacks?|Fight Value|Shoot Value|Warriors?|Heroes?|Cavalry|Infantry|Stand Fast|Knocked Flying|Orcs?|Goblins?)\b/,
+      );
+      // Will Pieblanco is a character's name, not the Will resource.
+      expect(text).not.toMatch(/\bWill\b(?! Pieblanco)/);
+    }
+    const shieldwall = keywords.find((rule) => rule.name === "Shieldwall");
+    expect(translateGameText("es", shieldwall.description)).toContain(
+      "+1 a Defensa",
+    );
+    expect(translateGameText("es", shieldwall.description)).toContain(
+      "Caballería",
+    );
+    for (const label of ["Mv", "Fv", "Sv", "D", "Might", "Will", "Fate"])
+      expect(translateGameText("es", label)).toBe(label);
+    for (const [source, target] of Object.entries(terms)) {
+      expect(target).not.toMatch(/\b(?:Warrior|Cavalry|Infantry|Defence)\b/);
+      expect(translateGameText("en", source)).toBe(source);
+    }
+    expect(translateGameText("es", "Warrior of Minas Tirith")).toBe(
+      "Guerrero de Minas Tirith",
+    );
+  });
   it("covers every army and profile description, rule title and equipment option", () => {
     const sourceBefore = JSON.stringify([
       armySource,
@@ -80,7 +112,7 @@ describe("complete current game content", () => {
       unitSource,
     ]);
     const check = (source: string) => {
-      // Parameter values remain canonical, e.g. Fury (Orc).
+      // Look up canonical names/templates before translating their display text.
       const template = source.replace(/\([^()]*\)$/, "(X)");
       expect(
         source in allTranslations || template in allTranslations,

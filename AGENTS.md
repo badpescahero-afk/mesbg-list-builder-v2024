@@ -33,6 +33,16 @@
 
 ## Reglas, descripciones y equipo
 
+- La revisión terminológica vigente traduce también los atributos dentro de las
+  frases: Defensa, Fuerza, Coraje, Inteligencia, Poder, Voluntad y Destino. La
+  excepción de atributos originales se aplica a las tablas/abreviaturas y los
+  datos, no a la prosa. Usar Prioridad, pruebas, Guerrero, Caballería e Infantería
+  de forma coherente. Centralizar palabras clave en `content/terms.es.json` y
+  traducir parámetros visibles como `Fury (Orc)` sin cambiar el nombre fuente.
+- Mostrar los nombres españoles del catálogo también en las tarjetas del
+  constructor. Mantener los nombres canónicos en búsquedas, referencias,
+  rutas de imágenes, identificadores, comparaciones y almacenamiento.
+
 - El alcance vigente incluye las reglas y descripciones en español. Usar `GameText` o `translateGameText` solo en el renderizado de texto; conservar comparaciones, filtros del motor, claves React, valores de formularios y serialización originales.
 - Centralizar estas traducciones en `src/i18n/content/*.es.json`. Mantener números, modificadores, límites, condiciones y etiquetas HTML del texto fuente. Las estadísticas siguen en inglés.
 - Para una regla o perfil nuevo, añadir su traducción al catálogo y comprobar `game-text.test.ts`, que recorre todos los textos de los datos actuales. Mantener el fallback inglés para futuras entradas desconocidas.

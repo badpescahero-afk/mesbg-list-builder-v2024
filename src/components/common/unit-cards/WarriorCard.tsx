@@ -162,7 +162,7 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
                 : "inherit"
             }
           >
-            {unit.quantity ?? 1}x {unit.name}
+            {unit.quantity ?? 1}x {translateGameText(language, unit.name)}
           </Typography>
           <Typography
             data-test-id={`unit-card--points--w${warbandNum}-i${index}`}
@@ -324,7 +324,7 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
                     : "inherit"
                 }
               >
-                {unit.quantity ?? 1}x {unit.name}{" "}
+                {unit.quantity ?? 1}x {translateGameText(language, unit.name)}{" "}
                 {collapsed && (
                   <span
                     style={{ fontWeight: "normal" }}

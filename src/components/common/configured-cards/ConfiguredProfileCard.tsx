@@ -8,21 +8,7 @@ import { ConfiguredCard, STAT_KEYS } from "./card-model";
 import { cardName } from "./card-names";
 import "./configured-cards.css";
 
-const approvedRuleNames: Record<string, string> = {
-  "Heroic Strength": "Fuerza heroica",
-  "Leader (Citadel Guard)": "Líder (Guardia de la Ciudadela)",
-};
-const gameText = (text: string) =>
-  approvedRuleNames[text] || translateGameText("es", text);
-const typeNames: Record<string, string> = {
-  "Hero of Legend": "Héroe de Leyenda",
-  "Hero of Valour": "Héroe de Valor",
-  "Hero of Fortitude": "Héroe de Fortaleza",
-  "Minor Hero": "Héroe menor",
-  "Independent Hero": "Héroe independiente",
-  Warrior: "Guerrero",
-  "Siege Engine": "Máquina de asedio",
-};
+const gameText = (text: string) => translateGameText("es", text);
 
 function StatLine({ profile }: { profile: Profile }) {
   const heroic = [profile.HM, profile.HW, profile.HF].some(
@@ -222,8 +208,7 @@ export function ConfiguredProfileCard({
                 </span>
               </h1>
               <p className="configured-card-subtitle">
-                {card.origin} |{" "}
-                {typeNames[primary.type] || primary.type || "Perfil"} |{" "}
+                {gameText(card.origin)} | {gameText(primary.type || "Perfil")} |{" "}
                 {card.quantity == null
                   ? "Perfil de consulta"
                   : `${card.quantity} en la lista`}

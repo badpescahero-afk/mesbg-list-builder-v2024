@@ -247,8 +247,8 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
               }
             >
               {!unit.unique && followerOf
-                ? `${unit.quantity}x ${unit.name}`
-                : unit.name}
+                ? `${unit.quantity}x ${translateGameText(language, unit.name)}`
+                : translateGameText(language, unit.name)}
             </Typography>
             <Typography
               data-test-id={`unit-card--points--w${warbandNum}-i${index}`}
@@ -429,8 +429,8 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
                 }
               >
                 {!unit.unique && followerOf
-                  ? `${unit.quantity}x ${unit.name}`
-                  : unit.name}{" "}
+                  ? `${unit.quantity}x ${translateGameText(language, unit.name)}`
+                  : translateGameText(language, unit.name)}{" "}
                 {collapsed && (
                   <span
                     style={{ fontWeight: "normal" }}

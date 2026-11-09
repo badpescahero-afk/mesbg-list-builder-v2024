@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { Profile } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
+import { GameText } from "../../../../i18n/GameText";
 
 export const Stats = ({ profile }: { profile: Profile }) => {
   const skippedParentRow = [
@@ -42,7 +43,9 @@ export const Stats = ({ profile }: { profile: Profile }) => {
           {!skippedParentRow && (
             <TableRow>
               {profile.additional_stats && (
-                <TableCell>{profile.name}</TableCell>
+                <TableCell>
+                  <GameText text={profile.name} />
+                </TableCell>
               )}
               <TableCell>{profile.Mv}</TableCell>
               <TableCell>{profile.Fv}</TableCell>
