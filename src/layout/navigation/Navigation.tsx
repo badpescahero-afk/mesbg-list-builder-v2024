@@ -17,6 +17,8 @@ import logo from "../../assets/images/logo.svg";
 import title from "../../assets/images/title-v2024.png";
 import { AccountAvatar } from "../../components/common/user-avatar/AccountAvatar.tsx";
 import { OpenNavigationDrawerEvent } from "../../events/OpenNavigationDrawerEvent.ts";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { LanguageSelector } from "../../i18n/LanguageSelector";
 import { AppBar } from "./AppBar.tsx";
 import { MenuDrawer } from "./MenuDrawer.tsx";
 import { MenuDrawerHeader } from "./MenuDrawerHeader.tsx";
@@ -33,6 +35,7 @@ const baseMenuIconStyles = {
 export const Navigation: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const toggleMenuDrawer = () => {
@@ -101,6 +104,7 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
             />
           </Button>
           <Box flexGrow={1} />
+          <LanguageSelector />
           <AccountAvatar />
         </Toolbar>
       </AppBar>
@@ -111,7 +115,7 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
             className="middle-earth"
             sx={{ textAlign: "start" }}
           >
-            Menu
+            {t("Menu")}
           </Typography>
         </MenuDrawerHeader>
         <Divider />

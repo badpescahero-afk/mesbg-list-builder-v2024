@@ -32,6 +32,7 @@ import { SquareIconButton } from "../components/atoms/icon-button/SquareIconButt
 import { Link } from "../components/atoms/link/Link.tsx";
 import { ModalTypes } from "../components/modal/modals.tsx";
 import { useApi } from "../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../i18n/LanguageContext";
 import { useAppState } from "../state/app";
 import { useCollectionState } from "../state/collection";
 import { useUserPreferences } from "../state/preference";
@@ -40,6 +41,7 @@ import { rows as databaseRows } from "./database/data.ts";
 import { COMPOSED_UNIT_MAP } from "./database/utils/special-rows.ts";
 
 export const Collection = () => {
+  const { t } = useTranslation();
   const { palette } = useTheme();
   const { setCurrentModal } = useAppState();
   const { inventory, deleteEntry } = useCollectionState();
@@ -82,36 +84,37 @@ export const Collection = () => {
       sx={{ p: 2, mb: 12, maxWidth: "calc(100vw - 3*24px)" }}
     >
       <Typography variant="h4" className="middle-earth" sx={{ mb: 2 }}>
-        My Collection
+        {t("My Collection")}
       </Typography>
 
       <Typography>
-        Easily manage your personal collection of miniatures, which allows the
-        list builder to provide helpful warnings if you exceed the models
-        available in your collection. These warnings can be enabled/disabled in
-        the app settings.
+        {t(
+          "Easily manage your personal collection of miniatures, which allows the list builder to provide helpful warnings if you exceed the models available in your collection. These warnings can be enabled/disabled in the app settings.",
+        )}
       </Typography>
       <Typography sx={{ my: 2 }}>
         You can add models to your collection using the{" "}
         <BookmarkAdd sx={{ verticalAlign: "bottom" }} /> button on the{" "}
-        <Link to="/database">Profile Database</Link> page.
+        <Link to="/database">{t("Profile Database")}</Link> page.
       </Typography>
       {!preferences.collectionWarnings && (
         <Alert severity="warning" icon={false} sx={{ my: 1 }}>
           <Typography sx={{ gap: 0.4 }}>
-            Collection warnings in the list builder are currently turned off.
+            {t(
+              "Collection warnings in the list builder are currently turned off.",
+            )}
             <Button onClick={() => setPreference("collectionWarnings", true)}>
-              Click here
+              {t("Click here")}
             </Button>
-            to enable them.
+            {t("to enable them.")}
           </Typography>
         </Alert>
       )}
       <Stack direction="column" gap={1} sx={{ mt: 1 }} alignItems="left">
         <TextField
           id="database-filter-input"
-          label="Filter"
-          placeholder="Start typing to filter"
+          label={t("Filter")}
+          placeholder={t("Start typing to filter")}
           size="small"
           value={filter}
           sx={{
@@ -126,7 +129,7 @@ export const Collection = () => {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="clear filters"
+                    aria-label={t("clear filters")}
                     onClick={() => setFilter("")}
                     edge="end"
                     sx={{
@@ -159,13 +162,13 @@ export const Collection = () => {
           >
             <TableRow>
               <TableCell size="small" sx={{ minWidth: 240 }}>
-                Model
+                {t("Model")}
               </TableCell>
               <TableCell size="small" sx={{ minWidth: 170 }}>
-                Origin
+                {t("Origin")}
               </TableCell>
               <TableCell size="small" sx={{ minWidth: 240 }}>
-                Collection
+                {t("Collection")}
               </TableCell>
               <TableCell size="small" sx={{ minWidth: 170 }} />
             </TableRow>
@@ -250,7 +253,8 @@ export const Collection = () => {
                       Your collection is currently empty! You can add models to
                       your collection using the{" "}
                       <BookmarkAdd sx={{ verticalAlign: "bottom" }} /> button on
-                      the <Link to="/database">Profile Database</Link> page.
+                      the <Link to="/database">{t("Profile Database")}</Link>{" "}
+                      page.
                     </Typography>
                   </Alert>
                 </TableCell>

@@ -2,11 +2,13 @@ import { CreateNewFolderOutlined, PlaylistAdd } from "@mui/icons-material";
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
 import Box from "@mui/material/Box";
 import { FunctionComponent, useRef, useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useAppState } from "../../../state/app";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { ModalTypes } from "../../modal/modals.tsx";
 
 export const NewRosterButton: FunctionComponent = () => {
+  const { t } = useTranslation();
   const { setCurrentModal } = useAppState();
   const { mode } = useThemeContext();
 
@@ -33,7 +35,7 @@ export const NewRosterButton: FunctionComponent = () => {
                 color: mode === "dark" ? "white" : "inherit",
               }}
             >
-              Create Group
+              {t("Create Group")}
             </span>
           }
           tooltipOpen
@@ -48,7 +50,7 @@ export const NewRosterButton: FunctionComponent = () => {
                 color: mode === "dark" ? "white" : "inherit",
               }}
             >
-              Create Roster
+              {t("Create Roster")}
             </span>
           }
           tooltipOpen

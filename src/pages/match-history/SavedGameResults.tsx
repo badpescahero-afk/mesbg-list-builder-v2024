@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CustomAlert } from "../../components/atoms/alert/CustomAlert.tsx";
 import { ModalTypes } from "../../components/modal/modals.tsx";
+import { useTranslation } from "../../i18n/LanguageContext";
 import { useAppState } from "../../state/app";
 import { useRecentGamesState } from "../../state/recent-games";
 import { PastGame } from "../../state/recent-games/history";
@@ -21,6 +22,7 @@ import { FilterForm, Filters } from "./components/FilterForm.tsx";
 import { GamesTable } from "./components/GamesTable.tsx";
 
 export const SavedGameResults = () => {
+  const { t } = useTranslation();
   const { recentGames } = useRecentGamesState();
   const { setCurrentModal } = useAppState();
   const { mode } = useThemeContext();
@@ -130,7 +132,7 @@ export const SavedGameResults = () => {
   return (
     <Container sx={{ mt: 2 }} maxWidth={false}>
       <Typography variant="h4" className="middle-earth" sx={{ mb: 2 }}>
-        Match History
+        {t("Match History")}
       </Typography>
       <Stack sx={{ py: 1 }} gap={3}>
         <FilterForm
@@ -147,8 +149,9 @@ export const SavedGameResults = () => {
               </>
             ) : (
               <CustomAlert severity="warning" title="">
-                Your current filter combination resulted in 0 games. Please
-                adjust the filters.
+                {t(
+                  "Your current filter combination resulted in 0 games. Please adjust the filters.",
+                )}
               </CustomAlert>
             )}
           </>
@@ -172,7 +175,7 @@ export const SavedGameResults = () => {
           >
             {actions.map((action) => (
               <SpeedDialAction
-                key={action.name}
+                key={t(action.name)}
                 icon={action.icon}
                 onClick={() => {
                   if (!action.disabled) action.callback();
@@ -185,7 +188,7 @@ export const SavedGameResults = () => {
                       color: mode === "dark" ? "white" : "inherit",
                     }}
                   >
-                    {action.name}
+                    {t(action.name)}
                   </span>
                 }
                 tooltipOpen

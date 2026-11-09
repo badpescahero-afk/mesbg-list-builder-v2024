@@ -3,9 +3,11 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { CARD_SIZE_IN_PX } from "../../../components/common/roster-card/RosterSummaryCard.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 
 export const EmptyRostersMessage = () => {
+  const { t } = useTranslation();
   const { mode } = useThemeContext();
   const screen = useScreenSize();
   return (
@@ -33,7 +35,7 @@ export const EmptyRostersMessage = () => {
                 : `${CARD_SIZE_IN_PX / 1.5}px`, // Set a fixed width or max-width for overflow
             }}
           >
-            No rosters yet.
+            {t("No rosters yet.")}
           </Typography>
           <Typography
             variant="body2"
@@ -45,8 +47,9 @@ export const EmptyRostersMessage = () => {
                 mode === "dark" ? palette.grey.A400 : palette.grey.A700,
             }}
           >
-            Create your first roster/group using the + button on the bottom
-            right
+            {t(
+              "Create your first roster/group using the + button on the bottom right",
+            )}
           </Typography>
         </center>
       </Stack>

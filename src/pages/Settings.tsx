@@ -28,6 +28,7 @@ import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import { ChangeEvent, FunctionComponent, ReactNode } from "react";
 import { DrawerTypes } from "../components/drawer/drawers.tsx";
+import { useTranslation } from "../i18n/LanguageContext";
 import { useAppState } from "../state/app";
 import { useUserPreferences } from "../state/preference";
 import { Preferences } from "../state/preference/user-preferences";
@@ -44,6 +45,7 @@ export type SettingsOptionProps = {
 };
 
 const SettingsOption: FunctionComponent<SettingsOptionProps> = (props) => {
+  const { t } = useTranslation();
   const handleToggle = (_: ChangeEvent<HTMLInputElement>, value: boolean) =>
     props.onChange(value);
 
@@ -56,8 +58,8 @@ const SettingsOption: FunctionComponent<SettingsOptionProps> = (props) => {
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText
           id={slugify(props.label)}
-          primary={props.label}
-          secondary={props.description}
+          primary={t(props.label)}
+          secondary={props.description ? t(props.description) : undefined}
         />
         <Switch
           edge="end"
@@ -71,6 +73,7 @@ const SettingsOption: FunctionComponent<SettingsOptionProps> = (props) => {
 };
 
 export const Settings = () => {
+  const { t } = useTranslation();
   const { toggleTheme, mode } = useThemeContext();
   const { preferences, setPreference } = useUserPreferences();
   const { openSidebar } = useAppState();
@@ -128,7 +131,7 @@ export const Settings = () => {
   return (
     <Container maxWidth="md" sx={{ mt: 2, mb: 5 }}>
       <Typography variant="h4" className="middle-earth">
-        Application Settings
+        {t("Application Settings")}
       </Typography>
 
       <List
@@ -138,7 +141,7 @@ export const Settings = () => {
         }}
       >
         <Divider textAlign="left">
-          <Typography variant="h6">General preferences</Typography>
+          <Typography variant="h6">{t("General preferences")}</Typography>
         </Divider>
         <SettingsOption
           icon={<DarkMode />}
@@ -199,7 +202,7 @@ export const Settings = () => {
         />
 
         <Divider textAlign="left">
-          <Typography variant="h6">Drawer preferences</Typography>
+          <Typography variant="h6">{t("Drawer preferences")}</Typography>
         </Divider>
         <SettingsOption
           icon={<AutoAwesome />}
@@ -222,7 +225,7 @@ export const Settings = () => {
           onChange={updatePreference("splitActiveRules")}
         />
         <Divider textAlign="left">
-          <Typography variant="h6">PDF preferences</Typography>
+          <Typography variant="h6">{t("PDF preferences")}</Typography>
         </Divider>
         <SettingsOption
           icon={<ManageAccounts />}
@@ -265,7 +268,7 @@ export const Settings = () => {
           ))}
         </Collapse>
         <Divider textAlign="left">
-          <Typography variant="h6">Collection preferences</Typography>
+          <Typography variant="h6">{t("Collection preferences")}</Typography>
         </Divider>
         <SettingsOption
           icon={<CategoryOutlined />}
@@ -276,7 +279,9 @@ export const Settings = () => {
         />
 
         <Divider textAlign="left">
-          <Typography variant="h6">Builder restrictions preferences</Typography>
+          <Typography variant="h6">
+            {t("Builder restrictions preferences")}
+          </Typography>
         </Divider>
         <SettingsOption
           icon={<PersonRemove />}
@@ -298,7 +303,7 @@ export const Settings = () => {
           sx={{ textDecoration: "underline", m: 0, p: 0 }}
           onClick={() => openSidebar(DrawerTypes.CHANGELOG)}
         >
-          See changelog
+          {t("See changelog")}
         </Button>
       </Stack>
     </Container>

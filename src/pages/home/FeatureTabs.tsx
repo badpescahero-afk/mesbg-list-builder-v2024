@@ -5,6 +5,7 @@ import history from "../../assets/images/homepage/game-history.png";
 import gamemode from "../../assets/images/homepage/gamemode.png";
 import builder from "../../assets/images/homepage/list-building.png";
 import quickRef from "../../assets/images/homepage/quick-reference.png";
+import { useTranslation } from "../../i18n/LanguageContext";
 import { FeatureTab } from "./FeatureTab";
 
 function a11yProps(index: number) {
@@ -15,6 +16,7 @@ function a11yProps(index: number) {
 }
 
 export const FeatureTabs = () => {
+  const { t } = useTranslation();
   const [value, setValue] = useState(0);
 
   const handleChange = (_: SyntheticEvent, newValue: number) => {
@@ -23,7 +25,7 @@ export const FeatureTabs = () => {
   return (
     <Box sx={{ my: 3, maxWidth: "min(100%, 84ch)" }}>
       <Typography variant="h4" className="middle-earth" sx={{ mb: 2 }}>
-        Features
+        {t("Features")}
       </Typography>
 
       <Box>
@@ -36,9 +38,9 @@ export const FeatureTabs = () => {
           <Tab
             label={
               <span>
-                Create your
+                {t("Create your")}
                 <br />
-                army lists
+                {t("army lists")}
               </span>
             }
             {...a11yProps(0)}
@@ -46,9 +48,9 @@ export const FeatureTabs = () => {
           <Tab
             label={
               <span>
-                lookup
+                {t("lookup")}
                 <br />
-                special rules
+                {t("special rules")}
               </span>
             }
             {...a11yProps(1)}
@@ -56,9 +58,9 @@ export const FeatureTabs = () => {
           <Tab
             label={
               <span>
-                Use digital
+                {t("Use digital")}
                 <br />
-                trackers
+                {t("trackers")}
               </span>
             }
             {...a11yProps(3)}
@@ -66,9 +68,9 @@ export const FeatureTabs = () => {
           <Tab
             label={
               <span>
-                Record the
+                {t("Record the")}
                 <br />
-                games
+                {t("games")}
               </span>
             }
             {...a11yProps(4)}

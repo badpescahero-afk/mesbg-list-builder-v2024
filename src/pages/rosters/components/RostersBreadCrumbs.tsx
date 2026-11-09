@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { FunctionComponent } from "react";
 import { Link } from "../../../components/atoms/link/Link.tsx";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useRosterBuildingState } from "../../../state/roster-building";
 import { RosterGroup } from "../../../state/roster-building/groups";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
@@ -15,6 +16,7 @@ interface RosterBreadCrumbsProps {
 export const RostersBreadCrumbs: FunctionComponent<RosterBreadCrumbsProps> = ({
   group,
 }) => {
+  const { t } = useTranslation();
   const { palette } = useTheme();
   const { mode } = useThemeContext();
   const parents = useRosterBuildingState(selectParentGroups(group));
@@ -28,7 +30,7 @@ export const RostersBreadCrumbs: FunctionComponent<RosterBreadCrumbsProps> = ({
           color: mode === "dark" ? palette.info.light : palette.info.main,
         }}
       >
-        Rosters
+        {t("Rosters")}
       </Link>
       {parents.map((parent) => (
         <Link

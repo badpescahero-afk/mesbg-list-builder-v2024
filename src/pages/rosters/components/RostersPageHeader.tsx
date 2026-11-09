@@ -6,6 +6,7 @@ import { TbMobiledata, TbMobiledataOff } from "react-icons/tb";
 import { GroupOptionsPopoverMenu } from "../../../components/common/roster-group-card/RosterGroupPopoverMenu.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useLockContext } from "../../../hooks/lock/useLockContext.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { RosterGroup } from "../../../state/roster-building/groups";
 import { PATREON_LINK } from "../../home/Home.tsx";
 import { RostersBreadCrumbs } from "./RostersBreadCrumbs.tsx";
@@ -17,6 +18,7 @@ type RostersPageHeaderProps = {
 export const RostersPageHeader: FunctionComponent<RostersPageHeaderProps> = ({
   group,
 }) => {
+  const { t } = useTranslation();
   const screen = useScreenSize();
   const { lock, toggleLock } = useLockContext();
   return (
@@ -27,7 +29,7 @@ export const RostersPageHeader: FunctionComponent<RostersPageHeaderProps> = ({
         justifyContent="space-between"
       >
         <Typography variant="h4" className="middle-earth">
-          My Rosters
+          {t("My Rosters")}
         </Typography>
         <Button
           variant="outlined"
@@ -41,7 +43,7 @@ export const RostersPageHeader: FunctionComponent<RostersPageHeaderProps> = ({
           }}
           onClick={() => window.open(PATREON_LINK, "_blank")}
         >
-          Support us on patreon
+          {t("Support us on patreon")}
         </Button>
       </Stack>
       {group ? (
@@ -60,8 +62,9 @@ export const RostersPageHeader: FunctionComponent<RostersPageHeaderProps> = ({
         </>
       ) : (
         <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
-          Note: You can create roster groups by simply dragging and dropping one
-          roster onto another, or onto an existing group.
+          {t(
+            "Note: You can create roster groups by simply dragging and dropping one roster onto another, or onto an existing group.",
+          )}
         </Typography>
       )}
 

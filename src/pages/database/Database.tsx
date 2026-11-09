@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "../../components/atoms/link/Link.tsx";
+import { useTranslation } from "../../i18n/LanguageContext";
 import { DatabaseTable } from "./components/DatabaseTable.tsx";
 import { rows } from "./data.ts";
 import { getComparator, Order } from "./utils/sorting.ts";
@@ -38,6 +39,7 @@ const useDatabaseParams = () => {
 };
 
 export const Database = () => {
+  const { t } = useTranslation();
   const { getParams, setParams } = useDatabaseParams();
   const params = getParams();
   const [filter, setFilter] = useState(params.filter);
@@ -91,15 +93,15 @@ export const Database = () => {
   return (
     <Container maxWidth={false} sx={{ p: 2, maxWidth: "calc(100vw - 3*24px)" }}>
       <Typography variant="h4" className="middle-earth" sx={{ mb: 2, mt: 1 }}>
-        Profile Database
+        {t("Profile Database")}
       </Typography>
       <Stack direction="row" gap={0.5} sx={{ mb: 2 }}>
         <Typography>
           You can add models from this database to your personal{" "}
-          <Link to="/collection">collection</Link> of miniatures using the{" "}
-          <BookmarkAdd sx={{ verticalAlign: "bottom" }} /> button, and choose to
-          receive helpful warnings from the list builder if you exceed the
-          models available in your collection.
+          <Link to="/collection">{t("collection")}</Link> of miniatures using
+          the <BookmarkAdd sx={{ verticalAlign: "bottom" }} /> button, and
+          choose to receive helpful warnings from the list builder if you exceed
+          the models available in your collection.
         </Typography>
       </Stack>
       <Stack
@@ -111,8 +113,8 @@ export const Database = () => {
       >
         <TextField
           id="database-filter-input"
-          label="Filter"
-          placeholder="Start typing to filter"
+          label={t("Filter")}
+          placeholder={t("Start typing to filter")}
           size="small"
           value={filter}
           sx={{
@@ -128,7 +130,7 @@ export const Database = () => {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="clear filters"
+                    aria-label={t("clear filters")}
                     onClick={() => updateFilter("")}
                     edge="end"
                     sx={{

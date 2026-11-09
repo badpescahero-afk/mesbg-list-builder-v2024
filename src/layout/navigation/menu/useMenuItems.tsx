@@ -26,6 +26,7 @@ export const useMenuItems = () => {
     {
       icon: <Segment />,
       label: "My Rosters",
+      translateLabel: true,
       action: () => navigate("/rosters"),
       active: location.pathname === "/rosters",
       children: rosterMenuItems,
@@ -35,18 +36,21 @@ export const useMenuItems = () => {
     {
       icon: <AiFillTrophy style={{ fontSize: "1.5rem" }} />,
       label: "Match History",
+      translateLabel: true,
       action: () => navigate("/match-history"),
       active: location.pathname === "/match-history",
     },
     {
       icon: <CategoryOutlined />,
       label: "My Collection",
+      translateLabel: true,
       action: () => navigate("/collection"),
       active: location.pathname === "/collection",
     },
     {
       icon: <FaDatabase style={{ fontSize: "1.25rem", margin: "0 auto" }} />,
       label: "Profile Database",
+      translateLabel: true,
       action: () => navigate("/database"),
       active: location.pathname === "/database",
     },
@@ -54,18 +58,21 @@ export const useMenuItems = () => {
     {
       icon: <HiIdentification style={{ fontSize: "1.5rem" }} />,
       label: "Profiles",
+      translateLabel: true,
       action: () => openSidebar(DrawerTypes.PROFILE_SEARCH),
       active: false,
     },
     {
       icon: <AutoAwesome />,
       label: "Special rules & Magic",
+      translateLabel: true,
       action: () => openSidebar(DrawerTypes.KEYWORD_SEARCH),
       active: false,
     },
     {
       icon: <GiSwordsEmblem style={{ fontSize: "1.5rem" }} />,
       label: "Charts",
+      translateLabel: true,
       action: () => {},
       active: false,
       children: chartMenuItems,
@@ -75,12 +82,14 @@ export const useMenuItems = () => {
     {
       icon: <Info />,
       label: "About Us",
+      translateLabel: true,
       action: () => navigate("/about"),
       active: location.pathname === "/about",
     },
     {
       icon: <BugReportIcon />,
       label: "Report a Bug / Correction",
+      translateLabel: true,
       action: () =>
         (window.location.href =
           "mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction"),
@@ -89,6 +98,7 @@ export const useMenuItems = () => {
     {
       icon: <Settings />,
       label: "App Settings",
+      translateLabel: true,
       action: () => navigate("/settings"),
       active: location.pathname === "/settings",
     },

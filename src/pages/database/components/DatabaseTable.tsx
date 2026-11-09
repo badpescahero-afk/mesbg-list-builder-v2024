@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { MouseEvent } from "react";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { DatabaseRow } from "../data.ts";
 import { Order } from "../utils/sorting.ts";
@@ -26,6 +27,7 @@ export const DatabaseTable = ({
   createSortHandler,
   rows,
 }: DatabaseTableProps) => {
+  const { t } = useTranslation();
   const screen = useScreenSize();
   const { mode } = useThemeContext();
 
@@ -50,7 +52,7 @@ export const DatabaseTable = ({
                 direction={orderBy === "name" ? order : "asc"}
                 onClick={createSortHandler("name")}
               >
-                Name
+                {t("Name")}
               </TableSortLabel>
             </TableCell>
             <TableCell>
@@ -59,10 +61,10 @@ export const DatabaseTable = ({
                 direction={orderBy === "profile_origin" ? order : "asc"}
                 onClick={createSortHandler("profile_origin")}
               >
-                Origin
+                {t("Origin")}
               </TableSortLabel>
             </TableCell>
-            <TableCell align="center">Card</TableCell>
+            <TableCell align="center">{t("Card")}</TableCell>
             {screen.isDesktop && (
               <>
                 <TableCell align="center">

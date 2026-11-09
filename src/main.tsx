@@ -6,20 +6,23 @@ import "./styles/index.scss";
 import { HelmetProvider } from "react-helmet-async";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./firebase/FirebaseAuthContext.tsx";
+import { LanguageProvider } from "./i18n/LanguageProvider";
 import { ErrorBoundary } from "./layout/error-boundary/ErrorBoundary.tsx";
 import { RootFallback } from "./layout/error-boundary/RootFallback.tsx";
 import { routes } from "./routing/routes.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ErrorBoundary inCaseOfError={<RootFallback />}>
-      <ThemeContextProvider>
-        <AuthProvider>
-          <HelmetProvider>
-            <RouterProvider router={createBrowserRouter(routes)} />
-          </HelmetProvider>
-        </AuthProvider>
-      </ThemeContextProvider>
-    </ErrorBoundary>
+    <LanguageProvider>
+      <ErrorBoundary inCaseOfError={<RootFallback />}>
+        <ThemeContextProvider>
+          <AuthProvider>
+            <HelmetProvider>
+              <RouterProvider router={createBrowserRouter(routes)} />
+            </HelmetProvider>
+          </AuthProvider>
+        </ThemeContextProvider>
+      </ErrorBoundary>
+    </LanguageProvider>
   </StrictMode>,
 );

@@ -11,6 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useAppState } from "../../../state/app";
 import {
   CreateCustomRoster,
@@ -30,6 +31,7 @@ import {
 } from "../../common/create-roster/ImportRoster.tsx";
 
 export const CreateNewRosterModal = () => {
+  const { t } = useTranslation();
   const { closeModal } = useAppState();
 
   const [activeTab, setActiveTab] = useState("regular");
@@ -74,10 +76,10 @@ export const CreateNewRosterModal = () => {
     <>
       <DialogContent sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
         <Tabs variant="fullWidth" value={activeTab} onChange={handleTabChange}>
-          <Tab value="regular" label="Regular (Matched Play)" wrapped />
-          <Tab value="siege" label="Siege" />
-          <Tab value="custom" label="Custom" />
-          <Tab value="import" label="Import roster" wrapped />
+          <Tab value="regular" label={t("Regular (Matched Play)")} wrapped />
+          <Tab value="siege" label={t("Siege")} />
+          <Tab value="custom" label={t("Custom")} />
+          <Tab value="import" label={t("Import roster")} wrapped />
         </Tabs>
         <TabPanel value="regular">
           <CreateMatchedPlayRoster ref={regRef} />
@@ -100,14 +102,14 @@ export const CreateNewRosterModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          {t("Cancel")}
         </Button>
         <Button
           variant="contained"
           onClick={createNewRoster}
           data-test-id="dialog--submit-button"
         >
-          Create roster
+          {t("Create roster")}
         </Button>
       </DialogActions>
     </>

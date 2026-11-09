@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { FunctionComponent, useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { PastGame } from "../../../state/recent-games/history";
 import { DateRangeFilter } from "./DateRangeFilter.tsx";
 
@@ -28,6 +29,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
   onChange,
   availableDateRange,
 }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -74,7 +76,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
 
   return (
     <Stack gap={1} sx={{ width: "100%" }}>
-      <Typography variant="body2">Filter matches:</Typography>
+      <Typography variant="body2">{t("Filter matches:")}</Typography>
 
       <Stack
         direction={isTablet ? "column" : "row"}
@@ -86,7 +88,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
           options={armyOptions}
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
-            <TextField {...params} label="Army" size="small" />
+            <TextField {...params} label={t("Army")} size="small" />
           )}
           onChange={(_, value) => handleChangeFilter("army", value)}
         />
@@ -95,7 +97,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
           options={opponentOptions}
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
-            <TextField {...params} label="Opponent" size="small" />
+            <TextField {...params} label={t("Opponent")} size="small" />
           )}
           onChange={(_, value) => handleChangeFilter("opponent", value)}
         />
@@ -110,7 +112,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
           options={opponentArmyOptions}
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
-            <TextField {...params} label="Opponent Army" size="small" />
+            <TextField {...params} label={t("Opponent Army")} size="small" />
           )}
           onChange={(_, value) => handleChangeFilter("opponentArmy", value)}
         />
@@ -120,7 +122,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
           options={["Won", "Lost", "Draw"]}
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
-            <TextField {...params} label="Result" size="small" />
+            <TextField {...params} label={t("Result")} size="small" />
           )}
           onChange={(_, value) => handleChangeFilter("result", value)}
         />
@@ -145,7 +147,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
           options={scenarioOptions}
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
-            <TextField {...params} label="Scenario" size="small" />
+            <TextField {...params} label={t("Scenario")} size="small" />
           )}
           onChange={(_, value) => handleChangeFilter("scenario", value)}
         />

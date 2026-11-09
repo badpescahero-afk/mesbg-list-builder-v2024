@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import { CustomAlert } from "../../../components/atoms/alert/CustomAlert.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useLockContext } from "../../../hooks/lock/useLockContext.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { RosterBulkDeleteButton } from "../bulk-delete/RosterBulkDeleteButton.tsx";
 import {
   RosterSortButton,
@@ -32,6 +33,7 @@ export const RostersSearchFilter: FunctionComponent<RosterFilterProps> = ({
   selectedRosters,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
   const [showHelperText, setShowHelperText] = useState(false);
 
   const setSortParams = (field: SortField, order: SortOrder) => {
@@ -46,8 +48,8 @@ export const RostersSearchFilter: FunctionComponent<RosterFilterProps> = ({
       <Stack direction="row" gap={2} sx={{ py: 2 }}>
         <TextField
           id="database-filter-input"
-          label="Filter"
-          placeholder="Start typing to filter"
+          label={t("Filter")}
+          placeholder={t("Start typing to filter")}
           value={filter}
           fullWidth
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +60,7 @@ export const RostersSearchFilter: FunctionComponent<RosterFilterProps> = ({
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="show query helper"
+                    aria-label={t("show query helper")}
                     onClick={() => setShowHelperText((value) => !value)}
                     edge="end"
                     color="info"
@@ -84,7 +86,7 @@ export const RostersSearchFilter: FunctionComponent<RosterFilterProps> = ({
       </Stack>
       <Collapse in={showHelperText}>
         <CustomAlert
-          title="Query helper"
+          title={t("Query helper")}
           severity="info"
           onClose={() => setShowHelperText(false)}
         >

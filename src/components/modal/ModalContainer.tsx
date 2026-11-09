@@ -5,11 +5,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../i18n/LanguageContext";
 import { useAppState } from "../../state/app";
 import { slugify } from "../../utils/string.ts";
 import { modals } from "./modals.tsx";
 
 export const ModalContainer = () => {
+  const { t } = useTranslation();
   const state = useAppState();
   const { isMobile } = useScreenSize();
 
@@ -44,7 +46,7 @@ export const ModalContainer = () => {
                 }}
                 className="middle-earth"
               >
-                {currentModal.icon} {title || currentModal.title}
+                {currentModal.icon} {title || t(currentModal.title)}
               </Typography>
               <IconButton
                 onClick={onClose ? onClose : () => state.closeModal()}

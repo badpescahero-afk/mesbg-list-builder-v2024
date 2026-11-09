@@ -7,12 +7,14 @@ import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import { ReactNode, useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { slugify } from "../../../utils/string.ts";
 import { isDivider } from "./isDivider.ts";
 
 export type NavLink = {
   icon: ReactNode;
   label: string;
+  translateLabel?: boolean;
   action: () => void;
   active: boolean;
   children?: NavItem[];
@@ -37,6 +39,8 @@ export const NavItemLink = ({
   open: boolean;
   pl?: number;
 }) => {
+  const { t } = useTranslation();
+  const label = item.translateLabel ? t(item.label) : item.label;
   const [expanded, setExpanded] = useState<boolean>(item.showCaret);
 
   return (
@@ -64,7 +68,7 @@ export const NavItemLink = ({
             disabled={item.disabled}
             data-test-id={slugify(item.label) + "--nav-link"}
           >
-            <Tooltip title={open ? "" : item.label}>
+            <Tooltip title={open ? "" : label}>
               <ListItemIcon
                 sx={[
                   { minWidth: 0, justifyContent: "center" },
@@ -83,7 +87,7 @@ export const NavItemLink = ({
             </Tooltip>
 
             <ListItemText
-              primary={item.label}
+              primary={label}
               sx={[
                 {
                   "& span": {

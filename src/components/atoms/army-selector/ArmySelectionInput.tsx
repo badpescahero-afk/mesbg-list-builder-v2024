@@ -2,6 +2,7 @@ import { Autocomplete, ListItemIcon, TextField } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import data from "../../../assets/data/mesbg_data.json";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { ArmyType } from "../../../types/mesbg-data.types.ts";
 import { FactionIcon } from "../faction-icon/FactionIcon.tsx";
 
@@ -21,6 +22,7 @@ export const ArmySelectionInput = ({
   armyList,
   setArmyList,
 }: ArmySelectionInputProps) => {
+  const { t } = useTranslation();
   const armyTypeOrder: Record<ArmyType, number> = {
     "Evil (Legacy)": 4,
     "Good (Legacy)": 2,
@@ -92,9 +94,11 @@ export const ArmySelectionInput = ({
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Type to filter..."
-          label="Army"
-          helperText="Filter by typing the name of the Army List OR the name of a Hero you wish to play."
+          placeholder={t("Type to filter...")}
+          label={t("Army")}
+          helperText={t(
+            "Filter by typing the name of the Army List OR the name of a Hero you wish to play.",
+          )}
         />
       )}
     />
