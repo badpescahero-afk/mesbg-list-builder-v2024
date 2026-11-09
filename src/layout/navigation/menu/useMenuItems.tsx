@@ -2,6 +2,7 @@ import {
   AutoAwesome,
   CategoryOutlined,
   Info,
+  InstallMobile,
   Segment,
   Settings,
 } from "@mui/icons-material";
@@ -31,6 +32,13 @@ export const useMenuItems = () => {
       active: location.pathname === "/rosters",
       children: rosterMenuItems,
       showCaret: false,
+    },
+    {
+      icon: <InstallMobile />,
+      label: "Install app",
+      translateLabel: true,
+      action: () => navigate("/install"),
+      active: location.pathname === "/install",
     },
     { divider: true },
     {

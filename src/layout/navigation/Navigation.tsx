@@ -72,7 +72,7 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
             onClick={toggleMenuDrawer}
             edge="start"
             sx={{
-              marginRight: 5,
+              marginRight: { xs: 1, sm: 5 },
               position: "relative",
               width: "2rem",
             }}
@@ -95,7 +95,7 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
           {/* Logo */}
           <Button
             aria-label={translateUI("logo")}
-            sx={{ mr: 2 }}
+            sx={{ mr: { xs: 0.5, sm: 2 }, minWidth: 0 }}
             href={window.location.protocol + "//" + window.location.host}
           >
             <img
@@ -103,14 +103,27 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
               alt={translateUI("Logo")}
               style={{ height: "50px" }}
             />
-            <img
+            <Box
+              component="img"
               src={title}
               alt="MESBG List Builder"
-              style={{ maxHeight: "42px", margin: "0 .25rem" }}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                maxHeight: "42px",
+                margin: "0 .25rem",
+              }}
             />
           </Button>
           <Box flexGrow={1} />
-          <LanguageSelector />
+          <Box
+            sx={{
+              "& .MuiInputBase-root, & .MuiInputLabel-root, & .MuiSvgIcon-root":
+                { color: "#fff" },
+              "& .MuiOutlinedInput-notchedOutline": { borderColor: "#888" },
+            }}
+          >
+            <LanguageSelector />
+          </Box>
           <AccountAvatar />
         </Toolbar>
       </AppBar>

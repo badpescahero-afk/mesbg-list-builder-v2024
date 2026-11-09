@@ -11,7 +11,7 @@
     "build:standalone": "node scripts/build-standalone.mjs",
     "preview:standalone": "node scripts/serve-standalone.mjs",
     "build": "tsc -b && vite build",
-    "postbuild": "node scripts/generate-sitemap.js",
+    "postbuild": "node scripts/generate-sitemap.js && node scripts/generate-pwa.mjs",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint": "eslint .",

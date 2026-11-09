@@ -60,3 +60,11 @@ completo y consulta mediante ratón, teclado y móvil. Los datos de `src/assets`
 Los controles y cifras de alcance corresponden al catálogo actual del repositorio,
 no a futuras publicaciones. Las pruebas no garantizan cada combinación de lista
 posible; el motor original mantiene la validación de esas combinaciones.
+
+## Instalación en móvil
+
+La rama incorpora ahora instalación PWA, icono en la pantalla de inicio y uso sin
+conexión del constructor y los perfiles. Las imágenes se guardan al consultarlas
+con un máximo de 32 MiB. Véase [INSTALACION_MOVIL.md](INSTALACION_MOVIL.md).
+La instalación desde un teléfono sigue pendiente de publicar una URL HTTPS;
+el paquete ZIP de escritorio no es un APK.

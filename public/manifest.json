@@ -1,11 +1,11 @@
 {
-  "name": "Middle-Earth Strategy Battle Game - List Builder",
-  "short_name": "MESBG List Builder",
-  "description": "(Unofficial) A simple and intuitive tool for building your army lists in Middle-Earth Strategy Battle Game (MESBG).",
-  "start_url": "/",
-  "display": "fullscreen",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "name": "MESBG List Builder ES",
+  "short_name": "MESBG ES",
+  "description": "Crea listas de ejército, consulta perfiles y reglas, y exporta tus cartas.",
+  "start_url": "/rosters",
+  "display": "standalone",
+  "background_color": "#fbf8f0",
+  "theme_color": "#1c1c1e",
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -58,19 +58,7 @@
       "sizes": "512x512"
     }
   ],
-  "screenshots": [
-    {
-      "src": "/screenshots/screenshot-1920x1080.png",
-      "type": "image/png",
-      "sizes": "1920x1080",
-      "form_factor": "wide"
-    },
-
-    {
-      "src": "/screenshots/screenshot-412x915.png",
-      "type": "image/png",
-      "sizes": "412x915",
-      "form_factor": "narrow"
-    }
-  ]
+  "id": "/",
+  "scope": "/",
+  "lang": "es"
 }

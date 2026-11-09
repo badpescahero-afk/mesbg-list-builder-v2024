@@ -9,6 +9,7 @@ import { AuthProvider } from "./firebase/FirebaseAuthContext.tsx";
 import { LanguageProvider } from "./i18n/LanguageProvider";
 import { ErrorBoundary } from "./layout/error-boundary/ErrorBoundary.tsx";
 import { RootFallback } from "./layout/error-boundary/RootFallback.tsx";
+import { registerOfflineApp } from "./pwa/install";
 import { routes } from "./routing/routes.tsx";
 
 createRoot(document.getElementById("root")!).render(
@@ -26,3 +27,5 @@ createRoot(document.getElementById("root")!).render(
     </LanguageProvider>
   </StrictMode>,
 );
+
+void registerOfflineApp();

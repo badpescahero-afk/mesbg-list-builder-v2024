@@ -67,3 +67,18 @@
   `src/components/common/rules`. La exportación y cancelación nunca escriben datos
   de la lista. No publicar sobre main ni usar etiquetas `v*`: los workflows originales
   despliegan a producción y envían una notificación externa con esas etiquetas.
+
+## Instalación en móvil
+
+- La app instalable usa el icono original y un manifiesto PWA. La instalación móvil
+  requiere HTTPS; un enlace localhost del entorno no es una URL accesible al usuario.
+- El service worker solo se registra en producción y almacena el shell de la app.
+  Las imágenes se guardan al consultarlas, con un máximo de 32 MiB. No precachear
+  los cientos de MB de recursos ni respuestas de API, autenticación o datos privados.
+- Versionar la caché del shell por contenido y dejar que las ventanas abiertas
+  terminen antes de activar una actualización. No usar skipWaiting ni recargar una
+  lista que se está editando. No borrar localStorage ni cachés de otras aplicaciones.
+- Ejecutar `npm run build:standalone` y `node scripts/test-pwa.mjs`. La prueba utiliza
+  un perfil persistente de Chromium aislado en un directorio temporal, comprueba
+  los requisitos de instalación y desconecta la red antes de abrir/exportar una lista.
+  Detiene únicamente su propio servidor en el puerto 5200 al terminar.

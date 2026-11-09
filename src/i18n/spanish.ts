@@ -1,5 +1,29 @@
 // English source messages are keys; never use these labels as game identifiers.
 export const spanish = {
+  "Install app": "Instalar app",
+  "Keep MESBG ES on your home screen and open it like an app.":
+    "Añade MESBG ES a tu pantalla de inicio y ábrela como una app.",
+  "The app is installed.": "La app está instalada.",
+  "Install on this device": "Instalar en este dispositivo",
+  "Open this site in Chrome. Tap Install on this device, or use the browser menu → Add to home screen → Install.":
+    "Abre esta web en Chrome. Pulsa Instalar en este dispositivo, o usa el menú del navegador → Añadir a pantalla de inicio → Instalar.",
+  "Open this site in Safari. Tap Share → Add to Home Screen, then confirm Add.":
+    "Abre esta web en Safari. Pulsa Compartir → Añadir a pantalla de inicio y confirma con Añadir.",
+  "If you opened the link inside another app, open it in Chrome or Safari first.":
+    "Si has abierto el enlace dentro de otra app, ábrelo primero en Chrome o Safari.",
+  "Use the browser menu to add the app to your home screen.":
+    "Utiliza el menú del navegador para añadir la app a tu pantalla de inicio.",
+  "Ready for offline use: your lists, profiles and translated rules are available on this device.":
+    "Lista para usar sin conexión: tus listas, perfiles y reglas traducidas están disponibles en este dispositivo.",
+  "Keep the app open with an internet connection until it is ready for offline use.":
+    "Mantén la app abierta con conexión a internet hasta que esté preparada para usarla sin conexión.",
+  "Pictures and original cards are saved as you view them, within a storage limit. Pictures not yet saved need an internet connection.":
+    "Los retratos y las cartas originales se guardan conforme los consultas, con un límite de espacio. Las imágenes que aún no se hayan guardado necesitan conexión.",
+  "Export your lists as JSON to keep a backup. Clearing browser or app data can remove locally saved lists.":
+    "Exporta tus listas en JSON para conservar una copia. Borrar los datos del navegador o de la app puede eliminar las listas guardadas en el dispositivo.",
+  "An update is ready. Close all app windows and reopen it to apply the update.":
+    "Hay una actualización preparada. Cierra todas las ventanas de la app y vuelve a abrirla para aplicarla.",
+
   "Card library": "Biblioteca de cartas",
   "Browse every profile, including mounts, passengers and siege equipment. Add models to a roster to export cards with the chosen equipment and points.":
     "Consulta todos los perfiles, incluidas monturas, pasajeros y equipo de asedio. Añade las miniaturas a una lista para exportar sus cartas con el equipo y los puntos elegidos.",

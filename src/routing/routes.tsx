@@ -4,6 +4,7 @@ import { App } from "../layout/App.tsx";
 import { AppFallback } from "../layout/error-boundary/AppFallback.tsx";
 import { Changelog } from "../pages/Changelog.tsx";
 import { Collection } from "../pages/Collection.tsx";
+import { InstallApp } from "../pages/InstallApp";
 import { Settings } from "../pages/Settings.tsx";
 import { About } from "../pages/about/About.tsx";
 import { SignIn } from "../pages/account/SignIn.tsx";
@@ -63,6 +64,11 @@ export const routes: RouteObject[] = [
       {
         path: "about",
         element: <About />,
+        errorElement: <AppFallback />,
+      },
+      {
+        path: "install",
+        element: <InstallApp />,
         errorElement: <AppFallback />,
       },
       {
