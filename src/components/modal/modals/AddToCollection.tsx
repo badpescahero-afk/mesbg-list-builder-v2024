@@ -18,6 +18,7 @@ import { useScreenSize } from "../../../hooks/calculations-and-displays/useScree
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { Option } from "../../../types/mesbg-data.types.ts";
@@ -25,7 +26,7 @@ import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { CustomSwitch } from "../../atoms/switch/CustomSwitch.tsx";
 
 export const AddToCollection = () => {
-  const { t: translateUI } = useTranslation();
+  const { t: translateUI, language } = useTranslation();
 
   const {
     closeModal,
@@ -220,6 +221,9 @@ export const AddToCollection = () => {
                     {mountOptions.length > 1 ? (
                       <Autocomplete
                         options={mountOptions}
+                        getOptionLabel={(option: string) =>
+                          translateGameText(language, option)
+                        }
                         value={loadOut.mount}
                         fullWidth
                         onChange={(_, value: string | string[]) =>
@@ -273,6 +277,11 @@ export const AddToCollection = () => {
                     <Autocomplete
                       multiple={isHero}
                       options={loadoutOptions}
+                      getOptionLabel={(option: string) =>
+                        ["Generic", "None"].includes(option)
+                          ? translateUI(option)
+                          : translateGameText(language, option)
+                      }
                       value={loadOut.options}
                       disableClearable={!isHero}
                       disabled={loadoutOptions.length <= 2}

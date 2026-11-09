@@ -12,6 +12,10 @@ import Typography from "@mui/material/Typography";
 import { Fragment } from "react";
 import { keywords } from "../../../../assets/data.ts";
 import { Profile } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import { useUserPreferences } from "../../../../state/preference";
 import { Stats } from "./Stats.tsx";
 
@@ -26,7 +30,9 @@ const AdditionalText = ({ profile }: { profile: Profile }) => {
         <Typography sx={{ mb: 0.5 }} variant="body2">
           {profile.additional_text.map((text, index) => (
             <Typography sx={{ my: 0.5 }} key={index}>
-              <i>{text}</i>
+              <i>
+                <GameText text={text} />
+              </i>
             </Typography>
           ))}
         </Typography>
@@ -36,6 +42,7 @@ const AdditionalText = ({ profile }: { profile: Profile }) => {
 };
 
 const SpecialRules = ({ profile }: { profile: Profile }) => {
+  const { language } = useTranslation();
   const {
     preferences: { includePdfSpecialRuleDescriptions },
   } = useUserPreferences();
@@ -55,14 +62,23 @@ const SpecialRules = ({ profile }: { profile: Profile }) => {
     return (
       <>
         <Typography sx={{ mt: 0.5 }}>
-          <b>Special Rules</b> {specialRules.length === 0 && <i>None</i>}
+          <b>
+            <TranslatedText message="Special Rules" />
+          </b>{" "}
+          {specialRules.length === 0 && (
+            <i>
+              <TranslatedText message="None" />
+            </i>
+          )}
         </Typography>
         {specialRules.map((rule, index) => (
           <Box key={index} sx={{ my: 1, ml: 2 }}>
             <Typography>
-              <b>{rule.name}</b>
+              <b>
+                <GameText text={rule.name} />
+              </b>
               <br />
-              {rule.description}
+              <GameText text={rule.description || ""} />
             </Typography>
           </Box>
         ))}
@@ -72,8 +88,17 @@ const SpecialRules = ({ profile }: { profile: Profile }) => {
 
   return (
     <Typography sx={{ mt: 0.5 }}>
-      <b>Special Rules:</b> {specialRules.map((rule) => rule.name).join(", ")}{" "}
-      {specialRules.length === 0 && <i>None</i>}
+      <b>
+        <TranslatedText message="Special Rules:" />
+      </b>{" "}
+      {specialRules
+        .map((rule) => translateGameText(language, rule.name))
+        .join(", ")}{" "}
+      {specialRules.length === 0 && (
+        <i>
+          <TranslatedText message="None" />
+        </i>
+      )}
     </Typography>
   );
 };
@@ -84,7 +109,9 @@ const MagicalPowers = ({ profile }: { profile: Profile }) => {
       {profile.magic_powers && profile.magic_powers.length > 0 && (
         <>
           <Typography sx={{ mt: 0.5 }}>
-            <b>Magical powers:</b>
+            <b>
+              <TranslatedText message="Magical powers:" />
+            </b>
           </Typography>
           <TableContainer
             component="div"
@@ -93,8 +120,12 @@ const MagicalPowers = ({ profile }: { profile: Profile }) => {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell align="center">Range</TableCell>
+                  <TableCell>
+                    <TranslatedText message="Name" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <TranslatedText message="Range" />
+                  </TableCell>
                   <TableCell />
                 </TableRow>
               </TableHead>
@@ -103,7 +134,9 @@ const MagicalPowers = ({ profile }: { profile: Profile }) => {
               >
                 {profile.magic_powers.map((power, index) => (
                   <TableRow key={index}>
-                    <TableCell>{power.name}</TableCell>
+                    <TableCell>
+                      <GameText text={power.name} />
+                    </TableCell>
                     <TableCell align="center">{power.range}</TableCell>
                     <TableCell align="center">{power.cast}</TableCell>
                   </TableRow>
@@ -118,6 +151,7 @@ const MagicalPowers = ({ profile }: { profile: Profile }) => {
 };
 
 const HeroicActions = ({ profile }: { profile: Profile }) => {
+  const { language } = useTranslation();
   const {
     preferences: { includePdfHeroicActionDescriptions },
   } = useUserPreferences();
@@ -134,14 +168,18 @@ const HeroicActions = ({ profile }: { profile: Profile }) => {
     return (
       <>
         <Typography sx={{ mt: 0.5 }}>
-          <b>Heroic actions:</b>
+          <b>
+            <TranslatedText message="Heroic actions:" />
+          </b>
         </Typography>
         {heroicActions.map((rule, index) => (
           <Box key={index} sx={{ my: 1, ml: 2 }}>
             <Typography>
-              <b>{rule.name}</b>
+              <b>
+                <GameText text={rule.name} />
+              </b>
               <br />
-              {rule.description}
+              <GameText text={rule.description || ""} />
             </Typography>
           </Box>
         ))}
@@ -153,7 +191,12 @@ const HeroicActions = ({ profile }: { profile: Profile }) => {
     <>
       {profile.heroic_actions && profile.heroic_actions.length > 0 && (
         <Typography sx={{ mt: 0.5 }}>
-          <b>Heroic actions:</b> {profile.heroic_actions.join(", ")}{" "}
+          <b>
+            <TranslatedText message="Heroic actions:" />
+          </b>{" "}
+          {profile.heroic_actions
+            .map((action) => translateGameText(language, action))
+            .join(", ")}{" "}
         </Typography>
       )}
     </>
@@ -210,7 +253,9 @@ export const UnitProfileList = ({ units }: UnitListProps) => {
   } = useUserPreferences();
   return (
     <Box id="pdf-profiles" className={removePdfPageBreak ? "" : "page-break"}>
-      <Typography variant="h5">Profiles</Typography>
+      <Typography variant="h5">
+        <TranslatedText message="Profiles" />
+      </Typography>
       {units
         .filter((unit) => unit.type !== "Siege Equipment")
         .map((unit, index) => (

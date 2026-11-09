@@ -14,6 +14,7 @@ import {
   useState,
 } from "react";
 import { useAuth } from "../../firebase/FirebaseAuthContext";
+import { useTranslation } from "../../i18n/LanguageContext";
 import { TranslatedText } from "../../i18n/TranslatedText";
 import { Roster } from "../../types/roster";
 import { useApi } from "./useApi";
@@ -38,6 +39,7 @@ export const RosterCloudSyncProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const { updateRoster } = useApi();
   const previousRosterRef = useRef<Roster | null>(null);
@@ -149,7 +151,9 @@ export const RosterCloudSyncProvider = ({
           open={open}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           TransitionComponent={Slide}
-          message={`Syncing roster in ${Math.ceil(remaining / 1000)}s`}
+          message={t("Syncing roster in {{seconds}}s", {
+            seconds: Math.ceil(remaining / 1000),
+          })}
           action={
             <Button color="primary" size="small" onClick={handleClose}>
               <TranslatedText message="sync now!" />

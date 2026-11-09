@@ -84,7 +84,9 @@ export const SyncableSelectionTable = ({
                     onChange={() => toggleCheckbox(row, index)}
                   />
                 </TableCell>
-                <TableCell>{row.type}</TableCell>
+                <TableCell>
+                  <TranslatedText message={row.type} />
+                </TableCell>
                 <TableCell>{row.id}</TableCell>
               </TableRow>
             ))}

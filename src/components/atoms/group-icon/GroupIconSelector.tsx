@@ -48,7 +48,7 @@ export const GroupIconSelector = ({
           </ListItem>
         );
       }}
-      groupBy={(option) => option.type}
+      groupBy={(option) => translateUI(option.type)}
       value={selectedIcon}
       onChange={(_, newValue) => {
         setSelectedIcon(newValue);

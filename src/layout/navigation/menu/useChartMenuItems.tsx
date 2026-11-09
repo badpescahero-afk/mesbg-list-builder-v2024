@@ -10,6 +10,7 @@ export const useChartMenuItems = () => {
       ({
         icon: <></>,
         label: name,
+        translateLabel: true,
         action: () => {
           setCurrentModal(ModalTypes.CHART, {
             selectedChart: key,

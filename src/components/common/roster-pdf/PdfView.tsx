@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useProfiles } from "../../../hooks/profiles/useProfiles.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { RosterNotFound } from "../../../pages/not-found/RosterNotFound.tsx";
 import { RosterBreadcrumbs } from "../../../pages/roster/RosterBreadcrumbs.tsx";
 import { useUserPreferences } from "../../../state/preference";
@@ -29,6 +31,8 @@ export const PdfView = () => {
 };
 
 const PrintablePdf = () => {
+  const { t: translateUI } = useTranslation();
+
   const theme = useTheme();
   const themeContext = useThemeContext();
   const { preferences } = useUserPreferences();
@@ -44,11 +48,12 @@ const PrintablePdf = () => {
           {missingProfiles.length > 0 && (
             <CustomAlert
               severity="error"
-              title="Some selected units are missing profile data"
+              title={translateUI(
+                "Some selected units are missing profile data",
+              )}
             >
               <Typography>
-                Some of the units selected in your roster have no registered
-                profile data. If you see this message, please let us know via{" "}
+                <TranslatedText message="Some of the units selected in your roster have no registered profile data. If you see this message, please let us know via" />{" "}
                 <a
                   href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2018) - Bug/Correction"
                   style={{
@@ -63,7 +68,7 @@ const PrintablePdf = () => {
                 .
               </Typography>
               <Typography sx={{ mt: 1 }}>
-                The following units have no profile data:
+                <TranslatedText message="The following units have no profile data:" />
               </Typography>
               <Typography sx={{ mt: 1 }} variant="body2">
                 <i>{JSON.stringify(missingProfiles)}</i>
@@ -71,8 +76,7 @@ const PrintablePdf = () => {
             </CustomAlert>
           )}
           <CustomAlert severity="info" title="">
-            Below is a preview of the PDF. You can print it directly or save it
-            as a PDF.{" "}
+            <TranslatedText message="Below is a preview of the PDF. You can print it directly or save it as a PDF." />{" "}
             <a
               onClick={() => window.print()}
               href="#"
@@ -83,9 +87,9 @@ const PrintablePdf = () => {
                     : theme.palette.secondary.dark,
               }}
             >
-              Click here
+              <TranslatedText message="Click here" />
             </a>{" "}
-            to open printer options.
+            <TranslatedText message="to open printer options." />
           </CustomAlert>
         </Stack>
 

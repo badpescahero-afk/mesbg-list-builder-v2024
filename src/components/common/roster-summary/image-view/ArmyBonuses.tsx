@@ -4,11 +4,15 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { armyListData } from "../../../../assets/data.ts";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import { Roster } from "../../../../types/roster.ts";
 import { isMovieQuote } from "../../../../utils/string.ts";
 
 export const ArmyBonuses = ({ roster }: { roster: Roster }) => {
+  const { language } = useTranslation();
   const { getAdjustedMetaData } = useRosterInformation();
   const { tttSpecialUpgrades } = getAdjustedMetaData(roster);
   const armyListMetadata = armyListData[roster.armyList];
@@ -30,7 +34,9 @@ export const ArmyBonuses = ({ roster }: { roster: Roster }) => {
               &#9679;&nbsp;&nbsp;
               <Typography
                 component="span"
-                dangerouslySetInnerHTML={{ __html: rule.description }}
+                dangerouslySetInnerHTML={{
+                  __html: translateGameText(language, rule.description),
+                }}
               />
             </Typography>
           ))}
@@ -59,13 +65,15 @@ export const ArmyBonuses = ({ roster }: { roster: Roster }) => {
                   {isMovieQuote(rule.title) ? (
                     <Typography>
                       <b>
-                        <i>{rule.title}</i>
+                        <i>
+                          <GameText text={rule.title} />
+                        </i>
                       </b>
                     </Typography>
                   ) : (
                     <Typography>
                       <b>
-                        {rule.title}{" "}
+                        <GameText text={rule.title} />{" "}
                         {rule.title === "A Troll's Hoard" && (
                           <i>
                             ({tttSpecialUpgrades.length * 50}{" "}
@@ -76,7 +84,7 @@ export const ArmyBonuses = ({ roster }: { roster: Roster }) => {
                     </Typography>
                   )}
                   <Stack gap={1}>
-                    {rule.description
+                    {translateGameText(language, rule.description)
                       .split("\n")
                       .filter((line) => !!line)
                       .map((line, index) => (

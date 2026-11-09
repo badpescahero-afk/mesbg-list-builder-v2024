@@ -2,6 +2,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { FunctionComponent } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { translateGameText } from "../../../i18n/game-text";
 import { Option } from "../../../types/mesbg-data.types.ts";
 import { CustomSwitch } from "../switch/CustomSwitch.tsx";
 
@@ -20,6 +22,7 @@ export const OptionItem: FunctionComponent<OptionItemProps> = ({
   testId,
   testName,
 }) => {
+  const { language, t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -47,7 +50,7 @@ export const OptionItem: FunctionComponent<OptionItemProps> = ({
           sx={{ my: isMobile ? -0.5 : -2 }}
         />
       }
-      label={option.name + " (" + option.points + " points)"}
+      label={`${translateGameText(language, option.name)} (${option.points} ${t("points")})`}
     />
   );
 };

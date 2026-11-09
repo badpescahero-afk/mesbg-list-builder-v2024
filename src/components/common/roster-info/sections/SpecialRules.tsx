@@ -4,7 +4,10 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import armyListData from "../../../../assets/data/army_list_data.json";
 import { mesbgData } from "../../../../assets/data.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import { useRosterBuildingState } from "../../../../state/roster-building";
 import { ArmyListData } from "../../../../types/army-list-data.types.ts";
 import {
@@ -22,6 +25,7 @@ export const SpecialRules: FunctionComponent<
     size?: "dense" | "normal";
   }
 > = ({ roster, editable, size = "normal" }) => {
+  const { language } = useTranslation();
   const armyListMetadata = (armyListData as ArmyListData)[roster.armyList];
   const { updateRoster } = useRosterBuildingState();
 
@@ -109,7 +113,9 @@ export const SpecialRules: FunctionComponent<
                     />
                   )}
                   <b>
-                    <i>{rule.title}</i>
+                    <i>
+                      <GameText text={rule.title} />
+                    </i>
                   </b>
                 </Typography>
               ) : (
@@ -124,7 +130,7 @@ export const SpecialRules: FunctionComponent<
                     />
                   )}
                   <b>
-                    {rule.title}{" "}
+                    <GameText text={rule.title} />{" "}
                     {rule.title === "A Troll's Hoard" && (
                       <i>
                         ({trollUpgrades.length * 50}{" "}
@@ -135,12 +141,14 @@ export const SpecialRules: FunctionComponent<
                 </Typography>
               )}
               <Stack gap={1}>
-                {rule.description.split("\n").map((line, index) => (
-                  <Typography
-                    key={index}
-                    dangerouslySetInnerHTML={{ __html: line }}
-                  />
-                ))}
+                {translateGameText(language, rule.description)
+                  .split("\n")
+                  .map((line, index) => (
+                    <Typography
+                      key={index}
+                      dangerouslySetInnerHTML={{ __html: line }}
+                    />
+                  ))}
               </Stack>
             </Box>
           ))}

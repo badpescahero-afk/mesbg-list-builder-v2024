@@ -132,7 +132,7 @@ export const SyncProgress = ({ items }: SyncProgressProps) => {
                 <TableCell>
                   <Typography variant="body1">
                     <small>
-                      <i>{row.type}:</i>
+                      <i>{translateUI(row.type)}:</i>
                     </small>{" "}
                     {row.id}
                   </Typography>

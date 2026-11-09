@@ -11,6 +11,9 @@ import Typography from "@mui/material/Typography";
 import { Fragment } from "react";
 import { armyListData } from "../../../../assets/data.ts";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import { useUserPreferences } from "../../../../state/preference";
 import { useThemeContext } from "../../../../theme/ThemeContext.tsx";
 import {
@@ -20,11 +23,12 @@ import {
 } from "../../../../types/roster.ts";
 
 function UnitRow({ unit }: { unit: FreshUnit | SelectedUnit }) {
+  const { language } = useTranslation();
   if (!isSelectedUnit(unit)) {
     return (
       <TableRow>
         <TableCell size="small" colSpan={2}>
-          No Hero selected
+          <TranslatedText message="No Hero selected" />
         </TableCell>
       </TableRow>
     );
@@ -44,7 +48,7 @@ function UnitRow({ unit }: { unit: FreshUnit | SelectedUnit }) {
             {options
               ?.map(
                 ({ quantity, max, name }) =>
-                  `${max > 1 ? `${quantity} ` : ""}${name}`,
+                  `${max > 1 ? `${quantity} ` : ""}${translateGameText(language, name)}`,
               )
               ?.join(", ")}
             )
@@ -52,7 +56,7 @@ function UnitRow({ unit }: { unit: FreshUnit | SelectedUnit }) {
         )}
       </TableCell>
       <TableCell size="small" align="right">
-        {unit.pointsTotal} pts.
+        {unit.pointsTotal} <TranslatedText message="pts." />
       </TableCell>
     </TableRow>
   );
@@ -79,7 +83,7 @@ export const ArmyComposition = ({ noCaption }: { noCaption?: boolean }) => {
       {noCaption !== true && (
         <>
           <Typography variant="h5" sx={{ mb: 2 }}>
-            Army Composition
+            <TranslatedText message="Army Composition" />
           </Typography>
           <Stack
             direction="row"
@@ -88,16 +92,17 @@ export const ArmyComposition = ({ noCaption }: { noCaption?: boolean }) => {
             justifyContent="space-between"
           >
             <Typography>
-              Points: <b>{points}</b>
+              <TranslatedText message="Points:" /> <b>{points}</b>
             </Typography>
             <Typography>
-              Units: <b>{units}</b>
+              <TranslatedText message="Units:" /> <b>{units}</b>
             </Typography>
             <Typography>
-              Bows: <b>{bows}</b>
+              <TranslatedText message="Bows:" /> <b>{bows}</b>
             </Typography>{" "}
             <Typography>
-              Throwing weapons: <b>{throwingWeapons}</b>
+              <TranslatedText message="Throwing weapons:" />{" "}
+              <b>{throwingWeapons}</b>
             </Typography>
           </Stack>{" "}
           <Stack
@@ -107,20 +112,23 @@ export const ArmyComposition = ({ noCaption }: { noCaption?: boolean }) => {
             justifyContent="space-around"
           >
             <Typography>
-              Might / Will / Fate:{" "}
+              <TranslatedText message="Might / Will / Fate:" />{" "}
               <b>
                 {might} / {will} / {fate}
               </b>
             </Typography>
             <Typography>
-              Break Point:{" "}
+              <TranslatedText message="Break Point:" />{" "}
               <b>
                 {units > 0 ? Math.floor(units * (break_point ?? 0.5)) + 1 : 0}{" "}
-                dead
+                <TranslatedText message="dead" />
               </b>
             </Typography>
             <Typography>
-              Quartered: <b>{Math.floor(0.25 * units)} alive</b>
+              <TranslatedText message="Quartered:" />{" "}
+              <b>
+                {Math.floor(0.25 * units)} <TranslatedText message="alive" />
+              </b>
             </Typography>
           </Stack>
         </>
@@ -139,7 +147,7 @@ export const ArmyComposition = ({ noCaption }: { noCaption?: boolean }) => {
                       backgroundColor: mode === "dark" ? "#3F3F3F" : "#F3F3F3",
                     }}
                   >
-                    Warband {index + 1}
+                    <TranslatedText message="Warband" /> {index + 1}
                   </TableCell>
                   <TableCell
                     size="small"
@@ -153,7 +161,7 @@ export const ArmyComposition = ({ noCaption }: { noCaption?: boolean }) => {
                       .filter(isSelectedUnit)
                       .map((unit) => unit.pointsTotal)
                       .reduce((a, b) => a + b, 0)}{" "}
-                    pts.
+                    <TranslatedText message="pts." />
                   </TableCell>
                 </TableRow>
                 {warband.map((unit, index) => (

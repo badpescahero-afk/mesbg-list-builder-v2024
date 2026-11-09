@@ -2,12 +2,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { armyListData } from "../../../../assets/data.ts";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { translateGameText } from "../../../../i18n/game-text";
 import { RosterInformationProps } from "../RosterInformation.tsx";
 import { RosterInformationSection } from "../RosterInformationSection.tsx";
 
 export const AdditionalRules: FunctionComponent<
   Pick<RosterInformationProps, "roster"> & { size?: "dense" | "normal" }
 > = ({ roster, size = "normal" }) => {
+  const { language } = useTranslation();
   const armyListMetadata = armyListData[roster.armyList];
 
   if (!armyListMetadata || armyListMetadata.additional_rules.length === 0)
@@ -24,7 +27,9 @@ export const AdditionalRules: FunctionComponent<
           >
             <Typography
               component="span"
-              dangerouslySetInnerHTML={{ __html: rule.description }}
+              dangerouslySetInnerHTML={{
+                __html: translateGameText(language, rule.description),
+              }}
             />
           </Typography>
         ))}

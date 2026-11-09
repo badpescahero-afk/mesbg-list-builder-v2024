@@ -11,7 +11,9 @@ import { useMwfMutations } from "../../../hooks/calculations-and-displays/useMwf
 import { useOptionDependencies } from "../../../hooks/calculations-and-displays/useOptionDependencies.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { useUserPreferences } from "../../../state/preference";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { Option } from "../../../types/mesbg-data.types.ts";
@@ -55,6 +57,7 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
   remove,
   collapsed,
 }) => {
+  const { language } = useTranslation();
   const { mode } = useThemeContext();
   const calculator = useCalculator();
   const { checkDependency } = useOptionDependencies(warbandId);
@@ -73,7 +76,7 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
   const selectedOptions = unit.options
     .filter((option) => option.included !== true)
     .filter((option) => option.quantity > 0)
-    .map((option) => option.name)
+    .map((option) => translateGameText(language, option.name))
     .join(", ")
     .replace(/,(?=[^,]*$)/, " &");
 

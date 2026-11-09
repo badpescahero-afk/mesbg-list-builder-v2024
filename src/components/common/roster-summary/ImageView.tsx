@@ -119,8 +119,7 @@ export const ImageView = forwardRef<ImageViewViewHandlers, ImageViewViewProps>(
                       name={unit.name}
                       options={unit.options
                         .filter((option) => option.quantity > 0)
-                        .map((option) => option.name)
-                        .join(", ")}
+                        .map((option) => option.name)}
                       quantity={unit.quantity}
                       points={unit.pointsTotal}
                       unique={unit.unique}

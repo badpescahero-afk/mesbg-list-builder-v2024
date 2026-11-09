@@ -6,6 +6,10 @@ import keywords from "../../../../assets/data/keywords.json";
 import { armyListData } from "../../../../assets/data.ts";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { Profile } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import { useUserPreferences } from "../../../../state/preference";
 import { isMovieQuote } from "../../../../utils/string.ts";
 
@@ -73,6 +77,7 @@ function mapAopRule(rule: {
 }
 
 export const SpecialRuleList = ({ profiles }: SpecialRuleListProps) => {
+  const { language } = useTranslation();
   const {
     preferences: { removePdfPageBreak, hidePdfSpecialRules, hidePdfArmyRules },
   } = useUserPreferences();
@@ -100,7 +105,7 @@ export const SpecialRuleList = ({ profiles }: SpecialRuleListProps) => {
         {!hidePdfArmyRules && (
           <Box sx={{ mb: 2 }}>
             <Typography variant="h5" sx={{ mb: 1 }}>
-              Army special rules
+              <TranslatedText message="Army special rules" />
             </Typography>
             <Stack gap={1}>
               {armyListRules.special_rules
@@ -125,23 +130,29 @@ export const SpecialRuleList = ({ profiles }: SpecialRuleListProps) => {
                         component={rule.troll_purchase === true ? "li" : "p"}
                       >
                         <b>
-                          <i>{rule.title}</i>
+                          <i>
+                            <GameText text={rule.title} />
+                          </i>
                         </b>
                       </Typography>
                     ) : (
                       <Typography
                         component={rule.troll_purchase === true ? "li" : "p"}
                       >
-                        <b>{rule.title}</b>
+                        <b>
+                          <GameText text={rule.title} />
+                        </b>
                       </Typography>
                     )}
                     <Stack gap={0.5}>
-                      {rule.description.split("\n").map((paragraph, index) => (
-                        <Typography
-                          key={index}
-                          dangerouslySetInnerHTML={{ __html: paragraph }}
-                        />
-                      ))}
+                      {translateGameText(language, rule.description)
+                        .split("\n")
+                        .map((paragraph, index) => (
+                          <Typography
+                            key={index}
+                            dangerouslySetInnerHTML={{ __html: paragraph }}
+                          />
+                        ))}
                     </Stack>
                   </Box>
                 ))}
@@ -151,19 +162,29 @@ export const SpecialRuleList = ({ profiles }: SpecialRuleListProps) => {
 
         {!hidePdfSpecialRules && (
           <Box>
-            <Typography variant="h5">Special rules</Typography>
+            <Typography variant="h5">
+              <TranslatedText message="Special rules" />
+            </Typography>
             <Stack gap={1} sx={{ py: 1 }}>
               {specialRules.map((rule) => (
                 <Box key={rule.name} sx={{ py: 0.8, pageBreakInside: "avoid" }}>
                   <Typography variant="body1">
                     <b>
-                      {rule.name} {rule.type && <>({rule.type})</>}
+                      <GameText text={rule.name} />{" "}
+                      {rule.type && (
+                        <>
+                          (<TranslatedText message={rule.type} />)
+                        </>
+                      )}
                     </b>
                   </Typography>
                   <Typography
                     variant="body2"
                     dangerouslySetInnerHTML={{
-                      __html: rule.description?.replaceAll("\n\n", "<br />"),
+                      __html: translateGameText(
+                        language,
+                        rule.description || "",
+                      ).replaceAll("\n\n", "<br />"),
                     }}
                   />
                 </Box>

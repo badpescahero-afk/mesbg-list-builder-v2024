@@ -18,7 +18,9 @@ import { GiQueenCrown } from "react-icons/gi";
 
 import { armyListData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { useAppState } from "../../../state/app";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import {
@@ -43,13 +45,16 @@ const UnitRow = ({
   rowStyle: SxProps;
   forceQuantity?: boolean;
 }) => {
+  const { language, t } = useTranslation();
   return (
     <TableRow sx={rowStyle}>
       <TableCell>
         {(!unit.unit_type.includes("Hero") || forceQuantity) && (
           <>{unit.quantity}x </>
         )}
-        {unit.name}{" "}
+        {unit.name === "-- NO HERO SELECTED --"
+          ? t("No Hero selected")
+          : unit.name}{" "}
         {leader && (
           <Typography component="span" variant="body2">
             - <GiQueenCrown /> <TranslatedText message="General" />
@@ -61,7 +66,7 @@ const UnitRow = ({
           .filter((option) => option.quantity > 0)
           .map(
             ({ quantity, max, name }) =>
-              `${max > 1 ? `${quantity} ` : ""}${name}`,
+              `${max > 1 ? `${quantity} ` : ""}${translateGameText(language, name)}`,
           )
           .join(", ")}
       </TableCell>

@@ -4,6 +4,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent, useEffect, useState } from "react";
 import data from "../../../assets/data/mesbg_data.json";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { ArmyType } from "../../../types/mesbg-data.types.ts";
 import { FactionIcon } from "../faction-icon/FactionIcon.tsx";
 
@@ -49,6 +50,7 @@ export type ArmyPickerProps = {
 };
 
 export const ArmyPicker: FunctionComponent<ArmyPickerProps> = (props) => {
+  const { t } = useTranslation();
   const makeOptions = (type: ArmyType): Option[] =>
     [...armiesByType[type]].map(({ army, faction }) => ({
       army,
@@ -108,7 +110,7 @@ export const ArmyPicker: FunctionComponent<ArmyPickerProps> = (props) => {
           </ListItem>
         );
       }}
-      groupBy={(option) => option.type}
+      groupBy={(option) => t(option.type)}
       value={value}
       onChange={(_, newValue) => {
         onOptionSelectionChanged(newValue);

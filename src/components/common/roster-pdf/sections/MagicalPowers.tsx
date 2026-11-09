@@ -7,6 +7,10 @@ import {
   MagicalPower as Caster,
   Profile,
 } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import { useUserPreferences } from "../../../../state/preference";
 
 interface MagicalPowerListProps {
@@ -37,6 +41,7 @@ function mergeCasters(powers: MagicalPower[]): MagicalPower[] {
 }
 
 export const MagicalPowerList = ({ profiles }: MagicalPowerListProps) => {
+  const { language, t } = useTranslation();
   const {
     preferences: { removePdfPageBreak },
   } = useUserPreferences();
@@ -61,17 +66,21 @@ export const MagicalPowerList = ({ profiles }: MagicalPowerListProps) => {
     <>
       {magicalPowers.length > 0 && (
         <Box id="pdf-magic" className={removePdfPageBreak ? "" : "page-break"}>
-          <Typography variant="h5">Magical Powers</Typography>
+          <Typography variant="h5">
+            <TranslatedText message="Magical Powers" />
+          </Typography>
           <Stack gap={1} sx={{ py: 1 }}>
             {magicalPowers.map((rule) => (
               <Box key={rule.name} sx={{ pageBreakInside: "avoid" }}>
                 <Typography variant="h6">
-                  <b>{rule.name}</b>
+                  <b>
+                    <GameText text={rule.name} />
+                  </b>
                 </Typography>
                 <Typography
                   dangerouslySetInnerHTML={{
-                    __html: rule.description
-                      ?.replaceAll("\n\n", "<br />")
+                    __html: translateGameText(language, rule.description || "")
+                      .replaceAll("\n\n", "<br />")
                       ?.replaceAll(
                         "<b>",
                         "<h4 style='margin-top: 8px; display: inline-block'>",
@@ -80,12 +89,14 @@ export const MagicalPowerList = ({ profiles }: MagicalPowerListProps) => {
                   }}
                 />
                 <Typography variant="body2">
-                  <b>Cast by: </b>
+                  <b>
+                    <TranslatedText message="Cast by:" />{" "}
+                  </b>
                   <i>
                     {rule.casters
                       .map(
                         (caster) =>
-                          `${caster.name} (${caster.range} at ${caster.cast})`,
+                          `${caster.name} (${t("{{range}} at {{cast}}", { range: caster.range, cast: caster.cast })})`,
                       )
                       .join(" | ")}
                   </i>

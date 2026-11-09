@@ -11,9 +11,17 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Fragment, FunctionComponent, SyntheticEvent, useState } from "react";
+import {
+  Fragment,
+  FunctionComponent,
+  SyntheticEvent,
+  useState,
+  useMemo,
+} from "react";
+import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { useAppState } from "../../../state/app";
 import { useUserPreferences } from "../../../state/preference";
 
@@ -32,6 +40,7 @@ const Keyword = ({
   type: string;
   expanded?: boolean;
 }) => {
+  const { t, language } = useTranslation();
   const { preferences } = useUserPreferences();
   const [expanded, setExpanded] = useState(expandedProp || false);
 
@@ -78,12 +87,15 @@ const Keyword = ({
                 preferences.colorCodedRules && used ? "underline" : "normal",
             }}
           >
-            <b>{name}</b> {active_passive ? <i>({active_passive})</i> : ""}
+            <b>
+              <GameText text={name} />
+            </b>{" "}
+            {active_passive ? <i>({t(active_passive)})</i> : ""}
           </Typography>
           {chipConfig && (
             <Chip
               size="small"
-              label={chipConfig.label}
+              label={t(chipConfig.label)}
               color={chipConfig.color}
             />
           )}
@@ -93,7 +105,10 @@ const Keyword = ({
         <Typography>
           <span
             dangerouslySetInnerHTML={{
-              __html: description.replaceAll("\n", "<br />"),
+              __html: translateGameText(language, description).replaceAll(
+                "\n",
+                "<br />",
+              ),
             }}
           />
         </Typography>
@@ -117,20 +132,19 @@ export const KeywordSearch: FunctionComponent<{
   const [searchTerm, setSearchTerm] = useState(
     openSidebarContext?.searchKeyword || "",
   );
-  const [keywordList, setKeywordList] = useState(
-    keywords.filter((kw) =>
-      kw.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    ),
-  );
   const { preferences } = useUserPreferences();
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    const newKeywordList = keywords.filter((kw) =>
-      kw.name.toLowerCase().includes(e.target.value.trim().toLowerCase()),
-    );
-    setKeywordList(newKeywordList);
-  };
+  const keywordList = useMemo(
+    () =>
+      keywords.filter((kw) => {
+        const query = searchTerm.trim().toLowerCase();
+        return (
+          kw.name.toLowerCase().includes(query) ||
+          translateGameText("es", kw.name).toLowerCase().includes(query)
+        );
+      }),
+    [keywords, searchTerm],
+  );
+  const handleSearch = (e) => setSearchTerm(e.target.value);
 
   return (
     <Fragment>

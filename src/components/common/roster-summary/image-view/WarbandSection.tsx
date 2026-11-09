@@ -3,7 +3,9 @@ import { Stack } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { heroConstraintData } from "../../../../assets/data.ts";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import {
   isSelectedUnit,
   isSiegeEquipment,
@@ -22,6 +24,7 @@ export const WarbandSection = ({
   leader?: string;
   isCustomRoster?: boolean;
 }) => {
+  const { language } = useTranslation();
   const hero = warband.hero;
   const heroOptions =
     (!!hero &&
@@ -35,6 +38,9 @@ export const WarbandSection = ({
       .filter(isSelectedUnit)
       .map((unit) => ({
         name: unit.name,
+        optionNames: unit.options
+          .filter((option) => option.quantity > 0)
+          .map((option) => option.name),
         options: unit.options
           .filter((option) => option.quantity > 0)
           .map((option) => option.name)
@@ -63,6 +69,7 @@ export const WarbandSection = ({
           [key: string]: {
             name: string;
             options: string;
+            optionNames: string[];
             quantity: number;
             points: number;
             unique: boolean;
@@ -121,7 +128,11 @@ export const WarbandSection = ({
             <span style={{ whiteSpace: "wrap" }}>
               {heroOptions && (
                 <>
-                  <TranslatedText message="with" /> {heroOptions}
+                  <TranslatedText message="with" />{" "}
+                  {hero.options
+                    .filter((option) => option.quantity > 0)
+                    .map((option) => translateGameText(language, option.name))
+                    .join(", ")}
                 </>
               )}
             </span>
@@ -134,11 +145,11 @@ export const WarbandSection = ({
         </Stack>
 
         {units.map(
-          ({ name, options, quantity, points, unique, legacy }, index) => (
+          ({ name, optionNames, quantity, points, unique, legacy }, index) => (
             <UnitRow
               key={index}
               name={name}
-              options={options}
+              options={optionNames}
               quantity={quantity}
               points={points}
               unique={unique}

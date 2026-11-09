@@ -1,6 +1,8 @@
 import { forwardRef, useImperativeHandle } from "react";
 import { armyListData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { translateGameText } from "../../../i18n/game-text";
 import {
   FreshUnit,
   isSelectedUnit,
@@ -22,6 +24,7 @@ export const RosterTextView = forwardRef<
   RosterTextViewHandlers,
   RosterTextViewProps
 >(({ roster, showArmyBonus, showUnitTotals }, ref) => {
+  const { t, language } = useTranslation();
   const { getAdjustedMetaData } = useRosterInformation();
   const { additional_rules, special_rules, break_point } =
     armyListData[roster.armyList];
@@ -30,13 +33,13 @@ export const RosterTextView = forwardRef<
     if (!isSelectedUnit(hero)) return "";
 
     const name = isLeader
-      ? `  ${hero.name} *GENERAL* (${hero.pointsTotal} points)`
-      : `  ${hero.name} (${hero.pointsTotal} points)`;
+      ? `  ${hero.name} *GENERAL* (${hero.pointsTotal} ${t("points")})`
+      : `  ${hero.name} (${hero.pointsTotal} ${t("points")})`;
 
     const options = hero.options
       .map((option) => {
         if (!option.quantity || option.quantity === 0) return null;
-        return `    ~ ${option.max > 1 ? option.quantity + " " + option.name : option.name}  `;
+        return `    ~ ${option.max > 1 ? option.quantity + " " + translateGameText(language, option.name) : translateGameText(language, option.name)}  `;
       })
       .filter((o) => !!o);
 
@@ -48,11 +51,11 @@ export const RosterTextView = forwardRef<
     const lines = units
       .map((unit) => {
         const quantity = !unit.unique ? `${unit.quantity}x ` : ``;
-        const name = `  ${quantity}${unit.name} (${unit.pointsTotal} points)`;
+        const name = `  ${quantity}${unit.name} (${unit.pointsTotal} ${t("points")})`;
         const options = unit.options
           .map((option) => {
             if (!option.quantity || option.quantity === 0) return null;
-            return `    ~ ${option.max > 1 ? option.quantity + " " + option.name : option.name}  `;
+            return `    ~ ${option.max > 1 ? option.quantity + " " + translateGameText(language, option.name) : translateGameText(language, option.name)}  `;
           })
           .filter((o) => !!o);
         if (options.length === 0) return `${name}  `;
@@ -65,15 +68,18 @@ export const RosterTextView = forwardRef<
   const armyBonus = () => {
     if (!showArmyBonus) return "";
     const header = `  
-      ===== Army Bonuses =====
+      ===== ${t("Army Bonuses")} =====
 
       `;
 
     const additionalRules = additional_rules
-      ?.map((rule) => `~ ${rule.description}\n`)
+      ?.map((rule) => `~ ${translateGameText(language, rule.description)}\n`)
       ?.join("  ");
     const specialRules = special_rules
-      ?.map((rule) => `*${rule.title}*\n${rule.description}\n`)
+      ?.map(
+        (rule) =>
+          `*${translateGameText(language, rule.title)}*\n${translateGameText(language, rule.description)}\n`,
+      )
       ?.join("  \n");
 
     return (
@@ -86,7 +92,7 @@ export const RosterTextView = forwardRef<
   const admission = () => {
     return `
     ----------------------------------------
-    Created with MESBG List Builder 
+    ${t("Created with MESBG List Builder")}
     https://mesbg-list-builder.com/
     `;
   };
@@ -98,13 +104,13 @@ export const RosterTextView = forwardRef<
     const unitSections = showUnitTotals
       ? `    
         ----------------------------------------\n        
-        ${unitsToText(getSumOfUnits(roster))}  
+        ${unitsToText(getSumOfUnits(roster))}
         `
       : roster.warbands
           .map((warband) => {
             return `    
               ----------------------------------------
-              Warband ${warband.meta.num} (${warband.meta.points} points)    
+              ${t("Warband")} ${warband.meta.num} (${warband.meta.points} ${t("points")})
               ${heroToText(warband.hero, warband.id === leader)}
               ${unitsToText(warband.units.filter(isSelectedUnit))}`;
           })
@@ -113,8 +119,8 @@ export const RosterTextView = forwardRef<
     return `
     ${roster.armyList}
     ----------------------------------------
-    | Points: ${points} | Units: ${units} | Broken: ${units > 0 ? Math.floor(units * (break_point ?? 0.5)) + 1 : 0} dead | Quartered: ${Math.floor(0.25 * units)} left |  
-    | Bows: ${bows} | Throwing weapons: ${throwingWeapons} | Might/Will/Fate: ${might} / ${will} / ${fate} |
+    | ${t("Points:")} ${points} | ${t("Units:")} ${units} | ${t("Broken:")} ${units > 0 ? Math.floor(units * (break_point ?? 0.5)) + 1 : 0} ${t("dead")} | ${t("Quartered:")} ${Math.floor(0.25 * units)} ${t("left")} |
+    | ${t("Bows:")} ${bows} | ${t("Throwing weapons:")} ${throwingWeapons} | Might/Will/Fate: ${might} / ${will} / ${fate} |
     ${unitSections}${armyBonus()}${admission()}
     `;
   };

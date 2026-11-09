@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { BsFillPersonVcardFill } from "react-icons/bs";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
@@ -35,6 +36,7 @@ export function UnitSelectionButton({
   unit,
   onClick,
 }: UnitSelectionButtonProps) {
+  const { t } = useTranslation();
   const { palette } = useTheme();
   const { setCurrentModal } = useAppState();
   const { inventory } = useCollectionState();
@@ -97,7 +99,7 @@ export function UnitSelectionButton({
                 <Box>
                   {unit.unit_type !== "Warrior" && (
                     <Chip
-                      label={unit.unit_type}
+                      label={t(unit.unit_type)}
                       size="small"
                       sx={{
                         backgroundColor: "black",
@@ -151,7 +153,9 @@ export function UnitSelectionButton({
                     {totalCollection === 0 ? (
                       <TranslatedText message="Not in collection" />
                     ) : (
-                      `Collection: ${totalCollection - totalSelected} left`
+                      t("Collection: {{count}} left", {
+                        count: totalCollection - totalSelected,
+                      })
                     )}
                   </Typography>
                 </Stack>

@@ -59,7 +59,7 @@ try {
     args: ["--no-sandbox"],
   });
   const page = await browser.newPage({
-    viewport: { width: 1440, height: 1000 },
+    viewport: { width: 1920, height: 1080 },
   });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
@@ -88,6 +88,18 @@ try {
     .getByText("Mi ejército de prueba", { exact: true })
     .first()
     .waitFor();
+  // Select a real hero so export/import checks exercise non-empty game data.
+  const heroPlaceholder = page.locator('[data-test-id="select-unit--w1-i0"]');
+  if (await heroPlaceholder.count()) {
+    await heroPlaceholder.click();
+    await page
+      .locator(
+        ".MuiDrawer-root.MuiModal-root .MuiDrawer-paper .MuiPaper-elevation3",
+      )
+      .first()
+      .click();
+    await page.locator('[data-test-id="unit-card--w1-i0"]').waitFor();
+  }
   // User names matching translation keys must remain literal.
   await page.goto("http://127.0.0.1:5197/rosters");
   await page
@@ -159,8 +171,122 @@ try {
   }
   await page.getByRole("table").waitFor();
   assert.ok((await page.getByRole("row").count()) > 1);
+  // Spanish UI deliberately keeps the original stat headers and values.
+  for (const header of ["Mv / Range", "Fv", "Sv", "S", "D", "A", "C", "I"]) {
+    await page
+      .getByRole("columnheader", { name: header, exact: true })
+      .waitFor();
+  }
+  const statsBefore = (
+    await page.getByRole("row").nth(1).locator("td").allTextContents()
+  ).slice(4);
+  await switchLanguage("Idioma", "English");
+  await page
+    .getByRole("heading", { name: "Profile Database", exact: true })
+    .waitFor();
+  assert.deepEqual(
+    (await page.getByRole("row").nth(1).locator("td").allTextContents()).slice(
+      4,
+    ),
+    statsBefore,
+  );
+  await switchLanguage("Language", "Español");
+  await page
+    .getByRole("heading", { name: "Base de datos de perfiles", exact: true })
+    .waitFor();
+  console.log(
+    "PASS: original stat headers and values remain unchanged in both languages",
+  );
+
+  // Common rules are translated in the drawer and searchable in both languages.
+  const originalRules = JSON.parse(
+    readFileSync("src/assets/data/keywords.json", "utf8"),
+  );
+  const spanishRules = JSON.parse(
+    readFileSync("src/i18n/content/keywords.es.json", "utf8"),
+  );
+  const march = originalRules.find((rule) => rule.name === "Heroic March");
+  await page.getByText("Reglas especiales y magia", { exact: true }).click();
+  let ruleDrawer = page.locator(
+    ".MuiDrawer-root.MuiModal-root .MuiDrawer-paper",
+  );
+  await ruleDrawer.getByPlaceholder("Buscar...").fill("Marcha heroica");
+  await ruleDrawer.getByText("Marcha heroica", { exact: true }).waitFor();
+  const spanishMarchButton = ruleDrawer.getByRole("button", {
+    name: /^Marcha heroica/,
+  });
+  if ((await spanishMarchButton.getAttribute("aria-expanded")) === "false")
+    await spanishMarchButton.click();
+  await ruleDrawer
+    .locator(".MuiAccordionDetails-root")
+    .getByText(spanishRules[march.description].split("\n")[0], { exact: false })
+    .waitFor();
+  await ruleDrawer.getByPlaceholder("Buscar...").fill("Heroic March");
+  await ruleDrawer.getByText("Marcha heroica", { exact: true }).waitFor();
+  await ruleDrawer.locator('button:has([data-testid="CloseIcon"])').click();
+  await switchLanguage("Idioma", "English");
+  await page.getByText("Special rules & Magic", { exact: true }).click();
+  ruleDrawer = page.locator(".MuiDrawer-root.MuiModal-root .MuiDrawer-paper");
+  await ruleDrawer.getByPlaceholder("Search...").fill("Marcha heroica");
+  await ruleDrawer.getByText("Heroic March", { exact: true }).waitFor();
+  const englishMarchButton = ruleDrawer.getByRole("button", {
+    name: /^Heroic March/,
+  });
+  if ((await englishMarchButton.getAttribute("aria-expanded")) === "false")
+    await englishMarchButton.click();
+  await ruleDrawer
+    .locator(".MuiAccordionDetails-root")
+    .getByText(march.description.split("\n")[0], { exact: false })
+    .waitFor();
+  await ruleDrawer.locator('button:has([data-testid="CloseIcon"])').click();
+  await switchLanguage("Language", "Español");
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("mlb-rosters")),
+    roster,
+  );
+  console.log(
+    "PASS: Spanish/English rule descriptions and bilingual search preserve roster data",
+  );
+
   // Export JSON uses original keys, model IDs and army names in Spanish UI.
   const savedRoster = JSON.parse(roster).state.rosters[0];
+  assert.ok(
+    savedRoster.metadata.units > 0,
+    "Round-trip must include selected models",
+  );
+  assert.ok(
+    savedRoster.metadata.points > 0,
+    "Round-trip must include non-zero points",
+  );
+  const armyRules = JSON.parse(
+    readFileSync("src/assets/data/army_list_data.json", "utf8"),
+  )[savedRoster.armyList];
+  const armySpanish = JSON.parse(
+    readFileSync("src/i18n/content/armies.es.json", "utf8"),
+  );
+  await page.goto(
+    `http://127.0.0.1:5197/roster/${savedRoster.id}/pdf-printable`,
+  );
+  await page.locator("#pdf-army").waitFor();
+  if (armyRules.special_rules.length) {
+    await page
+      .locator("#pdf-rules")
+      .getByText(armySpanish[armyRules.special_rules[0].title], { exact: true })
+      .waitFor();
+  }
+  await page
+    .locator("#pdf-profiles")
+    .getByText(savedRoster.warbands[0].hero.name, { exact: true })
+    .first()
+    .waitFor();
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("mlb-rosters")),
+    roster,
+  );
+  console.log(
+    "PASS: translated PDF army rules and canonical profile names preserve the populated roster",
+  );
+
   await page.goto("http://127.0.0.1:5197/rosters");
   await page.evaluate(() => {
     Object.defineProperty(navigator, "clipboard", {

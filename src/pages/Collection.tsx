@@ -34,6 +34,7 @@ import { ModalTypes } from "../components/modal/modals.tsx";
 import { useApi } from "../hooks/cloud-sync/useApi.ts";
 import { useTranslation } from "../i18n/LanguageContext";
 import { TranslatedText } from "../i18n/TranslatedText";
+import { translateGameText } from "../i18n/game-text";
 import { useAppState } from "../state/app";
 import { useCollectionState } from "../state/collection";
 import { useUserPreferences } from "../state/preference";
@@ -42,7 +43,11 @@ import { rows as databaseRows } from "./database/data.ts";
 import { COMPOSED_UNIT_MAP } from "./database/utils/special-rows.ts";
 
 export const Collection = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const displayLoadout = (value: string) =>
+    ["Generic", "None"].includes(value)
+      ? t(value)
+      : translateGameText(language, value);
   const { palette } = useTheme();
   const { setCurrentModal } = useAppState();
   const { inventory, deleteEntry } = useCollectionState();
@@ -201,10 +206,12 @@ export const Collection = () => {
                         <Typography key={itemIndex}>
                           {item.amount}x{" "}
                           {typeof item.options === "string"
-                            ? item.options
-                            : item.options.join(", ")}
+                            ? displayLoadout(item.options)
+                            : item.options.map(displayLoadout).join(", ")}
                           {item.mount
-                            ? t(" on {{mount}}", { mount: item.mount })
+                            ? t(" on {{mount}}", {
+                                mount: translateGameText(language, item.mount),
+                              })
                             : ""}
                         </Typography>
                       ))}

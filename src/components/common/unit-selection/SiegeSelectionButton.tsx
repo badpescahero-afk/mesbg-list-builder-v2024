@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
+import { GameText } from "../../../i18n/GameText";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { SiegeEquipment } from "../../../types/mesbg-data.types.ts";
 import { UnitProfilePicture } from "../../atoms/unit-profile/UnitProfilePicture.tsx";
@@ -18,6 +20,7 @@ export function SiegeSelectionButton({
   showRole = false,
   onClick,
 }: UnitSelectionButtonProps) {
+  const { t } = useTranslation();
   const { palette } = useTheme();
 
   return (
@@ -42,7 +45,8 @@ export function SiegeSelectionButton({
             <Box flexGrow={1}>
               <Typography sx={{ pl: 0.5 }} variant="body1">
                 <strong>
-                  {equipment.name} {showRole && `(${equipment.siege_role})`}
+                  <GameText text={equipment.name} />{" "}
+                  {showRole && `(${t(equipment.siege_role)})`}
                 </strong>
                 <br />
                 <TranslatedText message="Points:" /> {equipment.base_points}

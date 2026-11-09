@@ -3,6 +3,10 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import keywords from "../../../../assets/data/keywords.json";
 import { Profile } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateGameText } from "../../../../i18n/game-text";
 import { useUserPreferences } from "../../../../state/preference";
 
 interface HeroicActionListProps {
@@ -27,6 +31,7 @@ function mapToHeroicAction(heroicActionName: string) {
 }
 
 export const HeroicActionList = ({ profiles }: HeroicActionListProps) => {
+  const { language } = useTranslation();
   const {
     preferences: { removePdfPageBreak },
   } = useUserPreferences();
@@ -42,17 +47,24 @@ export const HeroicActionList = ({ profiles }: HeroicActionListProps) => {
   return (
     <>
       <Box id="pdf-actions" className={removePdfPageBreak ? "" : "page-break"}>
-        <Typography variant="h5">Heroic Actions</Typography>
+        <Typography variant="h5">
+          <TranslatedText message="Heroic Actions" />
+        </Typography>
         <Stack gap={1} sx={{ py: 1 }}>
           {heroicActions.map((rule) => (
             <Box key={rule.name} sx={{ py: 0.8, pageBreakInside: "avoid" }}>
               <Typography variant="body1">
-                <b>{rule.name}</b>
+                <b>
+                  <GameText text={rule.name} />
+                </b>
               </Typography>
               <Typography
                 variant="body2"
                 dangerouslySetInnerHTML={{
-                  __html: rule.description?.replaceAll("\n", "<br />"),
+                  __html: translateGameText(
+                    language,
+                    rule.description || "",
+                  ).replaceAll("\n", "<br />"),
                 }}
               />
             </Box>

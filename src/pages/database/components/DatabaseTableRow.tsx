@@ -18,8 +18,10 @@ import { SquareIconButton } from "../../../components/atoms/icon-button/SquareIc
 import { DrawerTypes } from "../../../components/drawer/drawers.tsx";
 import { ModalTypes } from "../../../components/modal/modals.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
@@ -28,7 +30,7 @@ import { COMPOSED_UNIT_MAP } from "../utils/special-rows.ts";
 import { ExtraInfoRow } from "./ExtraInformationSection.tsx";
 
 export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
-  const { t: translateUI } = useTranslation();
+  const { t: translateUI, language } = useTranslation();
 
   const { palette } = useTheme();
   const { inventory } = useCollectionState();
@@ -192,7 +194,11 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
               </ExtraInfoRow>
               {row.profile.wargear.length > 0 && (
                 <ExtraInfoRow title={translateUI("Wargear")}>
-                  <Typography>{row.profile.wargear.join(", ")}</Typography>{" "}
+                  <Typography>
+                    {row.profile.wargear
+                      .map((item) => translateGameText(language, item))
+                      .join(", ")}
+                  </Typography>{" "}
                 </ExtraInfoRow>
               )}
 
@@ -217,7 +223,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                             });
                           }}
                         >
-                          {rule}
+                          <GameText text={rule} />
                         </Box>
                         {index < self.length - 1 ||
                           (row.profile.active_or_passive_rules.length > 0 &&
@@ -246,7 +252,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                               });
                             }}
                           >
-                            {rule.name}
+                            <GameText text={rule.name} />
                           </Box>
                           {index < self.length - 1 && ","}{" "}
                         </Fragment>
@@ -275,7 +281,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                             });
                           }}
                         >
-                          {power.name}
+                          <GameText text={power.name} />
                         </Box>
                         {index < self.length - 1 && ","}{" "}
                       </Fragment>
@@ -303,7 +309,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                             });
                           }}
                         >
-                          {action}
+                          <GameText text={action} />
                         </Box>
                         {index < self.length - 1 && ","}{" "}
                       </Fragment>
@@ -314,7 +320,11 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
               {row.options.length > 0 && (
                 <ExtraInfoRow title={translateUI("Possible options")}>
                   <Typography>
-                    &quot;{row.options.map((o) => o.name).join('", "')}&quot;
+                    &quot;
+                    {row.options
+                      .map((o) => translateGameText(language, o.name))
+                      .join('", "')}
+                    &quot;
                   </Typography>
                 </ExtraInfoRow>
               )}

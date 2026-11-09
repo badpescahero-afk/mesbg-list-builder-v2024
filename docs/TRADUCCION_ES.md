@@ -1,4 +1,4 @@
-# Interfaz español/inglés
+# Traducción español/inglés
 
 La aplicación inicia en español. El selector superior permite cambiar al inglés
 sin recargar. El idioma se guarda en `mesbg-ui-language`, separado de las listas,
@@ -12,6 +12,10 @@ pestañas. Si el almacenamiento está bloqueado, funciona en memoria.
 - `LanguageProvider` y `useTranslation`: idioma y traducción reactiva.
 - `TranslatedText`: traduce texto de interfaz sin añadir elementos HTML.
 - `LanguageSelector`: selector español/inglés.
+- `content/*.es.json`, `GameText` y `translateGameText`: reglas comunes, hechizos,
+  acciones heroicas, reglas de ejército, descripciones de perfiles, equipo y opciones.
+  Son catálogos separados de los datos originales; las claves son el texto fuente.
+- `warnings.es.ts`, `warnings.ts` y `WarningText`: avisos del constructor.
 - `ThemeContextProvider`: aplica también el idioma de los controles de Material UI.
 - Los textos con valores variables usan marcadores como `{{count}}` o `{{section}}`.
   Sus valores se insertan literalmente: no se interpretan como HTML ni se traducen
@@ -31,15 +35,21 @@ coinciden con una clave de traducción. Los valores internos `Good`, `Evil`, `Wo
 `Draw`, `Lost`, nombres de campos, rutas y parámetros de consulta se conservan.
 Por ejemplo, el historial muestra «Victoria», pero sigue guardando `Won`.
 
-Se conservan en su idioma original los nombres y contenidos de los datos de
-juego, las reglas y avisos derivados de esos datos, los ejemplos con sintaxis de
-consulta, el registro histórico de cambios y los diagnósticos técnicos externos.
-No se modifican las estadísticas, puntos, restricciones, cálculos, identificadores
-JSON ni los algoritmos de importación/exportación. Los nombres y perfiles de las
-miniaturas tampoco se traducen automáticamente.
+Las reglas y descripciones se traducen al mostrarlas: las 101 reglas comunes,
+hechizos y acciones heroicas, los textos de los 109 ejércitos, las habilidades y
+notas de todos los perfiles, el equipo, las opciones y los avisos del constructor.
+La búsqueda de reglas acepta el nombre español o inglés en ambos idiomas.
+La base de datos, los resúmenes de texto e imagen y la vista PDF usan esta capa.
+Las cartas siguen mostrando sus recursos originales.
 
-El sistema de cartas, sus archivos, diseño, rutas y lógica de descarga, y la vista
-PDF permanecen intactos. Las cartas españolas aprobadas se integrarán en una etapa
+Se conservan los nombres canónicos de miniaturas, ejércitos y mejoras para poder
+identificarlos en el catálogo original. También se conservan los ejemplos con
+sintaxis de consulta, el registro histórico de cambios y los diagnósticos técnicos
+externos. No se modifican los archivos originales de datos, las estadísticas,
+puntos, restricciones, cálculos, identificadores JSON ni los algoritmos de
+importación/exportación. Las traducciones nunca se usan como claves de selección.
+
+El sistema de cartas, sus archivos, diseño, rutas y lógica de descarga permanecen intactos. Los textos de la vista PDF y del resumen para compartir también se traducen, conservando sus tablas de atributos originales. Las cartas españolas aprobadas se integrarán en una etapa
 posterior explícita.
 
 ## Validación
@@ -55,7 +65,9 @@ node scripts/test-i18n.mjs
 
 Las pruebas unitarias verifican el fallback, las preferencias guardadas, la
 interpolación literal, la coherencia de los marcadores y la cobertura de todos
-los mensajes estáticos marcados para traducción.
+los mensajes estáticos marcados para traducción. También recorren todos los datos
+de reglas, ejércitos, perfiles y equipo para comprobar cobertura y conservación
+de los números, modificadores de dados y etiquetas HTML.
 
 La prueba de navegador usa Playwright y `/usr/bin/chromium` (configurable con
 `CHROMIUM_PATH`). Arranca su propio Vite en el puerto 5197 con un registro temporal
@@ -64,6 +76,7 @@ y lo detiene al finalizar, incluso ante errores. Comprueba:
 - Creación de listas y grupos, y nombres del usuario que coinciden con claves.
 - Cambio de idioma, persistencia tras recargar y conservación literal del JSON.
 - Pantallas principales, base de datos y validación de acceso sin credenciales.
+- Reglas en español e inglés y búsquedas por ambos nombres, sin cambios en listas.
 - Exportación e importación de una lista, conservando puntos, número de miniaturas
   e identificadores de perfiles.
 - Traducción del aviso de borrado y cancelación sin pérdida de datos.
@@ -74,3 +87,24 @@ El navegador de pruebas es independiente del navegador personal. No mantiene
 servicios ejecutándose después de terminar. La autenticación real, la sincronización
 remota y las descargas de cartas requieren sus servicios y no se simulan como
 verificados por estas pruebas.
+
+## Excepciones y último cierre de interfaz
+
+Por instrucción del usuario, las etiquetas de atributos (`Mv`, `Fv`, `Sv`, `S`,
+`D`, `A`, `W`, `C`, `I`, `Might`, `Will`, `Fate`, `Range`) y sus valores se mantienen
+en el idioma original. El selector de idioma no modifica las tablas originales
+ni los archivos de cartas.
+
+Los títulos del menú de tablas, sus diálogos, las categorías de palabras clave,
+los tipos de elementos de sincronización y el resumen de texto se traducen en
+la presentación. Las claves de tablas y las rutas de sus imágenes no cambian.
+
+Los 110 avisos distintos de `warning_rules.json`, y los avisos calculados del
+constructor, tienen una capa de traducción independiente (`warnings.es.ts` y
+`warnings.ts`). La validación sigue produciendo sus mensajes y resultados
+originales: solo `WarningText` localiza el texto al mostrarlo. Los nombres de
+ejércitos y miniaturas mencionados mantienen los nombres utilizados en la lista.
+
+Las pruebas adicionales comprueban cobertura de los avisos, conservación de
+los porcentajes y límites en mensajes calculados, y permanencia de las etiquetas
+y valores de atributos al alternar español/inglés.

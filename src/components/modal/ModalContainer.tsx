@@ -8,7 +8,7 @@ import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSi
 import { useTranslation } from "../../i18n/LanguageContext";
 import { useAppState } from "../../state/app";
 import { slugify } from "../../utils/string.ts";
-import { modals } from "./modals.tsx";
+import { modals, ModalTypes } from "./modals.tsx";
 
 export const ModalContainer = () => {
   const { t } = useTranslation();
@@ -46,7 +46,12 @@ export const ModalContainer = () => {
                 }}
                 className="middle-earth"
               >
-                {currentModal.icon} {title || t(currentModal.title)}
+                {currentModal.icon}{" "}
+                {title
+                  ? state.currentlyOpenendModal === ModalTypes.CHART
+                    ? t(title)
+                    : title
+                  : t(currentModal.title)}
               </Typography>
               <IconButton
                 onClick={onClose ? onClose : () => state.closeModal()}

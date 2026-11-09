@@ -1,5 +1,6 @@
 import Chip from "@mui/material/Chip";
 import { FunctionComponent } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 
 export type UnitTypeLabelProps = {
@@ -9,10 +10,11 @@ export type UnitTypeLabelProps = {
 export const UnitTypeLabel: FunctionComponent<UnitTypeLabelProps> = ({
   unitType,
 }) => {
+  const { t } = useTranslation();
   const { mode } = useThemeContext();
   return (
     <Chip
-      label={unitType}
+      label={t(unitType)}
       size="small"
       sx={{
         backgroundColor: mode === "dark" ? "grey" : "black",

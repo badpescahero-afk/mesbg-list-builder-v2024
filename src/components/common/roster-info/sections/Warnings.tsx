@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { useRosterWarnings } from "../../../../hooks/calculations-and-displays/useRosterWarnings.ts";
+import { WarningText } from "../../../../i18n/WarningText";
 import { CustomAlert } from "../../../atoms/alert/CustomAlert.tsx";
 import { RosterInformationSection } from "../RosterInformationSection.tsx";
 
@@ -14,7 +15,9 @@ export const Warnings: FunctionComponent = () => {
       <Stack gap={2}>
         {activeWarnings.map(({ warning }, index) => (
           <CustomAlert key={index} severity="error" title="">
-            <Typography>{warning}</Typography>
+            <Typography>
+              <WarningText message={warning} />
+            </Typography>
           </CustomAlert>
         ))}
       </Stack>
