@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { CustomAlert } from "../../../components/atoms/alert/CustomAlert.tsx";
 import { LinearProgressWithLabel } from "../../../components/atoms/linear-progress/LinearProgressWithLabel.tsx";
 import { useSyncQueue } from "../../../hooks/cloud-sync/useSyncQueue.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { SyncItem } from "./sync-item.ts";
 
 interface SyncProgressProps {
@@ -21,6 +23,8 @@ interface SyncProgressProps {
 }
 
 export const SyncProgress = ({ items }: SyncProgressProps) => {
+  const { t: translateUI } = useTranslation();
+
   const navigate = useNavigate();
   const { queue, failedItems, progress, addItems, processQueue, retryFailed } =
     useSyncQueue();
@@ -65,22 +69,19 @@ export const SyncProgress = ({ items }: SyncProgressProps) => {
   return (
     <>
       <Typography>
-        We noticed you still have some data saved locally on your device. Let’s
-        sync it to your account so you can always access it, no matter where you
-        log in.
+        <TranslatedText message="We noticed you still have some data saved locally on your device. Let’s sync it to your account so you can always access it, no matter where you log in." />
       </Typography>
       {progress !== 1 ? (
-        <CustomAlert severity="warning" title="Uploading data...">
-          We’re syncing your data to your account. Please wait until the
-          progress is complete before continuing. Leaving this page early may
-          cause some of your data to be lost.
+        <CustomAlert
+          severity="warning"
+          title={translateUI("Uploading data...")}
+        >
+          <TranslatedText message="We’re syncing your data to your account. Please wait until the progress is complete before continuing. Leaving this page early may cause some of your data to be lost." />
         </CustomAlert>
       ) : failedItems.length > 0 ? (
         <>
-          <CustomAlert severity="error" title="Failed items">
-            Some of the items were not correctly saved. You can retry syncing
-            those items or ignore the error and create the data again if
-            necessary.
+          <CustomAlert severity="error" title={translateUI("Failed items")}>
+            <TranslatedText message="Some of the items were not correctly saved. You can retry syncing those items or ignore the error and create the data again if necessary." />
           </CustomAlert>
           <Button
             onClick={() => {
@@ -88,21 +89,23 @@ export const SyncProgress = ({ items }: SyncProgressProps) => {
               setProcessing(true);
             }}
           >
-            Retry failed items
+            <TranslatedText message="Retry failed items" />
           </Button>
         </>
       ) : (
         <>
-          <CustomAlert severity="success" title="Upload complete">
-            Your data has been successfully added to your account. You can now
-            return to the application.
+          <CustomAlert
+            severity="success"
+            title={translateUI("Upload complete")}
+          >
+            <TranslatedText message="Your data has been successfully added to your account. You can now return to the application." />
           </CustomAlert>
           <Button
             onClick={() => {
               navigate("/rosters");
             }}
           >
-            Continue to the app
+            <TranslatedText message="Continue to the app" />
           </Button>
         </>
       )}
@@ -112,7 +115,7 @@ export const SyncProgress = ({ items }: SyncProgressProps) => {
         <Table
           sx={{ minWidth: 650 }}
           size="small"
-          aria-label="table with all the unsynced items"
+          aria-label={translateUI("table with all the unsynced items")}
         >
           <TableBody>
             {queue.map((row, index) => (

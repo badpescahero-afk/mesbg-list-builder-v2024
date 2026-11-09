@@ -2,6 +2,7 @@ import { Container, Typography, Stack } from "@mui/material";
 import { useMemo, useState } from "react";
 import { useAuth } from "../../firebase/FirebaseAuthContext.tsx";
 import { EntityType } from "../../hooks/cloud-sync/useSyncQueue.ts";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { RedirectTo } from "../../routing/RedirectTo.tsx";
 import { useCollectionState } from "../../state/collection";
 import { ModelInventory } from "../../state/collection/inventory";
@@ -119,7 +120,7 @@ export const InitialSyncRequest = () => {
     <Container maxWidth="md" sx={{ mt: 2, mb: 5 }}>
       <Stack gap={1}>
         <Typography variant="h5" component="div">
-          Welcome {user.displayName}!
+          <TranslatedText message="Welcome" /> {user.displayName}!
         </Typography>
         {syncing ? (
           <SyncProgress items={itemsToSync} />

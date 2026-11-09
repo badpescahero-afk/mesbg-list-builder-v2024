@@ -2,6 +2,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useRosterWarnings } from "../../../hooks/calculations-and-displays/useRosterWarnings.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { ROSTER_INFO_BAR_HEIGHT } from "./MobileRosterInfoToolbar.tsx";
 
 export const MobileRosterWarningsToolbar = () => {
@@ -27,9 +28,11 @@ export const MobileRosterWarningsToolbar = () => {
               width: "100%",
             }}
           >
-            {warnings.length === 1
-              ? warnings[0].warning
-              : "There are multiple errors in the roster information."}
+            {warnings.length === 1 ? (
+              warnings[0].warning
+            ) : (
+              <TranslatedText message="There are multiple errors in the roster information." />
+            )}
           </Typography>
         </Toolbar>
       )}

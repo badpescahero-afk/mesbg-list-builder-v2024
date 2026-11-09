@@ -2,6 +2,7 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import { forwardRef, useImperativeHandle } from "react";
 import tta2mlbJson from "../../../assets/data/tta2mlb.json";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { isSelectedUnit, Roster, SelectedUnit } from "../../../types/roster.ts";
 import { selectedOptionWithType } from "../../../utils/options.ts";
@@ -74,7 +75,7 @@ export const RosterTabletopSimView = forwardRef<
   return (
     <>
       <CustomAlert severity="warning" title="">
-        The{" "}
+        <TranslatedText message="The" />{" "}
         <Link
           href="https://steamcommunity.com/sharedfiles/filedetails/?l=swedish&id=3133220714"
           color="primary"
@@ -82,10 +83,8 @@ export const RosterTabletopSimView = forwardRef<
         >
           MESBG FTC Plugin
         </Link>{" "}
-        for Tabletop Simulator is based of the model names from Tabletop
-        Admiral. Since there will be no 1-to-1 match on unit names it could be
-        that some models will fail to load. Please let us know so we can add it
-        to our <strong>TTA to MLB</strong> name map.
+        <TranslatedText message="for Tabletop Simulator is based of the model names from Tabletop Admiral. Since there will be no 1-to-1 match on unit names it could be that some models will fail to load. Please let us know so we can add it to our" />{" "}
+        <strong>TTA to MLB</strong> <TranslatedText message="name map." />
       </CustomAlert>
       <TextField
         id="outlined-multiline-static"

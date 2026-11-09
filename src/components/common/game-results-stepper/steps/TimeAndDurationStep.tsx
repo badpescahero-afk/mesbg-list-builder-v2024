@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { StepProps } from "./StepProps.ts";
 
 export const TimeAndDurationStep: FunctionComponent<StepProps> = ({
@@ -16,6 +18,8 @@ export const TimeAndDurationStep: FunctionComponent<StepProps> = ({
   handleChangeByEvent,
   activeStep,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   return (
     <>
       <StepLabel
@@ -31,18 +35,16 @@ export const TimeAndDurationStep: FunctionComponent<StepProps> = ({
           </Collapse>
         }
       >
-        General - Time & Duration
+        <TranslatedText message="General - Time & Duration" />
       </StepLabel>
       <StepContent>
         <Typography>
-          When did this game take place and how long did it take to complete.
-          These values are prefilled based on the start time and date of the
-          game.
+          <TranslatedText message="When did this game take place and how long did it take to complete. These values are prefilled based on the start time and date of the game." />
         </Typography>
         <Stack gap={2} sx={{ my: 2 }}>
           <TextField
             fullWidth
-            label="Date of the Game"
+            label={translateUI("Date of the Game")}
             name="gameDate"
             type="date"
             slotProps={{ inputLabel: { shrink: true } }}
@@ -54,7 +56,7 @@ export const TimeAndDurationStep: FunctionComponent<StepProps> = ({
           />
           <TextField
             fullWidth
-            label="Duration"
+            label={translateUI("Duration")}
             name="duration"
             value={formValues.duration}
             onChange={handleChangeByEvent}
@@ -64,7 +66,9 @@ export const TimeAndDurationStep: FunctionComponent<StepProps> = ({
             slotProps={{
               input: {
                 endAdornment: (
-                  <InputAdornment position="end">minutes</InputAdornment>
+                  <InputAdornment position="end">
+                    <TranslatedText message="minutes" />
+                  </InputAdornment>
                 ),
               },
             }}

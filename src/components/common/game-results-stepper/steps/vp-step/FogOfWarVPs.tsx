@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
 import { useGameModeState } from "../../../../../state/gamemode";
 import { QuestionListProps } from "../VictoryPoints.tsx";
 import { BrokenVPs } from "../vp-common/BrokenVPs.tsx";
@@ -40,6 +41,8 @@ const BROKEN = 2;
  * If the enemy Army is Broken and your Army is not, you instead score 3 Victory Points.
  */
 export const FogOfWarVPs: FunctionComponent<QuestionListProps> = (props) => {
+  const { t: translateUI } = useTranslation();
+
   const { victoryPoints, setVictoryPoints } = useGameModeState();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -143,12 +146,12 @@ export const FogOfWarVPs: FunctionComponent<QuestionListProps> = (props) => {
       {activeStep === GENERAL && (
         <Stack>
           <GeneralWoundVPs
-            label="Your General"
+            label={translateUI("Your General")}
             value={-generalVPs[1]}
             setValue={(VPs) => setGeneralVPs((prev) => [prev[0], -VPs])}
           />
           <GeneralWoundVPs
-            label="Enemy General"
+            label={translateUI("Enemy General")}
             value={generalVPs[0]}
             setValue={(VPs) => setGeneralVPs((prev) => [VPs, prev[1]])}
           />

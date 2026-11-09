@@ -1,6 +1,7 @@
 import { FormGroup, FormHelperText } from "@mui/material";
 import Box from "@mui/material/Box";
 import { FunctionComponent } from "react";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { Option } from "../../../types/mesbg-data.types.ts";
 import { slugify } from "../../../utils/string.ts";
 import { OptionItem } from "./OptionItem.tsx";
@@ -121,7 +122,7 @@ export const OptionList: FunctionComponent<OptionListProps> = ({
       )}
       {!multiple && wargearOptions.length > 0 && (
         <FormHelperText>
-          You can only select a single wargear option
+          <TranslatedText message="You can only select a single wargear option" />
         </FormHelperText>
       )}
       {wargearOptions.map((option, optionIndex) => (
@@ -145,7 +146,7 @@ export const OptionList: FunctionComponent<OptionListProps> = ({
               color: ({ palette }) => palette.error.dark,
             }}
           >
-            You must select one option for this model
+            <TranslatedText message="You must select one option for this model" />
           </FormHelperText>
         )}
     </FormGroup>

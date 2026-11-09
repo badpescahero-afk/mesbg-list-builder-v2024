@@ -16,6 +16,8 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { Option } from "../../../types/mesbg-data.types.ts";
@@ -23,6 +25,8 @@ import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { CustomSwitch } from "../../atoms/switch/CustomSwitch.tsx";
 
 export const AddToCollection = () => {
+  const { t: translateUI } = useTranslation();
+
   const {
     closeModal,
     modalContext: { unit },
@@ -155,21 +159,22 @@ export const AddToCollection = () => {
       <DialogContent>
         <CustomAlert severity="info" title="">
           <AlertTitle>
-            Add <strong>{unit.name}</strong> to you collection of miniatures.
+            <TranslatedText message="Add" /> <strong>{unit.name}</strong>{" "}
+            <TranslatedText message="to you collection of miniatures." />
           </AlertTitle>
           <Typography>
-            Adding different loadouts based on the available options will help
-            you to ensure your rosters only include models that you own,
-            providing a seamless way to plan and optimise your army lists.
+            <TranslatedText message="Adding different loadouts based on the available options will help you to ensure your rosters only include models that you own, providing a seamless way to plan and optimise your army lists." />
           </Typography>
         </CustomAlert>
 
         {loadoutOptions.length > 2 && (
-          <CustomAlert severity="info" title="Generic profiles">
+          <CustomAlert severity="info" title={translateUI("Generic profiles")}>
             <Typography>
-              Select the &apos;Generic&apos; option to indicate that the model
-              can be counted as any model under the same name, regardless of
-              options (with the exception of being mounted/on-foot).
+              <TranslatedText
+                message={
+                  "Select the 'Generic' option to indicate that the model can be counted as any model under the same name, regardless of options (with the exception of being mounted/on-foot)."
+                }
+              />
             </Typography>
           </CustomAlert>
         )}
@@ -177,7 +182,7 @@ export const AddToCollection = () => {
         {showErrors && errors.some((error) => error.invalid) && (
           <Alert severity="error" icon={false} sx={{ my: 1 }}>
             <Typography>
-              There are some errors on row(s){" "}
+              <TranslatedText message="There are some errors on row(s)" />{" "}
               {errors
                 .filter((error) => error.invalid)
                 .map((l) => l.index + 1)
@@ -192,7 +197,7 @@ export const AddToCollection = () => {
                 .filter((m, i, s) => s.indexOf(m) === i)
                 .map((message, index) => (
                   <Typography component="li" key={index}>
-                    {message}
+                    <TranslatedText message={message} />
                   </Typography>
                 ))}
             </Box>
@@ -224,8 +229,10 @@ export const AddToCollection = () => {
                           <TextField
                             {...params}
                             variant="outlined"
-                            label="Mount"
-                            placeholder="Select a mount, or leave empty"
+                            label={translateUI("Mount")}
+                            placeholder={translateUI(
+                              "Select a mount, or leave empty",
+                            )}
                             helperText=""
                           />
                         )}
@@ -248,7 +255,7 @@ export const AddToCollection = () => {
                             color="primary"
                           />
                         }
-                        label="Mounted"
+                        label={translateUI("Mounted")}
                       />
                     )}
                   </Grid2>
@@ -276,12 +283,12 @@ export const AddToCollection = () => {
                         <TextField
                           {...params}
                           variant="outlined"
-                          label="Loadout"
+                          label={translateUI("Loadout")}
                           error={showErrors && loadOut.options.length <= 0}
                           placeholder={
                             isHero
-                              ? "Select 1 or more options"
-                              : "Select an option"
+                              ? translateUI("Select 1 or more options")
+                              : translateUI("Select an option")
                           }
                         />
                       )}
@@ -306,7 +313,7 @@ export const AddToCollection = () => {
                     }
                     fullWidth
                     variant="outlined"
-                    label="Amount"
+                    label={translateUI("Amount")}
                     error={showErrors && Number(loadOut.amount) <= 0}
                     slotProps={{
                       input: { type: "number" },
@@ -326,7 +333,7 @@ export const AddToCollection = () => {
                     onClick={() => removeRow(index)}
                     disabled={index === 0 && loadOuts.length <= 1}
                   >
-                    Remove
+                    <TranslatedText message="Remove" />
                   </Button>
                 </Grid2>
               </Grid2>
@@ -335,7 +342,9 @@ export const AddToCollection = () => {
 
           {((isHero && mountOptions.length > 0) ||
             loadoutOptions.length >= 3) && (
-            <Button onClick={() => addRow()}>Add row</Button>
+            <Button onClick={() => addRow()}>
+              <TranslatedText message="Add row" />
+            </Button>
           )}
         </Stack>
       </DialogContent>
@@ -345,7 +354,7 @@ export const AddToCollection = () => {
           onClick={closeModal}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -353,7 +362,7 @@ export const AddToCollection = () => {
           color="primary"
           data-test-id="dialog--submit-button"
         >
-          Save
+          <TranslatedText message="Save" />
         </Button>
       </DialogActions>
     </>

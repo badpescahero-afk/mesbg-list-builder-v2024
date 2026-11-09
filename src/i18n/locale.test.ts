@@ -34,6 +34,30 @@ describe("interface language", () => {
     },
   );
 
+  it("interpolates user values literally without translating names or interpreting markup", () => {
+    const name = "<b>Good</b> $& {{section}}";
+    expect(
+      translate("es", "Hide the {{section}} section on the Printable PDF.", {
+        section: name,
+      }),
+    ).toBe(`Ocultar la sección «${name}» en el PDF imprimible.`);
+    expect(translate("en", "Deleting {{count}} rosters", { count: 0 })).toBe(
+      "Deleting 0 rosters",
+    );
+    expect(translate("es", "Deleting {{count}} rosters", { count: 2 })).toBe(
+      "Eliminar 2 listas",
+    );
+    expect(translate("es", "Missing {{value}}", {})).toBe("Missing {{value}}");
+  });
+
+  it("keeps interpolation placeholders consistent in every translation", () => {
+    const placeholders = (text: string) =>
+      [...text.matchAll(/{{(\w+)}}/g)].map((match) => match[1]).sort();
+    for (const [english, translated] of Object.entries(spanish)) {
+      expect(placeholders(translated), english).toEqual(placeholders(english));
+    }
+  });
+
   it("works when browser storage is blocked", () => {
     vi.stubGlobal("localStorage", {
       getItem: () => {

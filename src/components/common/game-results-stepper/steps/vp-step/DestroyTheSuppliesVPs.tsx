@@ -2,6 +2,8 @@ import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../../i18n/TranslatedText";
 import { useGameModeState } from "../../../../../state/gamemode";
 import { QuestionListProps } from "../VictoryPoints.tsx";
 import { BannerVPs } from "../vp-common/BannerVPs.tsx";
@@ -40,6 +42,8 @@ const BANNERS = 3;
 export const DestroyTheSuppliesVPs: FunctionComponent<QuestionListProps> = (
   props,
 ) => {
+  const { t: translateUI } = useTranslation();
+
   const { victoryPoints, setVictoryPoints } = useGameModeState();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -120,7 +124,7 @@ export const DestroyTheSuppliesVPs: FunctionComponent<QuestionListProps> = (
             columns={[
               "Not Destroyed",
               <>
-                Contested <sup>[1]</sup>
+                <TranslatedText message="Contested" /> <sup>[1]</sup>
               </>,
               "Destroyed",
             ]}
@@ -129,21 +133,24 @@ export const DestroyTheSuppliesVPs: FunctionComponent<QuestionListProps> = (
             setSelection={setObjectiveVPs}
           />
           <Typography variant="caption">
-            [1]: Supply Marker that has not been destroyed, but has more
-            attackers within 3&quot; than defenders.
+            <TranslatedText
+              message={
+                '[1]: Supply Marker that has not been destroyed, but has more attackers within 3" than defenders.'
+              }
+            />
           </Typography>
         </>
       )}
       {activeStep === GENERAL && (
         <Stack>
           <GeneralWoundVPs
-            label="Your General"
+            label={translateUI("Your General")}
             value={-generalVPs[1]}
             setValue={(VPs) => setGeneralVPs((prev) => [prev[0], -VPs])}
             vpSpread={[0, 1, 3]}
           />
           <GeneralWoundVPs
-            label="Enemy General"
+            label={translateUI("Enemy General")}
             value={generalVPs[0]}
             setValue={(VPs) => setGeneralVPs((prev) => [VPs, prev[1]])}
             vpSpread={[0, 1, 3]}

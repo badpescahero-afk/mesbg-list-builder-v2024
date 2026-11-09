@@ -9,6 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useNavigate } from "react-router-dom";
 import { CustomAlert } from "../../../components/atoms/alert/CustomAlert.tsx";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { SyncItem } from "./sync-item.ts";
 
 type SyncableSelectionTableProps = {
@@ -24,6 +26,8 @@ export const SyncableSelectionTable = ({
   toggleAllCheckboxes,
   startSyncing,
 }: SyncableSelectionTableProps) => {
+  const { t: translateUI } = useTranslation();
+
   const navigate = useNavigate();
 
   const allSelected = unsyncedItems.every((item) => item.sync);
@@ -33,19 +37,17 @@ export const SyncableSelectionTable = ({
   return (
     <>
       <Typography>
-        We noticed you still have some data saved locally on your device. Let’s
-        sync it to your account so you can always access it, no matter where you
-        log in.
+        <TranslatedText message="We noticed you still have some data saved locally on your device. Let’s sync it to your account so you can always access it, no matter where you log in." />
       </Typography>
 
       <Typography>
-        Select the items you want to save your account below.
+        <TranslatedText message="Select the items you want to save your account below." />
       </Typography>
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 650 }}
           size="small"
-          aria-label="table with all the unsynced items"
+          aria-label={translateUI("table with all the unsynced items")}
         >
           <TableHead>
             <TableRow>
@@ -58,10 +60,14 @@ export const SyncableSelectionTable = ({
                 />
               </TableCell>
               <TableCell component="th">
-                <Typography fontWeight="bold">Type</Typography>
+                <Typography fontWeight="bold">
+                  <TranslatedText message="Type" />
+                </Typography>
               </TableCell>
               <TableCell component="th">
-                <Typography fontWeight="bold">Info</Typography>
+                <Typography fontWeight="bold">
+                  <TranslatedText message="Info" />
+                </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -87,11 +93,12 @@ export const SyncableSelectionTable = ({
       </TableContainer>
       {unselected > 0 && (
         <CustomAlert
-          title={`${unselected} items will be deleted!`}
+          title={translateUI("{{count}} items will be deleted!", {
+            count: unselected,
+          })}
           severity="warning"
         >
-          Items you do not sync to your account will get lost and will have to
-          be manually created again.
+          <TranslatedText message="Items you do not sync to your account will get lost and will have to be manually created again." />
         </CustomAlert>
       )}
       {noneSelected ? (
@@ -100,12 +107,17 @@ export const SyncableSelectionTable = ({
           variant="contained"
           onClick={() => navigate("/rosters")}
         >
-          Delete all unsynced items
+          <TranslatedText message="Delete all unsynced items" />
         </Button>
       ) : (
         <Button variant="contained" onClick={startSyncing}>
-          Save {unselected === 0 ? "all" : unsyncedItems.length - unselected}{" "}
-          items to your account
+          <TranslatedText message="Save" />{" "}
+          {unselected === 0 ? (
+            <TranslatedText message="all" />
+          ) : (
+            unsyncedItems.length - unselected
+          )}{" "}
+          <TranslatedText message="items to your account" />
         </Button>
       )}
     </>

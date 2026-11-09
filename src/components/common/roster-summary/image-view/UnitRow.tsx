@@ -1,5 +1,6 @@
 import { Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 
 export const UnitRow = ({
   quantity,
@@ -24,11 +25,15 @@ export const UnitRow = ({
           {legacy ? <sup>&#10013;</sup> : ""}
         </strong>{" "}
         {options && (
-          <span style={{ whiteSpace: "nowrap" }}>with {options}</span>
+          <span style={{ whiteSpace: "nowrap" }}>
+            <TranslatedText message="with" /> {options}
+          </span>
         )}
       </Typography>
       <Typography sx={{ minWidth: "7ch", textAlign: "end" }}>
-        <b>{points} pts</b>
+        <b>
+          {points} <TranslatedText message="pts" />
+        </b>
       </Typography>
     </Stack>
   );

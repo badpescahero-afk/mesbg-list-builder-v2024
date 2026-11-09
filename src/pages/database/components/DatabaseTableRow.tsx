@@ -18,6 +18,8 @@ import { SquareIconButton } from "../../../components/atoms/icon-button/SquareIc
 import { DrawerTypes } from "../../../components/drawer/drawers.tsx";
 import { ModalTypes } from "../../../components/modal/modals.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
@@ -26,6 +28,8 @@ import { COMPOSED_UNIT_MAP } from "../utils/special-rows.ts";
 import { ExtraInfoRow } from "./ExtraInformationSection.tsx";
 
 export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
+  const { t: translateUI } = useTranslation();
+
   const { palette } = useTheme();
   const { inventory } = useCollectionState();
   const { mode } = useThemeContext();
@@ -47,7 +51,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
       <TableRow sx={{ "& > *": { borderBottom: "unset !important" } }}>
         <TableCell>
           <IconButton
-            aria-label="expand row"
+            aria-label={translateUI("expand row")}
             size="small"
             onClick={() => setOpen(!open)}
           >
@@ -122,8 +126,8 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                   unit_type: row.unit_type,
                 },
                 title: existsInInv
-                  ? `Edit collection`
-                  : `Add to your collection`,
+                  ? translateUI("Edit collection")
+                  : translateUI("Add to your collection"),
               });
             }}
           />
@@ -134,14 +138,20 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
           <Collapse in={open} timeout="auto">
             <Stack sx={{ p: 2 }} gap={1}>
               {!screen.isDesktop && (
-                <ExtraInfoRow title="Stats">
+                <ExtraInfoRow title={translateUI("Stats")}>
                   <TableContainer>
                     <Table size="small">
                       <TableHead>
                         <TableRow>
-                          <TableCell align="center">Mv / Range</TableCell>
-                          <TableCell align="center">Fv</TableCell>
-                          <TableCell align="center">Sv</TableCell>
+                          <TableCell align="center">
+                            <TranslatedText message="Mv / Range" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <TranslatedText message="Fv" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <TranslatedText message="Sv" />
+                          </TableCell>
                           <TableCell align="center">S</TableCell>
                           <TableCell align="center">D</TableCell>
                           <TableCell align="center">A</TableCell>
@@ -177,18 +187,18 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                   </TableContainer>
                 </ExtraInfoRow>
               )}
-              <ExtraInfoRow title="Available Army Lists">
+              <ExtraInfoRow title={translateUI("Available Army Lists")}>
                 <Typography>{row.army_list.join(", ")}</Typography>
               </ExtraInfoRow>
               {row.profile.wargear.length > 0 && (
-                <ExtraInfoRow title="Wargear">
+                <ExtraInfoRow title={translateUI("Wargear")}>
                   <Typography>{row.profile.wargear.join(", ")}</Typography>{" "}
                 </ExtraInfoRow>
               )}
 
               {(row.profile.special_rules.length > 0 ||
                 row.profile.active_or_passive_rules.length > 0) && (
-                <ExtraInfoRow title="Special Rules">
+                <ExtraInfoRow title={translateUI("Special Rules")}>
                   <Typography>
                     {row.profile.special_rules.map((rule, index, self) => (
                       <Fragment key={rule}>
@@ -246,7 +256,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                 </ExtraInfoRow>
               )}
               {row.profile.magic_powers.length > 0 && (
-                <ExtraInfoRow title="Magical Powers">
+                <ExtraInfoRow title={translateUI("Magical Powers")}>
                   <Typography>
                     {row.profile.magic_powers.map((power, index, self) => (
                       <Fragment key={power.name}>
@@ -274,7 +284,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                 </ExtraInfoRow>
               )}
               {row.profile.heroic_actions.length > 0 && (
-                <ExtraInfoRow title="Heroic Actions">
+                <ExtraInfoRow title={translateUI("Heroic Actions")}>
                   <Typography>
                     {row.profile.heroic_actions.map((action, index, self) => (
                       <Fragment key={action}>
@@ -302,7 +312,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                 </ExtraInfoRow>
               )}
               {row.options.length > 0 && (
-                <ExtraInfoRow title="Possible options">
+                <ExtraInfoRow title={translateUI("Possible options")}>
                   <Typography>
                     &quot;{row.options.map((o) => o.name).join('", "')}&quot;
                   </Typography>

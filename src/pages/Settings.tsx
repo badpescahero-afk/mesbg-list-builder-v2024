@@ -29,6 +29,7 @@ import Typography from "@mui/material/Typography";
 import { ChangeEvent, FunctionComponent, ReactNode } from "react";
 import { DrawerTypes } from "../components/drawer/drawers.tsx";
 import { useTranslation } from "../i18n/LanguageContext";
+import { TranslatedText } from "../i18n/TranslatedText";
 import { useAppState } from "../state/app";
 import { useUserPreferences } from "../state/preference";
 import { Preferences } from "../state/preference/user-preferences";
@@ -216,7 +217,7 @@ export const Settings = () => {
         />
         <SettingsOption
           icon={<SwitchAccessShortcut />}
-          label={"Move 'active' special rules and magical powers to the top"}
+          label="Move 'active' special rules and magical powers to the top"
           description={
             "Split the list of special rules and magical powers in their respective drawers into a list of rules " +
             "that are applicable to the selected roster."
@@ -261,7 +262,10 @@ export const Settings = () => {
               key={option.key}
               icon={<></>}
               label={option.name}
-              description={`Hide the ${option.description} section on the Printable PDF.`}
+              description={t(
+                "Hide the {{section}} section on the Printable PDF.",
+                { section: t(option.description) },
+              )}
               value={preferences[option.key] || false}
               onChange={updatePreference(option.key)}
             />
@@ -296,7 +300,8 @@ export const Settings = () => {
 
       <Stack>
         <Typography textAlign="center" variant="overline">
-          Version {BUILD_VERSION}, Last updated {BUILD_DATE}
+          <TranslatedText message="Version" /> {BUILD_VERSION}
+          <TranslatedText message=", Last updated" /> {BUILD_DATE}
         </Typography>
         <Button
           variant="text"

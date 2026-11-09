@@ -6,10 +6,14 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import brokenSword from "../../assets/images/broken-sword.png";
 import { ModalTypes } from "../../components/modal/modals.tsx";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useAppState } from "../../state/app";
 import { DISCORD_LINK } from "../home/Home.tsx";
 
 export const RosterNotFound = () => {
+  const { t: translateUI } = useTranslation();
+
   const { setCurrentModal } = useAppState();
   const navigate = useNavigate();
 
@@ -26,18 +30,25 @@ export const RosterNotFound = () => {
       }}
     >
       <Typography variant="h4" className="middle-earth">
-        Roster not found!
+        <TranslatedText message="Roster not found!" />
       </Typography>
       <img
-        alt="Image of a broken sword"
+        alt={translateUI("Image of a broken sword")}
         src={brokenSword}
         style={{ width: "300px", margin: "auto" }}
       />
       <Typography sx={{ mb: 2 }}>
-        &quot;Even the wise cannot see all ends. The roster you seek is no
-        longer in this realm
-        <br /> perhaps it was never forged, or has been cast into the fires of
-        Mount Doom.&quot;
+        <TranslatedText
+          message={
+            '"Even the wise cannot see all ends. The roster you seek is no longer in this realm'
+          }
+        />
+        <br />{" "}
+        <TranslatedText
+          message={
+            'perhaps it was never forged, or has been cast into the fires of Mount Doom."'
+          }
+        />
       </Typography>
       <Box
         sx={{
@@ -53,24 +64,24 @@ export const RosterNotFound = () => {
             fullWidth
             onClick={() => navigate("/rosters")}
           >
-            Return the your rosters.
+            <TranslatedText message="Return the your rosters." />
           </Button>
           <Button
             color="inherit"
             fullWidth
             onClick={() => setCurrentModal(ModalTypes.CREATE_NEW_ROSTER)}
           >
-            Create a new roster
+            <TranslatedText message="Create a new roster" />
           </Button>
           <Button color="inherit" fullWidth onClick={() => navigate("/")}>
-            Return to the homepage
+            <TranslatedText message="Return to the homepage" />
           </Button>
           <Button
             color="inherit"
             fullWidth
             onClick={() => window.open(DISCORD_LINK)}
           >
-            Ask for support
+            <TranslatedText message="Ask for support" />
           </Button>
         </Stack>
       </Box>

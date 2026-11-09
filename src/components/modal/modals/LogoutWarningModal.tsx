@@ -1,6 +1,7 @@
 import { Button, DialogActions, DialogContent } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { useGameModeState } from "../../../state/gamemode";
@@ -32,9 +33,7 @@ export const LogoutWarningModal = () => {
     <>
       <DialogContent>
         <Typography>
-          Logging out will clear the app’s data from this device. Don’t
-          worry—your information is safely stored in your account and will be
-          restored when you log back in.
+          <TranslatedText message="Logging out will clear the app’s data from this device. Don’t worry—your information is safely stored in your account and will be restored when you log back in." />
         </Typography>
       </DialogContent>
       <DialogActions>
@@ -44,7 +43,7 @@ export const LogoutWarningModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="outlined"
@@ -53,7 +52,7 @@ export const LogoutWarningModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--submit-button"
         >
-          Logout
+          <TranslatedText message="Logout" />
         </Button>
       </DialogActions>
     </>

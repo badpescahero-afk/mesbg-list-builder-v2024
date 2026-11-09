@@ -1,3 +1,4 @@
+import { LanguageProvider } from "../src/i18n/LanguageProvider";
 import type { Preview } from "@storybook/react-vite";
 // @ts-ignore
 import { ThemeContextProvider } from "../src/theme/ThemeContext.tsx";
@@ -21,10 +22,12 @@ const preview: Preview = {
 
   decorators: (Story) => (
     // @ts-ignore
-    <ThemeContextProvider>
-      {/* @ts-ignore */}
-      <Story />
-    </ThemeContextProvider>
+    <LanguageProvider>
+      <ThemeContextProvider>
+        {/* @ts-ignore */}
+        <Story />
+      </ThemeContextProvider>
+    </LanguageProvider>
   ),
 };
 

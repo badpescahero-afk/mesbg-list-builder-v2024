@@ -4,6 +4,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useAppState } from "../../state/app";
 import { drawers } from "./drawers.tsx";
 
@@ -33,7 +34,11 @@ export const DrawerContainer = () => {
         >
           <Box flexGrow={1}>
             <Typography variant="h5" className="middle-earth">
-              {props.title}
+              {typeof props.title === "string" ? (
+                <TranslatedText message={props.title} />
+              ) : (
+                props.title
+              )}
             </Typography>
           </Box>
           <IconButton onClick={() => state.closeSidebar()}>

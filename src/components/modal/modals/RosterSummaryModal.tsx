@@ -14,6 +14,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import { FaClipboard, FaImage } from "react-icons/fa6";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useUserPreferences } from "../../../state/preference";
 import { CustomSwitch as Switch } from "../../atoms/switch/CustomSwitch.tsx";
@@ -31,6 +33,8 @@ import {
 } from "../../common/roster-summary/TextView.tsx";
 
 export const RosterSummaryModal = () => {
+  const { t: translateUI } = useTranslation();
+
   const {
     closeModal,
     modalContext: { roster, withArmyName = false },
@@ -66,7 +70,7 @@ export const RosterSummaryModal = () => {
             }}
             className="middle-earth"
           >
-            <Share /> Roster Summary & Sharing
+            <Share /> <TranslatedText message="Roster Summary & Sharing" />
           </Typography>
           <Box sx={{ px: 1 }}>
             {plainTextView ? (
@@ -77,7 +81,7 @@ export const RosterSummaryModal = () => {
                   rosterTextRef.current.copyToClipboard();
                 }}
               >
-                Copy to clipboard
+                <TranslatedText message="Copy to clipboard" />
               </Button>
             ) : preferences.oldShareScreen ? (
               <Button
@@ -87,7 +91,7 @@ export const RosterSummaryModal = () => {
                   rosterTableRef.current.createScreenshot();
                 }}
               >
-                Create pretty image
+                <TranslatedText message="Create pretty image" />
               </Button>
             ) : (
               <Button
@@ -97,7 +101,7 @@ export const RosterSummaryModal = () => {
                   rosterImageViewRef.current.createScreenshot();
                 }}
               >
-                Convert to image
+                <TranslatedText message="Convert to image" />
               </Button>
             )}
           </Box>
@@ -152,28 +156,28 @@ export const RosterSummaryModal = () => {
           <FormControlLabel
             checked={plainTextView}
             control={<Switch color="primary" />}
-            label="Plain text"
+            label={translateUI("Plain text")}
             labelPlacement="end"
             onChange={handlePlainTextToggle}
           />
           <FormControlLabel
             checked={showUnitTotals}
             control={<Switch color="primary" />}
-            label="Show unit totals"
+            label={translateUI("Show unit totals")}
             labelPlacement="end"
             onChange={handleTotalsToggle}
           />
           <FormControlLabel
             checked={showArmyBonus}
             control={<Switch color="primary" />}
-            label="Show army bonus"
+            label={translateUI("Show army bonus")}
             labelPlacement="end"
             onChange={handleBonusToggle}
           />
           <FormControlLabel
             checked={includeRosterName}
             control={<Switch color="primary" />}
-            label="Display roster name"
+            label={translateUI("Display roster name")}
             labelPlacement="end"
             onChange={handleRosterNameToggle}
           />

@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRosterBuildingState } from "../../../state/roster-building";
 import { RosterGroup } from "../../../state/roster-building/groups";
@@ -16,6 +18,8 @@ function findSubgroups(slug: string, groups: RosterGroup[]): RosterGroup[] {
 }
 
 export const ConfirmDeleteGroupModal = () => {
+  const { t: translateUI } = useTranslation();
+
   const {
     closeModal,
     modalContext: { groupId, redirect },
@@ -60,28 +64,34 @@ export const ConfirmDeleteGroupModal = () => {
     <>
       <DialogContent sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
         <CustomAlert severity="warning" title="">
-          <Typography>Your are about to delete your roster group!</Typography>
+          <Typography>
+            <TranslatedText message="Your are about to delete your roster group!" />
+          </Typography>
         </CustomAlert>
 
         {affectedRosters.length > 0 && (
           <CustomAlert severity="error" title="">
             <Typography>
-              Deleting this roster group will also delete the{" "}
-              {affectedRosters.length === 1
-                ? "roster"
-                : `${affectedRosters.length} rosters`}{" "}
-              inside of it.
+              <TranslatedText message="Deleting this roster group will also delete the" />{" "}
+              {affectedRosters.length === 1 ? (
+                <TranslatedText message="roster" />
+              ) : (
+                translateUI("{{count}} rosters", {
+                  count: affectedRosters.length,
+                })
+              )}{" "}
+              <TranslatedText message="inside of it." />
             </Typography>
           </CustomAlert>
         )}
 
         <Typography>
-          Confirm the group name to confirm: <br />
+          <TranslatedText message="Confirm the group name to confirm:" /> <br />
           <b>{name}</b>
         </Typography>
         <TextField
           fullWidth
-          label="Confirm Group name"
+          label={translateUI("Confirm Group name")}
           value={rosterGroupName}
           onChange={(e) => setRosterGroupName(e.target.value)}
           sx={{ mt: 1 }}
@@ -93,7 +103,7 @@ export const ConfirmDeleteGroupModal = () => {
           onClick={closeModal}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -102,7 +112,7 @@ export const ConfirmDeleteGroupModal = () => {
           disabled={name !== rosterGroupName}
           data-test-id="dialog--submit-button"
         >
-          Delete group
+          <TranslatedText message="Delete group" />
         </Button>
       </DialogActions>
     </>

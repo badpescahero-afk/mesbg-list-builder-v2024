@@ -9,6 +9,8 @@ import {
 import Box from "@mui/material/Box";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { ChangeEvent, FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../../i18n/TranslatedText";
 import { useGameModeState } from "../../../../../state/gamemode";
 import { QuestionListProps } from "../VictoryPoints.tsx";
 import { BannerVPs } from "../vp-common/BannerVPs.tsx";
@@ -42,6 +44,8 @@ const HERO_KILLS = 4;
  * - You score 1 Victory Point for each enemy Hero model that has been removed as a casualty, up to a maximum of 3 Victory Points
  */
 export const ToTheDeathVPs: FunctionComponent<QuestionListProps> = (props) => {
+  const { t: translateUI } = useTranslation();
+
   const { victoryPoints, setVictoryPoints } = useGameModeState();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -127,7 +131,7 @@ export const ToTheDeathVPs: FunctionComponent<QuestionListProps> = (props) => {
         <BrokenVPs
           value={quarteredVPs}
           setValue={setQuarteredVPs}
-          label="quartered"
+          label={translateUI("quartered")}
           vpSpread={[0, 3, 3]}
         />
       )}
@@ -155,6 +159,8 @@ type GeneralWoundVPsProps = {
 export const ToTheDeathGeneralWoundVPs: FunctionComponent<
   GeneralWoundVPsProps
 > = ({ value, setValue }) => {
+  const { t: translateUI } = useTranslation();
+
   const vpSpread = { killed: 5, oneWound: 3, wounded: 1, unharmed: 0 };
   const handleOnChange = (_: ChangeEvent, v: string) => {
     setValue([value[0], -vpSpread[v]]);
@@ -165,60 +171,64 @@ export const ToTheDeathGeneralWoundVPs: FunctionComponent<
   return (
     <Stack>
       <FormControl>
-        <FormLabel>Your General</FormLabel>
+        <FormLabel>
+          <TranslatedText message="Your General" />
+        </FormLabel>
         <RadioGroup row name="hero" onChange={handleOnChange}>
           <FormControlLabel
             value="unharmed"
             checked={value[1] === 0}
             control={<Radio />}
-            label="Unharmed"
+            label={translateUI("Unharmed")}
           />
           <FormControlLabel
             value="wounded"
             checked={value[1] === -1}
             control={<Radio />}
-            label="Wounded"
+            label={translateUI("Wounded")}
           />
           <FormControlLabel
             value="oneWound"
             checked={value[1] === -3}
             control={<Radio />}
-            label="One wound left"
+            label={translateUI("One wound left")}
           />
           <FormControlLabel
             value="killed"
             checked={value[1] === -5}
             control={<Radio />}
-            label="Killed"
+            label={translateUI("Killed")}
           />
         </RadioGroup>
       </FormControl>
       <FormControl>
-        <FormLabel>Enemy General</FormLabel>
+        <FormLabel>
+          <TranslatedText message="Enemy General" />
+        </FormLabel>
         <RadioGroup row name="hero" onChange={handleOnChangeEnemy}>
           <FormControlLabel
             value="unharmed"
             checked={value[0] === 0}
             control={<Radio />}
-            label="Unharmed"
+            label={translateUI("Unharmed")}
           />
           <FormControlLabel
             value="wounded"
             checked={value[0] === 1}
             control={<Radio />}
-            label="Wounded"
+            label={translateUI("Wounded")}
           />
           <FormControlLabel
             value="oneWound"
             checked={value[0] === 3}
             control={<Radio />}
-            label="One wound left"
+            label={translateUI("One wound left")}
           />
           <FormControlLabel
             value="killed"
             checked={value[0] === 5}
             control={<Radio />}
-            label="Killed"
+            label={translateUI("Killed")}
           />
         </RadioGroup>
       </FormControl>
@@ -234,6 +244,8 @@ const ToTheDeathHeroKillVPs: FunctionComponent<HeroKillVPsProps> = ({
   value,
   setValue,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value ? Number(event.target.value) : null;
     return setValue([newValue, value[1]]);
@@ -246,7 +258,7 @@ const ToTheDeathHeroKillVPs: FunctionComponent<HeroKillVPsProps> = ({
     <Stack gap={2}>
       <TextField
         fullWidth
-        label="Enemy heroes you killed"
+        label={translateUI("Enemy heroes you killed")}
         name="heroes"
         value={value[0]}
         type="number"
@@ -257,7 +269,7 @@ const ToTheDeathHeroKillVPs: FunctionComponent<HeroKillVPsProps> = ({
       />
       <TextField
         fullWidth
-        label="Heroes killed by the enemy"
+        label={translateUI("Heroes killed by the enemy")}
         name="opponentHeroes"
         value={value[1]}
         type="number"

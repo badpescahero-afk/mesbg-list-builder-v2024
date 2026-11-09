@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { download } from "../../hooks/export/useDownload.ts";
+import { TranslatedText } from "../../i18n/TranslatedText";
 
 export const AppFallback = () => {
   const error = useRouteError();
@@ -42,18 +43,19 @@ export const AppFallback = () => {
           my: 4,
         }}
       >
-        <Typography variant="h3">A Shadow Has Fallen!</Typography>
+        <Typography variant="h3">
+          <TranslatedText message="A Shadow Has Fallen!" />
+        </Typography>
         <Typography variant="body1">
-          “Even the smallest code can bring about the greatest of crashes.
-          <br /> Fear not, traveler, for this is but a passing error in the
-          journey.”
+          <TranslatedText message="“Even the smallest code can bring about the greatest of crashes." />
+          <br />{" "}
+          <TranslatedText message="Fear not, traveler, for this is but a passing error in the journey.”" />
         </Typography>
 
         <Divider />
 
         <Typography>
-          You can download your current state to file and help us recover if
-          something goes missing.
+          <TranslatedText message="You can download your current state to file and help us recover if something goes missing." />
         </Typography>
         <Button
           color="primary"
@@ -75,7 +77,7 @@ export const AppFallback = () => {
             );
           }}
         >
-          Click here to download a backup
+          <TranslatedText message="Click here to download a backup" />
         </Button>
         <Divider />
 
@@ -89,12 +91,12 @@ export const AppFallback = () => {
         >
           <Box sx={{ p: 2 }}>
             <Typography>
-              <b>Help us help you!</b>
+              <b>
+                <TranslatedText message="Help us help you!" />
+              </b>
             </Typography>
             <Typography>
-              Please do share a screenshot of this page with us either via email
-              or in our discord. We do like to know what happend and resolve the
-              issue.
+              <TranslatedText message="Please do share a screenshot of this page with us either via email or in our discord. We do like to know what happend and resolve the issue." />
             </Typography>
           </Box>
 
@@ -102,7 +104,7 @@ export const AppFallback = () => {
             <a href="https://discord.gg/MZfUgRtV56">
               https://discord.gg/MZfUgRtV56
             </a>{" "}
-            or{" "}
+            <TranslatedText message="or" />{" "}
             <a href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction">
               support@mesbg-list-builder.com
             </a>
@@ -110,7 +112,7 @@ export const AppFallback = () => {
           </Typography>
 
           <Typography variant="body1" fontWeight="bold">
-            Error log:
+            <TranslatedText message="Error log:" />
           </Typography>
           <Typography
             variant="caption"

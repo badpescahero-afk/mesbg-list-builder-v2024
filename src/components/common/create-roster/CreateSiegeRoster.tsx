@@ -1,5 +1,7 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import { forwardRef, MouseEvent, useImperativeHandle, useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { ArmySelectionInput } from "../../atoms/army-selector/ArmySelectionInput.tsx";
 import { CustomSwitch } from "../../atoms/switch/CustomSwitch.tsx";
@@ -11,6 +13,8 @@ export type CreateSiegeRosterHandlers = {
 };
 export const CreateSiegeRoster = forwardRef<CreateSiegeRosterHandlers>(
   (_, ref) => {
+    const { t: translateUI } = useTranslation();
+
     const {
       armyList,
       setArmyList,
@@ -34,8 +38,7 @@ export const CreateSiegeRoster = forwardRef<CreateSiegeRosterHandlers>(
     return (
       <>
         <CustomAlert title="" severity="info">
-          Create a roster with siege options. This type of roster enables siege
-          equipment like ladders, rams and barricades.
+          <TranslatedText message="Create a roster with siege options. This type of roster enables siege equipment like ladders, rams and barricades." />
         </CustomAlert>
         <ArmySelectionInput armyList={armyList} setArmyList={setArmyList} />
         <Stack
@@ -51,7 +54,7 @@ export const CreateSiegeRoster = forwardRef<CreateSiegeRosterHandlers>(
             }
             onClick={() => setSiegeRole("Defender")}
           >
-            Defender
+            <TranslatedText message="Defender" />
           </Typography>
           <CustomSwitch
             checked={siegeRole === "Attacker"}
@@ -68,22 +71,22 @@ export const CreateSiegeRoster = forwardRef<CreateSiegeRosterHandlers>(
             }
             onClick={() => setSiegeRole("Attacker")}
           >
-            Attacker
+            <TranslatedText message="Attacker" />
           </Typography>
         </Stack>
         <TextField
           fullWidth
-          label="Roster name (Optional)"
+          label={translateUI("Roster name (Optional)")}
           value={rosterName}
           onChange={(e) => updateRosterName(e.target.value)}
         />
         <TextField
           fullWidth
-          label="Points (Optional)"
+          label={translateUI("Points (Optional)")}
           value={maxRosterPoints}
           helperText={
             maxRosterPoints !== "" && Number(maxRosterPoints) <= 0
-              ? "Please enter a value above 0"
+              ? translateUI("Please enter a value above 0")
               : ""
           }
           error={maxRosterPoints !== "" && Number(maxRosterPoints) <= 0}

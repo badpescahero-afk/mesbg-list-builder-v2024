@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { MouseEvent } from "react";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { DatabaseRow } from "../data.ts";
 import { Order } from "../utils/sorting.ts";
@@ -73,7 +74,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "Mv" ? order : "asc"}
                     onClick={createSortHandler("Mv")}
                   >
-                    Mv / Range
+                    <TranslatedText message="Mv / Range" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -82,7 +83,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.Fv" ? order : "asc"}
                     onClick={createSortHandler("profile.Fv")}
                   >
-                    Fv
+                    <TranslatedText message="Fv" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -91,7 +92,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.Sv" ? order : "asc"}
                     onClick={createSortHandler("profile.Sv")}
                   >
-                    Sv
+                    <TranslatedText message="Sv" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">

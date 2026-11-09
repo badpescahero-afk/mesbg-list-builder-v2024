@@ -6,6 +6,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState, MouseEvent } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { SquareIconButton } from "../../atoms/icon-button/SquareIconButton.tsx";
@@ -18,6 +20,8 @@ export const GroupOptionsPopoverMenu = ({
   groupId: string;
   redirect?: boolean;
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const { mode } = useThemeContext();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { setCurrentModal } = useAppState();
@@ -49,7 +53,7 @@ export const GroupOptionsPopoverMenu = ({
   return (
     <div>
       <SquareIconButton
-        aria-label="more"
+        aria-label={translateUI("more")}
         aria-controls={open ? "menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
@@ -64,20 +68,29 @@ export const GroupOptionsPopoverMenu = ({
           <ListItemIcon>
             <Edit fontSize="small" />
           </ListItemIcon>
-          <ListItemText> Update group</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Update group" />
+          </ListItemText>
         </MenuItem>
         <MenuItem onClick={handleDisband}>
           <ListItemIcon>
             <Delete fontSize="small" />
           </ListItemIcon>
-          <ListItemText> Disband group</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Disband group" />
+          </ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleDelete}>
           <ListItemIcon>
             <DeleteForever fontSize="small" />
           </ListItemIcon>
-          <ListItemText> Delete group</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Delete group" />
+          </ListItemText>
         </MenuItem>
       </Menu>
     </div>

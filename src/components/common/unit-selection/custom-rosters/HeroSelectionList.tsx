@@ -5,6 +5,7 @@ import { Virtuoso } from "react-virtuoso";
 import { mesbgData } from "../../../../assets/data";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation";
 import { unitSortOrder } from "../../../../hooks/profiles/profile-utils/sorting";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { Unit } from "../../../../types/mesbg-data.types";
 import { VirtualUnitRow } from "./VirtualUnitRow.tsx";
 import { removeArmyListSection } from "./removeArmyListSection.ts";
@@ -19,6 +20,8 @@ export const HeroSelectionList: FunctionComponent<HeroSelectionListProps> = ({
   armyList,
   selectUnit,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const [filter, setFilter] = useState("");
   const [rows, setRows] = useState([]);
   const mergeDuplicateHeroes = useMergedUnitData();
@@ -59,8 +62,8 @@ export const HeroSelectionList: FunctionComponent<HeroSelectionListProps> = ({
     <Stack gap={1.5} sx={{ height: "100%" }}>
       <TextField
         id="hero-selection-list--name-filter"
-        label="Filter"
-        placeholder="Filter heroes by name..."
+        label={translateUI("Filter")}
+        placeholder={translateUI("Filter heroes by name...")}
         value={filter}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           setFilter(event.target.value);

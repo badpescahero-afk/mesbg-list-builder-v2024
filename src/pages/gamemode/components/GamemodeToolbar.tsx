@@ -11,6 +11,7 @@ import { SquareIconButton } from "../../../components/atoms/icon-button/SquareIc
 import { ModalTypes } from "../../../components/modal/modals.tsx";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useGameModeState } from "../../../state/gamemode";
 
@@ -87,17 +88,17 @@ export const GamemodeToolbar = () => {
             navigate(`/roster/${roster.id}`);
           }}
         >
-          Back
+          <TranslatedText message="Back" />
         </Button>
         <Button variant="outlined" onClick={() => openEndGameDialog()}>
-          End game
+          <TranslatedText message="End game" />
         </Button>
       </Stack>
       <Stack direction="row" justifyContent="space-around" sx={{ m: 2 }}>
         <Typography
           color={breakPointDead - casualties <= 0 ? "error" : "inherit"}
         >
-          Until Broken:{" "}
+          <TranslatedText message="Until Broken:" />{" "}
           <b>
             {breakPointDead - casualties > 0 ? (
               breakPointDead - casualties
@@ -107,7 +108,7 @@ export const GamemodeToolbar = () => {
           </b>
         </Typography>
         <Typography color={quarterDead - casualties <= 0 ? "error" : "inherit"}>
-          Until Quartered:{" "}
+          <TranslatedText message="Until Quartered:" />{" "}
           <b>
             {quarterDead - casualties > 0 ? (
               quarterDead - casualties
@@ -117,12 +118,12 @@ export const GamemodeToolbar = () => {
           </b>
         </Typography>
         <Typography color={totalMight <= 0 ? "error" : "inherit"}>
-          Might: <b>{totalMight}</b>
+          <TranslatedText message="Might:" /> <b>{totalMight}</b>
         </Typography>
       </Stack>
       <Stack direction="row" gap={2} justifyContent="center" sx={{ mb: 3 }}>
         <Typography variant="h6" className="middle-earth">
-          Casualties:
+          <TranslatedText message="Casualties:" />
         </Typography>
         <SquareIconButton
           onClick={() => updateCasualties(-1)}
@@ -164,9 +165,11 @@ export const GamemodeToolbar = () => {
               navigate(`/roster/${roster.id}`);
             }}
           >
-            Back
+            <TranslatedText message="Back" />
           </Button>
-          <Button onClick={() => openEndGameDialog()}>End game</Button>
+          <Button onClick={() => openEndGameDialog()}>
+            <TranslatedText message="End game" />
+          </Button>
         </ButtonGroup>
       </Box>
       <Stack direction="row" gap={2}>
@@ -175,7 +178,7 @@ export const GamemodeToolbar = () => {
           className="middle-earth"
           sx={{ mx: 0.25, fontSize: "1.2rem" }}
         >
-          Casualties:
+          <TranslatedText message="Casualties:" />
         </Typography>
         <SquareIconButton
           onClick={() => updateCasualties(-1)}
@@ -205,7 +208,7 @@ export const GamemodeToolbar = () => {
           sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}
           color={breakPointDead - casualties <= 0 ? "error" : "inherit"}
         >
-          Until Broken:{" "}
+          <TranslatedText message="Until Broken:" />{" "}
           <b>
             {breakPointDead - casualties > 0 ? (
               breakPointDead - casualties
@@ -218,7 +221,7 @@ export const GamemodeToolbar = () => {
           sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}
           color={quarterDead - casualties <= 0 ? "error" : "inherit"}
         >
-          Until Quartered:{" "}
+          <TranslatedText message="Until Quartered:" />{" "}
           <b>
             {quarterDead - casualties > 0 ? (
               quarterDead - casualties
@@ -231,7 +234,7 @@ export const GamemodeToolbar = () => {
           sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}
           color={totalMight <= 0 ? "error" : "inherit"}
         >
-          Total Might Left: <b>{totalMight}</b>
+          <TranslatedText message="Total Might Left:" /> <b>{totalMight}</b>
         </Typography>
       </Box>
     </Toolbar>

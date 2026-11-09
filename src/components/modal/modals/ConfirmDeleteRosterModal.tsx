@@ -2,6 +2,7 @@ import { Button, DialogActions, DialogContent } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useGameModeState } from "../../../state/gamemode";
 import { useRosterBuildingState } from "../../../state/roster-building";
@@ -38,9 +39,11 @@ export const ConfirmDeleteRosterModal = () => {
       <DialogContent sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
         <CustomAlert severity="warning" title="">
           <Typography>
-            Your are about to delete your roster!{" "}
-            <b>This action is irreversible.</b> You will have to recreate the
-            roster from scratch!
+            <TranslatedText message="Your are about to delete your roster!" />{" "}
+            <b>
+              <TranslatedText message="This action is irreversible." />
+            </b>{" "}
+            <TranslatedText message="You will have to recreate the roster from scratch!" />
           </Typography>
         </CustomAlert>
       </DialogContent>
@@ -50,7 +53,7 @@ export const ConfirmDeleteRosterModal = () => {
           onClick={closeModal}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -58,7 +61,7 @@ export const ConfirmDeleteRosterModal = () => {
           color="error"
           data-test-id="dialog--submit-button"
         >
-          Delete roster
+          <TranslatedText message="Delete roster" />
         </Button>
       </DialogActions>
     </>

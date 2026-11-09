@@ -13,6 +13,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { CustomAlert } from "../../components/atoms/alert/CustomAlert.tsx";
 import { ModalTypes } from "../../components/modal/modals.tsx";
 import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useAppState } from "../../state/app";
 import { useRecentGamesState } from "../../state/recent-games";
 import { PastGame } from "../../state/recent-games/history";
@@ -157,10 +158,15 @@ export const SavedGameResults = () => {
           </>
         ) : (
           <CustomAlert severity="info" title="">
-            You have 0 games on record. Play a match using the{" "}
-            <em>&quot;Game Mode&quot;</em> from the roster builder or{" "}
-            <em>create/import</em> games using the Floating button in the bottom
-            right.
+            <TranslatedText message="You have 0 games on record. Play a match using the" />{" "}
+            <em>
+              <TranslatedText message={'"Game Mode"'} />
+            </em>{" "}
+            <TranslatedText message="from the roster builder or" />{" "}
+            <em>
+              <TranslatedText message="create/import" />
+            </em>{" "}
+            <TranslatedText message="games using the Floating button in the bottom right." />
           </CustomAlert>
         )}
 

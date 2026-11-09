@@ -11,6 +11,8 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNewRosterBuilder } from "../../../hooks/new-roster/useNewRosterBuilder.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRosterBuildingState } from "../../../state/roster-building";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
@@ -21,6 +23,8 @@ import {
 import { AdditionalTagsInput } from "../../atoms/tags-input/TagsInput.tsx";
 
 export const EditRosterModal = () => {
+  const { t: translateUI } = useTranslation();
+
   const {
     closeModal,
     modalContext: { roster },
@@ -117,28 +121,34 @@ export const EditRosterModal = () => {
       <DialogContent sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
         {armyList.army !== roster.armyList && (
           <Box sx={{ mb: 2 }}>
-            <CustomAlert severity="warning" title="Changing the army list">
+            <CustomAlert
+              severity="warning"
+              title={translateUI("Changing the army list")}
+            >
               <Typography>
-                Changing the army list on your roster will reset your current
-                selection. You are basically starting over from scratch!
+                <TranslatedText message="Changing the army list on your roster will reset your current selection. You are basically starting over from scratch!" />
               </Typography>
             </CustomAlert>
           </Box>
         )}
 
         {roster.armyList.startsWith("Custom:") ? (
-          <TextField value={roster.armyList} label="Army" disabled />
+          <TextField
+            value={roster.armyList}
+            label={translateUI("Army")}
+            disabled
+          />
         ) : (
           <ArmySelectionInput armyList={armyList} setArmyList={setArmyList} />
         )}
 
         <TextField
           fullWidth
-          label="Roster name"
+          label={translateUI("Roster name")}
           error={!rosterNameValid}
           helperText={
             !rosterNameValid
-              ? "Roster name cannot be empty and must be unique."
+              ? translateUI("Roster name cannot be empty and must be unique.")
               : ""
           }
           value={rosterName}
@@ -146,11 +156,11 @@ export const EditRosterModal = () => {
         />
         <TextField
           fullWidth
-          label="Points limit (optional)"
+          label={translateUI("Points limit (optional)")}
           error={!rosterPointsLimitValid}
           helperText={
             !rosterPointsLimitValid
-              ? "The roster points limit needs to be above 0"
+              ? translateUI("The roster points limit needs to be above 0")
               : ""
           }
           value={rosterPointsLimit}
@@ -160,26 +170,25 @@ export const EditRosterModal = () => {
 
         <Divider variant="middle">
           <Typography className="middle-earth" variant="h6">
-            Addtional settings
+            <TranslatedText message="Addtional settings" />
           </Typography>
         </Divider>
         <Stack direction="row" gap={2} sx={{ mb: -1 }}>
           <TextField
             fullWidth
-            label="Fake units"
+            label={translateUI("Fake units")}
             value={rosterAddUnits}
             onChange={(e) => updateRosterAddUnits(e.target.value)}
           />
           <TextField
             fullWidth
-            label="Fake points"
+            label={translateUI("Fake points")}
             value={rosterAddPoints}
             onChange={(e) => updateRosterAddPoints(e.target.value)}
           />
         </Stack>
         <FormHelperText sx={{ ml: 1.5 }}>
-          These are added or subtracted from the total units or points of the
-          roster.
+          <TranslatedText message="These are added or subtracted from the total units or points of the roster." />
         </FormHelperText>
       </DialogContent>
       <DialogActions sx={{ display: "flex", gap: 2 }}>
@@ -190,7 +199,7 @@ export const EditRosterModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -198,7 +207,7 @@ export const EditRosterModal = () => {
           disabled={!rosterNameValid}
           data-test-id="dialog--submit-button"
         >
-          Update roster
+          <TranslatedText message="Update roster" />
         </Button>
       </DialogActions>
     </>

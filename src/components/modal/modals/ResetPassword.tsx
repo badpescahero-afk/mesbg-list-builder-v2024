@@ -8,11 +8,15 @@ import {
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useFirebaseAuth } from "../../../firebase/useFirebaseAuth.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { AlertTypes } from "../../notifications/alert-types.tsx";
 
 export const ResetPassword = () => {
+  const { t: translateUI } = useTranslation();
+
   const {
     closeModal,
     modalContext: { email: predefinedEmail },
@@ -42,18 +46,21 @@ export const ResetPassword = () => {
     <>
       <DialogContent>
         <Stack gap={1}>
-          <CustomAlert severity="info" title="Reset password request">
-            Please provide the email adres you signed up with so we can send you
-            a reset password link.
+          <CustomAlert
+            severity="info"
+            title={translateUI("Reset password request")}
+          >
+            <TranslatedText message="Please provide the email adres you signed up with so we can send you a reset password link." />
           </CustomAlert>
           {firebaseError && (
-            <CustomAlert severity="error" title="Request failed">
+            <CustomAlert severity="error" title={translateUI("Request failed")}>
               <Typography>
-                The authentication provider failed to send the password reset.
-                We received the following error:{" "}
+                <TranslatedText message="The authentication provider failed to send the password reset. We received the following error:" />{" "}
                 <b>&quot;{firebaseError}&quot;</b>.
               </Typography>
-              <Typography>Please reach out if the problem persists.</Typography>
+              <Typography>
+                <TranslatedText message="Please reach out if the problem persists." />
+              </Typography>
             </CustomAlert>
           )}
         </Stack>
@@ -61,11 +68,13 @@ export const ResetPassword = () => {
         <TextField
           sx={{ mt: 2 }}
           fullWidth
-          label="Emailadress"
+          label={translateUI("Emailadress")}
           error={!emailValid}
           helperText={
             !emailValid
-              ? "That doesn’t look like a valid email address. Please check and try again."
+              ? translateUI(
+                  "That doesn’t look like a valid email address. Please check and try again.",
+                )
               : ""
           }
           value={email}
@@ -84,14 +93,14 @@ export const ResetPassword = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
           onClick={sendRequest}
           data-test-id="dialog--submit-button"
         >
-          Send request
+          <TranslatedText message="Send request" />
         </Button>
       </DialogActions>
     </>

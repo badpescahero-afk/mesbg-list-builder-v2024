@@ -1,5 +1,6 @@
 import { useTheme } from "@mui/material/styles";
 import { Bar } from "react-chartjs-2";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { PastGame } from "../../../../state/recent-games/history";
 
 interface OpponentsPlayedProps {
@@ -9,6 +10,8 @@ interface OpponentsPlayedProps {
 export const OpponentsVictoryPointsBarChart = ({
   data,
 }: OpponentsPlayedProps) => {
+  const { t: translateUI } = useTranslation();
+
   const { palette } = useTheme();
 
   const barColors = [palette.success.light, palette.error.light];
@@ -31,7 +34,7 @@ export const OpponentsVictoryPointsBarChart = ({
   const dataset = {
     labels: Object.keys(opponentsPlayed),
     datasets: ["earned", "lost"].map((key, index) => ({
-      label: "VP's " + key,
+      label: translateUI("VP's") + " " + translateUI(key),
       data: Object.values(opponentsPlayed).map((wld) => wld[key]),
       yAxisID: "y1",
       backgroundColor: barColors[index],
@@ -47,7 +50,7 @@ export const OpponentsVictoryPointsBarChart = ({
           legend: { position: "top" },
           title: {
             display: true,
-            text: "Victory Point Spread per Opponent",
+            text: translateUI("Victory Point Spread per Opponent"),
           },
         },
         scales: {

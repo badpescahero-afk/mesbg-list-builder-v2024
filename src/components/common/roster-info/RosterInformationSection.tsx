@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent, PropsWithChildren } from "react";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { slugify } from "../../../utils/string.ts";
 
 export type RosterInformationSectionProps = {
@@ -15,7 +16,7 @@ export const RosterInformationSection: FunctionComponent<
     <Box data-test-id={`roster-information--${slugify(props.title)}`}>
       <Divider textAlign="center">
         <Typography variant="h6" className="middle-earth">
-          {props.title}
+          <TranslatedText message={props.title} />
         </Typography>
       </Divider>
       <Box>{props.children}</Box>

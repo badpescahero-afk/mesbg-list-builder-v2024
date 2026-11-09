@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { statsIconMap } from "./icons";
 import { useSharedStats } from "./useSiteStats";
 
@@ -24,18 +25,18 @@ export const SiteStats = () => {
   return (
     <Container maxWidth="lg" sx={{ py: 2 }}>
       <Typography variant="h4" gutterBottom className="middle-earth">
-        Community Stats
+        <TranslatedText message="Community Stats" />
       </Typography>
 
       <Stack spacing={0.5}>
         <Typography variant="body1" color="text.secondary">
-          A quick snapshot of what’s been happening on the builder.
+          <TranslatedText message="A quick snapshot of what’s been happening on the builder." />
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          These numbers update hourly and reflect activity over the past 7 days.
+          <TranslatedText message="These numbers update hourly and reflect activity over the past 7 days." />
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Check back to see how things are trending.
+          <TranslatedText message="Check back to see how things are trending." />
         </Typography>
       </Stack>
 
@@ -76,7 +77,7 @@ export const SiteStats = () => {
                         textWrap: "pretty",
                       }}
                     >
-                      {label}
+                      <TranslatedText message={label} />
                     </Typography>
                   </Stack>
                   <Typography variant="h4" sx={{ pt: 0.5, pb: 1, ml: 2 }}>

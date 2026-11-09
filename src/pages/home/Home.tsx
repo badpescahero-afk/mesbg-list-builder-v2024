@@ -6,12 +6,15 @@ import Typography from "@mui/material/Typography";
 import { FaPatreon } from "react-icons/fa";
 import discord from "../../assets/images/homepage/discord.png";
 import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { FeatureTabs } from "./FeatureTabs.tsx";
 
 export const DISCORD_LINK = "https://discord.gg/Hmjetd9NDf";
 export const PATREON_LINK = "https://www.patreon.com/mesbg_list_builder";
 
 export const Home = () => {
+  const { t: translateUI } = useTranslation();
+
   const { t } = useTranslation();
   return (
     <Container maxWidth={false} sx={{ mt: 2, mb: 5 }}>
@@ -29,7 +32,7 @@ export const Home = () => {
               <a href={DISCORD_LINK} target="_blank" rel="noreferrer">
                 <img
                   src={discord}
-                  alt="join the list builder on discord"
+                  alt={translateUI("join the list builder on discord")}
                   style={{ height: "44px" }}
                 />
               </a>
@@ -44,10 +47,9 @@ export const Home = () => {
             </Typography>
 
             <Typography variant="body2" sx={{ fontSize: "1rem" }}>
-              Please reach out to us you have any questions, request or
-              corrections. You can do so via our the mail using the{" "}
+              <TranslatedText message="Please reach out to us you have any questions, request or corrections. You can do so via our the mail using the" />{" "}
               <BugReport fontSize="small" sx={{ verticalAlign: "middle" }} />
-              -icon on the left or via discord.
+              <TranslatedText message="-icon on the left or via discord." />
             </Typography>
 
             <Typography variant="body2" sx={{ fontSize: "1rem" }}>

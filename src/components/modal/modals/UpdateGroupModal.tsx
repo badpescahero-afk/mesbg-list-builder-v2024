@@ -2,6 +2,8 @@ import { Button, DialogActions, DialogContent, TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRosterBuildingState } from "../../../state/roster-building";
 import {
@@ -11,6 +13,8 @@ import {
 import { AlertTypes } from "../../notifications/alert-types.tsx";
 
 export const UpdateGroupModal = () => {
+  const { t: translateUI } = useTranslation();
+
   const {
     closeModal,
     modalContext: { groupId, redirect },
@@ -64,10 +68,12 @@ export const UpdateGroupModal = () => {
         <TextField
           sx={{ mt: 2 }}
           fullWidth
-          label="New group name"
+          label={translateUI("New group name")}
           error={!rosterGroupNameValid}
           helperText={
-            !rosterGroupNameValid ? "The group name cannot be empty." : ""
+            !rosterGroupNameValid
+              ? translateUI("The group name cannot be empty.")
+              : ""
           }
           value={rosterGroupName}
           onChange={(e) => updateRosterGroupName(e.target.value)}
@@ -85,7 +91,7 @@ export const UpdateGroupModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -93,7 +99,7 @@ export const UpdateGroupModal = () => {
           disabled={!rosterGroupNameValid}
           data-test-id="dialog--submit-button"
         >
-          Update group
+          <TranslatedText message="Update group" />
         </Button>
       </DialogActions>
     </>

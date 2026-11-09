@@ -1,5 +1,6 @@
 import { useTheme } from "@mui/material/styles";
 import { Bar } from "react-chartjs-2";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { PastGame } from "../../../../state/recent-games/history";
 
 interface ScenariosPlayedProps {
@@ -7,6 +8,8 @@ interface ScenariosPlayedProps {
 }
 
 export const ScenariosPlayedBarChart = ({ data }: ScenariosPlayedProps) => {
+  const { t: translateUI } = useTranslation();
+
   const { palette } = useTheme();
 
   const barColors = [
@@ -35,7 +38,7 @@ export const ScenariosPlayedBarChart = ({ data }: ScenariosPlayedProps) => {
   const dataset = {
     labels: Object.keys(scenariosPlayed),
     datasets: ["won", "draw", "lost"].map((key, index) => ({
-      label: key,
+      label: translateUI(key),
       data: Object.values(scenariosPlayed).map((wld) => wld[key]),
       yAxisID: "y1",
       backgroundColor: barColors[index],
@@ -51,7 +54,7 @@ export const ScenariosPlayedBarChart = ({ data }: ScenariosPlayedProps) => {
           legend: { position: "top" },
           title: {
             display: true,
-            text: "Scenarios Played (with WLD)",
+            text: translateUI("Scenarios Played (with WLD)"),
           },
         },
         scales: {

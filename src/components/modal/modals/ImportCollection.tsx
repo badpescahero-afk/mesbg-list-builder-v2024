@@ -12,12 +12,15 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { AlertTypes } from "../../notifications/alert-types.tsx";
 
 export const ImportCollection = () => {
+  const { t: translateUI } = useTranslation();
   const { closeModal, triggerAlert } = useAppState();
   const { upsertInventory } = useCollectionState();
   const { upsertCollection } = useApi();
@@ -72,7 +75,7 @@ export const ImportCollection = () => {
     const file = event.target.files[0]; // Get the selected file
 
     if (!(file && file.type === "application/json")) {
-      alert("Please select a JSON" + file.type);
+      alert(translateUI("Please select a JSON") + file.type);
       event.target.value = "";
       return;
     }
@@ -86,7 +89,7 @@ export const ImportCollection = () => {
         setImportedData(reader.result as string);
       } catch (error) {
         console.error("Error parsing JSON:", error);
-        alert("Invalid file type. Please use JSON.");
+        alert(translateUI("Invalid file type. Please use JSON."));
       }
     };
     reader.readAsText(file);
@@ -105,20 +108,20 @@ export const ImportCollection = () => {
         <Stack gap={2}>
           <CustomAlert title="" severity="warning">
             <Typography>
-              Overlapping collection data will be replaced with imported data!{" "}
-              <strong>For example:</strong> if you already have an collection
-              entry for the Warrior of Minas Tirith and it is also present in
-              your imported data, your collection will be updated to match the
-              import.
+              <TranslatedText message="Overlapping collection data will be replaced with imported data!" />{" "}
+              <strong>
+                <TranslatedText message="For example:" />
+              </strong>{" "}
+              <TranslatedText message="if you already have an collection entry for the Warrior of Minas Tirith and it is also present in your imported data, your collection will be updated to match the import." />
             </Typography>
             <Typography sx={{ mt: 2 }}>
-              Entries imported which are not part of the profile database will
-              be visible on the collections table but will not have any other
-              effect.
+              <TranslatedText message="Entries imported which are not part of the profile database will be visible on the collections table but will not have any other effect." />
             </Typography>
           </CustomAlert>
           <FormControl error={importAlert} variant="standard" fullWidth>
-            <InputLabel htmlFor="component-error">Collection data</InputLabel>
+            <InputLabel htmlFor="component-error">
+              <TranslatedText message="Collection data" />
+            </InputLabel>
             <Input
               multiline
               maxRows={4}
@@ -127,8 +130,7 @@ export const ImportCollection = () => {
             />
             {importAlert && (
               <FormHelperText id="component-error-text">
-                Importing the data resulted in an error. Please check the import
-                and verify a data type has been selected!
+                <TranslatedText message="Importing the data resulted in an error. Please check the import and verify a data type has been selected!" />
               </FormHelperText>
             )}
           </FormControl>
@@ -145,7 +147,7 @@ export const ImportCollection = () => {
             fullWidth
             startIcon={<AttachFileOutlined />}
           >
-            Select a file
+            <TranslatedText message="Select a file" />
           </Button>
         </Stack>
       </DialogContent>
@@ -156,7 +158,7 @@ export const ImportCollection = () => {
           disabled={!importedData}
           data-test-id="dialog--submit-button"
         >
-          Import collection
+          <TranslatedText message="Import collection" />
         </Button>
       </DialogActions>
     </>

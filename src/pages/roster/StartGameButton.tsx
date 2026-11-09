@@ -2,10 +2,14 @@ import Button from "@mui/material/Button";
 import { FaChessRook } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useGameModeState } from "../../state/gamemode";
 import { Roster as RosterType } from "../../types/roster.ts";
 
 export const StartGameButton = ({ roster }: { roster: RosterType }) => {
+  const { t: translateUI } = useTranslation();
+
   const api = useApi();
   const navigate = useNavigate();
 
@@ -18,7 +22,7 @@ export const StartGameButton = ({ roster }: { roster: RosterType }) => {
     <Button
       color="primary"
       variant="contained"
-      aria-label="open drawer"
+      aria-label={translateUI("open drawer")}
       onClick={() => {
         if (!hasStartedGame) {
           const game = startNewGame(roster);
@@ -32,7 +36,12 @@ export const StartGameButton = ({ roster }: { roster: RosterType }) => {
         minWidth: "20ch",
       }}
     >
-      {hasStartedGame ? "Continue" : "Start"} Game
+      {hasStartedGame ? (
+        <TranslatedText message="Continue" />
+      ) : (
+        <TranslatedText message="Start" />
+      )}{" "}
+      <TranslatedText message="Game" />
     </Button>
   );
 };

@@ -1,5 +1,6 @@
 import { Stack, TextField } from "@mui/material";
 import { FunctionComponent } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
 
 type BannerVPsProps = {
   value: number[];
@@ -10,11 +11,13 @@ export const BannerVPs: FunctionComponent<BannerVPsProps> = ({
   value,
   setValue,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   return (
     <Stack gap={2}>
       <TextField
         fullWidth
-        label="Banners remaining"
+        label={translateUI("Banners remaining")}
         name="banners"
         value={value[0]}
         type="number"
@@ -25,7 +28,7 @@ export const BannerVPs: FunctionComponent<BannerVPsProps> = ({
       />
       <TextField
         fullWidth
-        label="Opponents banners remaining"
+        label={translateUI("Opponents banners remaining")}
         name="opponentBanners"
         value={value[1]}
         type="number"

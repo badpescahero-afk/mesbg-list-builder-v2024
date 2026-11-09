@@ -3,6 +3,7 @@ import { Stack } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { heroConstraintData } from "../../../../assets/data.ts";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import {
   isSelectedUnit,
   isSiegeEquipment,
@@ -92,7 +93,7 @@ export const WarbandSection = ({
       <Stack gap={0.5}>
         <Stack direction="row" gap={1} alignItems="center">
           <Typography variant="h6" color="#800000" fontWeight="bold">
-            Warband {index}
+            <TranslatedText message="Warband" /> {index}
           </Typography>
           {problem && (
             <ReportProblemRoundedIcon
@@ -111,14 +112,24 @@ export const WarbandSection = ({
             <strong>
               {hero?.name?.replaceAll("(General)", "")}
               {hero?.legacy ? <sup>&#10013;</sup> : ""}{" "}
-              {leader === warband.id && <i>(General)</i>}
+              {leader === warband.id && (
+                <i>
+                  <TranslatedText message="(General)" />
+                </i>
+              )}
             </strong>{" "}
             <span style={{ whiteSpace: "wrap" }}>
-              {heroOptions && <>with {heroOptions}</>}
+              {heroOptions && (
+                <>
+                  <TranslatedText message="with" /> {heroOptions}
+                </>
+              )}
             </span>
           </Typography>
           <Typography sx={{ minWidth: "7ch", textAlign: "end" }}>
-            <b>{hero?.pointsTotal || 0} pts</b>
+            <b>
+              {hero?.pointsTotal || 0} <TranslatedText message="pts" />
+            </b>
           </Typography>
         </Stack>
 

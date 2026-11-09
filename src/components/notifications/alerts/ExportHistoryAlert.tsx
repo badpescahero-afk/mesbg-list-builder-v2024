@@ -1,10 +1,16 @@
 import { Fragment } from "react";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 
 export const ExportHistoryAlert = () => (
   <Fragment>
-    <b>Data successfully copied to your clipboard.</b>
+    <b>
+      <TranslatedText message="Data successfully copied to your clipboard." />
+    </b>
     <hr />
-    You can keep this somewhere safe, such as in a text file, to reload your
-    again later using &apos;Import history&apos;.
+    <TranslatedText
+      message={
+        "You can keep this somewhere safe, such as in a text file, to reload your again later using 'Import history'."
+      }
+    />
   </Fragment>
 );

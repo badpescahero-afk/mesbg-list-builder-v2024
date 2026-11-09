@@ -1,5 +1,6 @@
 import { Box, Chip, TextField } from "@mui/material";
 import { FormEvent, FunctionComponent, KeyboardEvent, useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
 
 type AdditionalTagsInputProps = {
   values: string[];
@@ -10,6 +11,8 @@ type AdditionalTagsInputProps = {
 export const AdditionalTagsInput: FunctionComponent<
   AdditionalTagsInputProps
 > = ({ values: tags, onChange, size = "small" }) => {
+  const { t: translateUI } = useTranslation();
+
   const [input, setInput] = useState("");
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -51,7 +54,7 @@ export const AdditionalTagsInput: FunctionComponent<
       )}
       <TextField
         variant="outlined"
-        placeholder="Comma separated tags"
+        placeholder={translateUI("Comma separated tags")}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onInput={handleOnInput}

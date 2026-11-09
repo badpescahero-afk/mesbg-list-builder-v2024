@@ -1,5 +1,6 @@
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useGameModeState } from "../../../../state/gamemode";
 import { HeroStatTracker } from "./HeroStatTracker.tsx";
 
@@ -51,8 +52,7 @@ export const HeroStatTrackers = () => {
           textAlign: "center",
         }}
       >
-        Note: Heroes and War Beasts are automatically added as a casualty when
-        their wounds reach 0.
+        <TranslatedText message="Note: Heroes and War Beasts are automatically added as a casualty when their wounds reach 0." />
       </Typography>
       {trackers.map((tracker, index) => (
         <HeroStatTracker

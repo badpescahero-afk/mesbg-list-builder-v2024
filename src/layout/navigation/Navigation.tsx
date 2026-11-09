@@ -35,6 +35,8 @@ const baseMenuIconStyles = {
 export const Navigation: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
@@ -66,7 +68,7 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label={translateUI("open drawer")}
             onClick={toggleMenuDrawer}
             edge="start"
             sx={{
@@ -92,11 +94,15 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
           </IconButton>
           {/* Logo */}
           <Button
-            aria-label="logo"
+            aria-label={translateUI("logo")}
             sx={{ mr: 2 }}
             href={window.location.protocol + "//" + window.location.host}
           >
-            <img src={logo} alt="Logo" style={{ height: "50px" }} />
+            <img
+              src={logo}
+              alt={translateUI("Logo")}
+              style={{ height: "50px" }}
+            />
             <img
               src={title}
               alt="MESBG List Builder"

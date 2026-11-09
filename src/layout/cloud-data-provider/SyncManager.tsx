@@ -14,10 +14,14 @@ import { useAuth } from "../../firebase/FirebaseAuthContext.tsx";
 import { GamestateCloudSyncProvider } from "../../hooks/cloud-sync/GamestateCloudSyncProvider.tsx";
 import { RosterCloudSyncProvider } from "../../hooks/cloud-sync/RosterCloudSyncProvider.tsx";
 import { useRefetch } from "../../hooks/cloud-sync/useRefetch.ts";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 
 export const SyncManager: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const auth = useAuth();
   const { reloadAll } = useRefetch();
 
@@ -50,17 +54,19 @@ export const SyncManager: FunctionComponent<PropsWithChildren> = ({
       }}
     >
       <CircularProgress color="inherit" size={100} thickness={2} />
-      <Typography variant="overline">Reloading application data...</Typography>
+      <Typography variant="overline">
+        <TranslatedText message="Reloading application data..." />
+      </Typography>
     </Box>
   ) : error ? (
     <Container maxWidth="md" sx={{ p: 3 }}>
-      <CustomAlert severity="error" title="An error occurred!">
-        Something went wrong while loading your data from the API. Please try
-        logging out & in. If the problem persists, please contact us via{" "}
+      <CustomAlert severity="error" title={translateUI("An error occurred!")}>
+        <TranslatedText message="Something went wrong while loading your data from the API. Please try logging out & in. If the problem persists, please contact us via" />{" "}
         <a href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction">
           support@mesbg-list-builder.com
         </a>{" "}
-        or <a href="https://discord.gg/MZfUgRtV56">discord</a>.
+        <TranslatedText message="or" />{" "}
+        <a href="https://discord.gg/MZfUgRtV56">discord</a>.
       </CustomAlert>
 
       <Button
@@ -70,7 +76,7 @@ export const SyncManager: FunctionComponent<PropsWithChildren> = ({
         variant="outlined"
         fullWidth
       >
-        Log out
+        <TranslatedText message="Log out" />
       </Button>
     </Container>
   ) : (

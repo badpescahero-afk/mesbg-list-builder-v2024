@@ -8,6 +8,7 @@ import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../firebase/FirebaseAuthContext.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { ModalTypes } from "../../modal/modals.tsx";
 
@@ -18,7 +19,7 @@ const SignInLink = () => {
     <>
       {!screen.isMobile && (
         <Typography sx={{ mr: 2 }} fontWeight="bold">
-          Not signed in
+          <TranslatedText message="Not signed in" />
         </Typography>
       )}
       <Avatar
@@ -92,7 +93,7 @@ const AccountMenu = ({ user, signOut }: AccountMenuProps) => {
             handleClose();
           }}
         >
-          Logout
+          <TranslatedText message="Logout" />
         </MenuItem>
       </Menu>
     </>

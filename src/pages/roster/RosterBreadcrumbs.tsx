@@ -2,6 +2,7 @@ import { Breadcrumbs } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "../../components/atoms/link/Link.tsx";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useRosterBuildingState } from "../../state/roster-building";
 import { useThemeContext } from "../../theme/ThemeContext.tsx";
 import { Roster as RosterType } from "../../types/roster.ts";
@@ -28,7 +29,7 @@ export const RosterBreadcrumbs = ({
           textDecoration: "none",
         }}
       >
-        My Rosters
+        <TranslatedText message="My Rosters" />
       </Link>
       {parents.map((parent) => (
         <Link

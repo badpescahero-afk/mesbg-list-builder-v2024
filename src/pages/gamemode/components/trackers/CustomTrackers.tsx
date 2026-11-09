@@ -2,6 +2,7 @@ import { Button, Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { v4 } from "uuid";
 import { useScreenSize } from "../../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useGameModeState } from "../../../../state/gamemode";
 import { CustomTracker } from "./CustomTracker.tsx";
 
@@ -38,7 +39,9 @@ export const CustomTrackers = () => {
           <CustomTracker tracker={tracker} key={tracker.id} />
         ))}
       </Stack>
-      <Button onClick={createTracker}>Add custom tracker</Button>
+      <Button onClick={createTracker}>
+        <TranslatedText message="Add custom tracker" />
+      </Button>
     </>
   );
 };

@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { SiegeEquipment } from "../../../types/mesbg-data.types.ts";
 import { UnitProfilePicture } from "../../atoms/unit-profile/UnitProfilePicture.tsx";
 
@@ -44,7 +45,7 @@ export function SiegeSelectionButton({
                   {equipment.name} {showRole && `(${equipment.siege_role})`}
                 </strong>
                 <br />
-                Points: {equipment.base_points}
+                <TranslatedText message="Points:" /> {equipment.base_points}
               </Typography>
             </Box>
           </Stack>

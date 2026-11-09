@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useGameModeState } from "../../../state/gamemode";
 import {
@@ -54,7 +55,7 @@ export const CreateGameResultModal = () => {
             sx={{ minWidth: "20ch" }}
             data-test-id="dialog--cancel-button"
           >
-            End game without saving
+            <TranslatedText message="End game without saving" />
           </Button>
         )}
         <Box flexGrow={1} />
@@ -65,7 +66,7 @@ export const CreateGameResultModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -74,7 +75,8 @@ export const CreateGameResultModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--submit-button"
         >
-          {modalContext.mode} game
+          <TranslatedText message={modalContext.mode} />{" "}
+          <TranslatedText message="game" />
         </Button>
       </DialogActions>
     </>

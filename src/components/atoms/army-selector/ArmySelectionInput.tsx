@@ -71,7 +71,7 @@ export const ArmySelectionInput = ({
           </ListItem>
         );
       }}
-      groupBy={(option) => option.type}
+      groupBy={(option) => t(option.type)}
       value={armyList}
       onChange={(_, newValue) => {
         setArmyList(newValue);

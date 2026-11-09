@@ -16,6 +16,8 @@ function a11yProps(index: number) {
 }
 
 export const FeatureTabs = () => {
+  const { t: translateUI } = useTranslation();
+
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
 
@@ -81,7 +83,7 @@ export const FeatureTabs = () => {
           value={value}
           index={0}
           image={builder}
-          imageAlt="screenshot of the roster builder"
+          imageAlt={translateUI("screenshot of the roster builder")}
           bullets={[
             "Create and manage *unlimited* army lists",
             "Add warbands with heroes and units",
@@ -100,7 +102,7 @@ export const FeatureTabs = () => {
           value={value}
           index={1}
           image={quickRef}
-          imageAlt="screenshot of the special rules drawer"
+          imageAlt={translateUI("screenshot of the special rules drawer")}
           bullets={[
             "Have a *quick reference* of rules using the side drawer",
             "Includes Special rules, Magic and Heroic actions",
@@ -113,7 +115,7 @@ export const FeatureTabs = () => {
           value={value}
           index={2}
           image={gamemode}
-          imageAlt="screenshot of the gamemode screen"
+          imageAlt={translateUI("screenshot of the gamemode screen")}
           bullets={[
             "Keep track of your game using the *digital trackers*",
             "Might/Will/Fate trackers for all your *heroes*",
@@ -128,7 +130,9 @@ export const FeatureTabs = () => {
           value={value}
           index={3}
           image={history}
-          imageAlt="screenshot of the graphs on the match history page"
+          imageAlt={translateUI(
+            "screenshot of the graphs on the match history page",
+          )}
           bullets={[
             "Keep track of all your matches and results",
             "Get an breakdown of all your stats over the past year",

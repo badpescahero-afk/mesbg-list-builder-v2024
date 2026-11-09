@@ -29,6 +29,8 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
   onChange,
   availableDateRange,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const { t } = useTranslation();
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down("lg"));
@@ -120,6 +122,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
         <Autocomplete
           disablePortal
           options={["Won", "Lost", "Draw"]}
+          getOptionLabel={(value) => translateUI(value)}
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
             <TextField {...params} label={t("Result")} size="small" />
@@ -138,7 +141,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
           options={tagOptions}
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
-            <TextField {...params} label="Tag" size="small" />
+            <TextField {...params} label={translateUI("Tag")} size="small" />
           )}
           onChange={(_, value) => handleChangeFilter("tag", value)}
         />

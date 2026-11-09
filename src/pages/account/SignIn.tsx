@@ -16,6 +16,8 @@ import googleIcon from "../../assets/images/google-icon.png";
 import { CustomAlert } from "../../components/atoms/alert/CustomAlert.tsx";
 import { ModalTypes } from "../../components/modal/modals.tsx";
 import { useAuth } from "../../firebase/FirebaseAuthContext.tsx";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useAppState } from "../../state/app";
 
 const errorMap = {
@@ -33,6 +35,8 @@ const errorMap = {
 };
 
 export const SignIn = () => {
+  const { t: translateUI } = useTranslation();
+
   const auth = useAuth();
   const { setCurrentModal } = useAppState();
   const [signInError, setSignInError] = useState(null);
@@ -95,11 +99,10 @@ export const SignIn = () => {
   return (
     <Container maxWidth="md" sx={{ mt: 2, mb: 5 }}>
       <Typography variant="h4" className="middle-earth">
-        Sign In
+        <TranslatedText message="Sign In" />
       </Typography>
       <Typography sx={{ mb: 3 }}>
-        Sign in with a personal account to easily sync your data between
-        devices.
+        <TranslatedText message="Sign in with a personal account to easily sync your data between devices." />
       </Typography>
 
       <Button
@@ -109,25 +112,28 @@ export const SignIn = () => {
         startIcon={
           <img
             src={googleIcon}
-            alt="google icon"
+            alt={translateUI("google icon")}
             style={{ width: "2.5rem", aspectRatio: "1 / 1" }}
           />
         }
         onClick={auth.signInWithGoogle}
       >
-        Sign in With Google
+        <TranslatedText message="Sign in With Google" />
       </Button>
 
       <Divider sx={{ my: 2 }}>
         <Typography variant="h6" className="middle-earth">
-          or use
+          <TranslatedText message="or use" />
         </Typography>
       </Divider>
 
       {signInError && (
         <Box sx={{ my: 2 }}>
-          <CustomAlert title="Authentication error" severity="error">
-            {signInError}
+          <CustomAlert
+            title={translateUI("Authentication error")}
+            severity="error"
+          >
+            {translateUI(signInError)}
           </CustomAlert>
         </Box>
       )}
@@ -144,14 +150,16 @@ export const SignIn = () => {
         }}
       >
         <FormControl>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel htmlFor="email">
+            <TranslatedText message="Email" />
+          </FormLabel>
           <TextField
             error={emailError}
-            helperText={emailErrorMessage}
+            helperText={translateUI(emailErrorMessage)}
             id="email"
             type="email"
             name="email"
-            placeholder="your@email.com"
+            placeholder={translateUI("your@email.com")}
             autoComplete="email"
             autoFocus
             required
@@ -161,10 +169,12 @@ export const SignIn = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="password">Password</FormLabel>
+          <FormLabel htmlFor="password">
+            <TranslatedText message="Password" />
+          </FormLabel>
           <TextField
             error={passwordError}
-            helperText={passwordErrorMessage}
+            helperText={translateUI(passwordErrorMessage)}
             name="password"
             placeholder="••••••"
             type="password"
@@ -190,7 +200,7 @@ export const SignIn = () => {
           variant="body2"
           sx={{ textAlign: "right" }}
         >
-          Forgot your password?
+          <TranslatedText message="Forgot your password?" />
         </Link>
         <Button
           type="submit"
@@ -198,7 +208,7 @@ export const SignIn = () => {
           variant="contained"
           onClick={validateInputs}
         >
-          Sign in
+          <TranslatedText message="Sign in" />
         </Button>
         <Stack
           direction="row"
@@ -206,13 +216,15 @@ export const SignIn = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography>Don&apos;t have an account?</Typography>
+          <Typography>
+            <TranslatedText message={"Don't have an account?"} />
+          </Typography>
           <Button
             onClick={() =>
               navigate("/sign-up", { state: { allowNavigation: true } })
             }
           >
-            Sign up
+            <TranslatedText message="Sign up" />
           </Button>
         </Stack>
       </Box>

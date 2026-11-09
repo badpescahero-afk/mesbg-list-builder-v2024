@@ -1,10 +1,11 @@
+/* eslint-env node, es2021 */
 // Run with: node scripts/test-i18n.mjs
 // A bounded browser test: Vite runs in a child process with a log and is stopped
 // in finally. No existing server or browser storage is reused.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { openSync, closeSync, mkdtempSync } from "node:fs";
+import { openSync, closeSync, mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { setTimeout } from "node:timers/promises";
@@ -25,6 +26,12 @@ const server = spawn(
   ],
   {
     stdio: ["ignore", log, log],
+    // Reproduce the version variable supplied by the real npm start script.
+    env: {
+      ...process.env,
+      npm_package_version: JSON.parse(readFileSync("package.json", "utf8"))
+        .version,
+    },
   },
 );
 closeSync(log);
@@ -81,16 +88,30 @@ try {
     .getByText("Mi ejército de prueba", { exact: true })
     .first()
     .waitFor();
+  // User names matching translation keys must remain literal.
+  await page.goto("http://127.0.0.1:5197/rosters");
+  await page
+    .getByRole("button", { name: "action-buttons", exact: true })
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Crear grupo", exact: true })
+    .click();
+  await page
+    .getByRole("textbox", { name: "Nombre del grupo", exact: true })
+    .fill("Good");
+  await page.locator('[data-test-id="dialog--submit-button"]').click();
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+  await page.getByText("Good", { exact: true }).first().waitFor();
   const roster = await page.evaluate(() => localStorage.getItem("mlb-rosters"));
   assert.ok(JSON.parse(roster).state.rosters.length > 0);
 
   console.log("PASS: Spanish roster creation and storage");
-  async function switchLanguage(label, option) {
+  const switchLanguage = async (label, option) => {
     await page
       .getByRole("combobox", { name: new RegExp(`^${label}(?:\\s|$)`) })
       .click();
     await page.getByRole("option", { name: option, exact: true }).click();
-  }
+  };
   await page.goto("http://127.0.0.1:5197/rosters");
   await page
     .getByRole("heading", { name: "Mis listas", exact: true })
@@ -125,6 +146,8 @@ try {
     .getByRole("heading", { name: "Mis listas", exact: true })
     .waitFor();
 
+  await page.getByText("Good", { exact: true }).first().waitFor();
+
   for (const [route, heading] of [
     ["settings", "Ajustes de la aplicación"],
     ["collection", "Mi colección"],
@@ -136,6 +159,141 @@ try {
   }
   await page.getByRole("table").waitFor();
   assert.ok((await page.getByRole("row").count()) > 1);
+  // Export JSON uses original keys, model IDs and army names in Spanish UI.
+  const savedRoster = JSON.parse(roster).state.rosters[0];
+  await page.goto("http://127.0.0.1:5197/rosters");
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: async (text) => {
+          window.__exportedRoster = text;
+        },
+      },
+    });
+  });
+  await page
+    .locator(`[data-test-id="rosters--${savedRoster.id}--link"]`)
+    .getByRole("button")
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Exportar lista", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Copiar al portapapeles", exact: true })
+    .click();
+  const exported = JSON.parse(
+    await page.evaluate(() => window.__exportedRoster),
+  );
+  assert.equal(exported.armyList, savedRoster.armyList);
+  assert.equal(exported.name, savedRoster.name);
+  assert.equal(exported.id, savedRoster.id);
+  assert.equal(exported.edition, "v2024");
+  assert.deepEqual(
+    exported.warbands.map((w) => w.hero?.model_id),
+    savedRoster.warbands.map((w) => w.hero?.model_id),
+  );
+  console.log(
+    "PASS: export keeps original JSON keys, army names and model IDs",
+  );
+
+  // A destructive dialog is translated, and cancel leaves the data intact.
+  await page
+    .locator(`[data-test-id="rosters--${savedRoster.id}--link"]`)
+    .getByRole("button")
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Eliminar lista", exact: true })
+    .click();
+  await page
+    .getByText("Esta acción es irreversible.", { exact: true })
+    .waitFor();
+  await page.getByRole("button", { name: "Cancelar", exact: true }).click();
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("mlb-rosters")),
+    roster,
+  );
+
+  // Import the real exported payload and verify game numbers and IDs survive.
+  await page
+    .getByRole("button", { name: "action-buttons", exact: true })
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Crear lista", exact: true })
+    .click();
+  await page.getByRole("tab", { name: "Importar lista", exact: true }).click();
+  await page
+    .getByRole("textbox", {
+      name: "Importación de listas en JSON",
+      exact: true,
+    })
+    .fill(JSON.stringify({ ...exported, name: "Lista importada" }));
+  await page.locator('[data-test-id="dialog--submit-button"]').click();
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+  await page.getByText("Lista importada", { exact: true }).first().waitFor();
+  const imported = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("mlb-rosters")).state.rosters.find(
+      (item) => item.name === "Lista importada",
+    ),
+  );
+  assert.equal(imported.armyList, savedRoster.armyList);
+  assert.equal(imported.metadata.points, savedRoster.metadata.points);
+  assert.equal(imported.metadata.units, savedRoster.metadata.units);
+  assert.deepEqual(
+    imported.warbands.map((w) => w.hero?.model_id),
+    savedRoster.warbands.map((w) => w.hero?.model_id),
+  );
+  console.log(
+    "PASS: JSON export/import round-trip preserves points, unit counts and model IDs",
+  );
+
+  // Record a match through the translated form. Result data must stay Won,
+  // even though both the form and the history display Victoria.
+  await page.goto("http://127.0.0.1:5197/match-history");
+  await page
+    .getByRole("button", { name: "action-buttons", exact: true })
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Registrar una partida", exact: true })
+    .click();
+  const dialog = page.getByRole("dialog");
+  await dialog.locator('input[name="points"]').fill("500");
+  await dialog.locator('input[name="bows"]').fill("0");
+  await dialog.locator('input[name="throwingWeapons"]').fill("0");
+  await dialog.locator('input[name="victoryPoints"]').fill("3");
+  await dialog.locator('input[name="opponentVictoryPoints"]').fill("1");
+  await dialog.locator('input[name="opponentName"]').fill("Rival de prueba");
+  await dialog.getByRole("combobox", { name: /^Ejércitos(?: \*|$)/ }).click();
+  await page.getByRole("option").first().click();
+  await dialog.locator('[data-test-id="dialog--submit-button"]').click();
+  await dialog.waitFor({ state: "hidden" });
+  await page.getByText("Victoria", { exact: true }).first().waitFor();
+  const matches = await page.evaluate(() =>
+    localStorage.getItem("mlb-matches"),
+  );
+  assert.equal(JSON.parse(matches).state.recentGames[0].result, "Won");
+  await switchLanguage("Idioma", "English");
+  await page.getByText("Won", { exact: true }).first().waitFor();
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("mlb-matches")),
+    matches,
+  );
+  await switchLanguage("Language", "Español");
+  await page.getByText("Victoria", { exact: true }).first().waitFor();
+  console.log(
+    "PASS: match recording, translated result display, and unchanged Won result in storage",
+  );
+
+  // Validation messages are translated without requiring a Firebase account.
+  await page.goto("http://127.0.0.1:5197/sign-in");
+  await page
+    .getByRole("button", { name: "Iniciar sesión", exact: true })
+    .click();
+  await page
+    .getByText("Debes introducir una contraseña para iniciar sesión.", {
+      exact: true,
+    })
+    .waitFor();
   assert.deepEqual(errors, []);
   console.log(
     "PASS: ES/EN switching and persistence, unchanged roster storage, roster creation, main screens and database; no JavaScript errors.",

@@ -10,6 +10,7 @@ import { CustomAlert } from "../../../components/atoms/alert/CustomAlert.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useLockContext } from "../../../hooks/lock/useLockContext.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { RosterBulkDeleteButton } from "../bulk-delete/RosterBulkDeleteButton.tsx";
 import {
   RosterSortButton,
@@ -92,24 +93,22 @@ export const RostersSearchFilter: FunctionComponent<RosterFilterProps> = ({
         >
           <Stack gap={2}>
             <Typography component="div">
-              Filter rosters with queries like:{" "}
+              <TranslatedText message="Filter rosters with queries like:" />{" "}
               <pre style={{ display: "inline" }}>
                 &quot;type=evil&name=my army&points&gt;700&quot;
               </pre>
             </Typography>
             <Typography>
-              Available fields: type, army, name, points, tag, units, bows,
-              throw, might, will, fate
+              <TranslatedText message="Available fields: type, army, name, points, tag, units, bows, throw, might, will, fate" />
               <br />
-              Use =, !=, &gt;, &lt;, &gt;=, &lt;= for comparisons. Combine
-              multiple rules with &.
+              <TranslatedText message="Use =, !=, >, <, >=, <= for comparisons. Combine multiple rules with &." />
             </Typography>
             <Typography>
-              Prefix your query with{" "}
+              <TranslatedText message="Prefix your query with" />{" "}
               <i>
                 <code>&quot;~ignore-groups&quot;</code>
               </i>{" "}
-              to do a global search within all your rosters.
+              <TranslatedText message="to do a global search within all your rosters." />
             </Typography>
           </Stack>
         </CustomAlert>
@@ -119,6 +118,8 @@ export const RostersSearchFilter: FunctionComponent<RosterFilterProps> = ({
 };
 
 function DragAndLockButton() {
+  const { t: translateUI } = useTranslation();
+
   const screen = useScreenSize();
   const { lock, toggleLock } = useLockContext();
 
@@ -129,7 +130,7 @@ function DragAndLockButton() {
       sx={{ width: "5ch" }}
       variant="outlined"
       color="inherit"
-      aria-label="toggle drag and drop"
+      aria-label={translateUI("toggle drag and drop")}
       onClick={toggleLock}
     >
       <Stack alignItems="center" sx={{ pt: 0.4 }}>
@@ -139,7 +140,11 @@ function DragAndLockButton() {
           <TbMobiledata fontSize="1.45rem" />
         )}
         <Typography variant="subtitle1" sx={{ fontSize: "0.65rem" }}>
-          {lock ? "Off" : "On"}
+          {lock ? (
+            <TranslatedText message="Off" />
+          ) : (
+            <TranslatedText message="On" />
+          )}
         </Typography>
       </Stack>
     </Button>

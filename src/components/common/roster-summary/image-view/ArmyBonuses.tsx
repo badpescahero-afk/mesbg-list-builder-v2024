@@ -4,6 +4,7 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { armyListData } from "../../../../assets/data.ts";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { Roster } from "../../../../types/roster.ts";
 import { isMovieQuote } from "../../../../utils/string.ts";
 
@@ -22,7 +23,7 @@ export const ArmyBonuses = ({ roster }: { roster: Roster }) => {
             fontWeight="bold"
             textAlign="center"
           >
-            Additional Rules
+            <TranslatedText message="Additional Rules" />
           </Typography>
           {armyListMetadata.additional_rules.map((rule, index) => (
             <Typography key={index}>
@@ -45,7 +46,7 @@ export const ArmyBonuses = ({ roster }: { roster: Roster }) => {
             textAlign="center"
             sx={{ mt: 2 }}
           >
-            Special Rules
+            <TranslatedText message="Special Rules" />
           </Typography>
           <Box component="ul" sx={{ listStyle: "none", pl: 0, mb: 1 }}>
             {armyListMetadata.special_rules
@@ -66,7 +67,10 @@ export const ArmyBonuses = ({ roster }: { roster: Roster }) => {
                       <b>
                         {rule.title}{" "}
                         {rule.title === "A Troll's Hoard" && (
-                          <i>({tttSpecialUpgrades.length * 50} points)</i>
+                          <i>
+                            ({tttSpecialUpgrades.length * 50}{" "}
+                            <TranslatedText message="points)" />
+                          </i>
                         )}
                       </b>
                     </Typography>

@@ -3,6 +3,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { JSX } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { factionLogos, gameIcons, numberIcons } from "./icons.tsx";
 
 export type Option = {
@@ -18,6 +20,8 @@ export const GroupIconSelector = ({
   selectedIcon: Option;
   setSelectedIcon: (newValue: Option) => void;
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const getIconSet = (
     icons: Record<string, JSX.Element>,
     type: Option["type"],
@@ -54,15 +58,15 @@ export const GroupIconSelector = ({
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Type to filter..."
-          label="Group Icon (optional)"
+          placeholder={translateUI("Type to filter...")}
+          label={translateUI("Group Icon (optional)")}
           helperText={
             <Typography variant="body2" component="span">
-              Extra custom icons can be included on request. See{" "}
+              <TranslatedText message="Extra custom icons can be included on request. See" />{" "}
               <a href="https://react-icons.github.io/react-icons/">
                 react-icons
               </a>{" "}
-              for all potential options.
+              <TranslatedText message="for all potential options." />
             </Typography>
           }
         />

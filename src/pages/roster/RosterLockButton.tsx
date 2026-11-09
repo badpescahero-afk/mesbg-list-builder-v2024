@@ -2,8 +2,12 @@ import { Button, IconButton } from "@mui/material";
 import { TbMobiledata, TbMobiledataOff } from "react-icons/tb";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useLockContext } from "../../hooks/lock/useLockContext";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 
 export const RosterLockButton = () => {
+  const { t: translateUI } = useTranslation();
+
   const screen = useScreenSize();
   const { lock, toggleLock } = useLockContext();
 
@@ -24,7 +28,11 @@ export const RosterLockButton = () => {
         startIcon={lock ? <TbMobiledataOff /> : <TbMobiledata />}
         onClick={() => toggleLock()}
       >
-        {lock ? "Drag & Drop: Off" : "Drag & Drop: On"}
+        {lock ? (
+          <TranslatedText message="Drag & Drop: Off" />
+        ) : (
+          <TranslatedText message="Drag & Drop: On" />
+        )}
       </Button>
     );
   }
@@ -32,7 +40,7 @@ export const RosterLockButton = () => {
   // Fallback to icon button on smaller screens such as tablets and mobile phones.
   return (
     <IconButton
-      aria-label="Toggle Drag & Drop"
+      aria-label={translateUI("Toggle Drag & Drop")}
       onClick={() => toggleLock()}
       sx={{
         backgroundColor: (theme) => theme.palette.grey[400],

@@ -4,6 +4,7 @@ import { ChangeEvent, FunctionComponent, useState } from "react";
 import data from "../../../assets/data/mesbg_data.json";
 import { heroConstraintData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { Unit } from "../../../types/mesbg-data.types.ts";
 import { UnitSelectionButton } from "./UnitSelectionButton.tsx";
 import { WithRibbon } from "./WithRibbon.tsx";
@@ -18,6 +19,8 @@ export const UnitSelectionList: FunctionComponent<UnitSelectionListProps> = ({
   leadingHeroModelId,
   selectUnit,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const selectedModels = useRosterInformation().getSetOfModelIds();
   const [filter, setFilter] = useState("");
 
@@ -36,8 +39,8 @@ export const UnitSelectionList: FunctionComponent<UnitSelectionListProps> = ({
     <Stack gap={1.5}>
       <TextField
         id="hero-selection-list--name-filter"
-        label="Filter"
-        placeholder="Filter heroes by name..."
+        label={translateUI("Filter")}
+        placeholder={translateUI("Filter heroes by name...")}
         value={filter}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           setFilter(event.target.value);
@@ -50,7 +53,7 @@ export const UnitSelectionList: FunctionComponent<UnitSelectionListProps> = ({
         .map((unit) => (
           <WithRibbon
             key={unit.model_id}
-            label="Legacy"
+            label={translateUI("Legacy")}
             hideRibbon={!unit.legacy}
           >
             <UnitSelectionButton unit={unit} onClick={() => selectUnit(unit)} />

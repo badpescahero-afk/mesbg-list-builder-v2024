@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
 
 type DateRangeFilter = {
   start: string;
@@ -14,6 +15,8 @@ export const DateRangeFilter = ({
   availableDateRange: string;
   handleChangeFilter: (newValue: string) => void;
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const [minAvailableDate, maxAvailableDate] = availableDateRange.split("/");
   const [dateRangeFilter, setDateRangeFilter] = useState<DateRangeFilter>({
     start: "",
@@ -44,7 +47,7 @@ export const DateRangeFilter = ({
   return (
     <Stack direction="row" spacing={1} alignItems="center">
       <TextField
-        label="From"
+        label={translateUI("From")}
         type="date"
         size="small"
         sx={{ minWidth: "calc(100% / 2 - 4px)" }}
@@ -64,7 +67,7 @@ export const DateRangeFilter = ({
       />
 
       <TextField
-        label="Until"
+        label={translateUI("Until")}
         type="date"
         size="small"
         sx={{ minWidth: "calc(100% / 2 - 4px)" }}

@@ -5,9 +5,13 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import brokenSword from "../../assets/images/broken-sword.png";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { DISCORD_LINK } from "../home/Home.tsx";
 
 export const GroupNotFound = () => {
+  const { t: translateUI } = useTranslation();
+
   const navigate = useNavigate();
 
   return (
@@ -23,18 +27,23 @@ export const GroupNotFound = () => {
       }}
     >
       <Typography variant="h4" className="middle-earth">
-        Group not found!
+        <TranslatedText message="Group not found!" />
       </Typography>
       <img
-        alt="Image of a broken sword"
+        alt={translateUI("Image of a broken sword")}
         src={brokenSword}
         style={{ width: "300px", margin: "auto" }}
       />
       <Typography sx={{ mb: 2 }}>
-        &quot;The group you sought has passed into shadow.
+        <TranslatedText
+          message={'"The group you sought has passed into shadow.'}
+        />
         <br />
-        Its voices are silent, its tale untold, and its road forever
-        untraveled.&quot;
+        <TranslatedText
+          message={
+            'Its voices are silent, its tale untold, and its road forever untraveled."'
+          }
+        />
       </Typography>
       <Box
         sx={{
@@ -50,17 +59,17 @@ export const GroupNotFound = () => {
             fullWidth
             onClick={() => navigate("/rosters")}
           >
-            Return the your rosters.
+            <TranslatedText message="Return the your rosters." />
           </Button>
           <Button color="inherit" fullWidth onClick={() => navigate("/")}>
-            Return to the homepage
+            <TranslatedText message="Return to the homepage" />
           </Button>
           <Button
             color="inherit"
             fullWidth
             onClick={() => window.open(DISCORD_LINK)}
           >
-            Ask for support
+            <TranslatedText message="Ask for support" />
           </Button>
         </Stack>
       </Box>

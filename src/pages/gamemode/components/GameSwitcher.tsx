@@ -7,6 +7,8 @@ import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { Game } from "../../../state/gamemode/gamestate";
 import { useRosterBuildingState } from "../../../state/roster-building";
 
@@ -16,6 +18,8 @@ interface GameSwitcherProps {
 }
 
 export const GameSwitcher = ({ games, activeGame }: GameSwitcherProps) => {
+  const { t: translateUI } = useTranslation();
+
   const navigate = useNavigate();
   const screen = useScreenSize();
   const rosters = useRosterBuildingState((state) =>
@@ -46,12 +50,14 @@ export const GameSwitcher = ({ games, activeGame }: GameSwitcherProps) => {
   return (
     <Stack direction="row" gap={2} sx={{ mb: 1 }}>
       <FormControl size="small" fullWidth>
-        <InputLabel id="gameswitcher">Switch to game...</InputLabel>
+        <InputLabel id="gameswitcher">
+          <TranslatedText message="Switch to game..." />
+        </InputLabel>
         <Select
           labelId="gameswitcher"
           id="gameswitcher-select"
           value={selectedGame}
-          label="Switch to game..."
+          label={translateUI("Switch to game...")}
           onChange={handleChange}
           sx={{
             overflow: "hidden",
@@ -73,7 +79,7 @@ export const GameSwitcher = ({ games, activeGame }: GameSwitcherProps) => {
         variant="outlined"
         color="inherit"
       >
-        Switch
+        <TranslatedText message="Switch" />
       </Button>
     </Stack>
   );

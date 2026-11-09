@@ -36,7 +36,7 @@ export function LanguageProvider({ children }: PropsWithChildren) {
       value={{
         language,
         setLanguage,
-        t: (message) => translate(language, message),
+        t: (message, values) => translate(language, message, values),
       }}
     >
       {children}

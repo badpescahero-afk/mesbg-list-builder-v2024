@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { Fragment } from "react";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize";
+import { useTranslation } from "../../i18n/LanguageContext";
 
 type FeatureTabProps = {
   image: string;
@@ -12,12 +13,14 @@ type FeatureTabProps = {
 };
 
 export const FeatureTab = (props: FeatureTabProps) => {
+  const { t: translateUI } = useTranslation();
+
   const screen = useScreenSize();
   const { image, imageAlt, bullets, value, index, ...other } = props;
 
   const renderWithBold = (text: string) => {
     // Split on *...* but keep the markers
-    const parts = text.split(/(\*.*?\*)/g);
+    const parts = translateUI(text).split(/(\*.*?\*)/g);
     return parts.map((part, i) => {
       if (part.startsWith("*") && part.endsWith("*")) {
         return <strong key={i}>{part.slice(1, -1)}</strong>;
@@ -38,7 +41,7 @@ export const FeatureTab = (props: FeatureTabProps) => {
         <Box sx={{ py: 3 }}>
           <Stack direction={!screen.isMobile ? "row" : "column"}>
             <Box sx={{ maxWidth: "42ch" }}>
-              <img src={image} alt={imageAlt} />
+              <img src={image} alt={translateUI(imageAlt)} />
             </Box>
             <Stack component="ul" gap={1}>
               {bullets.map((bullet, index) =>

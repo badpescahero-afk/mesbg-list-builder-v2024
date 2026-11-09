@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useRef } from "react";
 import { FaClipboard } from "react-icons/fa6";
 import { GiRollingDices } from "react-icons/gi";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { RosterTextViewHandlers } from "../../common/roster-summary/TextView.tsx";
 import { RosterTabletopSimView } from "../../common/roster-summary/TtsView.tsx";
@@ -33,7 +34,7 @@ export const TabletopSimulatorExportModal = () => {
             className="middle-earth"
           >
             <GiRollingDices size="2.4rem" />
-            Tabletop Simulator export
+            <TranslatedText message="Tabletop Simulator export" />
           </Typography>
           <Box sx={{ px: 1 }}>
             <Button
@@ -43,7 +44,7 @@ export const TabletopSimulatorExportModal = () => {
                 rosterTextRef.current.copyToClipboard();
               }}
             >
-              Copy to clipboard
+              <TranslatedText message="Copy to clipboard" />
             </Button>
           </Box>
 

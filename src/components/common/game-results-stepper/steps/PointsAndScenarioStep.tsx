@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useGameModeState } from "../../../../state/gamemode";
 import { scenarios } from "../../game-results-form/scenarios.ts";
 import { StepProps } from "./StepProps.ts";
@@ -57,6 +59,8 @@ export const PointsAndScenarioStep: FunctionComponent<StepProps> = ({
   updateFormValues,
   activeStep,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const { setVictoryPoints } = useGameModeState();
   return (
     <>
@@ -73,14 +77,11 @@ export const PointsAndScenarioStep: FunctionComponent<StepProps> = ({
           </Collapse>
         }
       >
-        General - Scenario & Points
+        <TranslatedText message="General - Scenario & Points" />
       </StepLabel>
       <StepContent>
         <Typography>
-          Select which scenario was played and how much points was agreed upon.
-          The selected scenario will affect the victory points step. You are
-          able to add your custom scenario name in case of narrative matches or
-          when playing games out-side-the-book
+          <TranslatedText message="Select which scenario was played and how much points was agreed upon. The selected scenario will affect the victory points step. You are able to add your custom scenario name in case of narrative matches or when playing games out-side-the-book" />
         </Typography>
         <Stack gap={2} sx={{ my: 2 }}>
           <Autocomplete
@@ -97,7 +98,7 @@ export const PointsAndScenarioStep: FunctionComponent<StepProps> = ({
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Scenario Played"
+                label={translateUI("Scenario Played")}
                 required
                 error={missingFields.includes("Scenario Played")}
               />
@@ -122,7 +123,7 @@ export const PointsAndScenarioStep: FunctionComponent<StepProps> = ({
           <TextField
             required
             fullWidth
-            label="Points"
+            label={translateUI("Points")}
             name="points"
             type="number"
             slotProps={{ htmlInput: { min: 0 } }}

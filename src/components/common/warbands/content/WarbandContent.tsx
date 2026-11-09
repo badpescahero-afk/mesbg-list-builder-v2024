@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useLockContext } from "../../../../hooks/lock/useLockContext.ts";
 import { useWarbandMutations } from "../../../../hooks/mutations/useWarbandMutations.ts";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useAppState } from "../../../../state/app";
 import { useRosterBuildingState } from "../../../../state/roster-building";
 import { Unit } from "../../../../types/mesbg-data.types.ts";
@@ -34,6 +36,8 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
   },
   collapsed,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const { rosterId: armyId } = useParams();
   const { lock } = useLockContext();
   const mutations = useWarbandMutations(armyId, warbandId);
@@ -78,7 +82,7 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
   return (
     <Stack sx={{ p: 1 }} gap={1}>
       {isSelectedUnit(hero) ? (
-        <WithRibbon label="Legacy" hideRibbon={!hero.legacy}>
+        <WithRibbon label={translateUI("Legacy")} hideRibbon={!hero.legacy}>
           <HeroCard
             unit={hero}
             warbandId={warbandId}
@@ -94,7 +98,7 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
         </WithRibbon>
       ) : (
         <SelectUnitCard
-          title="Select a hero"
+          title={translateUI("Select a hero")}
           onClick={openHeroPicker}
           warbandNum={warbandNum}
           index={0}
@@ -162,7 +166,7 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
                       >
                         {!isSelectedUnit(unit) ? (
                           <SelectUnitCard
-                            title="Select a unit"
+                            title={translateUI("Select a unit")}
                             onClick={() => openUnitPicker(unit.id)}
                             warbandNum={warbandNum}
                             remove={() => mutations.removeUnit(unit.id)}
@@ -170,7 +174,10 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
                             collapsed={collapsed}
                           />
                         ) : (
-                          <WithRibbon label="Legacy" hideRibbon={!unit.legacy}>
+                          <WithRibbon
+                            label={translateUI("Legacy")}
+                            hideRibbon={!unit.legacy}
+                          >
                             {unit.unit_type.includes("Hero") ? (
                               <HeroCard
                                 unit={unit}
@@ -228,7 +235,8 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
                 endIcon={<AddIcon />}
                 data-test-id={`warband-${warbandNum}--add-unit`}
               >
-                Add Unit ({currUnits}/{maxUnits})
+                <TranslatedText message="Add Unit (" />
+                {currUnits}/{maxUnits})
               </Button>
               <Button
                 onClick={() => mutations.addSiegeEquipment()}
@@ -238,7 +246,7 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
                 endIcon={<AddIcon />}
                 data-test-id={`warband-${warbandNum}--add-siege-equipment`}
               >
-                Add Siege Equipment
+                <TranslatedText message="Add Siege Equipment" />
               </Button>
             </ButtonGroup>
           ) : (
@@ -250,7 +258,8 @@ export const WarbandContent: FunctionComponent<WarbandContentProps> = ({
               endIcon={<AddIcon />}
               data-test-id={`warband-${warbandNum}--add-unit`}
             >
-              Add Unit ({currUnits}/{maxUnits})
+              <TranslatedText message="Add Unit (" />
+              {currUnits}/{maxUnits})
             </Button>
           )}
         </>

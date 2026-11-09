@@ -14,6 +14,8 @@ import {
   useState,
 } from "react";
 import { useAuth } from "../../firebase/FirebaseAuthContext";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { Game } from "../../state/gamemode/gamestate";
 import { useApi } from "./useApi";
 
@@ -29,6 +31,8 @@ export const GamestateCloudSyncProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const auth = useAuth();
   const { updateGamestate } = useApi();
   const previousRosterRef = useRef<Game | null>(null);
@@ -136,10 +140,12 @@ export const GamestateCloudSyncProvider = ({
           open={open}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           TransitionComponent={Slide}
-          message={`Syncing gamestate in ${Math.ceil(remaining / 1000)}s`}
+          message={translateUI("Syncing gamestate in {{seconds}}s", {
+            seconds: Math.ceil(remaining / 1000),
+          })}
           action={
             <Button color="primary" size="small" onClick={handleClose}>
-              sync now!
+              <TranslatedText message="sync now!" />
             </Button>
           }
           sx={{ backgroundColor: "transparent", zIndex: 1000 }}

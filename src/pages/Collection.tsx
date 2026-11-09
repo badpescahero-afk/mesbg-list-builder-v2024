@@ -33,6 +33,7 @@ import { Link } from "../components/atoms/link/Link.tsx";
 import { ModalTypes } from "../components/modal/modals.tsx";
 import { useApi } from "../hooks/cloud-sync/useApi.ts";
 import { useTranslation } from "../i18n/LanguageContext";
+import { TranslatedText } from "../i18n/TranslatedText";
 import { useAppState } from "../state/app";
 import { useCollectionState } from "../state/collection";
 import { useUserPreferences } from "../state/preference";
@@ -93,9 +94,11 @@ export const Collection = () => {
         )}
       </Typography>
       <Typography sx={{ my: 2 }}>
-        You can add models to your collection using the{" "}
-        <BookmarkAdd sx={{ verticalAlign: "bottom" }} /> button on the{" "}
-        <Link to="/database">{t("Profile Database")}</Link> page.
+        <TranslatedText message="You can add models to your collection using the" />{" "}
+        <BookmarkAdd sx={{ verticalAlign: "bottom" }} />{" "}
+        <TranslatedText message="button on the" />{" "}
+        <Link to="/database">{t("Profile Database")}</Link>{" "}
+        <TranslatedText message="page." />
       </Typography>
       {!preferences.collectionWarnings && (
         <Alert severity="warning" icon={false} sx={{ my: 1 }}>
@@ -144,8 +147,11 @@ export const Collection = () => {
           }}
         />
         <FormHelperText sx={{ mt: -0.5 }}>
-          You can combine filters using semicolons - for example: &quot;Gondor;
-          Aragorn&quot;
+          <TranslatedText
+            message={
+              'You can combine filters using semicolons - for example: "Gondor; Aragorn"'
+            }
+          />
         </FormHelperText>
       </Stack>
       <TableContainer sx={{ mt: 2 }}>
@@ -197,7 +203,9 @@ export const Collection = () => {
                           {typeof item.options === "string"
                             ? item.options
                             : item.options.join(", ")}
-                          {item.mount ? ` on ${item.mount}` : ""}
+                          {item.mount
+                            ? t(" on {{mount}}", { mount: item.mount })
+                            : ""}
                         </Typography>
                       ))}
                     </TableCell>
@@ -250,11 +258,11 @@ export const Collection = () => {
                 <TableCell colSpan={4}>
                   <Alert severity="info">
                     <Typography>
-                      Your collection is currently empty! You can add models to
-                      your collection using the{" "}
-                      <BookmarkAdd sx={{ verticalAlign: "bottom" }} /> button on
-                      the <Link to="/database">{t("Profile Database")}</Link>{" "}
-                      page.
+                      <TranslatedText message="Your collection is currently empty! You can add models to your collection using the" />{" "}
+                      <BookmarkAdd sx={{ verticalAlign: "bottom" }} />{" "}
+                      <TranslatedText message="button on the" />{" "}
+                      <Link to="/database">{t("Profile Database")}</Link>{" "}
+                      <TranslatedText message="page." />
                     </Typography>
                   </Alert>
                 </TableCell>
@@ -283,7 +291,7 @@ export const Collection = () => {
                   color: mode === "dark" ? "white" : "inherit",
                 }}
               >
-                Export Collection
+                <TranslatedText message="Export Collection" />
               </span>
             }
             tooltipOpen
@@ -298,7 +306,7 @@ export const Collection = () => {
                   color: mode === "dark" ? "white" : "inherit",
                 }}
               >
-                Import Collection
+                <TranslatedText message="Import Collection" />
               </span>
             }
             tooltipOpen

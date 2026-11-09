@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { useJsonValidation } from "../../../hooks/export/useJsonValidation.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRecentGamesState } from "../../../state/recent-games";
 import { PastGame } from "../../../state/recent-games/history";
@@ -38,6 +40,8 @@ const requiredKeys = [
 ];
 
 export const ImportGameHistoryModal = () => {
+  const { t: translateUI } = useTranslation();
+
   const { validateKeys } = useJsonValidation();
   const { importGames } = useRecentGamesState();
   const { closeModal } = useAppState();
@@ -120,14 +124,14 @@ export const ImportGameHistoryModal = () => {
             setImportedData(reader.result as string);
           } catch (error) {
             console.error("Error parsing JSON:", error);
-            alert("Invalid file type. Please use CSV or JSON.");
+            alert(translateUI("Invalid file type. Please use CSV or JSON."));
           }
         };
 
         // Read the file as text
         reader.readAsText(file);
       } else {
-        alert("Please select a JSON or CSV file" + file.type);
+        alert(translateUI("Please select a JSON or CSV file") + file.type);
       }
     }
 
@@ -145,7 +149,9 @@ export const ImportGameHistoryModal = () => {
         <Grid2 container columnSpacing={1} rowSpacing={3}>
           <Grid2 size={12}>
             <FormControl error={importAlert} variant="standard" fullWidth>
-              <InputLabel htmlFor="component-error">History</InputLabel>
+              <InputLabel htmlFor="component-error">
+                <TranslatedText message="History" />
+              </InputLabel>
               <Input
                 multiline
                 maxRows={4}
@@ -162,13 +168,13 @@ export const ImportGameHistoryModal = () => {
                 <FormHelperText id="component-error-text">
                   {importedDataType.split("/").length > 1 ? (
                     <>
-                      Importing the data as {importedDataType.split("/")[1]}{" "}
-                      resulted in an error.
+                      <TranslatedText message="Importing the data as" />{" "}
+                      {importedDataType.split("/")[1]}{" "}
+                      <TranslatedText message="resulted in an error." />
                     </>
                   ) : (
                     <>
-                      Importing the data resulted in an error. Please check the
-                      import and verify a data type has been selected!
+                      <TranslatedText message="Importing the data resulted in an error. Please check the import and verify a data type has been selected!" />
                     </>
                   )}
                 </FormHelperText>
@@ -195,13 +201,13 @@ export const ImportGameHistoryModal = () => {
               fullWidth
               startIcon={<AttachFileOutlined />}
             >
-              Select a file
+              <TranslatedText message="Select a file" />
             </Button>
           </Grid2>
           <Grid2 size={12}>
             <FormControl>
               <FormLabel id="demo-controlled-radio-buttons-group">
-                What is the format of the data you are importing?
+                <TranslatedText message="What is the format of the data you are importing?" />
               </FormLabel>
               <RadioGroup
                 row
@@ -224,8 +230,7 @@ export const ImportGameHistoryModal = () => {
             <Grid2 size={12}>
               <FormControl>
                 <FormLabel id="demo-controlled-radio-buttons-group">
-                  What action should be taken for duplicated games found between
-                  current match history and the imported data?
+                  <TranslatedText message="What action should be taken for duplicated games found between current match history and the imported data?" />
                 </FormLabel>
                 <RadioGroup
                   row
@@ -236,17 +241,23 @@ export const ImportGameHistoryModal = () => {
                   <FormControlLabel
                     value="overwrite"
                     control={<Radio />}
-                    label="Overwrite the existing game and keep the data as is in the import"
+                    label={translateUI(
+                      "Overwrite the existing game and keep the data as is in the import",
+                    )}
                   />
                   <FormControlLabel
                     value="ignore"
                     control={<Radio />}
-                    label="Keep existing game and ignore the duplicated values in the import"
+                    label={translateUI(
+                      "Keep existing game and ignore the duplicated values in the import",
+                    )}
                   />
                   <FormControlLabel
                     value="create-new"
                     control={<Radio />}
-                    label="Insert duplicated games as new games (risking duplicated data)"
+                    label={translateUI(
+                      "Insert duplicated games as new games (risking duplicated data)",
+                    )}
                   />
                 </RadioGroup>
               </FormControl>
@@ -262,14 +273,14 @@ export const ImportGameHistoryModal = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
           onClick={handleImport}
           data-test-id="dialog--submit-button"
         >
-          Import
+          <TranslatedText message="Import" />
         </Button>
       </DialogActions>
     </>

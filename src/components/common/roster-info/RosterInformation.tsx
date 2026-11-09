@@ -16,6 +16,8 @@ import { armyListData } from "../../../assets/data.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useRosterSync } from "../../../hooks/cloud-sync/RosterCloudSyncProvider";
 import { useUpdateRosterVersion } from "../../../hooks/mutations/useUpdateRosterVersion.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { Roster } from "../../../types/roster.ts";
 import { ModalTypes } from "../../modal/modals.tsx";
@@ -33,6 +35,8 @@ export type RosterInformationProps = {
 export const RosterInformation: FunctionComponent<RosterInformationProps> = (
   props,
 ) => {
+  const { t: translateUI } = useTranslation();
+
   const { palette } = useTheme();
   const { setCurrentModal } = useAppState();
   const { isOutdatedRoster, updateRoster } = useUpdateRosterVersion();
@@ -76,7 +80,7 @@ export const RosterInformation: FunctionComponent<RosterInformationProps> = (
                 fontStyle: "italic",
               }}
             >
-              (Legacy)
+              <TranslatedText message="(Legacy)" />
             </Typography>
           )}
         </Typography>
@@ -90,7 +94,9 @@ export const RosterInformation: FunctionComponent<RosterInformationProps> = (
         >
           <small>
             <sub>
-              Built in v{props.roster.version}, current version {BUILD_VERSION}{" "}
+              <TranslatedText message="Built in v" />
+              {props.roster.version}
+              <TranslatedText message=", current version" /> {BUILD_VERSION}{" "}
               <span
                 style={{
                   marginLeft: "8px",
@@ -115,7 +121,7 @@ export const RosterInformation: FunctionComponent<RosterInformationProps> = (
                   }}
                 >
                   <Refresh sx={{ fontSize: "12px" }} />
-                  Update
+                  <TranslatedText message="Update" />
                 </a>
                 )
               </span>
@@ -136,9 +142,9 @@ export const RosterInformation: FunctionComponent<RosterInformationProps> = (
             }
             data-test-id="edit-roster-name"
           >
-            Edit Roster
+            <TranslatedText message="Edit Roster" />
           </Button>
-          <Tooltip title="delete roster">
+          <Tooltip title={translateUI("delete roster")}>
             <Button
               color="error"
               sx={{
@@ -165,7 +171,7 @@ export const RosterInformation: FunctionComponent<RosterInformationProps> = (
           fullWidth
           onClick={(e) => syncNow(e)}
         >
-          Sync to account
+          <TranslatedText message="Sync to account" />
         </Button>
       </Collapse>
 

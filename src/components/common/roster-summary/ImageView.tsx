@@ -6,6 +6,8 @@ import * as htmlToImage from "html-to-image";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { armyListData } from "../../../assets/data.ts";
 import backgroundCover from "../../../assets/images/roster-summary/background.jpg";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { isSelectedUnit, Roster } from "../../../types/roster.ts";
 import { ModalTypes } from "../../modal/modals.tsx";
@@ -26,6 +28,8 @@ export type ImageViewViewProps = {
 
 export const ImageView = forwardRef<ImageViewViewHandlers, ImageViewViewProps>(
   ({ roster, includeRosterName, showArmyBonus, showUnitTotals }, ref) => {
+    const { t: translateUI } = useTranslation();
+
     const { setCurrentModal } = useAppState();
     const unitTotals = getSumOfUnits(roster);
     const [screenshotting, setScreenshotting] = useState(false);
@@ -71,7 +75,11 @@ export const ImageView = forwardRef<ImageViewViewHandlers, ImageViewViewProps>(
         sx={screenshotting ? { width: "700px", p: 0.2 } : { p: 0.2 }}
       >
         <WithRibbon
-          label={isLegacyArmy ? "Legacy Army" : "Includes Legacy"}
+          label={
+            isLegacyArmy
+              ? translateUI("Legacy Army")
+              : translateUI("Includes Legacy")
+          }
           hideRibbon={!isLegacyArmy && !hasLegacyUnits}
           type="share-image"
         >
@@ -133,7 +141,7 @@ export const ImageView = forwardRef<ImageViewViewHandlers, ImageViewViewProps>(
               }}
               variant="body2"
             >
-              Created with MESBG List Builder
+              <TranslatedText message="Created with MESBG List Builder" />
               <br />
               <a href="#" style={{ textDecoration: "none" }}>
                 https://mesbg-list-builder.com

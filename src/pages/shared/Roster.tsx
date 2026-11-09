@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CustomAlert } from "../../components/atoms/alert/CustomAlert.tsx";
 import { useExport } from "../../hooks/export/useExport.ts";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { Roster } from "../../types/roster.ts";
 
 export const SharedRoster = () => {
@@ -40,7 +41,8 @@ export const SharedRoster = () => {
     <Container maxWidth={false}>
       {error && (
         <CustomAlert title="Error" severity="error">
-          Something went wrong while retrieving the shared roster: {error}
+          <TranslatedText message="Something went wrong while retrieving the shared roster:" />{" "}
+          {error}
         </CustomAlert>
       )}
       {!loaded ? (

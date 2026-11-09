@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { BsFillPersonVcardFill } from "react-icons/bs";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { useUserPreferences } from "../../../state/preference";
@@ -90,7 +91,7 @@ export function UnitSelectionButton({
               <Typography sx={{ pl: 0.5 }} variant="body1">
                 <strong>{unit.name}</strong>
                 <br />
-                Points: {points}
+                <TranslatedText message="Points:" /> {points}
               </Typography>
               <Stack gap={0.5}>
                 <Box>
@@ -147,9 +148,11 @@ export function UnitSelectionButton({
                           : "inherit"
                     }
                   >
-                    {totalCollection === 0
-                      ? "Not in collection"
-                      : `Collection: ${totalCollection - totalSelected} left`}
+                    {totalCollection === 0 ? (
+                      <TranslatedText message="Not in collection" />
+                    ) : (
+                      `Collection: ${totalCollection - totalSelected} left`
+                    )}
                   </Typography>
                 </Stack>
               )}

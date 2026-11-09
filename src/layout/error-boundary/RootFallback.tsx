@@ -1,3 +1,4 @@
+import { TranslatedText } from "../../i18n/TranslatedText";
 export const RootFallback = () => {
   return (
     <>
@@ -17,10 +18,11 @@ export const RootFallback = () => {
             gap: "1rem",
           }}
         >
-          <h3 style={{ fontSize: "2rem" }}>A Shadow Has Fallen!</h3>
+          <h3 style={{ fontSize: "2rem" }}>
+            <TranslatedText message="A Shadow Has Fallen!" />
+          </h3>
           <p>
-            “This page was cast into the fires of Mount Doom… and did not
-            return”
+            <TranslatedText message="“This page was cast into the fires of Mount Doom… and did not return”" />
           </p>
           <div>
             <div
@@ -35,18 +37,18 @@ export const RootFallback = () => {
                 marginBottom: "1rem",
               }}
             >
-              <h4>Help us help you!</h4>
+              <h4>
+                <TranslatedText message="Help us help you!" />
+              </h4>
               <div>
-                Please do share a screenshot of this page with us either via
-                email or in our discord. We do like to know what happend and
-                resolve the issue.
+                <TranslatedText message="Please do share a screenshot of this page with us either via email or in our discord. We do like to know what happend and resolve the issue." />
               </div>
             </div>
             <p>
               <a href="https://discord.gg/MZfUgRtV56">
                 https://discord.gg/MZfUgRtV56
               </a>{" "}
-              or{" "}
+              <TranslatedText message="or" />{" "}
               <a href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction">
                 support@mesbg-list-builder.com
               </a>
@@ -70,7 +72,7 @@ export const RootFallback = () => {
               textDecoration: "none",
             }}
           >
-            Return to the Shire
+            <TranslatedText message="Return to the Shire" />
           </a>
         </div>
       </div>

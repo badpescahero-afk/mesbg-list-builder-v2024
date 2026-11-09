@@ -1,6 +1,7 @@
 import { Stack, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ChangeEvent, FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
 import { useGameModeState } from "../../../../../state/gamemode";
 import { QuestionListProps } from "../VictoryPoints.tsx";
 import { BannerVPs } from "../vp-common/BannerVPs.tsx";
@@ -31,6 +32,8 @@ const BANNERS = 3;
  * (if they didn’t have a banner to start with, you automatically score this).
  */
 export const HoldGroundVPs: FunctionComponent<QuestionListProps> = (props) => {
+  const { t: translateUI } = useTranslation();
+
   const { victoryPoints, setVictoryPoints } = useGameModeState();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -120,13 +123,13 @@ export const HoldGroundVPs: FunctionComponent<QuestionListProps> = (props) => {
       {activeStep === GENERAL && (
         <Stack>
           <GeneralWoundVPs
-            label="Your General"
+            label={translateUI("Your General")}
             value={-generalVPs[1]}
             setValue={(VPs) => setGeneralVPs((prev) => [prev[0], -VPs])}
             vpSpread={[0, 1, 3]}
           />
           <GeneralWoundVPs
-            label="Enemy General"
+            label={translateUI("Enemy General")}
             value={generalVPs[0]}
             setValue={(VPs) => setGeneralVPs((prev) => [VPs, prev[1]])}
             vpSpread={[0, 1, 3]}
@@ -158,6 +161,8 @@ type HoldGroundObjectiveVPsProps = {
 const HoldGroundObjectiveVPs: FunctionComponent<
   HoldGroundObjectiveVPsProps
 > = ({ value, setValue }) => {
+  const { t: translateUI } = useTranslation();
+
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value ? Number(event.target.value) : null;
     return setValue([newValue, value[1]]);
@@ -170,7 +175,7 @@ const HoldGroundObjectiveVPs: FunctionComponent<
     <Stack gap={2}>
       <TextField
         fullWidth
-        label='models within 6" of the objective'
+        label={translateUI('models within 6" of the objective')}
         name="models"
         value={value[0]}
         type="number"
@@ -181,7 +186,7 @@ const HoldGroundObjectiveVPs: FunctionComponent<
       />
       <TextField
         fullWidth
-        label='Enemy models within 6" of the objective'
+        label={translateUI('Enemy models within 6" of the objective')}
         name="opponentModels"
         value={value[1]}
         type="number"

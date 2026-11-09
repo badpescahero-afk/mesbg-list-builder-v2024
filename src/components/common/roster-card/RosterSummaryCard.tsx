@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { armyListData } from "../../../assets/data.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { isSelectedUnit, Roster } from "../../../types/roster.ts";
 import { FactionIcon } from "../../atoms/faction-icon/FactionIcon.tsx";
@@ -46,6 +47,8 @@ export const RosterSummaryCard: FunctionComponent<RosterSummaryCardProps> = ({
   markForDeletion,
   isMarkedForDeletion,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const screen = useScreenSize();
   const { mode } = useThemeContext();
   const isLegacy =
@@ -84,7 +87,7 @@ export const RosterSummaryCard: FunctionComponent<RosterSummaryCardProps> = ({
         }}
         elevation={4}
       >
-        <WithRibbon label="Legacy" hideRibbon={!isLegacy}>
+        <WithRibbon label={translateUI("Legacy")} hideRibbon={!isLegacy}>
           <Stack sx={{ p: 2, height: "100%" }} justifyContent="space-around">
             <center>
               <Typography
@@ -122,13 +125,28 @@ export const RosterSummaryCard: FunctionComponent<RosterSummaryCardProps> = ({
                 gap: ".5rem",
               }}
             >
-              <KeyValue label="Points" value={roster.metadata.points} />
-              <KeyValue label="Units" value={roster.metadata.units} />
-              <KeyValue label="Warbands" value={roster.warbands.length} />
-              <KeyValue label="Might" value={roster.metadata.might} />
-              <KeyValue label="Bows" value={roster.metadata.bows} />
               <KeyValue
-                label="Thr. Weap"
+                label={translateUI("Points")}
+                value={roster.metadata.points}
+              />
+              <KeyValue
+                label={translateUI("Units")}
+                value={roster.metadata.units}
+              />
+              <KeyValue
+                label={translateUI("Warbands")}
+                value={roster.warbands.length}
+              />
+              <KeyValue
+                label={translateUI("Might")}
+                value={roster.metadata.might}
+              />
+              <KeyValue
+                label={translateUI("Bows")}
+                value={roster.metadata.bows}
+              />
+              <KeyValue
+                label={translateUI("Thr. Weap")}
                 value={roster.metadata.throwingWeapons}
               />
             </Box>

@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import armyListData from "../../../../assets/data/army_list_data.json";
 import { mesbgData } from "../../../../assets/data.ts";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useRosterBuildingState } from "../../../../state/roster-building";
 import { ArmyListData } from "../../../../types/army-list-data.types.ts";
 import {
@@ -125,7 +126,10 @@ export const SpecialRules: FunctionComponent<
                   <b>
                     {rule.title}{" "}
                     {rule.title === "A Troll's Hoard" && (
-                      <i>({trollUpgrades.length * 50} points)</i>
+                      <i>
+                        ({trollUpgrades.length * 50}{" "}
+                        <TranslatedText message="points)" />
+                      </i>
                     )}
                   </b>
                 </Typography>

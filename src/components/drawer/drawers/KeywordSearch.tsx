@@ -12,6 +12,8 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Fragment, FunctionComponent, SyntheticEvent, useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useUserPreferences } from "../../../state/preference";
 
@@ -109,6 +111,8 @@ export const KeywordSearch: FunctionComponent<{
   }[];
   usedKeywords?: string[];
 }> = ({ keywords, usedKeywords = [] }) => {
+  const { t: translateUI } = useTranslation();
+
   const { openSidebarContext } = useAppState();
   const [searchTerm, setSearchTerm] = useState(
     openSidebarContext?.searchKeyword || "",
@@ -145,13 +149,13 @@ export const KeywordSearch: FunctionComponent<{
           size="small"
           value={searchTerm}
           onChange={handleSearch}
-          placeholder="Search..."
+          placeholder={translateUI("Search...")}
         />
       </Box>
       {preferences.splitActiveRules && usedKeywords.length > 0 && (
         <Box>
           <Typography sx={{ mb: 0.5 }} variant="h6">
-            Relevant keywords for selected roster:
+            <TranslatedText message="Relevant keywords for selected roster:" />
           </Typography>
           {keywordList
             .filter((rule) => usedKeywords.includes(rule.name))
@@ -166,7 +170,7 @@ export const KeywordSearch: FunctionComponent<{
               );
             })}
           <Typography sx={{ mt: 2.5, mb: 0.5 }} variant="h6">
-            Other keywords:
+            <TranslatedText message="Other keywords:" />
           </Typography>
         </Box>
       )}

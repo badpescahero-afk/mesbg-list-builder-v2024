@@ -7,6 +7,7 @@ import { GroupOptionsPopoverMenu } from "../../../components/common/roster-group
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useLockContext } from "../../../hooks/lock/useLockContext.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { RosterGroup } from "../../../state/roster-building/groups";
 import { PATREON_LINK } from "../../home/Home.tsx";
 import { RostersBreadCrumbs } from "./RostersBreadCrumbs.tsx";
@@ -83,7 +84,11 @@ export const RostersPageHeader: FunctionComponent<RostersPageHeaderProps> = ({
           startIcon={lock ? <TbMobiledataOff /> : <TbMobiledata />}
           onClick={() => toggleLock()}
         >
-          {lock ? "Drag & Drop: Off" : "Drag & Drop: On"}
+          {lock ? (
+            <TranslatedText message="Drag & Drop: Off" />
+          ) : (
+            <TranslatedText message="Drag & Drop: On" />
+          )}
         </Button>
       )}
     </Stack>

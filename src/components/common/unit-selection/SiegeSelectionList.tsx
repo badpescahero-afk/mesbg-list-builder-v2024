@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { siegeEquipmentData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { SiegeEquipment } from "../../../types/mesbg-data.types.ts";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { SiegeSelectionButton } from "./SiegeSelectionButton.tsx";
@@ -21,8 +22,7 @@ export const SiegeSelectionList: FunctionComponent<UnitSelectionListProps> = ({
     return (
       <Stack gap={1.5}>
         <CustomAlert severity="error" title="">
-          The current roster is not eligible for siege equipment. Create a new
-          roster and mark it as a siege roster.
+          <TranslatedText message="The current roster is not eligible for siege equipment. Create a new roster and mark it as a siege roster." />
         </CustomAlert>
       </Stack>
     );
@@ -43,9 +43,11 @@ export const SiegeSelectionList: FunctionComponent<UnitSelectionListProps> = ({
     <Stack gap={1.5}>
       <Typography color="textSecondary">
         <small>
-          Equipment to be used for siege games. The full details can be found in
-          the &apos;Sieges&apos; section of the main rulebook (pages 146 to
-          148).
+          <TranslatedText
+            message={
+              "Equipment to be used for siege games. The full details can be found in the 'Sieges' section of the main rulebook (pages 146 to 148)."
+            }
+          />
         </small>
       </Typography>
       {equipment.map((item) => (

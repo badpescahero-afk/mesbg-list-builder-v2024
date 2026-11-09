@@ -10,6 +10,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { TranslatedText } from "../i18n/TranslatedText";
 import { auth } from "./config";
 import { FirebaseAuthFunctions, useFirebaseAuth } from "./useFirebaseAuth.ts";
 
@@ -84,7 +85,7 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({
         >
           <CircularProgress color="inherit" size={100} thickness={2} />
           <Typography variant="overline">
-            Getting account information...
+            <TranslatedText message="Getting account information..." />
           </Typography>
         </Box>
       ) : (

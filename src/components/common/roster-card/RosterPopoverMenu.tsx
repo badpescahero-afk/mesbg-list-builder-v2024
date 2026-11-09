@@ -16,6 +16,8 @@ import { FaChessRook, FaClone } from "react-icons/fa";
 import { GiRollingDices } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useGameModeState } from "../../../state/gamemode";
 import { useRosterBuildingState } from "../../../state/roster-building";
@@ -25,6 +27,8 @@ import { SquareIconButton } from "../../atoms/icon-button/SquareIconButton.tsx";
 import { ModalTypes } from "../../modal/modals.tsx";
 
 export const RosterPopoverMenu = (props: { roster: Roster }) => {
+  const { t: translateUI } = useTranslation();
+
   const { setCurrentModal } = useAppState();
   const navigate = useNavigate();
   const api = useApi();
@@ -119,7 +123,7 @@ export const RosterPopoverMenu = (props: { roster: Roster }) => {
   return (
     <div>
       <SquareIconButton
-        aria-label="more"
+        aria-label={translateUI("more")}
         aria-controls={open ? "menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
@@ -134,7 +138,10 @@ export const RosterPopoverMenu = (props: { roster: Roster }) => {
           <ListItemIcon>
             <Share />
           </ListItemIcon>
-          <ListItemText> Show summary</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Show summary" />
+          </ListItemText>
         </MenuItem>
         <MenuItem onClick={showTtsExport}>
           <ListItemIcon>
@@ -146,32 +153,47 @@ export const RosterPopoverMenu = (props: { roster: Roster }) => {
           <ListItemIcon>
             <FaChessRook size="1.4rem" />
           </ListItemIcon>
-          <ListItemText> Start/Continue game</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Start/Continue game" />
+          </ListItemText>
         </MenuItem>
         <MenuItem onClick={showPdf}>
           <ListItemIcon>
             <Print />
           </ListItemIcon>
-          <ListItemText> PDF (printable)</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="PDF (printable)" />
+          </ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={editRoster}>
           <ListItemIcon>
             <Edit fontSize="small" />
           </ListItemIcon>
-          <ListItemText> Edit roster</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Edit roster" />
+          </ListItemText>
         </MenuItem>
         <MenuItem onClick={exportRoster}>
           <ListItemIcon>
             <Download />
           </ListItemIcon>
-          <ListItemText> Export roster</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Export roster" />
+          </ListItemText>
         </MenuItem>
         <MenuItem onClick={cloneRoster}>
           <ListItemIcon>
             <FaClone />
           </ListItemIcon>
-          <ListItemText> Duplicate roster</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Duplicate roster" />
+          </ListItemText>
         </MenuItem>
 
         <Divider />
@@ -179,7 +201,10 @@ export const RosterPopoverMenu = (props: { roster: Roster }) => {
           <ListItemIcon>
             <DeleteForever fontSize="small" />
           </ListItemIcon>
-          <ListItemText> Delete roster</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Delete roster" />
+          </ListItemText>
         </MenuItem>
       </Menu>
     </div>

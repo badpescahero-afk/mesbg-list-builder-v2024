@@ -14,6 +14,7 @@ import {
   useState,
 } from "react";
 import { useAuth } from "../../firebase/FirebaseAuthContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { Roster } from "../../types/roster";
 import { useApi } from "./useApi";
 
@@ -151,7 +152,7 @@ export const RosterCloudSyncProvider = ({
           message={`Syncing roster in ${Math.ceil(remaining / 1000)}s`}
           action={
             <Button color="primary" size="small" onClick={handleClose}>
-              sync now!
+              <TranslatedText message="sync now!" />
             </Button>
           }
           sx={{ backgroundColor: "transparent", zIndex: 1000 }}

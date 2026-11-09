@@ -2,6 +2,7 @@ import { StepContent, StepLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { AdditionalTagsInput } from "../../../atoms/tags-input/TagsInput.tsx";
 import { StepProps } from "./StepProps.ts";
 
@@ -14,16 +15,15 @@ export const AdditionalTagsStep: FunctionComponent<StepProps> = ({
       <StepLabel
         optional={
           <Typography variant="caption" color="textDisabled">
-            Optional
+            <TranslatedText message="Optional" />
           </Typography>
         }
       >
-        General - Additional Tags
+        <TranslatedText message="General - Additional Tags" />
       </StepLabel>
       <StepContent>
         <Typography>
-          Adding extra tags to your match allows you to filter them in the match
-          history page.
+          <TranslatedText message="Adding extra tags to your match allows you to filter them in the match history page." />
         </Typography>
         <Box sx={{ my: 2 }}>
           <AdditionalTagsInput

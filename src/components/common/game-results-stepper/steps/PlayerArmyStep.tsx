@@ -8,6 +8,8 @@ import {
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { useScreenSize } from "../../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { ArmyPicker } from "../../../atoms/army-selector/ArmyPicker.tsx";
 import { StepProps } from "./StepProps.ts";
 
@@ -18,6 +20,8 @@ export const PlayerArmyStep: FunctionComponent<StepProps> = ({
   handleChangeByEvent,
   activeStep,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const { isMobile } = useScreenSize();
   return (
     <>
@@ -35,17 +39,16 @@ export const PlayerArmyStep: FunctionComponent<StepProps> = ({
           </Collapse>
         }
       >
-        Players - Your army
+        <TranslatedText message="Players - Your army" />
       </StepLabel>
       <StepContent>
         <Typography>
-          Select which army you played and how much bows & throwing weapons you
-          included.
+          <TranslatedText message="Select which army you played and how much bows & throwing weapons you included." />
         </Typography>
         <Stack gap={2} sx={{ my: 2 }}>
           <ArmyPicker
-            label="Armies"
-            placeholder="Your armies"
+            label={translateUI("Armies")}
+            placeholder={translateUI("Your armies")}
             required
             error={missingFields.includes("Armies")}
             onChange={(values) => {
@@ -59,7 +62,7 @@ export const PlayerArmyStep: FunctionComponent<StepProps> = ({
             <TextField
               required
               fullWidth
-              label="Bows"
+              label={translateUI("Bows")}
               name="bows"
               type="number"
               error={missingFields.includes("Bows")}
@@ -71,7 +74,7 @@ export const PlayerArmyStep: FunctionComponent<StepProps> = ({
             <TextField
               required
               fullWidth
-              label="Throwing Weapons"
+              label={translateUI("Throwing Weapons")}
               name="throwingWeapons"
               type="number"
               error={missingFields.includes("Throwing Weapons")}

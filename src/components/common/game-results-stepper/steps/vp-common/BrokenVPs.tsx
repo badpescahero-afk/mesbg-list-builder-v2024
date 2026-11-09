@@ -1,6 +1,8 @@
 import { Checkbox, FormGroup, FormLabel } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../../i18n/TranslatedText";
 
 type BrokenVPsProps = {
   value: number[];
@@ -15,6 +17,8 @@ export const BrokenVPs: FunctionComponent<BrokenVPsProps> = ({
   label = "broken",
   vpSpread = [0, 1, 3],
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const [broken, setBroken] = useState(value[1] !== 0);
   const [enemyBroken, setEnemyBroken] = useState(value[0] !== 0);
 
@@ -33,18 +37,23 @@ export const BrokenVPs: FunctionComponent<BrokenVPsProps> = ({
 
   return (
     <FormGroup>
-      <FormLabel>Who was {label} at the end of the game</FormLabel>
+      <FormLabel>
+        <TranslatedText message="Who was" /> {translateUI(label)}{" "}
+        <TranslatedText message="at the end of the game" />
+      </FormLabel>
       <FormControlLabel
         checked={broken}
         onChange={(_, value) => setBroken(value)}
         control={<Checkbox />}
-        label={`I was ${label}`}
+        label={translateUI("I was {{state}}", { state: translateUI(label) })}
       />
       <FormControlLabel
         checked={enemyBroken}
         onChange={(_, value) => setEnemyBroken(value)}
         control={<Checkbox />}
-        label={`They were ${label}`}
+        label={translateUI("They were {{state}}", {
+          state: translateUI(label),
+        })}
       />
     </FormGroup>
   );

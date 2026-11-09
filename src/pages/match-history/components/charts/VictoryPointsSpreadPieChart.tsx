@@ -1,5 +1,6 @@
 import { useTheme } from "@mui/material/styles";
 import { Pie } from "react-chartjs-2";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { PastGame } from "../../../../state/recent-games/history";
 
 interface VictoryPointsWonLostProps {
@@ -9,6 +10,8 @@ interface VictoryPointsWonLostProps {
 export const VictoryPointsSpreadPieChart = ({
   data,
 }: VictoryPointsWonLostProps) => {
+  const { t: translateUI } = useTranslation();
+
   const { palette } = useTheme();
 
   const victoryPoints = data
@@ -25,7 +28,9 @@ export const VictoryPointsSpreadPieChart = ({
     );
 
   const victoryPointData = {
-    labels: ["Earned by you", "Lost to opponents"],
+    labels: ["Earned by you", "Lost to opponents"].map((label) =>
+      translateUI(label),
+    ),
     datasets: [
       {
         data: victoryPoints,
@@ -43,7 +48,7 @@ export const VictoryPointsSpreadPieChart = ({
           legend: { position: "bottom" },
           title: {
             display: true,
-            text: "Victory Points Spread",
+            text: translateUI("Victory Points Spread"),
           },
         },
       }}

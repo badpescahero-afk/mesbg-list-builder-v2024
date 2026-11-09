@@ -11,6 +11,8 @@ import { ChangeEvent, forwardRef, useImperativeHandle, useState } from "react";
 import { v4 } from "uuid";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRecentGamesState } from "../../../state/recent-games";
 import { PastGame } from "../../../state/recent-games/history";
@@ -27,6 +29,8 @@ export type GameResultsFormHandlers = {
 };
 
 export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
+  const { t: translateUI } = useTranslation();
+
   const { modalContext } = useAppState();
   const { addGame, editGame } = useRecentGamesState();
   const { createGame, updateGame } = useApi();
@@ -119,21 +123,27 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
   return (
     <Box>
       {missingRequiredFields.length > 0 && (
-        <CustomAlert severity="error" title="Some fields are incorrect">
-          Please fill in the following required fields:{" "}
-          {missingRequiredFields.join(", ").replace(/,([^,]*)$/, " & $1")}
+        <CustomAlert
+          severity="error"
+          title={translateUI("Some fields are incorrect")}
+        >
+          <TranslatedText message="Please fill in the following required fields:" />{" "}
+          {missingRequiredFields
+            .map((field) => translateUI(field))
+            .join(", ")
+            .replace(/,([^,]*)$/, " " + translateUI("and") + " $1")}
         </CustomAlert>
       )}
 
       <Grid2 container spacing={2} sx={{ mt: 2 }}>
         <Grid2 container component="fieldset">
           <Typography component="legend" sx={{ mb: 1 }}>
-            General game information
+            <TranslatedText message="General game information" />
           </Typography>
           <Grid2 size={12}>
             <TextField
               fullWidth
-              label="Date of the Game"
+              label={translateUI("Date of the Game")}
               name="gameDate"
               type="date"
               slotProps={{ inputLabel: { shrink: true } }}
@@ -146,7 +156,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
           <Grid2 size={6}>
             <TextField
               fullWidth
-              label="Duration"
+              label={translateUI("Duration")}
               name="duration"
               value={formValues.duration}
               error={missingRequiredFields.includes("Duration")}
@@ -155,7 +165,9 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
               slotProps={{
                 input: {
                   endAdornment: (
-                    <InputAdornment position="end">minutes</InputAdornment>
+                    <InputAdornment position="end">
+                      <TranslatedText message="minutes" />
+                    </InputAdornment>
                   ),
                 },
               }}
@@ -167,7 +179,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
               required
               error={missingRequiredFields.includes("Points")}
               fullWidth
-              label="Points"
+              label={translateUI("Points")}
               name="points"
               type="number"
               slotProps={{ htmlInput: { min: 0 } }}
@@ -186,7 +198,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Scenario Played"
+                  label={translateUI("Scenario Played")}
                   autoFocus={!!formValues.duration}
                 />
               )}
@@ -213,12 +225,15 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
               title={
                 hasValue(formValues.victoryPoints) &&
                 hasValue(formValues.opponentVictoryPoints)
-                  ? "The state of this field is managed by the VP's"
+                  ? translateUI(
+                      "The state of this field is managed by the VP's",
+                    )
                   : ""
               }
             >
               <Autocomplete
                 options={results}
+                getOptionLabel={(value) => translateUI(value)}
                 value={formValues.result}
                 onChange={(_, newValue) =>
                   handleChangeField("result", newValue)
@@ -226,7 +241,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Match Results"
+                    label={translateUI("Match Results")}
                     required
                     error={missingRequiredFields.includes("Match Results")}
                   />
@@ -250,12 +265,12 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
         </Grid2>
         <Grid2 container component="fieldset" size={isMobile ? 12 : 6}>
           <Typography component="legend" sx={{ mb: 1 }}>
-            Your army information
+            <TranslatedText message="Your army information" />
           </Typography>
           <Grid2 size={12}>
             <ArmyPicker
-              label="Armies"
-              placeholder="Your armies"
+              label={translateUI("Armies")}
+              placeholder={translateUI("Your armies")}
               required
               error={missingRequiredFields.includes("Armies")}
               onChange={(values) => {
@@ -274,7 +289,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
               required
               error={missingRequiredFields.includes("Bows")}
               fullWidth
-              label="Bows"
+              label={translateUI("Bows")}
               name="bows"
               type="number"
               slotProps={{ htmlInput: { min: 0 } }}
@@ -288,7 +303,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
               required
               error={missingRequiredFields.includes("Throwing Weapons")}
               fullWidth
-              label="Throwing Weapons"
+              label={translateUI("Throwing Weapons")}
               name="throwingWeapons"
               type="number"
               slotProps={{ htmlInput: { min: 0 } }}
@@ -302,7 +317,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
               required
               error={missingRequiredFields.includes("Victory Points")}
               fullWidth
-              label="Victory Points"
+              label={translateUI("Victory Points")}
               name="victoryPoints"
               type="number"
               slotProps={{ htmlInput: { min: 0 } }}
@@ -314,12 +329,12 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
         </Grid2>
         <Grid2 container component="fieldset" size={isMobile ? 12 : 6}>
           <Typography component="legend" sx={{ mb: 1 }}>
-            Your opponent&apos;s information
+            <TranslatedText message={"Your opponent's information"} />
           </Typography>
           <Grid2 size={12}>
             <ArmyPicker
-              label="Opponent Armies"
-              placeholder="Your opponent's armies"
+              label={translateUI("Opponent Armies")}
+              placeholder={translateUI("Your opponent's armies")}
               onChange={(values) =>
                 handleChangeField(
                   "opponentArmies",
@@ -334,7 +349,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
           <Grid2 size={isMobile ? 12 : 6}>
             <TextField
               fullWidth
-              label="Opponent Name"
+              label={translateUI("Opponent Name")}
               name="opponentName"
               error={missingRequiredFields.includes("Opponent Name")}
               value={formValues.opponentName}
@@ -348,7 +363,7 @@ export const GameResultsForm = forwardRef<GameResultsFormHandlers>((_, ref) => {
           <Grid2 size={isMobile ? 12 : 6}>
             <TextField
               fullWidth
-              label="Victory Points"
+              label={translateUI("Victory Points")}
               name="opponentVictoryPoints"
               value={formValues.opponentVictoryPoints}
               type="number"

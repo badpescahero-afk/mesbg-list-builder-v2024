@@ -22,6 +22,7 @@ import { drawerWidth } from "../../components/common/roster-info/RosterInfoDrawe
 import { ModalTypes } from "../../components/modal/modals.tsx";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useRosterSync } from "../../hooks/cloud-sync/RosterCloudSyncProvider.tsx";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useAppState } from "../../state/app";
 import { useTemporalRosterBuildingState } from "../../state/roster-building";
 import { useThemeContext } from "../../theme/ThemeContext.tsx";
@@ -127,7 +128,7 @@ export const RosterFloatingButton = ({ roster }: { roster: RosterType }) => {
                 }}
               >
                 {" "}
-                {action.name}{" "}
+                <TranslatedText message={action.name} />{" "}
               </span>
             }
             tooltipOpen
@@ -180,7 +181,7 @@ export const RosterFloatingButton = ({ roster }: { roster: RosterType }) => {
                 color: mode === "dark" ? "white" : "inherit",
               }}
             >
-              Undo{" "}
+              <TranslatedText message="Undo" />{" "}
               {screen.isDesktop && (
                 <small>
                   <i>[Ctrl + Z]</i>
@@ -214,7 +215,7 @@ export const RosterFloatingButton = ({ roster }: { roster: RosterType }) => {
                 color: mode === "dark" ? "white" : "inherit",
               }}
             >
-              Redo{" "}
+              <TranslatedText message="Redo" />{" "}
               {screen.isDesktop && (
                 <small>
                   <i>[Ctrl + Y]</i>

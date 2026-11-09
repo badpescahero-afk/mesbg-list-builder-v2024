@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { armyListData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 
 export const ROSTER_INFO_BAR_HEIGHT = 40;
 
@@ -38,16 +39,16 @@ export const MobileRosterInfoToolbar = () => {
               }
             >
               <span>
-                Pts: <b>{metadata.points}</b>
+                <TranslatedText message="Pts:" /> <b>{metadata.points}</b>
               </span>
             </Typography>
             <Typography>
-              Units: <b>{metadata.units}</b>
+              <TranslatedText message="Units:" /> <b>{metadata.units}</b>
             </Typography>
             <Typography
               color={metadata.bows > bowLimit ? "warning" : "inherit"}
             >
-              Bow:{" "}
+              <TranslatedText message="Bow:" />{" "}
               <b style={{ display: "inline-flex", gap: "2px" }}>
                 <span>{metadata.bows}</span>
                 {screen.isTablet && <span>/{bowLimit}</span>}
@@ -58,7 +59,7 @@ export const MobileRosterInfoToolbar = () => {
                 metadata.throwingWeapons > throwLimit ? "warning" : "inherit"
               }
             >
-              Thr. Weap:{" "}
+              <TranslatedText message="Thr. Weap:" />{" "}
               <b style={{ display: "inline-flex", gap: "2px" }}>
                 <span>{metadata.throwingWeapons}</span>
                 {screen.isTablet && <span>/{throwLimit}</span>}

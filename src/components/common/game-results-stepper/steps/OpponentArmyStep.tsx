@@ -7,6 +7,8 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { ArmyPicker } from "../../../atoms/army-selector/ArmyPicker.tsx";
 import { StepProps } from "./StepProps.ts";
 
@@ -17,6 +19,8 @@ export const OpponentArmyStep: FunctionComponent<StepProps> = ({
   handleChangeByEvent,
   activeStep,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   return (
     <>
       <StepLabel
@@ -29,24 +33,24 @@ export const OpponentArmyStep: FunctionComponent<StepProps> = ({
           </Collapse>
         }
       >
-        Players - Opponent Name & Army
+        <TranslatedText message="Players - Opponent Name & Army" />
       </StepLabel>
       <StepContent>
         <Typography>
-          Some extra description on what this step is about
+          <TranslatedText message="Some extra description on what this step is about" />
         </Typography>
         <Stack gap={2} sx={{ my: 2 }}>
           <TextField
             fullWidth
-            label="Opponent Name"
+            label={translateUI("Opponent Name")}
             name="opponentName"
             value={formValues.opponentName}
             onChange={handleChangeByEvent}
             size="small"
           />
           <ArmyPicker
-            label="Opponent Armies"
-            placeholder="Your opponent's armies"
+            label={translateUI("Opponent Armies")}
+            placeholder={translateUI("Your opponent's armies")}
             error={missingFields.includes("Opponent Armies")}
             onChange={(values) =>
               updateFormValues({

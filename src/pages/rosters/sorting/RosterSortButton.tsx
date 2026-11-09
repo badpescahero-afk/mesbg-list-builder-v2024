@@ -10,6 +10,7 @@ import {
   AiOutlineSortDescending,
 } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
+import { useTranslation } from "../../../i18n/LanguageContext";
 
 export type SortOrder = "asc" | "desc";
 export type SortField = "name" | "army" | "points" | "units";
@@ -23,6 +24,8 @@ export const RosterSortButton = ({
   order: SortOrder;
   field: SortField;
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const fields: SortField[] = useMemo(
@@ -69,7 +72,7 @@ export const RosterSortButton = ({
         sx={{ width: "5ch" }}
         variant="outlined"
         color="inherit"
-        aria-label="more"
+        aria-label={translateUI("more")}
         aria-controls={open ? "menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
@@ -78,7 +81,7 @@ export const RosterSortButton = ({
         <Stack alignItems="center" sx={{ pt: 0.4 }}>
           {icons[order]}
           <Typography variant="subtitle1" sx={{ fontSize: "0.65rem" }}>
-            {field?.toUpperCase()}
+            {translateUI(field || "").toUpperCase()}
           </Typography>
         </Stack>
       </Button>
@@ -99,7 +102,7 @@ export const RosterSortButton = ({
               key={`${sortItem.field}-${sortItem.order}`}
             >
               <ListItemText sx={{ width: "20ch", textTransform: "capitalize" }}>
-                {sortItem.field} {sortItem.order}.
+                {translateUI(sortItem.field)} {translateUI(sortItem.order)}.
               </ListItemText>
               <ListItemIcon
                 sx={{

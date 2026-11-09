@@ -10,6 +10,7 @@ import {
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { download } from "../../../hooks/export/useDownload.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
 import { AlertTypes } from "../../notifications/alert-types.tsx";
@@ -48,7 +49,9 @@ export const ExportCollection = () => {
       <DialogContent>
         <Stack gap={2}>
           <FormControl error={!filenameValid} variant="standard" fullWidth>
-            <InputLabel htmlFor="component-error">Filename</InputLabel>
+            <InputLabel htmlFor="component-error">
+              <TranslatedText message="Filename" />
+            </InputLabel>
             <Input
               value={filename}
               onChange={(e) => {
@@ -61,7 +64,7 @@ export const ExportCollection = () => {
             />
             {!filenameValid && (
               <FormHelperText id="component-error-text">
-                Filename cannot be empty
+                <TranslatedText message="Filename cannot be empty" />
               </FormHelperText>
             )}
           </FormControl>
@@ -69,7 +72,7 @@ export const ExportCollection = () => {
       </DialogContent>
       <DialogActions sx={{ display: "flex", gap: 2 }}>
         <Button onClick={handleCopy} data-test-id="dialog--secondary-button">
-          copy to clipboard
+          <TranslatedText message="copy to clipboard" />
         </Button>
         <Button
           variant="contained"
@@ -77,7 +80,7 @@ export const ExportCollection = () => {
           disabled={!filenameValid}
           data-test-id="dialog--submit-button"
         >
-          Save file
+          <TranslatedText message="Save file" />
         </Button>
       </DialogActions>
     </>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useGameModeState } from "../../../state/gamemode";
 import { useRecentGamesState } from "../../../state/recent-games";
@@ -93,7 +94,7 @@ export const EndGameStepperDialog = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          End Game without saving
+          <TranslatedText message="End Game without saving" />
         </Button>
         <Box flexGrow={1} />
 
@@ -105,7 +106,7 @@ export const EndGameStepperDialog = () => {
             sx={{ minWidth: "20ch" }}
             data-test-id="dialog--submit-button"
           >
-            Back
+            <TranslatedText message="Back" />
           </Button>
         ) : (
           <Button
@@ -115,7 +116,7 @@ export const EndGameStepperDialog = () => {
             sx={{ minWidth: "20ch" }}
             data-test-id="dialog--submit-button"
           >
-            Cancel
+            <TranslatedText message="Cancel" />
           </Button>
         )}
 
@@ -126,7 +127,11 @@ export const EndGameStepperDialog = () => {
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--submit-button"
         >
-          {finalStep ? "Save game" : "Next"}
+          {finalStep ? (
+            <TranslatedText message="Save game" />
+          ) : (
+            <TranslatedText message="Next" />
+          )}
         </Button>
       </DialogActions>
     </>

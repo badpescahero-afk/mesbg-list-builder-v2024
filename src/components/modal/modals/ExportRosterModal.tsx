@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useExport } from "../../../hooks/export/useExport.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { slugify } from "../../../utils/string.ts";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
@@ -43,9 +44,9 @@ export const ExportRosterModal = () => {
     <>
       <DialogContent>
         <CustomAlert severity="info" title="">
-          You can export your roster to a <i>.json</i> (or to your clipboard).
-          This allows you to reimport your roster on another device or when you
-          lose your browser data.
+          <TranslatedText message="You can export your roster to a" />{" "}
+          <i>.json</i>{" "}
+          <TranslatedText message="(or to your clipboard). This allows you to reimport your roster on another device or when you lose your browser data." />
         </CustomAlert>
         <FormControl
           error={!filenameValid}
@@ -53,7 +54,9 @@ export const ExportRosterModal = () => {
           fullWidth
           sx={{ mt: 2 }}
         >
-          <InputLabel htmlFor="component-error">Roster filename</InputLabel>
+          <InputLabel htmlFor="component-error">
+            <TranslatedText message="Roster filename" />
+          </InputLabel>
           <Input
             value={filename}
             onChange={(e) => {
@@ -66,19 +69,21 @@ export const ExportRosterModal = () => {
           />
           {!filenameValid && (
             <FormHelperText id="component-error-text">
-              Filename cannot be empty
+              <TranslatedText message="Filename cannot be empty" />
             </FormHelperText>
           )}
         </FormControl>
       </DialogContent>
       <DialogActions sx={{ display: "flex", gap: 2 }}>
-        <Button onClick={handleCopy}>copy to clipboard</Button>
+        <Button onClick={handleCopy}>
+          <TranslatedText message="copy to clipboard" />
+        </Button>
         <Button
           variant="contained"
           onClick={handleExport}
           disabled={!filenameValid}
         >
-          Save file
+          <TranslatedText message="Save file" />
         </Button>
       </DialogActions>
     </>

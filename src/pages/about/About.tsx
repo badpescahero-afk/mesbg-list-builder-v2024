@@ -2,6 +2,7 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useThemeContext } from "../../theme/ThemeContext.tsx";
 import { About as AboutSection } from "./sections/About.tsx";
 import { Contact as ContactSection } from "./sections/Contact.tsx";
@@ -30,7 +31,11 @@ export const About = () => {
       <center>
         <Typography>
           <i>
-            If you have an feature idea don&apos;t hesitate to contact us at{" "}
+            <TranslatedText
+              message={
+                "If you have an feature idea don't hesitate to contact us at"
+              }
+            />{" "}
             <a
               href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024)"
               style={{

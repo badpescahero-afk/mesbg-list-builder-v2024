@@ -2,6 +2,7 @@ import { Button, DialogActions, DialogContent } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRosterBuildingState } from "../../../state/roster-building";
 import { RosterGroup } from "../../../state/roster-building/groups";
@@ -58,14 +59,17 @@ export const ConfirmDisbandGroupModal = () => {
     <>
       <DialogContent sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
         <CustomAlert severity="warning" title="">
-          <Typography>Your are about to disband your roster group!</Typography>
+          <Typography>
+            <TranslatedText message="Your are about to disband your roster group!" />
+          </Typography>
         </CustomAlert>
 
         <CustomAlert severity="info" title="">
           <Typography>
-            Disbanding a roster group means the rosters and subgroups inside
-            this group will be moved to their parent group.{" "}
-            <strong>They will not be deleted!</strong>
+            <TranslatedText message="Disbanding a roster group means the rosters and subgroups inside this group will be moved to their parent group." />{" "}
+            <strong>
+              <TranslatedText message="They will not be deleted!" />
+            </strong>
           </Typography>
         </CustomAlert>
       </DialogContent>
@@ -75,7 +79,7 @@ export const ConfirmDisbandGroupModal = () => {
           onClick={closeModal}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -83,7 +87,7 @@ export const ConfirmDisbandGroupModal = () => {
           color="error"
           data-test-id="dialog--submit-button"
         >
-          Disband group
+          <TranslatedText message="Disband group" />
         </Button>
       </DialogActions>
     </>

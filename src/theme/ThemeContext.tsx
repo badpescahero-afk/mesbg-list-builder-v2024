@@ -1,7 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
-import { createContext, useContext, ReactNode, useEffect } from "react";
+import { esES, enUS } from "@mui/material/locale";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useEffect,
+  useMemo,
+} from "react";
+import { useTranslation } from "../i18n/LanguageContext";
 import { useUserPreferences } from "../state/preference"; // Import your themes
 import { lightTheme, darkTheme } from "./themes";
 
@@ -20,13 +28,21 @@ export const useThemeContext = () => {
 };
 
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
+  const { language } = useTranslation();
   const { preferences, setPreference } = useUserPreferences();
 
   const toggleTheme = () => {
     setPreference("darkMode", !preferences.darkMode);
   };
 
-  const theme = preferences.darkMode ? darkTheme : lightTheme;
+  const theme = useMemo(
+    () =>
+      createTheme(
+        preferences.darkMode ? darkTheme : lightTheme,
+        language === "es" ? esES : enUS,
+      ),
+    [preferences.darkMode, language],
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute(

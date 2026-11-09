@@ -1,6 +1,8 @@
 import { Stack, StepContent, StepLabel, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ChangeEvent, FunctionComponent } from "react";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useGameModeState } from "../../../../state/gamemode";
 import { CustomAlert } from "../../../atoms/alert/CustomAlert.tsx";
 import { calculateResult } from "../../game-results-form/result.ts";
@@ -12,6 +14,8 @@ export const WinnerStep: FunctionComponent<StepProps> = ({
   missingFields,
   updateFormValues,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const {
     additionalVictoryPoints,
     calculatedVictoryPoints,
@@ -59,18 +63,20 @@ export const WinnerStep: FunctionComponent<StepProps> = ({
           missingFields.includes("Opponent's Victory Points")
         }
       >
-        Result - Winner
+        <TranslatedText message="Result - Winner" />
       </StepLabel>
       <StepContent>
         <Typography>
-          {scenarios.includes(formValues.scenarioPlayed)
-            ? "Adjust the Victory Points if needed and calculate who won the game."
-            : "Enter the Victory Points and calculate who won the game."}
+          {scenarios.includes(formValues.scenarioPlayed) ? (
+            <TranslatedText message="Adjust the Victory Points if needed and calculate who won the game." />
+          ) : (
+            <TranslatedText message="Enter the Victory Points and calculate who won the game." />
+          )}
         </Typography>
 
         <Stack gap={2} sx={{ my: 2 }}>
           <CustomAlert
-            title="Match result"
+            title={translateUI("Match result")}
             severity={
               formValues.result === "Draw"
                 ? "info"
@@ -81,16 +87,22 @@ export const WinnerStep: FunctionComponent<StepProps> = ({
           >
             {
               {
-                Won: "Glory is yours! Songs shall be sung of this day!",
-                Lost: "Your forces are shattered, and the enemy reigns supreme.",
-                Draw: "The battle ended, but neither side was able to claim victory.",
+                Won: translateUI(
+                  "Glory is yours! Songs shall be sung of this day!",
+                ),
+                Lost: translateUI(
+                  "Your forces are shattered, and the enemy reigns supreme.",
+                ),
+                Draw: translateUI(
+                  "The battle ended, but neither side was able to claim victory.",
+                ),
               }[formValues.result]
             }
           </CustomAlert>
 
           <TextField
             fullWidth
-            label="Your VP's"
+            label={translateUI("Your VP's")}
             name="victoryPoints"
             value={formValues.victoryPoints}
             type="number"
@@ -102,7 +114,7 @@ export const WinnerStep: FunctionComponent<StepProps> = ({
           />
           <TextField
             fullWidth
-            label="Opponent VP's"
+            label={translateUI("Opponent VP's")}
             name="opponentVictoryPoints"
             value={formValues.opponentVictoryPoints}
             type="number"

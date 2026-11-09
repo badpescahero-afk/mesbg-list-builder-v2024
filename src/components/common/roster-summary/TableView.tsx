@@ -18,6 +18,7 @@ import { GiQueenCrown } from "react-icons/gi";
 
 import { armyListData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import {
@@ -51,7 +52,7 @@ const UnitRow = ({
         {unit.name}{" "}
         {leader && (
           <Typography component="span" variant="body2">
-            - <GiQueenCrown /> General
+            - <GiQueenCrown /> <TranslatedText message="General" />
           </Typography>
         )}
       </TableCell>
@@ -270,9 +271,15 @@ export const RosterTableView = forwardRef<
             <TableRow
               sx={{ backgroundColor: mode === "dark" ? "#3E3E3E" : "white" }}
             >
-              <TableCell>Name</TableCell>
-              <TableCell>Options</TableCell>
-              <TableCell align="center">Points</TableCell>
+              <TableCell>
+                <TranslatedText message="Name" />
+              </TableCell>
+              <TableCell>
+                <TranslatedText message="Options" />
+              </TableCell>
+              <TableCell align="center">
+                <TranslatedText message="Points" />
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -310,7 +317,7 @@ export const RosterTableView = forwardRef<
         }}
         variant="caption"
       >
-        Created with MESBG List Builder (
+        <TranslatedText message="Created with MESBG List Builder (" />
         <a
           href="#"
           style={{

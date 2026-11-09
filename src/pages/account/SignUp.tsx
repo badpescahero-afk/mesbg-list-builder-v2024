@@ -12,6 +12,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomAlert } from "../../components/atoms/alert/CustomAlert.tsx";
 import { useAuth } from "../../firebase/FirebaseAuthContext.tsx";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 
 const errorMap = {
   "auth/email-already-in-use":
@@ -26,6 +28,8 @@ const errorMap = {
 };
 
 export const SignUp = () => {
+  const { t: translateUI } = useTranslation();
+
   const auth = useAuth();
   const [signInError, setSignInError] = useState(null);
   const [nameError, setNameError] = useState(false);
@@ -132,17 +136,19 @@ export const SignUp = () => {
   return (
     <Container maxWidth="md" sx={{ mt: 2, mb: 5 }}>
       <Typography variant="h4" className="middle-earth">
-        Sign Up
+        <TranslatedText message="Sign Up" />
       </Typography>
       <Typography sx={{ mb: 3 }}>
-        Create your account for free by providing your name, email and a
-        password.
+        <TranslatedText message="Create your account for free by providing your name, email and a password." />
       </Typography>
 
       {signInError && (
         <Box sx={{ my: 2 }}>
-          <CustomAlert title="Authentication error" severity="error">
-            {signInError}
+          <CustomAlert
+            title={translateUI("Authentication error")}
+            severity="error"
+          >
+            {translateUI(signInError)}
           </CustomAlert>
         </Box>
       )}
@@ -159,14 +165,16 @@ export const SignUp = () => {
         }}
       >
         <FormControl>
-          <FormLabel htmlFor="email">Display name</FormLabel>
+          <FormLabel htmlFor="email">
+            <TranslatedText message="Display name" />
+          </FormLabel>
           <TextField
             error={nameError}
-            helperText={nameErrorMessage}
+            helperText={translateUI(nameErrorMessage)}
             id="name"
             type="text"
             name="name"
-            placeholder="John Doe"
+            placeholder={translateUI("John Doe")}
             autoComplete="name"
             autoFocus
             required
@@ -176,14 +184,16 @@ export const SignUp = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel htmlFor="email">
+            <TranslatedText message="Email" />
+          </FormLabel>
           <TextField
             error={emailError}
-            helperText={emailErrorMessage}
+            helperText={translateUI(emailErrorMessage)}
             id="email"
             type="email"
             name="email"
-            placeholder="your@email.com"
+            placeholder={translateUI("your@email.com")}
             autoComplete="email"
             autoFocus
             required
@@ -193,10 +203,12 @@ export const SignUp = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="password">Password</FormLabel>
+          <FormLabel htmlFor="password">
+            <TranslatedText message="Password" />
+          </FormLabel>
           <TextField
             error={passwordError}
-            helperText={passwordErrorMessage}
+            helperText={translateUI(passwordErrorMessage)}
             name="password"
             placeholder="••••••"
             type="password"
@@ -210,10 +222,12 @@ export const SignUp = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="password">Password confirmation</FormLabel>
+          <FormLabel htmlFor="password">
+            <TranslatedText message="Password confirmation" />
+          </FormLabel>
           <TextField
             error={passwordConfirmationError}
-            helperText={passwordConfirmationErrorMessage}
+            helperText={translateUI(passwordConfirmationErrorMessage)}
             name="password-confirmation"
             placeholder="••••••"
             type="password"
@@ -233,7 +247,7 @@ export const SignUp = () => {
           variant="contained"
           onClick={validateInputs}
         >
-          Create account
+          <TranslatedText message="Create account" />
         </Button>
         <Stack
           direction="row"
@@ -241,13 +255,15 @@ export const SignUp = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography>Already have an account?</Typography>
+          <Typography>
+            <TranslatedText message="Already have an account?" />
+          </Typography>
           <Button
             onClick={() =>
               navigate("/sign-in", { state: { allowNavigation: true } })
             }
           >
-            Sign In
+            <TranslatedText message="Sign In" />
           </Button>
         </Stack>
       </Box>

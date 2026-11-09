@@ -8,6 +8,8 @@ import defeatedIcon from "../../../../assets/images/roster-summary/defeated.png"
 import throwIcon from "../../../../assets/images/roster-summary/throw-weapon.png";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useRosterWarnings } from "../../../../hooks/calculations-and-displays/useRosterWarnings.ts";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { Roster } from "../../../../types/roster.ts";
 
 interface HeaderBlockProps {
@@ -19,6 +21,8 @@ export const HeaderBlock = ({
   includeRosterName,
   roster,
 }: HeaderBlockProps) => {
+  const { t: translateUI } = useTranslation();
+
   const { getAdjustedMetaData } = useRosterInformation();
   const { break_point, bow_limit, throw_limit } = armyListData[roster.armyList];
   const {
@@ -85,7 +89,8 @@ export const HeaderBlock = ({
         textTransform="uppercase"
         fontWeight="bold"
       >
-        {points} points | {units} units
+        {points} <TranslatedText message="points |" /> {units}{" "}
+        <TranslatedText message="units" />
       </Typography>
       <Grid2
         container
@@ -96,7 +101,7 @@ export const HeaderBlock = ({
       >
         <Grid2 size={2.4} sx={{ textAlign: "center" }}>
           <img
-            alt="total bows icon"
+            alt={translateUI("total bows icon")}
             src={bowIcon}
             style={{
               height: iconHeight,
@@ -108,7 +113,7 @@ export const HeaderBlock = ({
         </Grid2>
         <Grid2 size={2.4} sx={{ textAlign: "center" }}>
           <img
-            alt="total throwing weapons icon"
+            alt={translateUI("total throwing weapons icon")}
             src={throwIcon}
             style={{
               height: iconHeight,
@@ -121,7 +126,7 @@ export const HeaderBlock = ({
         </Grid2>
         <Grid2 size={2.4} sx={{ textAlign: "center" }}>
           <img
-            alt="break point icon"
+            alt={translateUI("break point icon")}
             src={brokenIcon}
             style={{
               height: iconHeight,
@@ -134,14 +139,14 @@ export const HeaderBlock = ({
         </Grid2>
         <Grid2 size={2.4} sx={{ textAlign: "center" }}>
           <img
-            alt="quartered icon"
+            alt={translateUI("quartered icon")}
             src={defeatedIcon}
             style={{
               height: iconHeight,
             }}
           />
           <Typography fontWeight="bold">
-            {Math.floor(0.25 * units)} left
+            {Math.floor(0.25 * units)} <TranslatedText message="left" />
           </Typography>
         </Grid2>
         <Grid2 size={2.4} sx={{ textAlign: "center" }}>

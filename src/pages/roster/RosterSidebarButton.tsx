@@ -2,8 +2,11 @@ import { Info, WarningRounded } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import { useRosterWarnings } from "../../hooks/calculations-and-displays/useRosterWarnings.ts";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../i18n/LanguageContext";
 
 export const RosterSidebarButton = () => {
+  const { t: translateUI } = useTranslation();
+
   const screen = useScreenSize();
   const warnings = useRosterWarnings();
 
@@ -14,7 +17,7 @@ export const RosterSidebarButton = () => {
 
   return (
     <IconButton
-      aria-label="open drawer"
+      aria-label={translateUI("open drawer")}
       onClick={() =>
         window.dispatchEvent(new Event("mlb-event--open-roster-info"))
       }

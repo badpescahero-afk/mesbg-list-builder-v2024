@@ -10,6 +10,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
 import { useExport } from "../../../hooks/export/useExport.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRosterBuildingState } from "../../../state/roster-building";
 import { Roster } from "../../../types/roster.ts";
@@ -21,6 +23,8 @@ export type ImportRosterHandlers = {
 };
 
 export const ImportRoster = forwardRef<ImportRosterHandlers>((_, ref) => {
+  const { t: translateUI } = useTranslation();
+
   const navigate = useNavigate();
   const { closeModal } = useAppState();
   const { importJsonRoster } = useExport();
@@ -86,14 +90,14 @@ export const ImportRoster = forwardRef<ImportRosterHandlers>((_, ref) => {
             setTimeout(() => scrollToBottom());
           } catch (error) {
             console.error("Error parsing JSON:", error);
-            alert("Invalid JSON file");
+            alert(translateUI("Invalid JSON file"));
           }
         };
 
         // Read the file as text
         reader.readAsText(file);
       } else {
-        alert("Please select a JSON file");
+        alert(translateUI("Please select a JSON file"));
       }
     }
 
@@ -112,13 +116,12 @@ export const ImportRoster = forwardRef<ImportRosterHandlers>((_, ref) => {
   return (
     <>
       <CustomAlert title="" severity="info">
-        Reimport a roster by selecting a saved .json file or by pasting the json
-        directly into the textarea.
+        <TranslatedText message="Reimport a roster by selecting a saved .json file or by pasting the json directly into the textarea." />
       </CustomAlert>
       <TextField
         fullWidth
-        label="Roster JSON import"
-        helperText={JSONImportError ? JSONImportError : null}
+        label={translateUI("Roster JSON import")}
+        helperText={JSONImportError ? translateUI(JSONImportError) : null}
         error={!!JSONImportError}
         multiline
         rows={6}
@@ -140,7 +143,7 @@ export const ImportRoster = forwardRef<ImportRosterHandlers>((_, ref) => {
         fullWidth
         startIcon={<AttachFileOutlined />}
       >
-        Select a file
+        <TranslatedText message="Select a file" />
       </Button>
     </>
   );

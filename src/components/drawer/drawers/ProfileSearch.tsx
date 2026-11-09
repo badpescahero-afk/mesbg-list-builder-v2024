@@ -11,6 +11,8 @@ import {
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Fragment, useState } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { DatabaseRow, rows } from "../../../pages/database/data.ts";
 import { useAppState } from "../../../state/app";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
@@ -57,7 +59,7 @@ const ProfileRow = ({
             });
           }}
         >
-          View full profile card
+          <TranslatedText message="View full profile card" />
         </Button>
       </AccordionDetails>
     </Accordion>
@@ -65,6 +67,8 @@ const ProfileRow = ({
 };
 
 export const ProfileSearch = () => {
+  const { t: translateUI } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [profiles, setProfiles] = useState([]);
 
@@ -98,19 +102,19 @@ export const ProfileSearch = () => {
           size="small"
           value={searchTerm}
           onChange={handleSearch}
-          placeholder="Search..."
+          placeholder={translateUI("Search...")}
         />
       </Box>
 
       {searchTerm.length < 4 && (
-        <CustomAlert title="Enter a filter" severity="info">
-          Start by entering the name of the profile you are looking for.
+        <CustomAlert title={translateUI("Enter a filter")} severity="info">
+          <TranslatedText message="Start by entering the name of the profile you are looking for." />
         </CustomAlert>
       )}
 
       {searchTerm.length >= 4 && profiles.length === 0 && (
-        <CustomAlert title="No matches" severity="warning">
-          No matches are found for your current filter criteria.
+        <CustomAlert title={translateUI("No matches")} severity="warning">
+          <TranslatedText message="No matches are found for your current filter criteria." />
         </CustomAlert>
       )}
 

@@ -1,5 +1,6 @@
 import { AlertColor } from "@mui/material";
 import { Fragment, ReactNode } from "react";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { ApiErrorAlert } from "./alerts/ApiErrorAlert.tsx";
 import { DownloadFailed } from "./alerts/DownloadFailed.tsx";
 import { ExportAlert } from "./alerts/ExportAlert.tsx";
@@ -72,10 +73,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Success!</b>
+          <b>
+            <TranslatedText message="Success!" />
+          </b>
           <p>
-            The match was successfully saved and can now be viewed & edited via
-            the Match History page.
+            <TranslatedText message="The match was successfully saved and can now be viewed & edited via the Match History page." />
           </p>
         </Fragment>
       ),
@@ -100,9 +102,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Text copied to your clipboard.</b>
+          <b>
+            <TranslatedText message="Text copied to your clipboard." />
+          </b>
           <hr />
-          You can now import it your army into Tabletop Simulator.
+          <TranslatedText message="You can now import it your army into Tabletop Simulator." />
         </Fragment>
       ),
       options: {
@@ -126,8 +130,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully deleted</b>
-          <p>Unit was successfully deleted from the warband.</p>
+          <b>
+            <TranslatedText message="Successfully deleted" />
+          </b>
+          <p>
+            <TranslatedText message="Unit was successfully deleted from the warband." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -141,8 +149,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully deleted</b>
-          <p>The warband was successfully deleted.</p>
+          <b>
+            <TranslatedText message="Successfully deleted" />
+          </b>
+          <p>
+            <TranslatedText message="The warband was successfully deleted." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -156,8 +168,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully reset</b>
-          <p>The warband was successfully emptied and can now be rebuilt.</p>
+          <b>
+            <TranslatedText message="Successfully reset" />
+          </b>
+          <p>
+            <TranslatedText message="The warband was successfully emptied and can now be rebuilt." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -171,9 +187,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully duplicated</b>
+          <b>
+            <TranslatedText message="Successfully duplicated" />
+          </b>
           <p>
-            The unit was successfully duplicated and is added to the warband.
+            <TranslatedText message="The unit was successfully duplicated and is added to the warband." />
           </p>
         </Fragment>
       ),
@@ -188,9 +206,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully duplicated</b>
+          <b>
+            <TranslatedText message="Successfully duplicated" />
+          </b>
           <p>
-            The warband was successfully duplicated and is added to the roster.
+            <TranslatedText message="The warband was successfully duplicated and is added to the roster." />
           </p>
         </Fragment>
       ),
@@ -205,8 +225,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully deleted</b>
-          <p>Your roster was successfully deleted.</p>
+          <b>
+            <TranslatedText message="Successfully deleted" />
+          </b>
+          <p>
+            <TranslatedText message="Your roster was successfully deleted." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -220,8 +244,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully deleted</b>
-          <p>Your group was successfully deleted.</p>
+          <b>
+            <TranslatedText message="Successfully deleted" />
+          </b>
+          <p>
+            <TranslatedText message="Your group was successfully deleted." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -235,10 +263,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "error",
       content: (
         <Fragment>
-          <b>Failed to delete</b>
+          <b>
+            <TranslatedText message="Failed to delete" />
+          </b>
           <p>
-            The group could not be deleted, please refresh the page and try
-            again.
+            <TranslatedText message="The group could not be deleted, please refresh the page and try again." />
           </p>
         </Fragment>
       ),
@@ -250,8 +279,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully disbanded</b>
-          <p>Your group was successfully disbanded.</p>
+          <b>
+            <TranslatedText message="Successfully disbanded" />
+          </b>
+          <p>
+            <TranslatedText message="Your group was successfully disbanded." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -265,10 +298,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "error",
       content: (
         <Fragment>
-          <b>Failed to disbanded</b>
+          <b>
+            <TranslatedText message="Failed to disbanded" />
+          </b>
           <p>
-            The group could not be disbanded, please refresh the page and try
-            again.
+            <TranslatedText message="The group could not be disbanded, please refresh the page and try again." />
           </p>
         </Fragment>
       ),
@@ -280,8 +314,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully updated</b>
-          <p>Your group was successfully updated.</p>
+          <b>
+            <TranslatedText message="Successfully updated" />
+          </b>
+          <p>
+            <TranslatedText message="Your group was successfully updated." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -295,10 +333,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Request sent</b>
+          <b>
+            <TranslatedText message="Request sent" />
+          </b>
           <p>
-            If the provided email has an account it should receive a password
-            reset link within a few minutes.
+            <TranslatedText message="If the provided email has an account it should receive a password reset link within a few minutes." />
           </p>
         </Fragment>
       ),
@@ -313,8 +352,12 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "success",
       content: (
         <Fragment>
-          <b>Successfully imported</b>
-          <p>The JSON-data was successfully imported into your collection.</p>
+          <b>
+            <TranslatedText message="Successfully imported" />
+          </b>
+          <p>
+            <TranslatedText message="The JSON-data was successfully imported into your collection." />
+          </p>
         </Fragment>
       ),
       options: {
@@ -328,10 +371,11 @@ export const alertMap = new Map<AlertTypes, AlertProps>([
       variant: "error",
       content: (
         <Fragment>
-          <b>Import incorrect</b>
+          <b>
+            <TranslatedText message="Import incorrect" />
+          </b>
           <p>
-            The imported JSON was incorrectly formatted. Please reexport the
-            data and try again.
+            <TranslatedText message="The imported JSON was incorrectly formatted. Please reexport the data and try again." />
           </p>
         </Fragment>
       ),

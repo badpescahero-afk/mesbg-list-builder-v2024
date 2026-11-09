@@ -13,6 +13,7 @@ import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "../../components/atoms/link/Link.tsx";
 import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { DatabaseTable } from "./components/DatabaseTable.tsx";
 import { rows } from "./data.ts";
 import { getComparator, Order } from "./utils/sorting.ts";
@@ -97,11 +98,11 @@ export const Database = () => {
       </Typography>
       <Stack direction="row" gap={0.5} sx={{ mb: 2 }}>
         <Typography>
-          You can add models from this database to your personal{" "}
-          <Link to="/collection">{t("collection")}</Link> of miniatures using
-          the <BookmarkAdd sx={{ verticalAlign: "bottom" }} /> button, and
-          choose to receive helpful warnings from the list builder if you exceed
-          the models available in your collection.
+          <TranslatedText message="You can add models from this database to your personal" />{" "}
+          <Link to="/collection">{t("collection")}</Link>{" "}
+          <TranslatedText message="of miniatures using the" />{" "}
+          <BookmarkAdd sx={{ verticalAlign: "bottom" }} />{" "}
+          <TranslatedText message="button, and choose to receive helpful warnings from the list builder if you exceed the models available in your collection." />
         </Typography>
       </Stack>
       <Stack
@@ -145,12 +146,17 @@ export const Database = () => {
           }}
         />
         <Typography sx={{ whiteSpace: "nowrap", ml: 1 }}>
-          <strong>{filteredRows.length} profiles</strong>
+          <strong>
+            {filteredRows.length} <TranslatedText message="profiles" />
+          </strong>
         </Typography>
       </Stack>
       <FormHelperText sx={{ mb: 2 }}>
-        You can combine filters using semicolons - for example: &quot;Gondor;
-        Strike&quot; or &quot;The Free Peoples; Resistant to Magic&quot;
+        <TranslatedText
+          message={
+            'You can combine filters using semicolons - for example: "Gondor; Strike" or "The Free Peoples; Resistant to Magic"'
+          }
+        />
       </FormHelperText>
 
       <DatabaseTable

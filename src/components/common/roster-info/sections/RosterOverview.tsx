@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { armyListData } from "../../../../assets/data.ts";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { RosterInformationProps } from "../RosterInformation.tsx";
 import { RosterInformationSection } from "../RosterInformationSection.tsx";
 
@@ -69,7 +70,8 @@ export const RosterOverview: FunctionComponent<RosterInformationProps> = ({
       label: "Break point",
       value: (
         <>
-          {breakPointDead} dead / {breakPointAlive} alive
+          {breakPointDead} <TranslatedText message="dead /" /> {breakPointAlive}{" "}
+          <TranslatedText message="alive" />
         </>
       ),
     },
@@ -77,19 +79,21 @@ export const RosterOverview: FunctionComponent<RosterInformationProps> = ({
       label: "Quartered",
       value: (
         <>
-          {quarterDead} dead / {quarterAlive} alive
+          {quarterDead} <TranslatedText message="dead /" /> {quarterAlive}{" "}
+          <TranslatedText message="alive" />
         </>
       ),
     },
     {
       label: (
         <>
-          Bow limit (<i>{armyListMetadata.bow_limit * 100}%</i>)
+          <TranslatedText message="Bow limit (" />
+          <i>{armyListMetadata.bow_limit * 100}%</i>)
         </>
       ),
       value: (
         <>
-          {metadata.bows} ({bowLimit} limit)
+          {metadata.bows} ({bowLimit} <TranslatedText message="limit)" />
         </>
       ),
       valid: bowLimit >= metadata.bows,
@@ -97,12 +101,14 @@ export const RosterOverview: FunctionComponent<RosterInformationProps> = ({
     {
       label: (
         <>
-          Throwing W. limit (<i>{armyListMetadata.throw_limit * 100}%</i>)
+          <TranslatedText message="Throwing W. limit (" />
+          <i>{armyListMetadata.throw_limit * 100}%</i>)
         </>
       ),
       value: (
         <>
-          {metadata.throwingWeapons} ({throwLimit} limit)
+          {metadata.throwingWeapons} ({throwLimit}{" "}
+          <TranslatedText message="limit)" />
         </>
       ),
       valid: throwLimit >= metadata.throwingWeapons,
@@ -129,7 +135,13 @@ export const RosterOverview: FunctionComponent<RosterInformationProps> = ({
               <TableRow key={index}>
                 <TableCell>
                   <Typography color={row.valid !== false ? "inherit" : "error"}>
-                    <b>{row.label}</b>
+                    <b>
+                      {typeof row.label === "string" ? (
+                        <TranslatedText message={row.label} />
+                      ) : (
+                        row.label
+                      )}
+                    </b>
                   </Typography>
                 </TableCell>
                 <TableCell align="right">

@@ -12,6 +12,8 @@ import { useRosterInformation } from "../../hooks/calculations-and-displays/useR
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useGamestateSync } from "../../hooks/cloud-sync/GamestateCloudSyncProvider.tsx";
 import { useApi } from "../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../i18n/LanguageContext";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { useGameModeState } from "../../state/gamemode";
 import { Roster } from "../../types/roster.ts";
 import { deepEqual } from "../../utils/objects.ts";
@@ -41,6 +43,8 @@ const hasChanged = (a: Roster["metadata"], b: Roster["metadata"]) => {
 };
 
 export const Gamemode = () => {
+  const { t: translateUI } = useTranslation();
+
   const api = useApi();
   const syncGame = useGamestateSync();
   const screen = useScreenSize();
@@ -114,23 +118,25 @@ export const Gamemode = () => {
           <CustomAlert
             severity="warning"
             onClose={() => setRosterChangedWarning(false)}
-            title="Your roster was changed!"
+            title={translateUI("Your roster was changed!")}
           >
             <Typography>
-              Your roster was changed after starting this match.
-              <Button onClick={resetMatch}>Click here</Button> to reset your
-              game to your current roster.
+              <TranslatedText message="Your roster was changed after starting this match." />
+              <Button onClick={resetMatch}>
+                <TranslatedText message="Click here" />
+              </Button>{" "}
+              <TranslatedText message="to reset your game to your current roster." />
             </Typography>
           </CustomAlert>
         )}
         <Box sx={{ width: "100%", bgcolor: "background.paper", mt: 2 }}>
           <Tabs value={value} onChange={handleChange} variant="fullWidth">
-            <Tab label="Trackers" />
-            <Tab label="Army overview" />
-            <Tab label="Profiles" />
-            <Tab label="Stats table" />
+            <Tab label={translateUI("Trackers")} />
+            <Tab label={translateUI("Army overview")} />
+            <Tab label={translateUI("Profiles")} />
+            <Tab label={translateUI("Stats table")} />
             {!screen.isDesktop && !screen.isTooSmall && (
-              <Tab label="Roster Info" />
+              <Tab label={translateUI("Roster Info")} />
             )}
           </Tabs>
         </Box>

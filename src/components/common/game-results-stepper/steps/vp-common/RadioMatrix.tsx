@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ReactNode } from "react";
+import { TranslatedText } from "../../../../../i18n/TranslatedText";
 
 interface RadioMatrixProps {
   rows: string[];
@@ -42,7 +43,11 @@ const RadioMatrix = ({
             {columns.map((label, index) => (
               <TableCell key={index} align="center">
                 <Typography sx={{ textWrap: "nowrap", minWidth: "8ch" }}>
-                  {label}
+                  {typeof label === "string" ? (
+                    <TranslatedText message={label} />
+                  ) : (
+                    label
+                  )}
                 </Typography>
               </TableCell>
             ))}
@@ -51,7 +56,9 @@ const RadioMatrix = ({
         <TableBody>
           {rows.map((rowLabel, rowIndex) => (
             <TableRow key={rowIndex}>
-              <TableCell>{rowLabel}</TableCell>
+              <TableCell>
+                <TranslatedText message={rowLabel} />
+              </TableCell>
               {columns.map((_, colIndex) => (
                 <TableCell key={colIndex} align="center">
                   <Radio

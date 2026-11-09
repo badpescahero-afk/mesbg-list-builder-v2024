@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react";
-import { Language } from "./locale";
+import { Language, TranslationValues } from "./locale";
 
 export const LanguageContext = createContext<{
   language: Language;
   setLanguage: (language: Language) => void;
-  t: (message: string) => string;
+  t: (message: string, values?: TranslationValues) => string;
 } | null>(null);
 
 export function useTranslation() {

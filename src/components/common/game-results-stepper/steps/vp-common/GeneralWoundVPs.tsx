@@ -1,6 +1,7 @@
 import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { ChangeEvent, FunctionComponent } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
 
 type GeneralWoundVPsProps = {
   label: string;
@@ -17,6 +18,8 @@ export const GeneralWoundVPs: FunctionComponent<GeneralWoundVPsProps> = ({
   setValue,
   vpSpread = [0, 1, 2],
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const handleOnChange = (_: ChangeEvent, value: string) => {
     switch (value) {
       case "unharmed":
@@ -38,19 +41,19 @@ export const GeneralWoundVPs: FunctionComponent<GeneralWoundVPsProps> = ({
           value="unharmed"
           checked={value === vpSpread[0]}
           control={<Radio />}
-          label="Unharmed"
+          label={translateUI("Unharmed")}
         />
         <FormControlLabel
           value="wounded"
           checked={value === vpSpread[1]}
           control={<Radio />}
-          label="Wounded"
+          label={translateUI("Wounded")}
         />
         <FormControlLabel
           value="killed"
           checked={value === vpSpread[2]}
           control={<Radio />}
-          label="Killed"
+          label={translateUI("Killed")}
         />
       </RadioGroup>
     </FormControl>

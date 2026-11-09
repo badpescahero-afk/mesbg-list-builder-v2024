@@ -30,6 +30,8 @@ import {
 } from "react";
 import { ModalTypes } from "../../../components/modal/modals.tsx";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useRecentGamesState } from "../../../state/recent-games";
 import { PastGame } from "../../../state/recent-games/history";
@@ -41,6 +43,8 @@ const resultColours = {
 };
 
 const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
+  const { t: translateUI, language } = useTranslation();
+
   const { setCurrentModal } = useAppState();
   const { deleteGame } = useRecentGamesState();
   const { deleteGame: remoteDelete } = useApi();
@@ -75,7 +79,7 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
       <TableRow sx={{ "& > *": { borderBottom: "unset !important" } }}>
         <TableCell>
           <IconButton
-            aria-label="expand row"
+            aria-label={translateUI("expand row")}
             size="small"
             onClick={() => setOpen(!open)}
           >
@@ -83,25 +87,30 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
           </IconButton>
         </TableCell>
         <TableCell>
-          {new Date(row.gameDate).toLocaleDateString("en-UK", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            timeZone: "UTC",
-          })}
+          {new Date(row.gameDate).toLocaleDateString(
+            language === "es" ? "es-ES" : "en-GB",
+            {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+              timeZone: "UTC",
+            },
+          )}
         </TableCell>
         <TableCell>{row.armies}</TableCell>
         <TableCell>{row.points}</TableCell>
         <TableCell>
           {row.opponentName || (
             <small>
-              <i>Unknown</i>
+              <i>
+                <TranslatedText message="Unknown" />
+              </i>
             </small>
           )}
         </TableCell>
         <TableCell>
           <Typography color={resultColours[row.result]}>
-            {row.result}
+            <TranslatedText message={row.result} />
           </Typography>
         </TableCell>
         <TableCell>
@@ -118,13 +127,19 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
               <ListItemIcon>
                 <Edit fontSize="small" />
               </ListItemIcon>
-              <ListItemText> Edit</ListItemText>
+              <ListItemText>
+                {" "}
+                <TranslatedText message="Edit" />
+              </ListItemText>
             </MenuItem>
             <MenuItem onClick={() => handleDelete()}>
               <ListItemIcon>
                 <Delete fontSize="small" />
               </ListItemIcon>
-              <ListItemText> Delete</ListItemText>
+              <ListItemText>
+                {" "}
+                <TranslatedText message="Delete" />
+              </ListItemText>
             </MenuItem>
           </Menu>
         </TableCell>
@@ -135,12 +150,14 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
             <Stack sx={{ margin: 1 }} gap={1}>
               {row.tags?.length > 0 && (
                 <Stack direction="row" gap={1} alignItems="center">
-                  <Typography>Tags: </Typography>
+                  <Typography>
+                    <TranslatedText message="Tags:" />{" "}
+                  </Typography>
                   {row.tags?.map((tag) => <Chip key={tag} label={tag} />)}
                 </Stack>
               )}
 
-              <Table size="small" aria-label="purchases">
+              <Table size="small" aria-label={translateUI("purchases")}>
                 <Typography
                   component="caption"
                   style={{
@@ -149,7 +166,7 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
                     padding: "0px",
                   }}
                 >
-                  Additional Match information:
+                  <TranslatedText message="Additional Match information:" />
                 </Typography>
 
                 <TableHead>
@@ -161,11 +178,21 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
                       },
                     }}
                   >
-                    <TableCell>Game duration</TableCell>
-                    <TableCell>Bows</TableCell>
-                    <TableCell>Throwing weapons</TableCell>
-                    <TableCell>Scenario</TableCell>
-                    <TableCell>Opponents armies</TableCell>
+                    <TableCell>
+                      <TranslatedText message="Game duration" />
+                    </TableCell>
+                    <TableCell>
+                      <TranslatedText message="Bows" />
+                    </TableCell>
+                    <TableCell>
+                      <TranslatedText message="Throwing weapons" />
+                    </TableCell>
+                    <TableCell>
+                      <TranslatedText message="Scenario" />
+                    </TableCell>
+                    <TableCell>
+                      <TranslatedText message="Opponents armies" />
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -178,7 +205,11 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
                     }}
                   >
                     <TableCell>
-                      {row.duration && <>{row.duration} minutes</>}
+                      {row.duration && (
+                        <>
+                          {row.duration} <TranslatedText message="minutes" />
+                        </>
+                      )}
                     </TableCell>
                     <TableCell>{row.bows || "0"}</TableCell>
                     <TableCell>{row.throwingWeapons || "0"}</TableCell>
@@ -186,7 +217,9 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
                     <TableCell>
                       {row.opponentArmies || (
                         <small>
-                          <i>Unknown</i>
+                          <i>
+                            <TranslatedText message="Unknown" />
+                          </i>
                         </small>
                       )}
                     </TableCell>
@@ -247,17 +280,29 @@ export const GamesTable = ({ games }: GamesTableProps) => {
               fontWeight: "bold",
             }}
           >
-            Game Results Table
+            <TranslatedText message="Game Results Table" />
           </Typography>
           <TableHead>
             <TableRow>
               <TableCell sx={{ minWidth: "70px" }} />
-              <TableCell>Game date</TableCell>
-              <TableCell>Armies played</TableCell>
-              <TableCell>Points</TableCell>
-              <TableCell>Opponent</TableCell>
-              <TableCell>Result</TableCell>
-              <TableCell>Victory Points</TableCell>
+              <TableCell>
+                <TranslatedText message="Game date" />
+              </TableCell>
+              <TableCell>
+                <TranslatedText message="Armies played" />
+              </TableCell>
+              <TableCell>
+                <TranslatedText message="Points" />
+              </TableCell>
+              <TableCell>
+                <TranslatedText message="Opponent" />
+              </TableCell>
+              <TableCell>
+                <TranslatedText message="Result" />
+              </TableCell>
+              <TableCell>
+                <TranslatedText message="Victory Points" />
+              </TableCell>
               <TableCell sx={{ minWidth: "70px" }} />
             </TableRow>
           </TableHead>

@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { useCallback, useState } from "react";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { useGameModeState } from "../../../state/gamemode";
 import { useRosterBuildingState } from "../../../state/roster-building";
@@ -16,6 +18,8 @@ import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { LinearProgressWithLabel } from "../../atoms/linear-progress/LinearProgressWithLabel.tsx";
 
 export const ConfirmBulkDeleteRosterModal = () => {
+  const { t: translateUI } = useTranslation();
+
   const {
     closeModal,
     modalContext: { rosters, confirm },
@@ -68,22 +72,28 @@ export const ConfirmBulkDeleteRosterModal = () => {
           <>
             <CustomAlert
               severity="warning"
-              title={`Deleting ${rosters.length} ${pluralize("roster")(rosters.length)}`}
+              title={translateUI("Deleting {{count}} rosters", {
+                count: rosters.length,
+              })}
             >
               <Typography>
-                You have selected {rosters.length}{" "}
-                {pluralize("roster")(rosters.length)} for deletion. Confirming
-                this action will permanently delete them!
+                <TranslatedText message="You have selected" /> {rosters.length}{" "}
+                {pluralize("roster")(rosters.length)}{" "}
+                <TranslatedText message="for deletion. Confirming this action will permanently delete them!" />
               </Typography>
             </CustomAlert>
             <TableContainer>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell size="small">Name</TableCell>
-                    <TableCell size="small">Army</TableCell>
+                    <TableCell size="small">
+                      <TranslatedText message="Name" />
+                    </TableCell>
+                    <TableCell size="small">
+                      <TranslatedText message="Army" />
+                    </TableCell>
                     <TableCell size="small" align="right">
-                      Points
+                      <TranslatedText message="Points" />
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -112,7 +122,7 @@ export const ConfirmBulkDeleteRosterModal = () => {
           data-test-id="dialog--cancel-button"
           disabled={loading}
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
@@ -121,7 +131,8 @@ export const ConfirmBulkDeleteRosterModal = () => {
           data-test-id="dialog--submit-button"
           disabled={loading}
         >
-          Delete {rosters.length} {pluralize("roster")(rosters.length)}
+          <TranslatedText message="Delete" /> {rosters.length}{" "}
+          {pluralize("roster")(rosters.length)}
         </Button>
       </DialogActions>
     </>

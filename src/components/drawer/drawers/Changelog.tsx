@@ -9,6 +9,8 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import changelog from "../../../../CHANGELOG.json";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 
 type Version = string;
 
@@ -32,6 +34,8 @@ const sectionIcons = {
 };
 
 export const Changelog = () => {
+  const { t: translateUI } = useTranslation();
+
   return (
     <Stack
       spacing={2}
@@ -47,8 +51,10 @@ export const Changelog = () => {
             <Box key={version}>
               <Typography variant="h6" fontWeight="bolder">
                 {version === "main"
-                  ? `Post-release ${allReleases[1][0]} updates`
-                  : `Release ${version}`}
+                  ? translateUI("Post-release {{version}} updates", {
+                      version: allReleases[1][0],
+                    })
+                  : translateUI("Release {{version}}", { version })}
               </Typography>
               {sections.length === 0 ? (
                 <Typography
@@ -60,7 +66,8 @@ export const Changelog = () => {
                     mt: 1,
                   }}
                 >
-                  <QuestionMarkIcon /> No changes...
+                  <QuestionMarkIcon />{" "}
+                  <TranslatedText message="No changes..." />
                 </Typography>
               ) : (
                 sections.map(([section, items]) => (

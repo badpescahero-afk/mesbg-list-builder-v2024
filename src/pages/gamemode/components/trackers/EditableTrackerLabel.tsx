@@ -7,6 +7,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import { MouseEvent, useState } from "react";
 import { SquareIconButton } from "../../../../components/atoms/icon-button/SquareIconButton.tsx";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useThemeContext } from "../../../../theme/ThemeContext.tsx";
 
 interface EditTrackerLabelProps {
@@ -19,26 +21,29 @@ const EditTrackerLabel = ({
   value,
   updateTrackerLabel,
   save,
-}: EditTrackerLabelProps) => (
-  <TextField
-    value={value}
-    onChange={(e) => updateTrackerLabel(e.target.value)}
-    label="Army"
-    size="small"
-    sx={{ m: 1, mb: 0 }}
-    slotProps={{
-      input: {
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton onClick={save}>
-              <Save />
-            </IconButton>
-          </InputAdornment>
-        ),
-      },
-    }}
-  />
-);
+}: EditTrackerLabelProps) => {
+  const { t: translateUI } = useTranslation();
+  return (
+    <TextField
+      value={value}
+      onChange={(e) => updateTrackerLabel(e.target.value)}
+      label={translateUI("Army")}
+      size="small"
+      sx={{ m: 1, mb: 0 }}
+      slotProps={{
+        input: {
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={save}>
+                <Save />
+              </IconButton>
+            </InputAdornment>
+          ),
+        },
+      }}
+    />
+  );
+};
 
 interface TrackerLabelProps {
   label?: string;
@@ -59,6 +64,8 @@ const TrackerLabel = ({
   removeTracker,
   menuAnchorRef,
 }: TrackerLabelProps) => {
+  const { t: translateUI } = useTranslation();
+
   const { mode } = useThemeContext();
 
   return (
@@ -67,7 +74,7 @@ const TrackerLabel = ({
         {label}
       </Typography>
       <SquareIconButton
-        aria-label="more"
+        aria-label={translateUI("more")}
         aria-controls={open ? "menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
@@ -87,14 +94,20 @@ const TrackerLabel = ({
           <ListItemIcon>
             <Edit fontSize="small" />
           </ListItemIcon>
-          <ListItemText> Rename tracker</ListItemText>
+          <ListItemText>
+            {" "}
+            <TranslatedText message="Rename tracker" />
+          </ListItemText>
         </MenuItem>
         {removeTracker && (
           <MenuItem onClick={removeTracker}>
             <ListItemIcon>
               <DeleteForever fontSize="small" />
             </ListItemIcon>
-            <ListItemText> Remove tracker</ListItemText>
+            <ListItemText>
+              {" "}
+              <TranslatedText message="Remove tracker" />
+            </ListItemText>
           </MenuItem>
         )}
       </Menu>

@@ -1,5 +1,6 @@
 import { useTheme } from "@mui/material/styles";
 import { Pie } from "react-chartjs-2";
+import { useTranslation } from "../../../../i18n/LanguageContext";
 import { PastGame } from "../../../../state/recent-games/history";
 
 interface ResultsProps {
@@ -7,6 +8,8 @@ interface ResultsProps {
 }
 
 export const ResultsPieChart = ({ data }: ResultsProps) => {
+  const { t: translateUI } = useTranslation();
+
   const { palette } = useTheme();
 
   const results = data.reduce(
@@ -22,7 +25,7 @@ export const ResultsPieChart = ({ data }: ResultsProps) => {
   );
 
   const resultData = {
-    labels: ["Won", "Draw", "Lost"],
+    labels: ["Won", "Draw", "Lost"].map((label) => translateUI(label)),
     datasets: [
       {
         data: Object.values(results),
@@ -44,7 +47,7 @@ export const ResultsPieChart = ({ data }: ResultsProps) => {
           legend: { position: "bottom" },
           title: {
             display: true,
-            text: "WLD Ratio",
+            text: translateUI("WLD Ratio"),
           },
         },
       }}

@@ -2,6 +2,7 @@ import { AutoAwesome, HowToReg } from "@mui/icons-material";
 import { Stack } from "@mui/material";
 import { ReactNode } from "react";
 import { HiIdentification } from "react-icons/hi2";
+import { TranslatedText } from "../../i18n/TranslatedText";
 import { Changelog } from "./drawers/Changelog.tsx";
 import { ProfileSearch } from "./drawers/ProfileSearch.tsx";
 import { SpecialRulesSearch } from "./drawers/SpecialRulesSearch.tsx";
@@ -25,7 +26,7 @@ export const drawers = new Map<DrawerTypes, DrawerProps>([
     {
       title: (
         <Stack alignItems="center" direction="row" gap={2}>
-          <HowToReg /> Unit Selector
+          <HowToReg /> <TranslatedText message="Unit Selector" />
         </Stack>
       ),
       children: <UnitSelector />,
@@ -36,7 +37,8 @@ export const drawers = new Map<DrawerTypes, DrawerProps>([
     {
       title: (
         <Stack alignItems="center" direction="row" gap={2}>
-          <AutoAwesome /> Special rules, Magic & Heroics
+          <AutoAwesome />{" "}
+          <TranslatedText message="Special rules, Magic & Heroics" />
         </Stack>
       ),
       children: <SpecialRulesSearch />,
@@ -47,7 +49,7 @@ export const drawers = new Map<DrawerTypes, DrawerProps>([
     {
       title: (
         <Stack alignItems="center" direction="row" gap={2}>
-          <HiIdentification /> Profiles
+          <HiIdentification /> <TranslatedText message="Profiles" />
         </Stack>
       ),
       children: <ProfileSearch />,

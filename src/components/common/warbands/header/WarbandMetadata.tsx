@@ -2,6 +2,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { useScreenSize } from "../../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { Warband } from "../../../../types/roster.ts";
 
 export type WarbandMetadataProps = {
@@ -21,16 +22,16 @@ export const WarbandMetadata: FunctionComponent<WarbandMetadataProps> = ({
     >
       {!screen.isMobile && (
         <Typography color="white">
-          Warband: <b>{num}</b>
+          <TranslatedText message="Warband:" /> <b>{num}</b>
         </Typography>
       )}
       <Typography color="white">
-        Points: <b>{points}</b>
+        <TranslatedText message="Points:" /> <b>{points}</b>
       </Typography>
       <Typography
         color={maxUnits !== "-" && units > maxUnits ? "warning" : "white"}
       >
-        Units:{" "}
+        <TranslatedText message="Units:" />{" "}
         <b>
           {units} / {maxUnits}
         </b>

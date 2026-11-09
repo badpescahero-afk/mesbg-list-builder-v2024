@@ -4,6 +4,8 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { RosterGroup } from "../../../state/roster-building/groups";
 import { pluralize } from "../../../utils/string.ts";
 import { GroupIcon } from "../../atoms/group-icon/GroupIcon.tsx";
@@ -21,6 +23,8 @@ export const RosterGroupCard: FunctionComponent<RosterSummaryCardProps> = ({
   group,
   dragged,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const screen = useScreenSize();
   const { rosterCount, groupCount } = useRosterGroupStats(group.slug);
   const spacing = screen.isTooSmall ? "40px" : "10px";
@@ -122,7 +126,7 @@ export const RosterGroupCard: FunctionComponent<RosterSummaryCardProps> = ({
               }}
             >
               {groupCount > 0 &&
-                `${groupCount} ${pluralize("Group")(groupCount)}`}
+                `${groupCount} ${translateUI(pluralize("Group")(groupCount))}`}
             </Typography>
             <Typography
               variant="body2"
@@ -134,7 +138,8 @@ export const RosterGroupCard: FunctionComponent<RosterSummaryCardProps> = ({
                 fontSize: "1rem",
               }}
             >
-              {rosterCount} {pluralize("Roster")(rosterCount)}
+              {rosterCount}{" "}
+              <TranslatedText message={pluralize("Roster")(rosterCount)} />
             </Typography>
           </Stack>
         </Card>

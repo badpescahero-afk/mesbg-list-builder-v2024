@@ -2,6 +2,8 @@ import { StepContent, StepLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
+import { useTranslation } from "../../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useGameModeState } from "../../../../state/gamemode"; //   "Domination",
 import { PastGame } from "../../../../state/recent-games/history";
 import { CustomAlert } from "../../../atoms/alert/CustomAlert.tsx";
@@ -22,6 +24,8 @@ export const VictoryPointsStep: FunctionComponent<StepProps> = ({
   formValues,
   updateFormValues,
 }) => {
+  const { t: translateUI } = useTranslation();
+
   const { additionalVictoryPoints, setCalculatedVictoryPoints } =
     useGameModeState();
 
@@ -60,29 +64,41 @@ export const VictoryPointsStep: FunctionComponent<StepProps> = ({
           </Typography>
         }
       >
-        Result - Victory points
+        <TranslatedText message="Result - Victory points" />
       </StepLabel>
       <StepContent>
         {QuestionList !== undefined ? (
           <>
             <Typography>
-              Follow the VP calculation for &quot;{formValues.scenarioPlayed}
-              &quot; to calculate the VP&apos;s for each player.
+              <TranslatedText message={'Follow the VP calculation for "'} />
+              {formValues.scenarioPlayed}
+              <TranslatedText
+                message={"\" to calculate the VP's for each player."}
+              />
             </Typography>
             <Box sx={{ mb: 2 }}>
               <QuestionList updateFormValues={handleUpdateVPs} />
             </Box>
           </>
         ) : formValues.scenarioPlayed !== null ? (
-          <CustomAlert title="No victory points guide" severity="info">
-            The selected scenario ({formValues.scenarioPlayed}) does not not
-            have a victory points stepper. You can skip this step and fill in
-            the VP&apos;s in the next step.
+          <CustomAlert
+            title={translateUI("No victory points guide")}
+            severity="info"
+          >
+            <TranslatedText message="The selected scenario (" />
+            {formValues.scenarioPlayed}
+            <TranslatedText
+              message={
+                ") does not not have a victory points stepper. You can skip this step and fill in the VP's in the next step."
+              }
+            />
           </CustomAlert>
         ) : (
-          <CustomAlert title="No scenario selected" severity="warning">
-            You have not selected a scenario in step 2. Please go back and
-            select a scenario.
+          <CustomAlert
+            title={translateUI("No scenario selected")}
+            severity="warning"
+          >
+            <TranslatedText message="You have not selected a scenario in step 2. Please go back and select a scenario." />
           </CustomAlert>
         )}
       </StepContent>

@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { CARD_SIZE_IN_PX } from "../../../../components/common/roster-card/RosterSummaryCard.tsx";
 import { useScreenSize } from "../../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { REMOVE_FOM_GROUP } from "../../useRostersDragAndDrop.ts";
 
 type RemoveFromGroupDroppableProps = {
@@ -45,11 +46,11 @@ export const RemoveFromGroupDroppable: FunctionComponent<
             color="textSecondary"
             sx={{ width: "24ch", textAlign: "center" }}
           >
-            Drag your <br />
-            Roster or Group
+            <TranslatedText message="Drag your" /> <br />
+            <TranslatedText message="Roster or Group" />
             <br />
-            here to remove it
-            <br /> from this group.
+            <TranslatedText message="here to remove it" />
+            <br /> <TranslatedText message="from this group." />
           </Typography>
           <Box
             sx={{

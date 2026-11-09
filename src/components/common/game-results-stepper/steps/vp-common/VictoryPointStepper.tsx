@@ -1,5 +1,6 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Button, MobileStepper } from "@mui/material";
+import { TranslatedText } from "../../../../../i18n/TranslatedText";
 
 interface VictoryPointStepperProps {
   activeStep: number;
@@ -33,7 +34,7 @@ export const VictoryPointStepper = ({
           disabled={activeStep >= totalSteps - 1}
           endIcon={<KeyboardArrowRight />}
         >
-          Next
+          <TranslatedText message="Next" />
         </Button>
       }
       backButton={
@@ -42,7 +43,7 @@ export const VictoryPointStepper = ({
           disabled={activeStep === 0}
           startIcon={<KeyboardArrowLeft />}
         >
-          Back
+          <TranslatedText message="Back" />
         </Button>
       }
     />

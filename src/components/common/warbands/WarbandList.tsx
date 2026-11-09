@@ -8,6 +8,7 @@ import { useRosterInformation } from "../../../hooks/calculations-and-displays/u
 import { useLockContext } from "../../../hooks/lock/useLockContext.ts";
 import { useRosterSorting } from "../../../hooks/mutations/useRosterSorting.ts";
 import { useWarbandMutations } from "../../../hooks/mutations/useWarbandMutations.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { Warband as WarbandType } from "../../../types/roster.ts";
 import { toOrdinal } from "../../../utils/string.ts";
 import { Warband, WarbandActions } from "./Warband.tsx";
@@ -124,7 +125,8 @@ export const WarbandList: FunctionComponent<WarbandListProps> = ({
           variant="contained"
           data-test-id="add-warband"
         >
-          Add {toOrdinal(warbands.length + 1)} Warband
+          <TranslatedText message="Add" /> {toOrdinal(warbands.length + 1)}{" "}
+          <TranslatedText message="Warband" />
         </Button>
       )}
     </Stack>

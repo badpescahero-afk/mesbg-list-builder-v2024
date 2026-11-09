@@ -1,6 +1,7 @@
 import { Stack, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ChangeEvent, FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "../../../../../i18n/LanguageContext";
 import { useGameModeState } from "../../../../../state/gamemode";
 import { QuestionListProps } from "../VictoryPoints.tsx";
 import { BrokenVPs } from "../vp-common/BrokenVPs.tsx";
@@ -27,6 +28,8 @@ const BROKEN = 2;
  * If the enemy Army is Broken and your Army is not, you instead score 3 Victory Points
  **/
 export const ReconnoitreVPs: FunctionComponent<QuestionListProps> = (props) => {
+  const { t: translateUI } = useTranslation();
+
   const { victoryPoints, setVictoryPoints } = useGameModeState();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -114,12 +117,12 @@ export const ReconnoitreVPs: FunctionComponent<QuestionListProps> = (props) => {
       {activeStep === GENERAL && (
         <Stack>
           <GeneralWoundVPs
-            label="Your General"
+            label={translateUI("Your General")}
             value={-generalVPs[1]}
             setValue={(VPs) => setGeneralVPs((prev) => [prev[0], -VPs])}
           />
           <GeneralWoundVPs
-            label="Enemy General"
+            label={translateUI("Enemy General")}
             value={generalVPs[0]}
             setValue={(VPs) => setGeneralVPs((prev) => [VPs, prev[1]])}
           />
@@ -146,6 +149,8 @@ type HoldGroundObjectiveVPsProps = {
 const ReconnoitreObjectiveVPs: FunctionComponent<
   HoldGroundObjectiveVPsProps
 > = ({ value, setValue }) => {
+  const { t: translateUI } = useTranslation();
+
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value ? Number(event.target.value) : null;
     return setValue([newValue, value[1], value[2], value[3]]);
@@ -166,7 +171,7 @@ const ReconnoitreObjectiveVPs: FunctionComponent<
     <Stack gap={2}>
       <TextField
         fullWidth
-        label="Models escaped from via the opponent's board edge"
+        label={translateUI("Models escaped from via the opponent's board edge")}
         name="models"
         value={value[0]}
         type="number"
@@ -177,7 +182,7 @@ const ReconnoitreObjectiveVPs: FunctionComponent<
       />
       <TextField
         fullWidth
-        label="Enemy models escaped from via your board edge"
+        label={translateUI("Enemy models escaped from via your board edge")}
         name="opponentModels"
         value={value[2]}
         type="number"
@@ -188,7 +193,7 @@ const ReconnoitreObjectiveVPs: FunctionComponent<
       />
       <TextField
         fullWidth
-        label="Heroes escaped"
+        label={translateUI("Heroes escaped")}
         name="heroes"
         value={value[1]}
         type="number"
@@ -199,7 +204,7 @@ const ReconnoitreObjectiveVPs: FunctionComponent<
       />
       <TextField
         fullWidth
-        label="Enemy Heroes escaped"
+        label={translateUI("Enemy Heroes escaped")}
         name="opponentHeroes"
         value={value[3]}
         type="number"

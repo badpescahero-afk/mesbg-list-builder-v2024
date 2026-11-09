@@ -11,6 +11,7 @@ import { useMwfMutations } from "../../../hooks/calculations-and-displays/useMwf
 import { useOptionDependencies } from "../../../hooks/calculations-and-displays/useOptionDependencies.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useUserPreferences } from "../../../state/preference";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { Option } from "../../../types/mesbg-data.types.ts";
@@ -245,7 +246,7 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
               data-test-id={`unit-card--points--w${warbandNum}-i${index}`}
               data-test-unit-name={`unit-card--points--${slugify(unit.name)}`}
             >
-              Points: <b>{unit.pointsTotal}</b>
+              <TranslatedText message="Points:" /> <b>{unit.pointsTotal}</b>
             </Typography>
             <Collapse in={!collapsed}>
               <Stack
@@ -268,9 +269,11 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
                         : "inherit"
                     }
                   >
-                    {available === 0
-                      ? "Not in collection"
-                      : `Left in collection: ${available - selected}`}
+                    {available === 0 ? (
+                      <TranslatedText message="Not in collection" />
+                    ) : (
+                      `Left in collection: ${available - selected}`
+                    )}
                   </Typography>
                 )}
               </Stack>
@@ -426,7 +429,7 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
                     data-test-id={`quantity--w${warbandNum}-i${index}`}
                     data-test-name={`quantity--${slugify(unit.name)}`}
                   >
-                    ({unit.pointsTotal ?? 1} pts.)
+                    ({unit.pointsTotal ?? 1} <TranslatedText message="pts.)" />
                   </span>
                 )}
                 <Collapse in={collapsed}>
@@ -488,7 +491,7 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
                   gap: 0.5,
                 }}
               >
-                Points: <b>{unit.pointsTotal}</b>
+                <TranslatedText message="Points:" /> <b>{unit.pointsTotal}</b>
               </Typography>
               {warnings === "on" && (
                 <Typography
@@ -500,9 +503,11 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
                       : "inherit"
                   }
                 >
-                  {available === 0
-                    ? "Not in collection"
-                    : `Left in collection: ${available - selected}`}
+                  {available === 0 ? (
+                    <TranslatedText message="Not in collection" />
+                  ) : (
+                    `Left in collection: ${available - selected}`
+                  )}
                 </Typography>
               )}
             </Collapse>

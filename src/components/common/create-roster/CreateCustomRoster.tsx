@@ -1,5 +1,7 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import { forwardRef, MouseEvent, useImperativeHandle } from "react";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { CustomSwitch } from "../../atoms/switch/CustomSwitch.tsx";
 import { AdditionalTagsInput } from "../../atoms/tags-input/TagsInput.tsx";
@@ -11,6 +13,8 @@ export type CreateCustomRosterHandlers = {
 
 export const CreateCustomRoster = forwardRef<CreateCustomRosterHandlers>(
   (_, ref) => {
+    const { t: translateUI } = useTranslation();
+
     const {
       rosterName,
       maxRosterPoints,
@@ -29,9 +33,11 @@ export const CreateCustomRoster = forwardRef<CreateCustomRosterHandlers>(
 
     return (
       <>
-        <CustomAlert title="Experimental feature" severity="warning">
-          Create a custom roster without any list building restrictions other
-          than Good vs Evil. Let your creativity fly!
+        <CustomAlert
+          title={translateUI("Experimental feature")}
+          severity="warning"
+        >
+          <TranslatedText message="Create a custom roster without any list building restrictions other than Good vs Evil. Let your creativity fly!" />
         </CustomAlert>
 
         <Stack
@@ -47,7 +53,7 @@ export const CreateCustomRoster = forwardRef<CreateCustomRosterHandlers>(
             }
             onClick={() => setGoodOrEvil("Good")}
           >
-            Good
+            <TranslatedText message="Good" />
           </Typography>
           <CustomSwitch
             checked={goodOrEvil === "Evil"}
@@ -62,24 +68,24 @@ export const CreateCustomRoster = forwardRef<CreateCustomRosterHandlers>(
             }
             onClick={() => setGoodOrEvil("Evil")}
           >
-            Evil
+            <TranslatedText message="Evil" />
           </Typography>
         </Stack>
 
         <TextField
           fullWidth
-          label="Roster name (Optional)"
+          label={translateUI("Roster name (Optional)")}
           value={rosterName}
           onChange={(e) => setRosterName(e.target.value)}
         />
 
         <TextField
           fullWidth
-          label="Points (Optional)"
+          label={translateUI("Points (Optional)")}
           value={maxRosterPoints}
           helperText={
             maxRosterPoints !== "" && Number(maxRosterPoints) <= 0
-              ? "Please enter a value above 0"
+              ? translateUI("Please enter a value above 0")
               : ""
           }
           error={maxRosterPoints !== "" && Number(maxRosterPoints) <= 0}
