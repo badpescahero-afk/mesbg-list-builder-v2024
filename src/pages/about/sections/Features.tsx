@@ -12,15 +12,7 @@ export const Features = () => {
       <Stack component="ul" direction="column" spacing={1}>
         <Box component="li">
           <Paragraph>
-            <TranslatedText message="A" />{" "}
-            <strong>
-              <TranslatedText message="fully responsive" />
-            </strong>{" "}
-            <TranslatedText message="web interface allowing you to build lists in the comfort of your own home as well as on the go. Including the ability to" />{" "}
-            <strong>
-              <TranslatedText message="sign in and sync" />
-            </strong>{" "}
-            <TranslatedText message="your devices to keep working on your army lists while you are away." />
+            <TranslatedText message="Build lists on mobile or desktop, with automatic saving in this browser. Accounts and cloud sync are currently unavailable; use JSON export/import to move lists between devices." />
           </Paragraph>
         </Box>
 

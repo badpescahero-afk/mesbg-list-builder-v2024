@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import { CLOUD_ACCOUNTS_ENABLED } from "../../firebase/account-mode";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { translateGameText } from "../../i18n/game-text";
@@ -18,6 +19,15 @@ export const ModalContainer = () => {
 
   if (!state.currentlyOpenendModal) {
     // No model is shown, return...
+    return null;
+  }
+
+  if (
+    !CLOUD_ACCOUNTS_ENABLED &&
+    [ModalTypes.RESET_PASSWORD, ModalTypes.LOGOUT_WARNING].includes(
+      state.currentlyOpenendModal,
+    )
+  ) {
     return null;
   }
 

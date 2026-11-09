@@ -1,5 +1,6 @@
 import { AlertTypes } from "../../components/notifications/alert-types.tsx";
 import { useAuth } from "../../firebase/FirebaseAuthContext";
+import { CLOUD_ACCOUNTS_ENABLED } from "../../firebase/account-mode";
 import { useAppState } from "../../state/app";
 import { ModelInventory } from "../../state/collection/inventory";
 import { Game } from "../../state/gamemode/gamestate";
@@ -30,7 +31,7 @@ export const useApi = () => {
     body?: string,
     alertOnFailure: boolean = true,
   ) => {
-    if (!auth.user) return Promise.resolve(); // no auth - no remote.
+    if (!CLOUD_ACCOUNTS_ENABLED || !auth.user) return Promise.resolve();
     const idToken = await auth.user.getIdToken();
     const response = await fetch(`${API_URL}${url}`, {
       method,

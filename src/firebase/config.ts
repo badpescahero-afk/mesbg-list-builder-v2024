@@ -5,6 +5,7 @@ import {
   getAuth,
   setPersistence,
 } from "firebase/auth";
+import { CLOUD_ACCOUNTS_ENABLED } from "./account-mode";
 
 const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
@@ -32,7 +33,7 @@ function validateEnvironmentVariables() {
 let app: FirebaseApp;
 let auth: Auth;
 
-if (validateEnvironmentVariables()) {
+if (CLOUD_ACCOUNTS_ENABLED && validateEnvironmentVariables()) {
   app = initializeApp(firebaseConfig);
   auth = getAuth(app);
   setPersistence(auth, browserLocalPersistence)

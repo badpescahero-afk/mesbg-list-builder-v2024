@@ -1,5 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { PdfView } from "../components/common/roster-pdf/PdfView.tsx";
+import { CLOUD_ACCOUNTS_ENABLED } from "../firebase/account-mode";
 import { App } from "../layout/App.tsx";
 import { AppFallback } from "../layout/error-boundary/AppFallback.tsx";
 import { Changelog } from "../pages/Changelog.tsx";
@@ -98,12 +99,20 @@ export const routes: RouteObject[] = [
       },
       {
         path: "sign-in",
-        element: <SignIn />,
+        element: CLOUD_ACCOUNTS_ENABLED ? (
+          <SignIn />
+        ) : (
+          <RedirectTo path="/rosters" />
+        ),
         errorElement: <AppFallback />,
       },
       {
         path: "sign-up",
-        element: <SignUp />,
+        element: CLOUD_ACCOUNTS_ENABLED ? (
+          <SignUp />
+        ) : (
+          <RedirectTo path="/rosters" />
+        ),
         errorElement: <AppFallback />,
       },
       {

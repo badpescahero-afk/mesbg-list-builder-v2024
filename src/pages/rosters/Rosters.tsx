@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import { FunctionComponent, useState } from "react";
 import { useParams } from "react-router-dom";
 import { NewRosterButton } from "../../components/atoms/new-roster-button/NewRosterButton.tsx";
+import { LocalSaveNotice } from "../../components/common/LocalSaveNotice";
 import { LockContextProvider } from "../../hooks/lock/LockContext.tsx";
 import { useRosterBuildingState } from "../../state/roster-building";
 import { useBulkDelete } from "./bulk-delete/useBulkDelete.ts";
@@ -33,6 +34,7 @@ export const Rosters: FunctionComponent = () => {
         <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
           <Stack>
             <RostersPageHeader group={activeGroup} />
+            <LocalSaveNotice />
             <RostersSearchFilter
               filter={filter}
               setFilter={setFilter}

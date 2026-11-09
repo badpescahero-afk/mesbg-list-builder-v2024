@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
   updateProfile,
 } from "firebase/auth";
+import { CLOUD_ACCOUNTS_ENABLED } from "./account-mode";
 import { auth } from "./config.ts";
 
 export type FirebaseAuthFunctions = {
@@ -22,28 +23,37 @@ export type FirebaseAuthFunctions = {
   resetPassword: (email: string) => Promise<void>;
 };
 
+function requireCloudAuth() {
+  if (!CLOUD_ACCOUNTS_ENABLED || !auth) {
+    throw new Error("Cloud accounts are disabled in local mode.");
+  }
+  return auth;
+}
+
 export const useFirebaseAuth: () => FirebaseAuthFunctions = () => {
   const signUp = async (
     email: string,
     password: string,
     displayName: string,
   ) => {
-    await createUserWithEmailAndPassword(auth, email, password).then(
-      ({ user }) => updateProfile(user, { displayName }),
-    );
+    await createUserWithEmailAndPassword(
+      requireCloudAuth(),
+      email,
+      password,
+    ).then(({ user }) => updateProfile(user, { displayName }));
   };
 
   const resetPassword = async (email: string) =>
-    await sendPasswordResetEmail(auth, email);
+    await sendPasswordResetEmail(requireCloudAuth(), email);
 
   const signIn = async (email: string, password: string) =>
-    await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(requireCloudAuth(), email, password);
 
   const signInWithGoogle = async () =>
-    await signInWithPopup(auth, new GoogleAuthProvider());
+    await signInWithPopup(requireCloudAuth(), new GoogleAuthProvider());
 
   const signOutWrapper = async () => {
-    await signOut(auth);
+    await signOut(requireCloudAuth());
   };
 
   return {

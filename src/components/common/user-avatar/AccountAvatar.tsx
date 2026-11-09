@@ -7,6 +7,7 @@ import { User } from "firebase/auth";
 import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../firebase/FirebaseAuthContext.tsx";
+import { CLOUD_ACCOUNTS_ENABLED } from "../../../firebase/account-mode";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
@@ -103,7 +104,7 @@ const AccountMenu = ({ user, signOut }: AccountMenuProps) => {
 export const AccountAvatar = () => {
   const auth = useAuth();
 
-  if (!auth.firebaseEnabled) {
+  if (!CLOUD_ACCOUNTS_ENABLED || !auth.firebaseEnabled) {
     return null;
   }
 

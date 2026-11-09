@@ -79,3 +79,18 @@ servicio original no forman parte de esta configuración de alojamiento estátic
 La preparación y las pruebas se realizan en la rama `feature/traduccion-es`.
 Sigue pendiente un alojamiento HTTPS accesible desde el móvil. La vista previa
 local del entorno no sustituye esa publicación y no hay una URL pública verificada.
+
+## Guardado local sin cuenta
+
+Esta versión guarda automáticamente las listas, colección, partidas y preferencias
+mediante el almacenamiento del navegador. No hay que pulsar Guardar ni iniciar
+sesión. Las claves y formatos existentes se conservan para mantener los datos
+creados antes de esta actualización.
+
+Las cuentas y sincronización están desactivadas, incluso si se suministran variables
+de Firebase al compilar. Las rutas antiguas `/sign-in` y `/sign-up` llevan a Mis listas.
+No se restaura ninguna sesión anterior ni se ejecuta el borrado asociado a cerrar sesión.
+
+El guardado pertenece a ese navegador y dirección web. Exportar las listas como JSON
+permite hacer copias e importarlas en otro dispositivo. Cambiar el dominio no traslada
+los datos; borrar el almacenamiento del navegador puede eliminarlos.

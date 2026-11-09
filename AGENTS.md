@@ -113,3 +113,16 @@
   las incidencias de esta adaptación van a su propio repositorio.
 - La atribución y la licencia del software no otorgan permisos sobre contenido de
   terceros. No presentar los avisos como una autorización de dichos titulares.
+
+## Modo local temporal
+
+- Por petición del usuario, las cuentas, registro, recuperación y cierre de sesión
+  están desactivados. `CLOUD_ACCOUNTS_ENABLED` permanece en false aunque existan
+  variables de Firebase o una sesión anterior. No conectar con cuentas originales.
+- Mantener el guardado automático existente de Zustand/localStorage y sus claves,
+  formatos y versiones. No limpiar, migrar ni sobrescribir listas para desactivar
+  cuentas. Los enlaces antiguos de acceso deben llevar a Mis listas.
+- Antes de reactivar cuentas, configurar y validar servicios propios de acceso y
+  sincronización. No basta con habilitar el código o copiar claves del original.
+- Validar `node scripts/test-local-mode.mjs` (perfil de navegador aislado, cierre y
+  reapertura, conservación de datos y ausencia de peticiones de autenticación).

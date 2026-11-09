@@ -1,6 +1,7 @@
 import { CheckCircleOutline, InstallMobile } from "@mui/icons-material";
 import { Alert, Button, Container, Stack, Typography } from "@mui/material";
 import { useState } from "react";
+import { LocalSaveNotice } from "../components/common/LocalSaveNotice";
 import { useTranslation } from "../i18n/LanguageContext";
 import { installApp, useInstallation } from "../pwa/install";
 
@@ -23,6 +24,7 @@ export function InstallApp() {
         <Typography>
           {t("Keep MESBG ES on your home screen and open it like an app.")}
         </Typography>
+        <LocalSaveNotice />
         {installed ? (
           <Alert icon={<CheckCircleOutline />} severity="success">
             {t("The app is installed.")}

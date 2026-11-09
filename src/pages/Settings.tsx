@@ -27,6 +27,7 @@ import Stack from "@mui/material/Stack";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import { ChangeEvent, FunctionComponent, ReactNode } from "react";
+import { LocalSaveNotice } from "../components/common/LocalSaveNotice";
 import { DrawerTypes } from "../components/drawer/drawers.tsx";
 import { useTranslation } from "../i18n/LanguageContext";
 import { TranslatedText } from "../i18n/TranslatedText";
@@ -135,6 +136,7 @@ export const Settings = () => {
         {t("Application Settings")}
       </Typography>
 
+      <LocalSaveNotice />
       <List
         sx={{
           width: "100%",

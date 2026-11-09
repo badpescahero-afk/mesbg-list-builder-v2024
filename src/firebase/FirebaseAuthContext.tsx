@@ -39,7 +39,7 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [idToken, setIdToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(!!auth);
   const authFunctions = useFirebaseAuth();
 
   useEffect(() => {

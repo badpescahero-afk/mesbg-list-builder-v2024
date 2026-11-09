@@ -464,16 +464,15 @@ try {
     "PASS: credits, source, license, original channels and Spanish app branding",
   );
 
-  // Validation messages are translated without requiring a Firebase account.
-  await page.goto("http://127.0.0.1:5197/sign-in");
-  await page
-    .getByRole("button", { name: "Iniciar sesión", exact: true })
-    .click();
-  await page
-    .getByText("Debes introducir una contraseña para iniciar sesión.", {
-      exact: true,
-    })
-    .waitFor();
+  // Account links from previous versions now stay in the local app.
+  for (const path of ["sign-in", "sign-up"]) {
+    await page.goto(`http://127.0.0.1:5197/${path}`);
+    await page.waitForURL("**/rosters");
+    await page
+      .getByText("Guardado local automático", { exact: true })
+      .waitFor();
+    assert.equal(await page.locator('input[type="password"]').count(), 0);
+  }
   assert.deepEqual(errors, []);
   console.log(
     "PASS: ES/EN switching and persistence, unchanged roster storage, roster creation, main screens and database; no JavaScript errors.",

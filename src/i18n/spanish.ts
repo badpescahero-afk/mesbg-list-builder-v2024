@@ -1,5 +1,13 @@
 // English source messages are keys; never use these labels as game identifiers.
 export const spanish = {
+  "Automatic local saving": "Guardado local automático",
+  "Your lists, collection, games and settings are saved automatically in this browser. No account is needed and data is not synced between devices.":
+    "Tus listas, colección, partidas y ajustes se guardan automáticamente en este navegador. No necesitas una cuenta y los datos no se sincronizan entre dispositivos.",
+  "Export your lists as JSON for backup or to move them to another device. Clearing browser data or changing the site address does not preserve this local copy.":
+    "Exporta tus listas en JSON para tener una copia o llevarlas a otro dispositivo. Si borras los datos del navegador, perderás la copia local; si cambia la dirección de la web, no se trasladará automáticamente.",
+  "Build lists on mobile or desktop, with automatic saving in this browser. Accounts and cloud sync are currently unavailable; use JSON export/import to move lists between devices.":
+    "Crea listas en el móvil o en el ordenador, con guardado automático en este navegador. Las cuentas y la sincronización en la nube no están disponibles por ahora; utiliza la exportación e importación JSON para trasladar listas entre dispositivos.",
+
   "Credits and legal notices": "Créditos y avisos legales",
   "Unofficial Spanish adaptation": "Adaptación no oficial en español",
   "Based on MESBG List Builder by Alex Cordaro, Marcel Hollink and the original contributors. This adaptation is maintained separately and is not endorsed by the original developers or by Games Workshop or other rights holders.":
