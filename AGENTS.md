@@ -4,7 +4,7 @@
 
 - Conservar las estadísticas, puntos, reglas, restricciones, identificadores JSON y funcionalidades originales de MESBG.
 - La traducción afecta únicamente a la presentación. No traducir claves de datos, valores persistidos, rutas ni condiciones del motor. La petición vigente incluye traducir reglas y descripciones en la presentación, con los nombres canónicos de miniaturas y ejércitos como referencia, sin cambiar sus claves originales.
-- Mantener intacto el sistema de cartas: archivos, selección, rutas, diseño y exportación. Las cartas españolas aprobadas se integrarán en una etapa posterior explícita.
+- Conservar los recursos y la descarga de cartas originales. La etapa vigente autoriza una exportación adicional de cartas españolas configuradas según las cinco referencias visuales aportadas por el usuario.
 - No cambiar la lógica del constructor de ejércitos como parte de una traducción.
 
 ## Flujo de trabajo
@@ -28,7 +28,7 @@
 ## Atributos y cartas: excepción permanente
 
 - Por instrucción del usuario, las estadísticas/atributos conservan su idioma original, incluidos `Mv`, `Fv`, `Sv`, `S`, `D`, `A`, `W`, `C`, `I`, `Might`, `Will` y `Fate`. No traducir sus valores ni abreviaturas.
-- Mantener las cartas y sus recursos originales. La interfaz puede traducirse alrededor de ellas sin alterar cartas, rutas, descarga o diseño.
+- Mantener las cartas originales y sus recursos. Las cartas españolas configuradas son una alternativa adicional; no sobrescribir los JPG originales.
 - Los avisos del constructor se traducen solo en los renderizadores mediante `WarningText`; no modificar ni reemplazar las reglas de validación originales para traducir sus mensajes.
 
 ## Reglas, descripciones y equipo
@@ -36,4 +36,13 @@
 - El alcance vigente incluye las reglas y descripciones en español. Usar `GameText` o `translateGameText` solo en el renderizado de texto; conservar comparaciones, filtros del motor, claves React, valores de formularios y serialización originales.
 - Centralizar estas traducciones en `src/i18n/content/*.es.json`. Mantener números, modificadores, límites, condiciones y etiquetas HTML del texto fuente. Las estadísticas siguen en inglés.
 - Para una regla o perfil nuevo, añadir su traducción al catálogo y comprobar `game-text.test.ts`, que recorre todos los textos de los datos actuales. Mantener el fallback inglés para futuras entradas desconocidas.
-- Los nombres canónicos de miniaturas y ejércitos permanecen como referencia. Los recursos y el sistema de cartas siguen excluidos de esta traducción.
+- Los nombres canónicos de miniaturas y ejércitos permanecen como referencia e identificadores internos. En las cartas configuradas se permiten nombres españoles de presentación; conservar el fallback canónico para nombres aún no traducidos.
+
+## Cartas configuradas: etapa autorizada
+
+- Usar el diseño de referencia (fondo pergamino claro, títulos granates, retrato circular, atributos originales y monturas separadas) con datos reales de la lista. Las cifras de las imágenes no sustituyen los datos del repositorio.
+- Coste por miniatura desde `pointsPerUnit`, no el coste total del grupo. Incluir las opciones seleccionadas y aplicar solo los modificadores declarados mediante el transformador existente. No inventar efectos condicionales de combate ni reglas de equipo.
+- Mantener una carta por configuración distinta; agrupar únicamente configuraciones idénticas. Exportar PNG dentro de un ZIP sin modificar la lista.
+- Entregar una copia del perfil al transformador de consulta, para que los casos históricos que asignan atributos (Nazgûl) no escriban en los datos compartidos. El comportamiento predeterminado del constructor no cambia.
+
+- Validar las cartas con `npx vitest run src/i18n src/components/common/configured-cards/card-model.test.ts --environment node` y `node scripts/test-configured-cards.mjs`, además de las comprobaciones generales. El script nuevo usa Vite en el puerto 5198 y lo detiene al terminar.

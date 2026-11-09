@@ -94,14 +94,15 @@ const getCorrectedProfileBasedOnOptionSelection = (
  *
  * @param unit
  */
-function transformUnitToListOfProfiles(
+export function transformUnitToListOfProfiles(
   unit: SelectedUnit,
+  sourceProfile = profileData[unit.profile_origin]?.[unit.name],
 ): Profile[] | { missing: true; profile: string } {
   const army = profileData[unit.profile_origin];
   if (!army)
     return { missing: true, profile: `${unit.profile_origin} - ${unit.name}` };
 
-  const profile = army[unit.name];
+  const profile = sourceProfile;
   if (!profile)
     return { missing: true, profile: `${unit.profile_origin} - ${unit.name}` };
 
@@ -201,7 +202,7 @@ export function convertRosterToProfiles(roster: Roster): ProfileList {
     .sort(byHeroicTier);
 
   const { profiles, missing } = allUnits
-    .map(transformUnitToListOfProfiles)
+    .map((unit) => transformUnitToListOfProfiles(unit))
     .reduce(
       (data, current) => {
         if (isMissingProfile(current)) {

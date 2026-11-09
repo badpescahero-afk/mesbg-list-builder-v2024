@@ -1,18 +1,31 @@
-import { DialogContent } from "@mui/material";
+import { Button, DialogContent } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
-import { Fragment } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { heroConstraintData, profileData } from "../../../assets/data.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useAppState } from "../../../state/app";
 import { Unit } from "../../../types/mesbg-data.types.ts";
+import { SelectedUnit } from "../../../types/roster.ts";
 import { UnitProfileCard } from "../../atoms/unit-profile/UnitProfileCard.tsx";
+import { ConfiguredProfileCard } from "../../common/configured-cards/ConfiguredProfileCard";
+import { configuredCardForUnit } from "../../common/configured-cards/card-model";
 
 export const ProfileCardModal = () => {
   const {
     modalContext: { unit },
   } = useAppState();
+  const { language, t } = useTranslation();
+  const [configured, setConfigured] = useState(language === "es");
+  const selectedCard = useMemo(
+    () =>
+      unit && typeof unit.pointsPerUnit === "number"
+        ? configuredCardForUnit(unit as SelectedUnit)
+        : null,
+    [unit],
+  );
   const { palette } = useTheme();
   const { isMobile } = useScreenSize();
 
@@ -39,31 +52,47 @@ export const ProfileCardModal = () => {
   return (
     <>
       <DialogContent>
-        <Typography variant="body2">
-          You can download a zip of all profile cards for your current army list
-          by clicking on the floating action button in the bottom right, and
-          selecting{" "}
-          <Typography
-            variant="body2"
-            component="strong"
-            fontWeight={800}
-            color={palette.primary.main}
-          >
-            Download profile cards
-          </Typography>
-        </Typography>
+        {selectedCard && (
+          <Button onClick={() => setConfigured(!configured)} sx={{ mb: 2 }}>
+            {configured
+              ? t("Show original card")
+              : t("Show card with selected equipment")}
+          </Button>
+        )}
+        {configured && selectedCard ? (
+          <ConfiguredProfileCard card={selectedCard} />
+        ) : (
+          <>
+            <Typography variant="body2">
+              You can download a zip of all profile cards for your current army
+              list by clicking on the floating action button in the bottom
+              right, and selecting{" "}
+              <Typography
+                variant="body2"
+                component="strong"
+                fontWeight={800}
+                color={palette.primary.main}
+              >
+                Download profile cards
+              </Typography>
+            </Typography>
 
-        {unit != null && (
-          <Box
-            sx={{
-              maxWidth: isMobile ? "100%" : "900px",
-              m: "auto",
-            }}
-          >
-            <UnitProfileCard army={unit.profile_origin} profile={unit.name} />
-            <OverflowProfileCards unit={unit} />
-            <ExtraHeroProfileCards unit={unit} />
-          </Box>
+            {unit != null && (
+              <Box
+                sx={{
+                  maxWidth: isMobile ? "100%" : "900px",
+                  m: "auto",
+                }}
+              >
+                <UnitProfileCard
+                  army={unit.profile_origin}
+                  profile={unit.name}
+                />
+                <OverflowProfileCards unit={unit} />
+                <ExtraHeroProfileCards unit={unit} />
+              </Box>
+            )}
+          </>
         )}
       </DialogContent>
     </>

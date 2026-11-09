@@ -1138,4 +1138,18 @@ export const spanish = {
   "Faction Icons": "Iconos de facción",
   "Custom Icons": "Iconos personalizados",
   "Number Icons": "Iconos numéricos",
+  "Spanish cards with selected equipment": "Cartas ES con equipo elegido",
+  "Original cards": "Cartas originales",
+  "Could not generate the cards. Your roster has not been changed. You can retry or download the original cards.":
+    "No se han podido generar las cartas. Tu lista sigue intacta. Puedes reintentarlo o descargar las cartas originales.",
+  "Missing profile data for configured cards:":
+    "Faltan datos de perfil para generar las cartas configuradas:",
+  "One card per equipment configuration. Points are per model, and stats include the equipment modifiers recorded in the list builder. Conditional combat effects are described in the rules.":
+    "Una carta por cada configuración de equipo. El coste es por miniatura y los atributos incluyen los modificadores de equipo registrados en el constructor. Los efectos condicionales del combate se describen en las reglas.",
+  "The following profile cards will be downloaded (in high resolution).":
+    "Se descargarán las siguientes cartas de perfil en alta resolución.",
+  "Generating cards...": "Generando cartas...",
+  "Show original card": "Ver carta original",
+  "Show card with selected equipment": "Ver carta con el equipo elegido",
+  Download: "Descargar",
 } as const;

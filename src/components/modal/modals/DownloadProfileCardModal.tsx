@@ -4,21 +4,33 @@ import {
   DialogContent,
   ImageList,
   ImageListItem,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { heroConstraintData, profileData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useDownload } from "../../../hooks/export/useDownload.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
 import { isSelectedUnit } from "../../../types/roster.ts";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
 import { UnitProfileCard } from "../../atoms/unit-profile/UnitProfileCard.tsx";
+import { ConfiguredProfileCard } from "../../common/configured-cards/ConfiguredProfileCard";
+import { configuredCardsForRoster } from "../../common/configured-cards/card-model";
+import { downloadConfiguredCards } from "../../common/configured-cards/export-cards";
 import { AlertTypes } from "../../notifications/alert-types.tsx";
 
 export const DownloadProfileCardModal = () => {
   const { roster } = useRosterInformation();
+  const { language, t } = useTranslation();
+  const [configured, setConfigured] = useState(language === "es");
+  const [downloading, setDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState(false);
+  const prepared = useMemo(() => configuredCardsForRoster(roster), [roster]);
   const { closeModal, triggerAlert } = useAppState();
   const { downloadProfileCards } = useDownload();
   const [profileCards, setProfileCards] = useState<string[]>([]);
@@ -74,6 +86,19 @@ export const DownloadProfileCardModal = () => {
   }, [roster]);
 
   const handleDownload = async () => {
+    if (configured) {
+      setDownloading(true);
+      setDownloadError(false);
+      try {
+        await downloadConfiguredCards(prepared.cards);
+        closeModal();
+      } catch {
+        setDownloadError(true);
+      } finally {
+        setDownloading(false);
+      }
+      return;
+    }
     downloadProfileCards()
       .catch(() => triggerAlert(AlertTypes.DOWNLOAD_FAILED))
       .finally(closeModal);
@@ -82,37 +107,87 @@ export const DownloadProfileCardModal = () => {
   return (
     <>
       <DialogContent>
-        <CustomAlert severity="info" title="">
-          The following profile cards will be downloaded (in high resolution).
-        </CustomAlert>
-        <ImageList cols={isMobile ? 1 : isTablet ? 2 : isDesktop ? 3 : 4}>
-          {profileCards
-            .map((profile) => profile.split("|"))
-            .map(([army, profile], index) => (
-              <ImageListItem key={index} cols={1}>
-                <UnitProfileCard profile={profile} army={army} />
-              </ImageListItem>
+        <ToggleButtonGroup
+          exclusive
+          value={configured ? "configured" : "original"}
+          disabled={downloading}
+          onChange={(_, value) => {
+            if (value) setConfigured(value === "configured");
+          }}
+          sx={{ mb: 2 }}
+        >
+          <ToggleButton value="configured">
+            {t("Spanish cards with selected equipment")}
+          </ToggleButton>
+          <ToggleButton value="original">{t("Original cards")}</ToggleButton>
+        </ToggleButtonGroup>
+        {downloadError && (
+          <CustomAlert severity="error" title="">
+            {t(
+              "Could not generate the cards. Your roster has not been changed. You can retry or download the original cards.",
+            )}
+          </CustomAlert>
+        )}
+        {configured && prepared.missing.length > 0 && (
+          <CustomAlert severity="warning" title="">
+            {t("Missing profile data for configured cards:")}{" "}
+            {prepared.missing.join(", ")}
+          </CustomAlert>
+        )}
+        {configured ? (
+          <>
+            <CustomAlert severity="info" title="">
+              {t(
+                "One card per equipment configuration. Points are per model, and stats include the equipment modifiers recorded in the list builder. Conditional combat effects are described in the rules.",
+              )}
+            </CustomAlert>
+            {prepared.cards.map((card) => (
+              <div key={card.key} style={{ marginTop: 16 }}>
+                <ConfiguredProfileCard card={card} />
+              </div>
             ))}
-        </ImageList>
+          </>
+        ) : (
+          <>
+            <CustomAlert severity="info" title="">
+              <TranslatedText message="The following profile cards will be downloaded (in high resolution)." />
+            </CustomAlert>
+            <ImageList cols={isMobile ? 1 : isTablet ? 2 : isDesktop ? 3 : 4}>
+              {profileCards
+                .map((profile) => profile.split("|"))
+                .map(([army, profile], index) => (
+                  <ImageListItem key={index} cols={1}>
+                    <UnitProfileCard profile={profile} army={army} />
+                  </ImageListItem>
+                ))}
+            </ImageList>
+          </>
+        )}
       </DialogContent>
       <DialogActions>
         <Button
           variant="text"
           color="inherit"
           onClick={closeModal}
+          disabled={downloading}
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--cancel-button"
         >
-          Cancel
+          <TranslatedText message="Cancel" />
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={handleDownload}
+          disabled={
+            downloading ||
+            (configured &&
+              (prepared.cards.length === 0 || prepared.missing.length > 0))
+          }
           sx={{ minWidth: "20ch" }}
           data-test-id="dialog--submit-button"
         >
-          Download
+          {downloading ? t("Generating cards...") : t("Download")}
         </Button>
       </DialogActions>
     </>

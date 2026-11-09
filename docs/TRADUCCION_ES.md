@@ -40,7 +40,8 @@ hechizos y acciones heroicas, los textos de los 109 ejércitos, las habilidades 
 notas de todos los perfiles, el equipo, las opciones y los avisos del constructor.
 La búsqueda de reglas acepta el nombre español o inglés en ambos idiomas.
 La base de datos, los resúmenes de texto e imagen y la vista PDF usan esta capa.
-Las cartas siguen mostrando sus recursos originales.
+Las cartas originales siguen disponibles. La exportación adicional de cartas
+configuradas en español se describe en [CARTAS_CONFIGURADAS_ES.md](CARTAS_CONFIGURADAS_ES.md).
 
 Se conservan los nombres canónicos de miniaturas, ejércitos y mejoras para poder
 identificarlos en el catálogo original. También se conservan los ejemplos con
@@ -49,8 +50,8 @@ externos. No se modifican los archivos originales de datos, las estadísticas,
 puntos, restricciones, cálculos, identificadores JSON ni los algoritmos de
 importación/exportación. Las traducciones nunca se usan como claves de selección.
 
-El sistema de cartas, sus archivos, diseño, rutas y lógica de descarga permanecen intactos. Los textos de la vista PDF y del resumen para compartir también se traducen, conservando sus tablas de atributos originales. Las cartas españolas aprobadas se integrarán en una etapa
-posterior explícita.
+El sistema de cartas, sus archivos, diseño, rutas y lógica de descarga permanecen intactos. Los textos de la vista PDF y del resumen para compartir también se traducen, conservando sus tablas de atributos originales. Las referencias españolas aprobadas se utilizan en la nueva alternativa de
+cartas configuradas, con coste y equipo de la lista.
 
 ## Validación
 
