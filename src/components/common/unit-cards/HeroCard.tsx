@@ -204,7 +204,7 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
     >
       <Stack
         sx={{
-          p: 1.5,
+          p: { xs: 1, sm: 1.5 },
           transition: "padding 0.5s",
           border: ({ palette: { success, grey } }) =>
             "3px " +
@@ -231,7 +231,12 @@ export const HeroCard: FunctionComponent<HeroCardProps> = ({
             )}
           </Stack>
 
-          <Stack direction="column" justifyContent="center" flexGrow={1}>
+          <Stack
+            direction="column"
+            justifyContent="center"
+            flexGrow={1}
+            sx={{ minWidth: 0, overflowWrap: "anywhere" }}
+          >
             <Typography
               variant="h6"
               fontWeight="bold"

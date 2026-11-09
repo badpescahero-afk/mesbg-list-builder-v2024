@@ -20,6 +20,10 @@ export const UnitTypeLabel: FunctionComponent<UnitTypeLabelProps> = ({
         backgroundColor: mode === "dark" ? "grey" : "black",
         color: "white",
         fontWeight: "bold",
+        maxWidth: "100%",
+        height: "auto",
+        minHeight: 24,
+        "& .MuiChip-label": { whiteSpace: "normal", overflowWrap: "anywhere" },
       }}
       data-test-id="unit-type"
     />

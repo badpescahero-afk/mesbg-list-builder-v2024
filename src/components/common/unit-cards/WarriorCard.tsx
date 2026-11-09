@@ -117,7 +117,7 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
     <Card
       sx={[
         {
-          p: 1.5,
+          p: { xs: 1, sm: 1.5 },
           position: "relative",
           zIndex: 0,
           backgroundColor: ({ palette }) =>
@@ -147,7 +147,12 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
           profile={unit.name}
           size="smaller"
         />
-        <Stack direction="column" justifyContent="center" flexGrow={1}>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          flexGrow={1}
+          sx={{ minWidth: 0, overflowWrap: "anywhere" }}
+        >
           <Typography
             variant="h6"
             fontWeight="bold"

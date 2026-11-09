@@ -1,18 +1,14 @@
 import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   drawerWidth,
   RosterInfoDrawer,
 } from "../../components/common/roster-info/RosterInfoDrawer.tsx";
-import {
-  MobileRosterInfoToolbar,
-  ROSTER_INFO_BAR_HEIGHT,
-} from "../../components/common/toolbar/MobileRosterInfoToolbar.tsx";
+import { MobileRosterInfoToolbar } from "../../components/common/toolbar/MobileRosterInfoToolbar.tsx";
 import { MobileRosterWarningsToolbar } from "../../components/common/toolbar/MobileRosterWarningsToolbar.tsx";
 import { WarbandList } from "../../components/common/warbands/WarbandList.tsx";
-import { OpenNavigationDrawerEvent } from "../../events/OpenNavigationDrawerEvent.ts";
 import { useRosterWarnings } from "../../hooks/calculations-and-displays/useRosterWarnings.ts";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useRosterSync } from "../../hooks/cloud-sync/RosterCloudSyncProvider.tsx";
@@ -35,21 +31,6 @@ export const RosterData = ({ roster }: { roster: Roster }) => {
   const displayMobileToolbar = useUserPreferences(
     ({ preferences }) => preferences.mobileRosterToolbar,
   );
-  const [navDrawerOpen, setNavDrawerOpen] = useState(false);
-  const toolbarsActive = [displayMobileToolbar, warnings.length > 0].filter(
-    (value) => value === true,
-  ).length;
-
-  useEffect(() => {
-    function openMenuDrawer(event: OpenNavigationDrawerEvent) {
-      setNavDrawerOpen(event.open);
-    }
-
-    window.addEventListener("mlb-event--open-nav-bar", openMenuDrawer);
-    return () =>
-      window.removeEventListener("mlb-event--open-nav-bar", openMenuDrawer);
-  }, []);
-
   useEffect(() => {
     if (!roster) return;
 
@@ -70,9 +51,11 @@ export const RosterData = ({ roster }: { roster: Roster }) => {
     <>
       <Stack
         sx={{
-          position: "fixed",
-          width: `calc(100% - ${navDrawerOpen ? 320 : 56}px)`,
-          transition: "width 0.3s ease",
+          position: "sticky",
+          top: { xs: 56, sm: 64 },
+          "@media (max-width: 599.95px) and (orientation: landscape)": {
+            top: 48,
+          },
           zIndex: "100",
         }}
       >
@@ -82,11 +65,7 @@ export const RosterData = ({ roster }: { roster: Roster }) => {
       <Container
         maxWidth={false}
         sx={{
-          p: 2,
-          pt:
-            !screen.isDesktop && toolbarsActive > 0
-              ? `calc(${ROSTER_INFO_BAR_HEIGHT}px * ${toolbarsActive} + 1rem)`
-              : 2,
+          p: { xs: 1, sm: 2 },
         }}
       >
         <LockContextProvider settingsKey="dragAndDropRosters">
@@ -99,7 +78,12 @@ export const RosterData = ({ roster }: { roster: Roster }) => {
           >
             <Stack direction="column" sx={{ mb: 2 }}>
               <RosterBreadcrumbs roster={roster} />
-              <Stack gap={2} direction="row" justifyContent="end">
+              <Stack
+                gap={1}
+                direction="row"
+                justifyContent="end"
+                flexWrap="wrap"
+              >
                 <StartGameButton roster={roster} />
                 <RosterLockButton />
                 <RosterSidebarButton />

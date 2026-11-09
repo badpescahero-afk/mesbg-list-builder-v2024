@@ -70,6 +70,13 @@
 
 ## Instalación en móvil
 
+- En móvil, la navegación se abre como un panel superpuesto. Las compañías,
+  nombres, opciones y acciones deben caber desde 320 px sin desplazamiento
+  horizontal ni ocultación de controles. Las barras de puntos/avisos reservan su
+  altura real al envolver texto. Validar `node scripts/test-mobile-layout.mjs`
+  al cambiar el diseño: mide el contenido visible, también si un contenedor
+  oculta el desbordamiento, y comprueba que la lista guardada no cambie.
+
 - La app instalable usa el icono original y un manifiesto PWA. La instalación móvil
   requiere HTTPS; un enlace localhost del entorno no es una URL accesible al usuario.
 - El service worker solo se registra en producción y almacena el shell de la app.

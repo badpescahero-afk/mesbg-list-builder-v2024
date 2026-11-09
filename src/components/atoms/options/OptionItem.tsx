@@ -31,6 +31,11 @@ export const OptionItem: FunctionComponent<OptionItemProps> = ({
       sx={{
         display: "flex",
         py: 0.2,
+        "& .MuiFormControlLabel-label": {
+          overflowWrap: "anywhere",
+          minWidth: 0,
+        },
+        "& .MuiSwitch-root": { flexShrink: 0 },
         "& .MuiFormControlLabel-asterisk": { display: "none" },
         "&:hover": {
           textDecoration: "underline",

@@ -31,7 +31,7 @@ export const CardActionButtons: FunctionComponent<CardActionButtonsProps> = ({
   const { palette } = useTheme();
   return (
     <Box sx={{ zIndex: 2 }}>
-      <Stack direction="row" gap={2}>
+      <Stack direction="row" gap={{ xs: 1, sm: 2 }} flexWrap="wrap">
         {!!openProfileCard && (
           <SquareIconButton
             icon={<BsFillPersonVcardFill />}

@@ -11,7 +11,13 @@ export type WarbandHeaderProps = WarbandMetadataProps &
 
 export const WarbandHeader: FunctionComponent<WarbandHeaderProps> = (props) => {
   return (
-    <Stack direction="row" alignItems="center" sx={{ px: 1 }}>
+    <Stack
+      direction="row"
+      alignItems="center"
+      flexWrap="wrap"
+      gap={1}
+      sx={{ px: 1 }}
+    >
       <WarbandMetadata meta={props.meta} />
       <WarbandActionButtons {...props} />
     </Stack>

@@ -47,7 +47,7 @@ export const WarbandActionButtons: FunctionComponent<
   const iconStyle = { fontSize: "1.5rem" };
   const iconPadding = ".5rem";
   return (
-    <Stack direction="row" gap={2}>
+    <Stack direction="row" gap={{ xs: 1, sm: 2 }} flexWrap="wrap">
       {hasCompulsoryLeader ? (
         <SquareIconButton
           icon={<RestartAlt sx={iconStyle} />}

@@ -3,6 +3,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,10 +14,12 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.svg";
 import title from "../../assets/images/title-v2024.png";
 import { AccountAvatar } from "../../components/common/user-avatar/AccountAvatar.tsx";
 import { OpenNavigationDrawerEvent } from "../../events/OpenNavigationDrawerEvent.ts";
+import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { LanguageSelector } from "../../i18n/LanguageSelector";
 import { AppBar } from "./AppBar.tsx";
@@ -39,6 +42,20 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
 
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const { isMobile } = useScreenSize();
+  const { pathname } = useLocation();
+
+  const closeMenuDrawer = () => {
+    setOpen(false);
+    window.dispatchEvent(new OpenNavigationDrawerEvent(false));
+  };
+
+  useEffect(() => {
+    if (isMobile) {
+      setOpen(false);
+      window.dispatchEvent(new OpenNavigationDrawerEvent(false));
+    }
+  }, [pathname, isMobile]);
 
   const toggleMenuDrawer = () => {
     setOpen(!open);
@@ -64,7 +81,11 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
 
   return (
     <Stack direction="row">
-      <AppBar position="fixed" sx={{ backgroundColor: "#1c1c1e" }} open={open}>
+      <AppBar
+        position="fixed"
+        sx={{ backgroundColor: "#1c1c1e" }}
+        open={open && !isMobile}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -98,10 +119,11 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
             sx={{ mr: { xs: 0.5, sm: 2 }, minWidth: 0 }}
             href={window.location.protocol + "//" + window.location.host}
           >
-            <img
+            <Box
+              component="img"
               src={logo}
               alt={translateUI("Logo")}
-              style={{ height: "50px" }}
+              sx={{ height: { xs: 36, sm: 50 } }}
             />
             <Box
               component="img"
@@ -127,20 +149,46 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
           <AccountAvatar />
         </Toolbar>
       </AppBar>
-      <MenuDrawer variant="permanent" open={open} id="navigation-drawer">
-        <MenuDrawerHeader>
-          <Typography
-            variant="h6"
-            className="middle-earth"
-            sx={{ textAlign: "start" }}
-          >
-            {t("Menu")}
-          </Typography>
-        </MenuDrawerHeader>
-        <Divider />
-        <NavigationMenu open={open} />
-      </MenuDrawer>
-      <Box sx={{ flexGrow: 1, width: "100%" }}>
+      {isMobile ? (
+        <Drawer
+          variant="temporary"
+          open={open}
+          onClose={closeMenuDrawer}
+          id="navigation-drawer"
+          sx={{
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              maxWidth: "calc(100% - 32px)",
+            },
+          }}
+        >
+          <MenuDrawerHeader>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              {t("Menu")}
+            </Typography>
+            <IconButton onClick={closeMenuDrawer} aria-label={t("Close")}>
+              <ChevronLeftOutlined />
+            </IconButton>
+          </MenuDrawerHeader>
+          <Divider />
+          <NavigationMenu open={true} />
+        </Drawer>
+      ) : (
+        <MenuDrawer variant="permanent" open={open} id="navigation-drawer">
+          <MenuDrawerHeader>
+            <Typography
+              variant="h6"
+              className="middle-earth"
+              sx={{ textAlign: "start" }}
+            >
+              {t("Menu")}
+            </Typography>
+          </MenuDrawerHeader>
+          <Divider />
+          <NavigationMenu open={open} />
+        </MenuDrawer>
+      )}
+      <Box sx={{ flex: "1 1 0", minWidth: 0 }}>
         <MenuDrawerHeader />
         {children}
       </Box>
