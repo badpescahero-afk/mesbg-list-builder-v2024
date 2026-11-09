@@ -1,0 +1,29 @@
+[build]
+  command = "npm run build:standalone"
+  publish = "build"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Keep the service worker and entry point fresh after a deployment.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Existing files (including original cards) take precedence over this SPA fallback.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false

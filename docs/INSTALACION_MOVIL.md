@@ -51,6 +51,31 @@ necesita su comprobación posterior en un dispositivo real.
 
 ## Estado del acceso
 
+### Publicar con Netlify desde GitHub
+
+1. Entrar en <https://app.netlify.com/> y crear una cuenta o iniciar sesión.
+2. Elegir añadir un proyecto e importar un repositorio existente desde GitHub.
+3. Autorizar el acceso al repositorio
+   `badpescahero-afk/mesbg-list-builder-v2024` y seleccionarlo.
+4. Seleccionar **feature/traduccion-es** como rama que se publicará. No usar `main`.
+5. Dejar el directorio base en la raíz. La configuración `netlify.toml` del
+   repositorio establece Node 22, comando `npm run build:standalone` y carpeta
+   de publicación `build`. Comprobar esos valores antes de desplegar.
+6. Publicar y esperar a que termine la compilación. Netlify asignará una dirección
+   HTTPS terminada en `netlify.app`; no hace falta comprar un dominio.
+7. Abrir esa dirección en el móvil y seguir los pasos de instalación de arriba.
+
+La compilación incluye los retratos y las cartas originales en el propio sitio,
+pero el móvil descarga las imágenes conforme se usan. Las rutas como `/rosters`
+y `/install` tienen una redirección interna a la aplicación para admitir abrirlas
+directamente. Los siguientes commits en la rama conectada pueden activar una
+nueva publicación automática de Netlify.
+
+Tras publicar, comprobar `/install`, crear una lista, consultar una explicación,
+exportar una carta e instalar en el teléfono. La compilación local no verifica
+por sí sola el despliegue remoto. Las funciones de cuenta y sincronización del
+servicio original no forman parte de esta configuración de alojamiento estático.
+
 La preparación y las pruebas se realizan en la rama `feature/traduccion-es`.
 Sigue pendiente un alojamiento HTTPS accesible desde el móvil. La vista previa
 local del entorno no sustituye esa publicación y no hay una URL pública verificada.
