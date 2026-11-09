@@ -13,6 +13,7 @@ import { GiSwordsEmblem } from "react-icons/gi";
 import { HiIdentification } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { DrawerTypes } from "../../../components/drawer/drawers.tsx";
+import { ADAPTATION_ISSUES } from "../../../project-links";
 import { useAppState } from "../../../state/app";
 import { useChartMenuItems } from "./useChartMenuItems.tsx";
 import { useRosterMenuItems } from "./useRosterMenuItems.tsx";
@@ -96,7 +97,7 @@ export const useMenuItems = () => {
     { divider: true },
     {
       icon: <Info />,
-      label: "About Us",
+      label: "Credits and legal notices",
       translateLabel: true,
       action: () => navigate("/about"),
       active: location.pathname === "/about",
@@ -106,8 +107,7 @@ export const useMenuItems = () => {
       label: "Report a Bug / Correction",
       translateLabel: true,
       action: () =>
-        (window.location.href =
-          "mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction"),
+        window.open(ADAPTATION_ISSUES, "_blank", "noopener,noreferrer"),
       active: false,
     },
     {

@@ -18,6 +18,7 @@ import { GiQueenCrown } from "react-icons/gi";
 
 import { armyListData } from "../../../assets/data.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { translateGameText } from "../../../i18n/game-text";
@@ -216,7 +217,7 @@ export const RosterTableView = forwardRef<
           className="middle-earth"
           variant={screenshotting ? (includeRosterName ? "h5" : "h4") : "h6"}
         >
-          {roster.armyList}
+          <GameText text={roster.armyList} />
         </Typography>
       </Divider>
 

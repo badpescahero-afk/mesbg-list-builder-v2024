@@ -5,6 +5,8 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { FunctionComponent, useState } from "react";
 import { useTranslation } from "../../../i18n/LanguageContext";
+import { matchesArmySearch } from "../../../i18n/army-names";
+import { translateGameText } from "../../../i18n/game-text";
 import { PastGame } from "../../../state/recent-games/history";
 import { DateRangeFilter } from "./DateRangeFilter.tsx";
 
@@ -29,7 +31,7 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
   onChange,
   availableDateRange,
 }) => {
-  const { t: translateUI } = useTranslation();
+  const { t: translateUI, language } = useTranslation();
 
   const { t } = useTranslation();
   const theme = useTheme();
@@ -88,6 +90,12 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
         <Autocomplete
           disablePortal
           options={armyOptions}
+          getOptionLabel={(army) => translateGameText(language, army)}
+          filterOptions={(options, state) =>
+            options.filter((army) =>
+              matchesArmySearch(language, army, state.inputValue),
+            )
+          }
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
             <TextField {...params} label={t("Army")} size="small" />
@@ -112,6 +120,12 @@ export const FilterForm: FunctionComponent<FilterFormProps> = ({
         <Autocomplete
           disablePortal
           options={opponentArmyOptions}
+          getOptionLabel={(army) => translateGameText(language, army)}
+          filterOptions={(options, state) =>
+            options.filter((army) =>
+              matchesArmySearch(language, army, state.inputValue),
+            )
+          }
           sx={{ minWidth: "calc(100% / 2 - 4px)" }}
           renderInput={(params) => (
             <TextField {...params} label={t("Opponent Army")} size="small" />

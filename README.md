@@ -1,3 +1,11 @@
+> **MESBG List Builder ES — adaptación no oficial en español.**
+> Basada en el trabajo de Alex Cordaro, Marcel Hollink y sus colaboradores.
+> Consulta los [créditos, cambios fechados y avisos de esta adaptación](ADAPTATION.md),
+> la [licencia AGPL-3.0-only](LICENSE) y los [avisos originales](NOTICE.md).
+> El Discord, Patreon y contacto citados en la documentación original siguiente
+> pertenecen a sus creadores originales. Para esta adaptación, utiliza
+> [sus incidencias](https://github.com/badpescahero-afk/mesbg-list-builder-v2024/issues).
+
 # MESBG List Builder (2024 Edition)
 
 *https://v2024.mesbg-list-builder.com*

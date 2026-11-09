@@ -12,7 +12,7 @@ export function InstallApp() {
     <Container maxWidth="sm" sx={{ py: 3 }}>
       <Stack gap={2} alignItems="flex-start">
         <img
-          src="/icons/icon-192x192.png"
+          src="/icons/icon-es-192x192.png"
           width={96}
           height={96}
           alt="MESBG ES"

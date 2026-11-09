@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import brokenSword from "../../assets/images/broken-sword.png";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { TranslatedText } from "../../i18n/TranslatedText";
-import { DISCORD_LINK } from "../home/Home.tsx";
+import { ADAPTATION_ISSUES } from "../../project-links";
 
 export const GroupNotFound = () => {
   const { t: translateUI } = useTranslation();
@@ -67,7 +67,9 @@ export const GroupNotFound = () => {
           <Button
             color="inherit"
             fullWidth
-            onClick={() => window.open(DISCORD_LINK)}
+            onClick={() =>
+              window.open(ADAPTATION_ISSUES, "_blank", "noopener,noreferrer")
+            }
           >
             <TranslatedText message="Ask for support" />
           </Button>

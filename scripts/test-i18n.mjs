@@ -413,6 +413,57 @@ try {
     "PASS: match recording, translated result display, and unchanged Won result in storage",
   );
 
+  // Credits, original license, source and branding remain accessible in both languages.
+  await page.goto("http://127.0.0.1:5197/about");
+  await page
+    .getByRole("heading", { name: "Adaptación no oficial en español" })
+    .waitFor();
+  assert.match(
+    await page
+      .getByRole("link", { name: "Código fuente de esta versión" })
+      .getAttribute("href"),
+    /badpescahero-afk.*feature\/traduccion-es/,
+  );
+  assert.match(
+    await page
+      .getByRole("link", { name: "Discord — comunidad del proyecto original" })
+      .getAttribute("href"),
+    /discord\.gg/,
+  );
+  await page.locator("#license summary").click();
+  await page
+    .locator("#license pre")
+    .getByText("GNU AFFERO GENERAL PUBLIC LICENSE", { exact: false })
+    .waitFor();
+  await page
+    .locator("details")
+    .filter({ hasText: "Avisos del proyecto original (texto original)" })
+    .locator("summary")
+    .click();
+  assert.ok(
+    (await page.locator("details pre").last().textContent()).includes(
+      "Copyright",
+    ),
+  );
+  await switchLanguage("Idioma", "English");
+  await page
+    .getByRole("link", { name: "Discord — original project community" })
+    .waitFor();
+  await switchLanguage("Language", "Español");
+  const appManifest = await (
+    await page.request.get("http://127.0.0.1:5197/manifest.json")
+  ).json();
+  assert.ok(
+    appManifest.icons.every((icon) => icon.src.startsWith("/icons/icon-es-")),
+  );
+  assert.equal(
+    await page.locator('link[rel="icon"]').getAttribute("href"),
+    "/favicon-es.ico",
+  );
+  console.log(
+    "PASS: credits, source, license, original channels and Spanish app branding",
+  );
+
   // Validation messages are translated without requiring a Firebase account.
   await page.goto("http://127.0.0.1:5197/sign-in");
   await page

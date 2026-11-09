@@ -1,4 +1,3 @@
-import { BugReport } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
@@ -6,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { FaPatreon } from "react-icons/fa";
 import discord from "../../assets/images/homepage/discord.png";
 import { useTranslation } from "../../i18n/LanguageContext";
-import { TranslatedText } from "../../i18n/TranslatedText";
+import { Attribution } from "../about/sections/Attribution";
 import { FeatureTabs } from "./FeatureTabs.tsx";
 
 export const DISCORD_LINK = "https://discord.gg/Hmjetd9NDf";
@@ -32,13 +31,13 @@ export const Home = () => {
               <a href={DISCORD_LINK} target="_blank" rel="noreferrer">
                 <img
                   src={discord}
-                  alt={translateUI("join the list builder on discord")}
+                  alt={translateUI("Discord — original project community")}
                   style={{ height: "44px" }}
                 />
               </a>
             </Stack>
             <Typography variant="h3" className="middle-earth" sx={{ mt: 0 }}>
-              MESBG List Builder
+              MESBG List Builder ES
             </Typography>
             <Typography variant="body1" sx={{ fontSize: "1.3rem" }}>
               {t(
@@ -46,23 +45,7 @@ export const Home = () => {
               )}
             </Typography>
 
-            <Typography variant="body2" sx={{ fontSize: "1rem" }}>
-              <TranslatedText message="Please reach out to us you have any questions, request or corrections. You can do so via our the mail using the" />{" "}
-              <BugReport fontSize="small" sx={{ verticalAlign: "middle" }} />
-              <TranslatedText message="-icon on the left or via discord." />
-            </Typography>
-
-            <Typography variant="body2" sx={{ fontSize: "1rem" }}>
-              {t(
-                "MLB is free for everyone and will always stay that way. No restrictions, no ads - as these will only reduce the user experience. However, any support is always appreciated, be it by word of mouth recommendation or by sharing your lists with admission on Reddit and Facebook.",
-              )}
-            </Typography>
-
-            <Typography variant="body2" sx={{ fontSize: "1rem" }}>
-              {t(
-                "If you want to be a true hero you can also support us via Patreon, though this is completely optional.",
-              )}
-            </Typography>
+            <Attribution />
 
             <Button
               variant="text"
@@ -74,7 +57,7 @@ export const Home = () => {
               }}
               onClick={() => window.open(PATREON_LINK, "_blank")}
             >
-              {t("Support us on patreon")}
+              {t("Patreon — support the original creators")}
             </Button>
           </Stack>
         </Stack>

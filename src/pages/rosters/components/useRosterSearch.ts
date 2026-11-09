@@ -1,4 +1,6 @@
 import { mesbgData } from "../../../assets/data.ts";
+import { useTranslation } from "../../../i18n/LanguageContext";
+import { translateGameText } from "../../../i18n/game-text";
 import { Roster } from "../../../types/roster";
 
 type Condition = {
@@ -8,6 +10,7 @@ type Condition = {
 };
 
 export const useRosterSearch = () => {
+  const { language } = useTranslation();
   const armyData = Object.fromEntries(
     Object.entries(mesbgData).map(([, value]) => [
       value.army_list,
@@ -82,7 +85,10 @@ export const useRosterSearch = () => {
   function buildResolvers() {
     return {
       type: (roster: Roster) => armyData[roster.armyList].toLocaleLowerCase(),
-      army: (roster: Roster) => roster.armyList.toLocaleLowerCase(),
+      army: (roster: Roster) => [
+        roster.armyList.toLocaleLowerCase(),
+        translateGameText(language, roster.armyList).toLocaleLowerCase(),
+      ],
       name: (roster: Roster) => roster.name.toLocaleLowerCase(),
       points: (roster: Roster) => roster.metadata.points,
       units: (roster: Roster) => roster.metadata.units,
@@ -96,7 +102,9 @@ export const useRosterSearch = () => {
       "": (roster: Roster) =>
         roster.name.toLocaleLowerCase() +
         "::" +
-        roster.armyList.toLocaleLowerCase(),
+        roster.armyList.toLocaleLowerCase() +
+        "::" +
+        translateGameText(language, roster.armyList).toLocaleLowerCase(),
       default: (roster: Roster, field: string) => getFieldValue(roster, field),
     };
   }

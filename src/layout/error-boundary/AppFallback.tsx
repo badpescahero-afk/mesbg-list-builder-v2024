@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { download } from "../../hooks/export/useDownload.ts";
 import { TranslatedText } from "../../i18n/TranslatedText";
+import { ADAPTATION_ISSUES } from "../../project-links";
 
 export const AppFallback = () => {
   const error = useRouteError();
@@ -96,17 +97,13 @@ export const AppFallback = () => {
               </b>
             </Typography>
             <Typography>
-              <TranslatedText message="Please do share a screenshot of this page with us either via email or in our discord. We do like to know what happend and resolve the issue." />
+              <TranslatedText message="Report this error in the Spanish adaptation repository. Include what you were doing and a screenshot, without personal information." />
             </Typography>
           </Box>
 
           <Typography textAlign="center" variant="body2">
-            <a href="https://discord.gg/MZfUgRtV56">
-              https://discord.gg/MZfUgRtV56
-            </a>{" "}
-            <TranslatedText message="or" />{" "}
-            <a href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction">
-              support@mesbg-list-builder.com
+            <a href={ADAPTATION_ISSUES}>
+              <TranslatedText message="Report a problem with the Spanish adaptation" />
             </a>
             .
           </Typography>

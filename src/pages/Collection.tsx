@@ -32,6 +32,7 @@ import { SquareIconButton } from "../components/atoms/icon-button/SquareIconButt
 import { Link } from "../components/atoms/link/Link.tsx";
 import { ModalTypes } from "../components/modal/modals.tsx";
 import { useApi } from "../hooks/cloud-sync/useApi.ts";
+import { GameText } from "../i18n/GameText";
 import { useTranslation } from "../i18n/LanguageContext";
 import { TranslatedText } from "../i18n/TranslatedText";
 import { translateGameText } from "../i18n/game-text";
@@ -188,7 +189,7 @@ export const Collection = () => {
             {collection
               .filter((row) => {
                 const searchString =
-                  `${row.origin} ${row.modelName}`.toLowerCase();
+                  `${row.origin} ${translateGameText("es", row.origin)} ${row.modelName}`.toLowerCase();
                 return filterElements.every((el) => searchString.includes(el));
               })
               .map((row, index) => {
@@ -200,7 +201,9 @@ export const Collection = () => {
                 return (
                   <TableRow key={index}>
                     <TableCell>{row.modelName}</TableCell>
-                    <TableCell>{row.origin}</TableCell>
+                    <TableCell>
+                      <GameText text={row.origin} />
+                    </TableCell>
                     <TableCell size="small">
                       {row.inventory.collection.map((item, itemIndex) => (
                         <Typography key={itemIndex}>

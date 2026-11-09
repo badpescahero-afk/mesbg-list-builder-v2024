@@ -10,6 +10,7 @@ import { FunctionComponent } from "react";
 import { useScreenSize } from "../../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../../i18n/TranslatedText";
+import { translateArmyNames } from "../../../../i18n/army-names";
 import { ArmyPicker } from "../../../atoms/army-selector/ArmyPicker.tsx";
 import { StepProps } from "./StepProps.ts";
 
@@ -20,7 +21,7 @@ export const PlayerArmyStep: FunctionComponent<StepProps> = ({
   handleChangeByEvent,
   activeStep,
 }) => {
-  const { t: translateUI } = useTranslation();
+  const { t: translateUI, language } = useTranslation();
 
   const { isMobile } = useScreenSize();
   return (
@@ -34,7 +35,7 @@ export const PlayerArmyStep: FunctionComponent<StepProps> = ({
         optional={
           <Collapse in={!activeStep}>
             <Typography variant="caption" color="textDisabled">
-              {formValues.armies}
+              {translateArmyNames(language, formValues.armies)}
             </Typography>
           </Collapse>
         }

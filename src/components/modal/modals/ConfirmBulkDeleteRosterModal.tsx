@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { useCallback, useState } from "react";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
+import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
@@ -102,7 +103,7 @@ export const ConfirmBulkDeleteRosterModal = () => {
                     <TableRow key={id}>
                       <TableCell size="small">{rostersById[id].name}</TableCell>
                       <TableCell size="small">
-                        {rostersById[id].armyList}
+                        <GameText text={rostersById[id].armyList} />
                       </TableCell>
                       <TableCell size="small" align="right">
                         {rostersById[id].metadata.points}

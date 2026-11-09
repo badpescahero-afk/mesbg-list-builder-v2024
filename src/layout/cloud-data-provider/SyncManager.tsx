@@ -16,6 +16,7 @@ import { RosterCloudSyncProvider } from "../../hooks/cloud-sync/RosterCloudSyncP
 import { useRefetch } from "../../hooks/cloud-sync/useRefetch.ts";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { TranslatedText } from "../../i18n/TranslatedText";
+import { ADAPTATION_ISSUES } from "../../project-links";
 
 export const SyncManager: FunctionComponent<PropsWithChildren> = ({
   children,
@@ -62,11 +63,14 @@ export const SyncManager: FunctionComponent<PropsWithChildren> = ({
     <Container maxWidth="md" sx={{ p: 3 }}>
       <CustomAlert severity="error" title={translateUI("An error occurred!")}>
         <TranslatedText message="Something went wrong while loading your data from the API. Please try logging out & in. If the problem persists, please contact us via" />{" "}
-        <a href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction">
-          support@mesbg-list-builder.com
+        <a href={ADAPTATION_ISSUES}>
+          <TranslatedText message="Report a problem with the Spanish adaptation" />
         </a>{" "}
         <TranslatedText message="or" />{" "}
-        <a href="https://discord.gg/MZfUgRtV56">discord</a>.
+        <a href="https://discord.gg/MZfUgRtV56">
+          <TranslatedText message="Discord — original project community" />
+        </a>
+        .
       </CustomAlert>
 
       <Button

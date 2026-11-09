@@ -8,6 +8,7 @@ import defeatedIcon from "../../../../assets/images/roster-summary/defeated.png"
 import throwIcon from "../../../../assets/images/roster-summary/throw-weapon.png";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useRosterWarnings } from "../../../../hooks/calculations-and-displays/useRosterWarnings.ts";
+import { GameText } from "../../../../i18n/GameText";
 import { useTranslation } from "../../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { Roster } from "../../../../types/roster.ts";
@@ -74,7 +75,7 @@ export const HeaderBlock = ({
           fontWeight="bold"
           color="#800000"
         >
-          {roster.armyList}
+          <GameText text={roster.armyList} />
         </Typography>
         {warnings.length > 0 && (
           <ReportProblemRoundedIcon

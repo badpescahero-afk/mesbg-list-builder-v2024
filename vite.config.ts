@@ -18,6 +18,7 @@ export default defineConfig(({ command }) => ({
   define: {
     BUILD_VERSION: JSON.stringify(process.env.npm_package_version),
     BUILD_DATE: JSON.stringify(currentDate),
+    BUILD_COMMIT: JSON.stringify(process.env.COMMIT_REF || ""),
     RESOURCES_URL: JSON.stringify(
       process.env.VITE_RESOURCES_URL ||
         (command === "serve"

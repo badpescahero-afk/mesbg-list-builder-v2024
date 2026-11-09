@@ -117,7 +117,7 @@ export const RosterTextView = forwardRef<
           .join("  ");
 
     return `
-    ${roster.armyList}
+    ${translateGameText(language, roster.armyList)}
     ----------------------------------------
     | ${t("Points:")} ${points} | ${t("Units:")} ${units} | ${t("Broken:")} ${units > 0 ? Math.floor(units * (break_point ?? 0.5)) + 1 : 0} ${t("dead")} | ${t("Quartered:")} ${Math.floor(0.25 * units)} ${t("left")} |
     | ${t("Bows:")} ${bows} | ${t("Throwing weapons:")} ${throwingWeapons} | Might/Will/Fate: ${might} / ${will} / ${fate} |

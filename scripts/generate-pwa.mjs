@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const paths = ["/index.html", "/manifest.json", "/favicon.ico"];
+const paths = ["/index.html", "/manifest.json", "/favicon-es.ico"];
 function collect(directory) {
   for (const entry of readdirSync(join("build", directory), {
     withFileTypes: true,

@@ -1,4 +1,5 @@
 import { TranslatedText } from "../../i18n/TranslatedText";
+import { ADAPTATION_ISSUES } from "../../project-links";
 export const RootFallback = () => {
   return (
     <>
@@ -41,16 +42,12 @@ export const RootFallback = () => {
                 <TranslatedText message="Help us help you!" />
               </h4>
               <div>
-                <TranslatedText message="Please do share a screenshot of this page with us either via email or in our discord. We do like to know what happend and resolve the issue." />
+                <TranslatedText message="Report this error in the Spanish adaptation repository. Include what you were doing and a screenshot, without personal information." />
               </div>
             </div>
             <p>
-              <a href="https://discord.gg/MZfUgRtV56">
-                https://discord.gg/MZfUgRtV56
-              </a>{" "}
-              <TranslatedText message="or" />{" "}
-              <a href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2024) - Bug/Correction">
-                support@mesbg-list-builder.com
+              <a href={ADAPTATION_ISSUES}>
+                <TranslatedText message="Report a problem with the Spanish adaptation" />
               </a>
               .
             </p>

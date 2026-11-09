@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 declare const BUILD_VERSION: string;
 declare const BUILD_DATE: string;
+declare const BUILD_COMMIT: string;
 declare const RESOURCES_URL: string;
 declare const API_URL: string;
 

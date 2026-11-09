@@ -1,6 +1,7 @@
 import { useTheme } from "@mui/material/styles";
 import { Bar } from "react-chartjs-2";
 import { useTranslation } from "../../../../i18n/LanguageContext";
+import { translateGameText } from "../../../../i18n/game-text";
 import { PastGame } from "../../../../state/recent-games/history";
 
 interface ArmiesPlayedProps {
@@ -8,7 +9,7 @@ interface ArmiesPlayedProps {
 }
 
 export const ArmiesPlayedBarChart = ({ data }: ArmiesPlayedProps) => {
-  const { t: translateUI } = useTranslation();
+  const { t: translateUI, language } = useTranslation();
 
   const { palette } = useTheme();
 
@@ -37,7 +38,9 @@ export const ArmiesPlayedBarChart = ({ data }: ArmiesPlayedProps) => {
     }, {});
 
   const victoryPointsData = {
-    labels: Object.keys(armiesPlayed),
+    labels: Object.keys(armiesPlayed).map((army) =>
+      translateGameText(language, army),
+    ),
     datasets: ["won", "draw", "lost"].map((key, index) => ({
       label: translateUI(key),
       data: Object.values(armiesPlayed).map((wld) => wld[key]),

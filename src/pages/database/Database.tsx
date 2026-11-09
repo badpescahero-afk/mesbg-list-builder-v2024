@@ -85,6 +85,8 @@ export const Database = () => {
         .every((criteria) =>
           [
             row.searchString,
+            ...row.army_list.map((army) => translateGameText("es", army)),
+            translateGameText("es", row.profile_origin),
             translateGameText("es", row.name),
             ...row.profile.special_rules.map((name) =>
               translateGameText("es", name),

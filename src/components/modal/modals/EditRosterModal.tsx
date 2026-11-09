@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useNewRosterBuilder } from "../../../hooks/new-roster/useNewRosterBuilder.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { useAppState } from "../../../state/app";
 import { useRosterBuildingState } from "../../../state/roster-building";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
@@ -23,7 +24,7 @@ import {
 import { AdditionalTagsInput } from "../../atoms/tags-input/TagsInput.tsx";
 
 export const EditRosterModal = () => {
-  const { t: translateUI } = useTranslation();
+  const { t: translateUI, language } = useTranslation();
 
   const {
     closeModal,
@@ -134,7 +135,7 @@ export const EditRosterModal = () => {
 
         {roster.armyList.startsWith("Custom:") ? (
           <TextField
-            value={roster.armyList}
+            value={translateGameText(language, roster.armyList)}
             label={translateUI("Army")}
             disabled
           />

@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import brokenSword from "../../assets/images/broken-sword.png";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { TranslatedText } from "../../i18n/TranslatedText";
+import { ADAPTATION_ISSUES } from "../../project-links";
 import { useGameModeState } from "../../state/gamemode";
 import { Roster } from "../../types/roster.ts";
-import { DISCORD_LINK } from "../home/Home.tsx";
 
 interface GamestateNotFoundProps {
   roster: Roster;
@@ -76,7 +76,9 @@ export const GamestateNotFound = ({ roster }: GamestateNotFoundProps) => {
           <Button
             color="inherit"
             fullWidth
-            onClick={() => window.open(DISCORD_LINK)}
+            onClick={() =>
+              window.open(ADAPTATION_ISSUES, "_blank", "noopener,noreferrer")
+            }
           >
             <TranslatedText message="Ask for support" />
           </Button>

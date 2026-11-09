@@ -15,8 +15,7 @@ import {
   useState,
 } from "react";
 import { useLocation } from "react-router-dom";
-import logo from "../../assets/images/logo.svg";
-import title from "../../assets/images/title-v2024.png";
+import logo from "../../assets/images/logo-es.png";
 import { AccountAvatar } from "../../components/common/user-avatar/AccountAvatar.tsx";
 import { OpenNavigationDrawerEvent } from "../../events/OpenNavigationDrawerEvent.ts";
 import { useScreenSize } from "../../hooks/calculations-and-displays/useScreenSize.ts";
@@ -125,16 +124,18 @@ export const Navigation: FunctionComponent<PropsWithChildren> = ({
               alt={translateUI("Logo")}
               sx={{ height: { xs: 36, sm: 50 } }}
             />
-            <Box
-              component="img"
-              src={title}
-              alt="MESBG List Builder"
+            <Typography
+              component="span"
+              className="middle-earth"
               sx={{
                 display: { xs: "none", sm: "block" },
-                maxHeight: "42px",
-                margin: "0 .25rem",
+                color: "white",
+                fontSize: "1.1rem",
+                mx: 1,
               }}
-            />
+            >
+              MESBG List Builder ES
+            </Typography>
           </Button>
           <Box flexGrow={1} />
           <Box

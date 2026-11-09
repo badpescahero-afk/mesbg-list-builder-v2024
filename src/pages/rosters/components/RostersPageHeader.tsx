@@ -44,7 +44,7 @@ export const RostersPageHeader: FunctionComponent<RostersPageHeaderProps> = ({
           }}
           onClick={() => window.open(PATREON_LINK, "_blank")}
         >
-          {t("Support us on patreon")}
+          {t("Patreon — support the original creators")}
         </Button>
       </Stack>
       {group ? (

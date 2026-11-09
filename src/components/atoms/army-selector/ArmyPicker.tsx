@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent, useEffect, useState } from "react";
 import data from "../../../assets/data/mesbg_data.json";
 import { useTranslation } from "../../../i18n/LanguageContext";
+import { matchesArmySearch } from "../../../i18n/army-names";
+import { translateGameText } from "../../../i18n/game-text";
 import { ArmyType } from "../../../types/mesbg-data.types.ts";
 import { FactionIcon } from "../faction-icon/FactionIcon.tsx";
 
@@ -50,7 +52,7 @@ export type ArmyPickerProps = {
 };
 
 export const ArmyPicker: FunctionComponent<ArmyPickerProps> = (props) => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const makeOptions = (type: ArmyType): Option[] =>
     [...armiesByType[type]].map(({ army, faction }) => ({
       army,
@@ -97,15 +99,23 @@ export const ArmyPicker: FunctionComponent<ArmyPickerProps> = (props) => {
     <Autocomplete
       multiple
       options={options}
-      getOptionLabel={(option) => option.army}
+      getOptionLabel={(option) => translateGameText(language, option.army)}
+      isOptionEqualToValue={(option, value) => option.army === value.army}
+      filterOptions={(options, state) =>
+        options.filter(({ army }) =>
+          matchesArmySearch(language, army, state.inputValue),
+        )
+      }
       renderOption={(props, option) => {
         return (
-          <ListItem {...props}>
+          <ListItem {...props} key={option.army}>
             <ListItemIcon>
               <FactionIcon faction={option.army} />
             </ListItemIcon>
             <ListItemText>
-              <Typography>{option.army}</Typography>
+              <Typography>
+                {translateGameText(language, option.army)}
+              </Typography>
             </ListItemText>
           </ListItem>
         );

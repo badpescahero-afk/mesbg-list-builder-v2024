@@ -32,6 +32,7 @@ import { ModalTypes } from "../../../components/modal/modals.tsx";
 import { useApi } from "../../../hooks/cloud-sync/useApi.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateArmyNames } from "../../../i18n/army-names";
 import { useAppState } from "../../../state/app";
 import { useRecentGamesState } from "../../../state/recent-games";
 import { PastGame } from "../../../state/recent-games/history";
@@ -97,7 +98,7 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
             },
           )}
         </TableCell>
-        <TableCell>{row.armies}</TableCell>
+        <TableCell>{translateArmyNames(language, row.armies)}</TableCell>
         <TableCell>{row.points}</TableCell>
         <TableCell>
           {row.opponentName || (
@@ -215,7 +216,10 @@ const MatchRow: FunctionComponent<{ row: PastGame }> = ({ row }) => {
                     <TableCell>{row.throwingWeapons || "0"}</TableCell>
                     <TableCell>{row.scenarioPlayed}</TableCell>
                     <TableCell>
-                      {row.opponentArmies || (
+                      {translateArmyNames(
+                        language,
+                        row.opponentArmies || "",
+                      ) || (
                         <small>
                           <i>
                             <TranslatedText message="Unknown" />

@@ -8,8 +8,8 @@ import brokenSword from "../../assets/images/broken-sword.png";
 import { ModalTypes } from "../../components/modal/modals.tsx";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { TranslatedText } from "../../i18n/TranslatedText";
+import { ADAPTATION_ISSUES } from "../../project-links";
 import { useAppState } from "../../state/app";
-import { DISCORD_LINK } from "../home/Home.tsx";
 
 export const RosterNotFound = () => {
   const { t: translateUI } = useTranslation();
@@ -79,7 +79,9 @@ export const RosterNotFound = () => {
           <Button
             color="inherit"
             fullWidth
-            onClick={() => window.open(DISCORD_LINK)}
+            onClick={() =>
+              window.open(ADAPTATION_ISSUES, "_blank", "noopener,noreferrer")
+            }
           >
             <TranslatedText message="Ask for support" />
           </Button>

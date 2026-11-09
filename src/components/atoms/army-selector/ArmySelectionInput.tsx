@@ -3,6 +3,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import data from "../../../assets/data/mesbg_data.json";
 import { useTranslation } from "../../../i18n/LanguageContext";
+import { matchesArmySearch } from "../../../i18n/army-names";
+import { translateGameText } from "../../../i18n/game-text";
 import { ArmyType } from "../../../types/mesbg-data.types.ts";
 import { FactionIcon } from "../faction-icon/FactionIcon.tsx";
 
@@ -22,7 +24,11 @@ export const ArmySelectionInput = ({
   armyList,
   setArmyList,
 }: ArmySelectionInputProps) => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const label = (option: SelectedArmyList) =>
+    option.hero
+      ? `${translateGameText(language, option.hero)} (${translateGameText(language, option.army)})`
+      : translateGameText(language, option.army);
   const armyTypeOrder: Record<ArmyType, number> = {
     "Evil (Legacy)": 4,
     "Good (Legacy)": 2,
@@ -60,14 +66,15 @@ export const ArmySelectionInput = ({
     <Autocomplete
       disableClearable
       options={[...armyLists, ...heroesPerArmy]}
-      getOptionLabel={(option) => option.title}
+      getOptionLabel={label}
+      isOptionEqualToValue={(option, value) => option.title === value.title}
       renderOption={(props, option) => {
         return (
           <ListItem {...props} key={option.title}>
             <ListItemIcon>
               <FactionIcon faction={option.army} />
             </ListItemIcon>
-            <ListItemText>{option.title}</ListItemText>
+            <ListItemText>{label(option)}</ListItemText>
           </ListItem>
         );
       }}
@@ -80,13 +87,13 @@ export const ArmySelectionInput = ({
         if (state.inputValue.length === 0) return armyLists;
         const f = state.inputValue.toLowerCase();
         const lists = armyLists.filter(({ army }) =>
-          army.toLowerCase().includes(f),
+          matchesArmySearch(language, army, f),
         );
         if (f.length < 3) {
           return lists;
         }
         const heroes = heroesPerArmy.filter(({ hero }) =>
-          hero.toLowerCase().includes(f),
+          matchesArmySearch(language, hero, f),
         );
         return [...lists, ...heroes];
       }}

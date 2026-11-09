@@ -1,5 +1,37 @@
 // English source messages are keys; never use these labels as game identifiers.
 export const spanish = {
+  "Credits and legal notices": "Créditos y avisos legales",
+  "Unofficial Spanish adaptation": "Adaptación no oficial en español",
+  "Based on MESBG List Builder by Alex Cordaro, Marcel Hollink and the original contributors. This adaptation is maintained separately and is not endorsed by the original developers or by Games Workshop or other rights holders.":
+    "Basada en MESBG List Builder, de Alex Cordaro, Marcel Hollink y los colaboradores originales. Esta adaptación se mantiene de forma independiente y no cuenta con el respaldo de los desarrolladores originales, Games Workshop ni otros titulares de derechos.",
+  "Original project": "Proyecto original",
+  "Source code of this version": "Código fuente de esta versión",
+  "License (AGPL-3.0-only)": "Licencia (AGPL-3.0-only)",
+  "Legal notices": "Avisos legales",
+  "Report a problem with the Spanish adaptation":
+    "Comunicar un problema de la adaptación española",
+  "Adaptation notice — 2026-11-09: Spanish/English translation, rule explanations, configured Spanish cards, mobile layout, installable offline app and Spanish branding. Original game data and original cards are preserved.":
+    "Aviso de modificaciones — 2026-11-09: traducción español/inglés, explicaciones de reglas, cartas españolas configuradas, diseño móvil, app instalable sin conexión e identidad visual española. Se conservan los datos de juego y las cartas originales.",
+  "The software is provided under AGPL-3.0-only, without warranty. If you redistribute or deploy a modified version, preserve its license and credits, identify your changes and provide the corresponding source code to its users as required by the license.":
+    "El software se ofrece bajo AGPL-3.0-only, sin garantía. Si redistribuyes o publicas una versión modificada, conserva la licencia y los créditos, identifica tus cambios y facilita a sus usuarios el código fuente correspondiente según exige la licencia.",
+  "The software license does not grant rights to third-party rules, translations, artwork, photographs, logos or trademarks. These belong to their respective owners. Attribution, a disclaimer or free distribution does not replace any permission that may be required.":
+    "La licencia del software no concede derechos sobre reglas, traducciones, ilustraciones, fotografías, logotipos ni marcas de terceros. Pertenecen a sus respectivos titulares. Dar crédito, incluir un aviso o distribuir gratuitamente no sustituye los permisos que puedan ser necesarios.",
+  "Original project notices (original text)":
+    "Avisos del proyecto original (texto original)",
+  "Original creators": "Creadores originales",
+  "MESBG List Builder was created by Alex Cordaro and Marcel Hollink, with contributions from its community. Alex built the original application for the 2018 game, and Marcel adapted it for mobile devices.":
+    "MESBG List Builder fue creado por Alex Cordaro y Marcel Hollink, con aportaciones de su comunidad. Alex desarrolló la aplicación original para el juego de 2018 y Marcel la adaptó a dispositivos móviles.",
+  "MESBG List Builder ES builds on their work. Translation and additional features belong to this separate, unofficial adaptation; the original creators do not provide support for its changes.":
+    "MESBG List Builder ES parte de su trabajo. La traducción y las funciones añadidas pertenecen a esta adaptación independiente y no oficial; los creadores originales no ofrecen soporte para sus modificaciones.",
+  "Community and support": "Comunidad y soporte",
+  "Discord — original project community":
+    "Discord — comunidad del proyecto original",
+  "Email — original project support": "Correo — soporte del proyecto original",
+  "Patreon — support the original creators":
+    "Patreon — apoyar a los creadores originales",
+  "Report this error in the Spanish adaptation repository. Include what you were doing and a screenshot, without personal information.":
+    "Comunica este error en el repositorio de la adaptación española. Indica qué estabas haciendo y adjunta una captura sin información personal.",
+
   "Install app": "Instalar app",
   "Keep MESBG ES on your home screen and open it like an app.":
     "Añade MESBG ES a tu pantalla de inicio y ábrela como una app.",

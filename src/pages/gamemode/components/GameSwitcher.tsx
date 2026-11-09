@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
+import { translateGameText } from "../../../i18n/game-text";
 import { Game } from "../../../state/gamemode/gamestate";
 import { useRosterBuildingState } from "../../../state/roster-building";
 
@@ -18,7 +19,7 @@ interface GameSwitcherProps {
 }
 
 export const GameSwitcher = ({ games, activeGame }: GameSwitcherProps) => {
-  const { t: translateUI } = useTranslation();
+  const { t: translateUI, language } = useTranslation();
 
   const navigate = useNavigate();
   const screen = useScreenSize();
@@ -26,7 +27,7 @@ export const GameSwitcher = ({ games, activeGame }: GameSwitcherProps) => {
     Object.fromEntries(
       state.rosters.map(({ id, name, armyList }) => [
         id,
-        `${name} (${armyList})`,
+        `${name} (${translateGameText(language, armyList)})`,
       ]),
     ),
   );

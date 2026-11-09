@@ -11,6 +11,7 @@ import { profileData } from "../../assets/data";
 import { cardName } from "../../components/common/configured-cards/card-names";
 import { ModalTypes } from "../../components/modal/modals";
 import { useTranslation } from "../../i18n/LanguageContext";
+import { translateGameText } from "../../i18n/game-text";
 import { useAppState } from "../../state/app";
 
 const entries = Object.entries(profileData).flatMap(([origin, profiles]) =>
@@ -27,7 +28,7 @@ export function CardLibrary() {
       entries.filter(
         (entry) =>
           (!origin || entry.origin === origin) &&
-          `${entry.name} ${cardName(entry.name)} ${entry.origin}`
+          `${entry.name} ${cardName(entry.name)} ${entry.origin} ${translateGameText("es", entry.origin)}`
             .toLocaleLowerCase()
             .includes(query.trim().toLocaleLowerCase()),
       ),
@@ -60,7 +61,7 @@ export function CardLibrary() {
           <MenuItem value="">{t("All")}</MenuItem>
           {Object.keys(profileData).map((name) => (
             <MenuItem key={name} value={name}>
-              {name}
+              {translateGameText(language, name)}
             </MenuItem>
           ))}
         </TextField>
@@ -85,7 +86,7 @@ export function CardLibrary() {
               <span>
                 {language === "es" ? cardName(name) : name}
                 <Typography component="span" variant="caption" display="block">
-                  {name} · {origin}
+                  {name} · {translateGameText(language, origin)}
                 </Typography>
               </span>
             </Button>

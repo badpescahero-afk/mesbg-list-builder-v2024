@@ -16,6 +16,7 @@ import { armyListData } from "../../../assets/data.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useRosterSync } from "../../../hooks/cloud-sync/RosterCloudSyncProvider";
 import { useUpdateRosterVersion } from "../../../hooks/mutations/useUpdateRosterVersion.ts";
+import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { useAppState } from "../../../state/app";
@@ -70,7 +71,9 @@ export const RosterInformation: FunctionComponent<RosterInformationProps> = (
             color: ({ palette }) => palette.text.secondary,
           }}
         >
-          <small>{props.roster.armyList}</small>{" "}
+          <small>
+            <GameText text={props.roster.armyList} />
+          </small>{" "}
           {!!armyListData[props.roster.armyList]?.legacy && (
             <Typography
               className="middle-earth"

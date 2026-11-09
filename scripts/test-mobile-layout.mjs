@@ -75,14 +75,29 @@ try {
       exact: true,
     })
     .fill("Prueba móvil Gandalf");
-  await page.getByRole("combobox", { name: "Ejército", exact: true }).click();
+  const armyPicker = page.getByRole("combobox", {
+    name: "Ejército",
+    exact: true,
+  });
+  await armyPicker.fill("Atop the Walls");
   await page
     .getByRole("option")
-    .filter({ has: page.getByText("Atop the Walls", { exact: true }) })
+    .filter({ has: page.getByText("Sobre las murallas", { exact: true }) })
+    .waitFor();
+  await armyPicker.fill("Sobre las murallas");
+  await page
+    .getByRole("option")
+    .filter({ has: page.getByText("Sobre las murallas", { exact: true }) })
     .click();
   await page.locator('[data-test-id="dialog--submit-button"]').click();
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   await page.locator('[data-test-id="unit-card--w1-i0"]').waitFor();
+  const created = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("mlb-rosters")).state.rosters[0],
+  );
+  assert.equal(created.armyList, "Atop the Walls");
+  assert.equal(created.name, "Prueba móvil Gandalf");
+  assert.equal(created.metadata.points, 200);
   await setTimeout(700); // Let the route transition finish before measuring.
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));

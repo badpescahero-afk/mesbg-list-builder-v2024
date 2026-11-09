@@ -87,7 +87,8 @@
   al cambiar el diseño: mide el contenido visible, también si un contenedor
   oculta el desbordamiento, y comprueba que la lista guardada no cambie.
 
-- La app instalable usa el icono original y un manifiesto PWA. La instalación móvil
+- La app instalable usa el icono de la adaptación española, sin año y con una
+  bandera española, y un manifiesto PWA. Conservar los recursos originales. La instalación móvil
   requiere HTTPS; un enlace localhost del entorno no es una URL accesible al usuario.
 - El service worker solo se registra en producción y almacena el shell de la app.
   Las imágenes se guardan al consultarlas, con un máximo de 32 MiB. No precachear
@@ -99,3 +100,16 @@
   un perfil persistente de Chromium aislado en un directorio temporal, comprueba
   los requisitos de instalación y desconecta la red antes de abrir/exportar una lista.
   Detiene únicamente su propio servidor en el puerto 5200 al terminar.
+
+## Identidad, créditos y nombres de ejércitos
+
+- Mostrar nombres de ejércitos y facciones en español mediante el catálogo, con
+  búsqueda por el nombre español o canónico. Conservar los valores de selectores,
+  claves, rutas de recursos y datos exportados/importados. Los nombres que el
+  usuario da a sus listas o grupos se mantienen literalmente.
+- Identificar esta versión como adaptación no oficial, conservar LICENSE y
+  NOTICE.md, y mantener enlaces visibles al código correspondiente y la licencia.
+  Discord, Patreon y correo originales deben identificarse como canales originales;
+  las incidencias de esta adaptación van a su propio repositorio.
+- La atribución y la licencia del software no otorgan permisos sobre contenido de
+  terceros. No presentar los avisos como una autorización de dichos titulares.

@@ -9,6 +9,7 @@ import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { RosterNotFound } from "../../../pages/not-found/RosterNotFound.tsx";
 import { RosterBreadcrumbs } from "../../../pages/roster/RosterBreadcrumbs.tsx";
+import { ADAPTATION_ISSUES } from "../../../project-links";
 import { useUserPreferences } from "../../../state/preference";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { CustomAlert } from "../../atoms/alert/CustomAlert.tsx";
@@ -55,7 +56,7 @@ const PrintablePdf = () => {
               <Typography>
                 <TranslatedText message="Some of the units selected in your roster have no registered profile data. If you see this message, please let us know via" />{" "}
                 <a
-                  href="mailto:support@mesbg-list-builder.com?subject=MESBG List Builder (v2018) - Bug/Correction"
+                  href={ADAPTATION_ISSUES}
                   style={{
                     color:
                       themeContext.mode === "dark"
@@ -63,7 +64,7 @@ const PrintablePdf = () => {
                         : theme.palette.secondary.dark,
                   }}
                 >
-                  support@mesbg-list-builder.com
+                  <TranslatedText message="Report a problem with the Spanish adaptation" />
                 </a>
                 .
               </Typography>

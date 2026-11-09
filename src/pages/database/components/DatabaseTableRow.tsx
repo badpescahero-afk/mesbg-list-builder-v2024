@@ -67,7 +67,7 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
             )}
           {row.name}
         </TableCell>
-        <TableCell>{row.profile_origin}</TableCell>
+        <TableCell>{translateGameText(language, row.profile_origin)}</TableCell>
         <TableCell align="center">
           <SquareIconButton
             icon={<BsFillPersonVcardFill />}
@@ -196,7 +196,11 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                 </ExtraInfoRow>
               )}
               <ExtraInfoRow title={translateUI("Available Army Lists")}>
-                <Typography>{row.army_list.join(", ")}</Typography>
+                <Typography>
+                  {row.army_list
+                    .map((army) => translateGameText(language, army))
+                    .join(", ")}
+                </Typography>
               </ExtraInfoRow>
               {row.profile.wargear.length > 0 && (
                 <ExtraInfoRow title={translateUI("Wargear")}>

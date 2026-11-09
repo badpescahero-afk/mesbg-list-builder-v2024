@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { FunctionComponent } from "react";
 import { armyListData } from "../../../assets/data.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { isSelectedUnit, Roster } from "../../../types/roster.ts";
@@ -113,7 +114,9 @@ export const RosterSummaryCard: FunctionComponent<RosterSummaryCardProps> = ({
                     mode === "dark" ? palette.grey.A400 : palette.grey.A700,
                 }}
               >
-                <i>{roster.armyList}</i>
+                <i>
+                  <GameText text={roster.armyList} />
+                </i>
               </Typography>
             </center>
 
