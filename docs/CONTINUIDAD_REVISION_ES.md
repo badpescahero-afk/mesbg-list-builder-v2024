@@ -29,9 +29,9 @@ este hilo aparecen automáticamente en el siguiente.
 - Mantener las cartas españolas configuradas, los originales, exportaciones,
   explicaciones de reglas, PWA, créditos y ajustes móviles ya implementados.
 - Leer `AGENTS.md` antes de editar.
-- Corrección explícita del usuario: personaje **Helm Mano de Martillo**, habilidad
-  **Manomartillo**; magia **Compel → Control**. No unificar el nombre propio y la
-  habilidad por compartir la palabra inglesa Hammerhand.
+- Nombres confirmados por el usuario: personaje **Helm Manomartillo**, habilidad
+  **Manomartillo**; magia **Compel → Control**. Mantener la grafía unida del
+  nombre del personaje.
 
 ## Referencia accesible y revisión realizada
 

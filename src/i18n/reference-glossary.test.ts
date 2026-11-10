@@ -38,16 +38,16 @@ describe("terminology checked against the supplied reference", () => {
     );
   });
 
-  it("distinguishes Helm's character name from his ability and uses Control for Compel", () => {
+  it("uses the confirmed Helm Manomartillo name and Control for Compel", () => {
     expect(translateGameText("es", "Helm Hammerhand")).toBe(
-      "Helm Mano de Martillo",
+      "Helm Manomartillo",
     );
     expect(translateGameText("es", "Helm Hammerhand, King of Rohan")).toBe(
-      "Helm Mano de Martillo, rey de Rohan",
+      "Helm Manomartillo, rey de Rohan",
     );
     expect(
       translateGameText("es", "Helm Hammerhand, Wraith of the Hornburg"),
-    ).toBe("Helm Mano de Martillo, espectro de Cuernavilla");
+    ).toBe("Helm Manomartillo, espectro de Cuernavilla");
     expect(translateGameText("es", "The Hammerhand")).toBe("Manomartillo");
     expect(translateGameText("es", "Compel")).toBe("Control");
     expect(translateGameText("en", "Helm Hammerhand")).toBe("Helm Hammerhand");
