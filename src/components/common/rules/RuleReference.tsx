@@ -10,6 +10,7 @@ import { LanguageContext } from "../../../i18n/LanguageContext";
 import { translateGameText } from "../../../i18n/game-text";
 import { Language } from "../../../i18n/locale";
 import { ruleDescription } from "./rule-description";
+import { ruleErratum } from "./rule-errata";
 import "./rule-reference.css";
 
 // Captures use plain text; interactive previews expose keyboard/touch controls.
@@ -34,6 +35,7 @@ export function RuleReference({
   const [open, setOpen] = useState(false);
   const id = useId();
   const rule = ruleDescription(name);
+  const erratum = ruleErratum(rule?.name || name, language);
   const text = description || rule?.description;
   const title = label || translateGameText(language, name);
   const kind = type || rule?.active_passive;
@@ -90,6 +92,14 @@ export function RuleReference({
                 ? "Los datos originales no incluyen una explicación de esta regla."
                 : "The original data does not include a description of this rule."}
             </p>
+          )}
+          {erratum && (
+            <aside aria-label={erratum.source}>
+              <p>
+                <b>{erratum.source}</b>
+              </p>
+              <p>{erratum.text}</p>
+            </aside>
           )}
         </DialogContent>
         <DialogActions>

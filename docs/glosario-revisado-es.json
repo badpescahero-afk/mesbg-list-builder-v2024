@@ -1,0 +1,506 @@
+[
+  {
+    "source": "Expert Shot",
+    "previous": "Tirador certero",
+    "target": "Tirador experto",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 126
+  },
+  {
+    "source": "Sharpshooter",
+    "previous": "Tirador certero",
+    "target": "Tirador de primera",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 130
+  },
+  {
+    "source": "Backstabbers",
+    "previous": "Ataque por la espalda",
+    "target": "Traicionero",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 125
+  },
+  {
+    "source": "Bane of Kings",
+    "previous": "Perdición de reyes",
+    "target": "Azote de reyes",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 125
+  },
+  {
+    "source": "Bane Weapons",
+    "previous": "Armas de perdición",
+    "target": "Armas exterminadoras",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 125
+  },
+  {
+    "source": "Blades of the Dead",
+    "previous": "Espadas de los muertos",
+    "target": "Hojas de los muertos",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 125
+  },
+  {
+    "source": "Burly",
+    "previous": "Fornido",
+    "target": "Cachas",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 125
+  },
+  {
+    "source": "Cave Dweller",
+    "previous": "Morador de las cavernas",
+    "target": "Habitante de las cavernas",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 126
+  },
+  {
+    "source": "Fearless",
+    "previous": "Intrépido",
+    "target": "Sin miedo",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 126
+  },
+  {
+    "source": "Fell Sight",
+    "previous": "Visión siniestra",
+    "target": "Visión maligna",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 126
+  },
+  {
+    "source": "General Hunter",
+    "previous": "Cazador de generales",
+    "target": "Caza generales",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 127
+  },
+  {
+    "source": "Master of Battle (X)",
+    "previous": "Maestro de la batalla (X)",
+    "target": "Maestro de batalla (X)",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 128
+  },
+  {
+    "source": "Mountain Dweller",
+    "previous": "Morador de las montañas",
+    "target": "Montañero",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 129
+  },
+  {
+    "source": "Resistant to Magic",
+    "previous": "Resistente a la magia",
+    "target": "Resistencia a la magia",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 129
+  },
+  {
+    "source": "Set Ablaze",
+    "previous": "En llamas",
+    "target": "Incendiar",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 129
+  },
+  {
+    "source": "Spectral Walk",
+    "previous": "Paso espectral",
+    "target": "Marcha espectral",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 130
+  },
+  {
+    "source": "Stalk Unseen",
+    "previous": "Acechar sin ser visto",
+    "target": "Indetectable",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 130
+  },
+  {
+    "source": "Swift Movement",
+    "previous": "Movimiento veloz",
+    "target": "Movimiento rápido",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 130
+  },
+  {
+    "source": "Sworn Protector (X)",
+    "previous": "Protector juramentado (X)",
+    "target": "Protector jurado (X)",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 131
+  },
+  {
+    "source": "Throw Stones (X)",
+    "previous": "Lanzar piedras (X)",
+    "target": "Arrojar piedras (X)",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 131
+  },
+  {
+    "source": "Timid",
+    "previous": "Asustadiza",
+    "target": "Tímido",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 131
+  },
+  {
+    "source": "Unyielding Combat Stance",
+    "previous": "Postura de combate inamovible",
+    "target": "Postura equilibrada de combate",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 131
+  },
+  {
+    "source": "Woodland Creature",
+    "previous": "Criatura de los bosques",
+    "target": "Criatura de la naturaleza",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 132
+  },
+  {
+    "source": "Arcing Shot",
+    "previous": "Disparo en parábola",
+    "target": "Disparo en arco",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 142
+  },
+  {
+    "source": "Direct Shot",
+    "previous": "Disparo directo",
+    "target": "Tiro directo",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 142
+  },
+  {
+    "source": "Aura of Dismay",
+    "previous": "Aura de desaliento",
+    "target": "Aura de consternación",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 117
+  },
+  {
+    "source": "Banishment",
+    "previous": "Destierro",
+    "target": "Desterrar",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 117
+  },
+  {
+    "source": "Bladewrath",
+    "previous": "Furia de las espadas",
+    "target": "Filos encantados",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 117
+  },
+  {
+    "source": "Call Winds",
+    "previous": "Invocar los vientos",
+    "target": "Llamar a los vientos",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 117
+  },
+  {
+    "source": "Collapse Rocks",
+    "previous": "Derrumbar rocas",
+    "target": "Derrumbar",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 118
+  },
+  {
+    "source": "Compel",
+    "previous": "Obligar",
+    "target": "Control",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 118
+  },
+  {
+    "source": "Drain Courage",
+    "previous": "Drenar el valor",
+    "target": "Drenar coraje",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 118
+  },
+  {
+    "source": "Enrage Beast",
+    "previous": "Enfurecer bestia",
+    "target": "Enfurecer bestias",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 118
+  },
+  {
+    "source": "Flameburst",
+    "previous": "Estallido de llamas",
+    "target": "Llamarada",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 118
+  },
+  {
+    "source": "Fog of Disarray",
+    "previous": "Niebla de desconcierto",
+    "target": "Niebla de confusión",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 119
+  },
+  {
+    "source": "Foil Magic",
+    "previous": "Desbaratar magia",
+    "target": "Dispersar magia",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 119
+  },
+  {
+    "source": "Fortify Spirit",
+    "previous": "Fortalecer el espíritu",
+    "target": "Fortificar espíritu",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 119
+  },
+  {
+    "source": "Nature's Wrath",
+    "previous": "Ira de la naturaleza",
+    "target": "La ira de la naturaleza",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 119
+  },
+  {
+    "source": "Panic Steed",
+    "previous": "Aterrorizar montura",
+    "target": "Enloquecer montura",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 119
+  },
+  {
+    "source": "Paralyse",
+    "previous": "Paralizar",
+    "target": "Petrificar",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 119
+  },
+  {
+    "source": "Renew",
+    "previous": "Renovar",
+    "target": "Sanar",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 120
+  },
+  {
+    "source": "Wrath of Bruinen",
+    "previous": "Ira del Bruinen",
+    "target": "La ira del Bruinen",
+    "document": "Reglamento Traducido Pucela.pdf",
+    "page": 121
+  },
+  {
+    "source": "The Fellowship",
+    "previous": "La Comunidad",
+    "target": "La Compañía del Anillo",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 212
+  },
+  {
+    "source": "Breaking of the Fellowship",
+    "previous": "La disolución de la Comunidad",
+    "target": "La disolución de la Compañía",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 218
+  },
+  {
+    "source": "Erebor Reclaimed",
+    "previous": "Erebor recuperado",
+    "target": "Erebor reclamado",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 272
+  },
+  {
+    "source": "Rangers of Mirkwood",
+    "previous": "Montaraces del Bosque Negro",
+    "target": "Exploradores del Bosque Negro",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 284
+  },
+  {
+    "source": "Muster of Isengard",
+    "previous": "La leva de Isengard",
+    "target": "Las fuerzas de Isengard",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 546
+  },
+  {
+    "source": "Corsair Fleet",
+    "previous": "Flota corsaria",
+    "target": "Flotas corsarias",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 558
+  },
+  {
+    "source": "Pits of Dol Guldur",
+    "previous": "Mazmorras de Dol Guldur",
+    "target": "Los pozos de Dol Guldur",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 562
+  },
+  {
+    "source": "Rise of the Necromancer",
+    "previous": "El ascenso del Nigromante",
+    "target": "El alzamiento del Nigromante",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 566
+  },
+  {
+    "source": "Arathorn, Chieftain of the Dunedain",
+    "previous": "Arathorn, capitán de los Dúnedain",
+    "target": "Arathorn, caudillo de los Dúnedain",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 132
+  },
+  {
+    "source": "Beregond, Guard of the Citadel",
+    "previous": "Beregond, guardia de la Ciudadela",
+    "target": "Beregond, guardián de la Ciudadela",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 89
+  },
+  {
+    "source": "Brorgir the Conjurer",
+    "previous": "Brórgîr el Conjurador",
+    "target": "Brórgîr el Hechicero",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 465
+  },
+  {
+    "source": "Buhrdur, Hill Troll Chieftain",
+    "previous": "Buhrdûr, jefe de los trolls de las colinas",
+    "target": "Buhrdûr, caudillo troll de las colinas",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 364
+  },
+  {
+    "source": "Cirion, Lieutenant of Amon Barad",
+    "previous": "Cirion, teniente de Amon Barad",
+    "target": "Cirion, lugarteniente de Amon Barad",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 92
+  },
+  {
+    "source": "Clansman of Lamedon",
+    "previous": "Hombre de clan de Lamedon",
+    "target": "Montañés de Lamedon",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 103
+  },
+  {
+    "source": "Dalamyr, Fleetmaster of Umbar",
+    "previous": "Dalamyr, almirante de Umbar",
+    "target": "Dalamyr, capitán de la flota de Umbar",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 453
+  },
+  {
+    "source": "Deorwine, Chief of the King's Knights",
+    "previous": "Déorwine, jefe de los caballeros del rey",
+    "target": "Déorwine, caudillo de los caballeros del rey",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 72
+  },
+  {
+    "source": "Druzhag the Beastcaller",
+    "previous": "Drûzhag, invocador de bestias",
+    "target": "Drûzhag, el que llama a las bestias",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 421
+  },
+  {
+    "source": "Fell Warg",
+    "previous": "Huargo salvaje de las Sombras",
+    "target": "Huargo feroz",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 482
+  },
+  {
+    "source": "Frida Tallspear",
+    "previous": "Frida Lanza Alta",
+    "target": "Frida Lanzalarga",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 399
+  },
+  {
+    "source": "Grinnah, Goblin Jailer",
+    "previous": "Grinnah, carcelero trasgo",
+    "target": "Grinnah, el trasgo carcelero",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 500
+  },
+  {
+    "source": "Holfoot Bracegirdle, Shirriff-Leader",
+    "previous": "Holfoot Ciñatiesa, jefe de oficiales",
+    "target": "Holfoot Ciñatiesa, oficial jefe",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 27
+  },
+  {
+    "source": "Kardush the Firecaller",
+    "previous": "Kardûsh, invocador del fuego",
+    "target": "Kardûsh el Incendiario",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 356
+  },
+  {
+    "source": "Mirkwood Ranger",
+    "previous": "Montaraz del Bosque Negro",
+    "target": "Explorador del Bosque Negro",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 163
+  },
+  {
+    "source": "Mirkwood Ranger Captain",
+    "previous": "Capitán montaraz del Bosque Negro",
+    "target": "Capitán explorador del Bosque Negro",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 163
+  },
+  {
+    "source": "Olwyn, Shieldmaiden of Rohan",
+    "previous": "Olwyn, doncella guerrera de Rohan",
+    "target": "Olwyn, escudera de Rohan",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 67
+  },
+  {
+    "source": "Rowan Thistlewood",
+    "previous": "Rowan Maderacardo",
+    "target": "Rowan Bosquecardo",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 406
+  },
+  {
+    "source": "Suladan, The Serpent Lord",
+    "previous": "Suladân, señor de la Serpiente",
+    "target": "Suladân, el Señor Serpiente",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 440
+  },
+  {
+    "source": "Tauriel, Ranger of Mirkwood",
+    "previous": "Tauriel, montaraz del Bosque Negro",
+    "target": "Tauriel, exploradora del Bosque Negro",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 159
+  },
+  {
+    "source": "Thrydan Wolfsbane",
+    "previous": "Thrydan Matabobos",
+    "target": "Thrydan Matalobos",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 398
+  },
+  {
+    "source": "Goroth, Captain of the Morannon",
+    "previous": "Goroth, capitán de Morannon",
+    "target": "Goroth, capitán de los Morannon",
+    "document": "MESBG perfiles unidos.pdf",
+    "page": 348
+  }
+]

@@ -44,7 +44,7 @@ describe("army presentation", () => {
   });
   it("translates allied army labels while preserving English and unknown names", () => {
     expect(translateArmyNames("es", "The Fellowship, Rivendell")).toBe(
-      "La Comunidad, Rivendel",
+      "La Compañía del Anillo, Rivendel",
     );
     expect(translateArmyNames("en", "The Fellowship, Rivendell")).toBe(
       "The Fellowship, Rivendell",

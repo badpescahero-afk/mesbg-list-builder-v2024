@@ -126,3 +126,19 @@
   sincronización. No basta con habilitar el código o copiar claves del original.
 - Validar `node scripts/test-local-mode.mjs` (perfil de navegador aislado, cierre y
   reapertura, conservación de datos y ausencia de peticiones de autenticación).
+
+## Referencia española y FAQ contrastadas
+
+- Consultar `docs/REVISION_REFERENCIA_ES.md` y el glosario con referencias de página
+  `docs/glosario-revisado-es.json` antes de cambiar los términos revisados.
+- La referencia completa está fuera de Git en `/workspace/mesbg-reference/`.
+  No incorporarla al repositorio público ni al paquete de la aplicación.
+- Distinguir las FAQ identificadas como oficiales de julio de 2026 de la FAQ
+  comunitaria no oficial. El manual extraído tiene columnas desordenadas y el
+  prólogo de perfiles declara modificaciones del traductor: no importar sus
+  estadísticas ni reglas sin contraste.
+- Las notas fechadas de erratas de consulta se mantienen separadas en
+  `rule-errata.ts`, sin modificar los datos ni el motor. No usar coincidencias de
+  nombres para atribuir a un perfil una regla exclusiva de otro.
+- Al revisar vocabulario/FAQ, ejecutar también `reference-glossary.test.ts`,
+  `faq-reference.test.ts` y las pruebas de `components/common/rules`.
