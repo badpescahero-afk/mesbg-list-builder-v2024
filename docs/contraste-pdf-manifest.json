@@ -1,0 +1,62 @@
+{
+  "comparedPages": 825,
+  "textEquivalentPages": 825,
+  "normalization": "Remove whitespace only; compare each page in document order.",
+  "files": [
+    {
+      "file": "01_MESBG_Perfiles_pag_001-069.pdf",
+      "pages": 69,
+      "sha256": "444c3496772b2ccb023472194ed16fccba8b0e84b42432e13be7d451cb7a8232"
+    },
+    {
+      "file": "02_MESBG_Perfiles_pag_070-137.pdf",
+      "pages": 68,
+      "sha256": "184b1f1a5472f5d74676116c7c329e0d62d6c62cfdf13b488e446008a13b16f9"
+    },
+    {
+      "file": "03_MESBG_Perfiles_pag_138-206.pdf",
+      "pages": 69,
+      "sha256": "1ba37c0416fae79f6952c7ce9f1c33aaf51a03827283744b70c43b31f4e16b94"
+    },
+    {
+      "file": "04_MESBG_Perfiles_pag_207-274.pdf",
+      "pages": 68,
+      "sha256": "b5242f3dcb939c54dcc2ac97821b798ce36ed5beda96c778f883cec914718562"
+    },
+    {
+      "file": "05_MESBG_Perfiles_pag_275-343.pdf",
+      "pages": 69,
+      "sha256": "90f157b5bf4e22f45409ea9dd02c97bfeb7d2f53587a42b516c847d43556dafe"
+    },
+    {
+      "file": "06_MESBG_Perfiles_pag_344-411.pdf",
+      "pages": 68,
+      "sha256": "146a533db192b37544d8af44144864b868663e898499d9473bdcfd80f41c0ec5"
+    },
+    {
+      "file": "07_MESBG_Perfiles_pag_412-480.pdf",
+      "pages": 69,
+      "sha256": "510d6aa0fc98cd69e21e4f6ed8e9083e9d1ccc63022dd7b3509644f652994a3a"
+    },
+    {
+      "file": "08_MESBG_Perfiles_pag_481-548.pdf",
+      "pages": 68,
+      "sha256": "be58e9e2ce98fd3c847fff4c739cee011936c4851e39cf85bad0e67542af6586"
+    },
+    {
+      "file": "09_MESBG_Perfiles_pag_549-617.pdf",
+      "pages": 69,
+      "sha256": "855977468093b6075ad7d14c5af6cc9cf0a3280cf32b618aca2bdcaa9a9ca7e6"
+    },
+    {
+      "file": "10_Reglamento_pag_001-092.pdf",
+      "pages": 92,
+      "sha256": "ec149148b3bbfc72e92659b3925e92e80e11c220e2c716a1f43e6b11353a6d5b"
+    },
+    {
+      "file": "11_Reglamento_pag_093-183_y_FAQs.pdf",
+      "pages": 116,
+      "sha256": "71c55f4252b0ec8d5dfe1b8573641d7094382f32901da7a3d793760507b5c302"
+    }
+  ]
+}

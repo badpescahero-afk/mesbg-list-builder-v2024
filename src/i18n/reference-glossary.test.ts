@@ -37,4 +37,22 @@ describe("terminology checked against the supplied reference", () => {
       "Maestro de batalla (3+)",
     );
   });
+
+  it("keeps spell effects under the correct heading across the PDF columns", () => {
+    // Visual check: Reglamento pp. 117 and 120, part 11 pp. 25 and 28.
+    // Plain extraction interleaves these columns; nearby headings are not owners.
+    const explanation = (name: string) =>
+      translateGameText(
+        "es",
+        keywords.find((rule) => rule.name === name)!.description,
+      );
+    expect(explanation("Call Winds")).toContain('D3+3"');
+    expect(explanation("Call Winds")).not.toContain("pruebas de Coraje");
+    expect(explanation("Aura of Dismay")).toContain("pruebas de Coraje");
+    expect(explanation("Aura of Dismay")).not.toContain("D3+3");
+    expect(explanation("Renew")).toContain("1 Herida perdida");
+    expect(explanation("Terrifying Aura")).toContain("regla Terror");
+    expect(explanation("Transfix")).toContain("Hasta la fase final del turno");
+    expect(explanation("Transfix")).toContain("no puede efectuar golpes");
+  });
 });

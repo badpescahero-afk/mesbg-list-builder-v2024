@@ -37,8 +37,13 @@ El PDF superaba el límite de transferencia, pero el usuario aportó después
 
 - Texto completo local: `/workspace/mesbg-reference/referencia.txt`.
 - Índice de páginas: `/workspace/mesbg-reference/pages.json`.
+- Los 11 PDF posteriores están preservados en `/workspace/mesbg-reference/pdfs/`.
+- Contraste completo de texto y revisión visual selectiva: `docs/CONTRASTE_PDF_ES.md`.
+  Las 825 páginas coinciden con el TXT. Se añaden 17 términos (36 entradas de
+  catálogo) y se documentan diferencias pendientes en Petrificar, Control y
+  Protección de los Valar. No importar sus condiciones sin contraste normativo.
 - Informe, alcance y discrepancias: `docs/REVISION_REFERENCIA_ES.md`.
-- Glosario contrastado de 72 términos: `docs/glosario-revisado-es.json`.
+- Glosario contrastado de 89 términos: `docs/glosario-revisado-es.json`.
 - 177 entradas de traducción corregidas. Datos originales y motor intactos.
 - 24 pruebas de hechos de las FAQ; notas bilingües fechadas para seis reglas de
   movimiento en sus ventanas de explicación.

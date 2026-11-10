@@ -2,6 +2,11 @@
 
 Fecha: 10 de noviembre de 2026. Rama: `feature/traduccion-es`.
 
+Este informe describe la revisión inicial del TXT. La entrega posterior de los
+once PDF se contrasta en [CONTRASTE_PDF_ES.md](CONTRASTE_PDF_ES.md), con 17 términos
+adicionales y discrepancias confirmadas visualmente. El glosario compartido
+contiene ahora 89 entradas.
+
 ## Fuente y alcance verificable
 
 Referencia recibida: `MESBG_Codex_TEXTO_SIN_IMAGENES.txt`, 2.100.958 bytes.
