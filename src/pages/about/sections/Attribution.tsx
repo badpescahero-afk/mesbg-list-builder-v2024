@@ -19,6 +19,11 @@ export const Attribution = ({ full = false }: { full?: boolean }) => {
       <Typography variant="h5">{t("Unofficial Spanish adaptation")}</Typography>
       <Typography sx={{ my: 1 }}>
         {t(
+          "This version was translated and edited by Pesca, from the Spanish MESBG community.",
+        )}
+      </Typography>
+      <Typography sx={{ my: 1 }}>
+        {t(
           "Based on MESBG List Builder by Alex Cordaro, Marcel Hollink and the original contributors. This adaptation is maintained separately and is not endorsed by the original developers or by Games Workshop or other rights holders.",
         )}
       </Typography>

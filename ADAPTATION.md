@@ -1,5 +1,7 @@
 # MESBG List Builder ES — adaptación no oficial
 
+Versión traducida y editada por **Pesca, de la comunidad española de MESBG**.
+
 Aviso de modificaciones: 2026-11-09.
 
 Basada en MESBG List Builder, de Alex Cordaro, Marcel Hollink y sus colaboradores.

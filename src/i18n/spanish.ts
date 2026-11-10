@@ -10,6 +10,8 @@ export const spanish = {
 
   "Credits and legal notices": "Créditos y avisos legales",
   "Unofficial Spanish adaptation": "Adaptación no oficial en español",
+  "This version was translated and edited by Pesca, from the Spanish MESBG community.":
+    "Versión traducida y editada por Pesca, de la comunidad española de MESBG.",
   "Based on MESBG List Builder by Alex Cordaro, Marcel Hollink and the original contributors. This adaptation is maintained separately and is not endorsed by the original developers or by Games Workshop or other rights holders.":
     "Basada en MESBG List Builder, de Alex Cordaro, Marcel Hollink y los colaboradores originales. Esta adaptación se mantiene de forma independiente y no cuenta con el respaldo de los desarrolladores originales, Games Workshop ni otros titulares de derechos.",
   "Original project": "Proyecto original",

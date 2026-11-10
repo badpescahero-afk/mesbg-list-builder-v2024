@@ -1,4 +1,6 @@
 > **MESBG List Builder ES — adaptación no oficial en español.**
+>
+> Versión traducida y editada por **Pesca, de la comunidad española de MESBG**.
 > Basada en el trabajo de Alex Cordaro, Marcel Hollink y sus colaboradores.
 > Consulta los [créditos, cambios fechados y avisos de esta adaptación](ADAPTATION.md),
 > la [licencia AGPL-3.0-only](LICENSE) y los [avisos originales](NOTICE.md).
