@@ -142,3 +142,14 @@
   nombres para atribuir a un perfil una regla exclusiva de otro.
 - Al revisar vocabulario/FAQ, ejecutar también `reference-glossary.test.ts`,
   `faq-reference.test.ts` y las pruebas de `components/common/rules`.
+
+## Nombres propios frente a habilidades
+
+- Por corrección expresa del usuario, el personaje es **Helm Mano de Martillo**,
+  también en sus perfiles de rey de Rohan y espectro de Cuernavilla. Su habilidad
+  `The Hammerhand` se llama **Manomartillo**. No usar el nombre de la habilidad
+  para sustituir el nombre propio, aunque el PDF traduzca ambos igual.
+- `Compel` se presenta como **Control**, nunca como «Obligar» en el nombre del
+  poder. El verbo obligar en la prosa no es por sí mismo un nombre de magia.
+- Estas indicaciones prevalecen sobre la grafía del PDF; conservar las claves
+  inglesas y documentar las excepciones en el glosario de referencia.

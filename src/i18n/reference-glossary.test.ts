@@ -38,6 +38,23 @@ describe("terminology checked against the supplied reference", () => {
     );
   });
 
+  it("distinguishes Helm's character name from his ability and uses Control for Compel", () => {
+    expect(translateGameText("es", "Helm Hammerhand")).toBe(
+      "Helm Mano de Martillo",
+    );
+    expect(translateGameText("es", "Helm Hammerhand, King of Rohan")).toBe(
+      "Helm Mano de Martillo, rey de Rohan",
+    );
+    expect(
+      translateGameText("es", "Helm Hammerhand, Wraith of the Hornburg"),
+    ).toBe("Helm Mano de Martillo, espectro de Cuernavilla");
+    expect(translateGameText("es", "The Hammerhand")).toBe("Manomartillo");
+    expect(translateGameText("es", "Compel")).toBe("Control");
+    expect(translateGameText("en", "Helm Hammerhand")).toBe("Helm Hammerhand");
+    expect(translateGameText("en", "The Hammerhand")).toBe("The Hammerhand");
+    expect(translateGameText("en", "Compel")).toBe("Compel");
+  });
+
   it("keeps spell effects under the correct heading across the PDF columns", () => {
     // Visual check: Reglamento pp. 117 and 120, part 11 pp. 25 and 28.
     // Plain extraction interleaves these columns; nearby headings are not owners.

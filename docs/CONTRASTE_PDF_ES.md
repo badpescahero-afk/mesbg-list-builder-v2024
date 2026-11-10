@@ -44,26 +44,32 @@ Se añaden **17 nombres de presentación** al glosario, con el PDF concreto y su
 página local además de la página original. Afectan a **36 entradas** de nombres,
 equipo y descripciones. El glosario acumula ahora **89 entradas**.
 
-| Clave original conservada               | Presentación revisada                      | Página original de perfiles |
-| --------------------------------------- | ------------------------------------------ | --------------------------: |
-| Armoured horse                          | Caballo con barda                          |                          64 |
-| Feralof                                 | Felaróf                                    |                          78 |
-| Helm Hammerhand                         | Helm Manomartillo                          |                          64 |
-| Helm Hammerhand, King of Rohan          | Helm Manomartillo, rey de Rohan            |                          64 |
-| Helm Hammerhand, Wraith of the Hornburg | Helm Manomartillo, espectro de Cuernavilla |                          70 |
-| Grim Hammer Captain                     | Capitán Martillo Siniestro                 |                         181 |
-| Grim Hammer Warrior                     | Guerrero Martillo Siniestro                |                         269 |
-| Vault Warden Team                       | Equipo de Guardia de la Cámara             |                         205 |
-| Foe Spear Wielder                       | Lancero de Cámara                          |                         205 |
-| Iron Shield Bearer                      | Escudero de Cámara                         |                         205 |
-| Foe Spear                               | Lanza de Cámara                            |                         205 |
-| Iron Shield                             | Escudo torreón                             |                         205 |
-| Thrain the Broken                       | Thráin el Atormentado                      |                          54 |
-| Samwise the Brave                       | Samsagaz el Bravo                          |                          23 |
+| Clave original conservada               | Presentación revisada                          | Página original de perfiles |
+| --------------------------------------- | ---------------------------------------------- | --------------------------: |
+| Armoured horse                          | Caballo con barda                              |                          64 |
+| Feralof                                 | Felaróf                                        |                          78 |
+| Helm Hammerhand                         | Helm Mano de Martillo                          |                          64 |
+| Helm Hammerhand, King of Rohan          | Helm Mano de Martillo, rey de Rohan            |                          64 |
+| Helm Hammerhand, Wraith of the Hornburg | Helm Mano de Martillo, espectro de Cuernavilla |                          70 |
+| Grim Hammer Captain                     | Capitán Martillo Siniestro                     |                         181 |
+| Grim Hammer Warrior                     | Guerrero Martillo Siniestro                    |                         269 |
+| Vault Warden Team                       | Equipo de Guardia de la Cámara                 |                         205 |
+| Foe Spear Wielder                       | Lancero de Cámara                              |                         205 |
+| Iron Shield Bearer                      | Escudero de Cámara                             |                         205 |
+| Foe Spear                               | Lanza de Cámara                                |                         205 |
+| Iron Shield                             | Escudo torreón                                 |                         205 |
+| Thrain the Broken                       | Thráin el Atormentado                          |                          54 |
+| Samwise the Brave                       | Samsagaz el Bravo                              |                          23 |
 
 También se armonizan las opciones **Pies de Fuego con barda** (p. 59),
 **Crinblanca con barda** (p. 57) y la variante plural **Guerreros Martillo
 Siniestro** (composición, p. 269). Sus claves originales también se conservan.
+
+El usuario corrigió posteriormente la denominación del personaje: **Helm Mano
+de Martillo**, mientras que su habilidad **The Hammerhand** es **Manomartillo**.
+Esta indicación prevalece sobre «Helm Manomartillo» en el PDF. Se han corregido
+los tres nombres de perfil y las referencias al personaje en otras reglas; no se
+ha renombrado la habilidad. **Compel** se presenta como **Control**.
 
 La página 78 contiene «Felaróf» en el equipo y «FÉLAROF» en el encabezado de la
 montura: se adopta la primera grafía sin modificar la clave `Feralof`. El perfil
@@ -114,8 +120,10 @@ perfiles españoles no se han importado al motor ni a las cartas originales.
 
 ## Validación y alcance
 
-- 70 pruebas unitarias, incluidas las 89 entradas del glosario, los hechos de las
+- 71 pruebas unitarias, incluidas las 89 entradas del glosario, los hechos de las
   FAQ y los límites entre efectos mágicos de columnas distintas.
+- Comprobación en navegador móvil: Saruman muestra Control en la carta y en su
+  explicación; Helm Mano de Martillo conserva Manomartillo como habilidad.
 - Compilación de producción mediante `npm run build:standalone`, que ejecuta
   `npm run build`, más formato y ESLint.
 - Pruebas de navegador ES/EN, persistencia, importación/exportación JSON y PDF;

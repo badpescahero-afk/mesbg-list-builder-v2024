@@ -524,29 +524,35 @@
   {
     "source": "Helm Hammerhand",
     "previous": "Helm Mano de Martillo",
-    "target": "Helm Manomartillo",
+    "target": "Helm Mano de Martillo",
     "document": "MESBG perfiles unidos.pdf",
     "page": 64,
     "pdfFile": "01_MESBG_Perfiles_pag_001-069.pdf",
-    "pdfPage": 64
+    "pdfPage": 64,
+    "referenceText": "Helm Manomartillo",
+    "overrideReason": "Corrección expresa del usuario: el personaje se llama Helm Mano de Martillo; Manomartillo es el nombre de su habilidad."
   },
   {
     "source": "Helm Hammerhand, King of Rohan",
     "previous": "Helm Mano de Martillo, rey de Rohan",
-    "target": "Helm Manomartillo, rey de Rohan",
+    "target": "Helm Mano de Martillo, rey de Rohan",
     "document": "MESBG perfiles unidos.pdf",
     "page": 64,
     "pdfFile": "01_MESBG_Perfiles_pag_001-069.pdf",
-    "pdfPage": 64
+    "pdfPage": 64,
+    "referenceText": "Helm Manomartillo, rey de Rohan",
+    "overrideReason": "Corrección expresa del usuario: el personaje se llama Helm Mano de Martillo; Manomartillo es el nombre de su habilidad."
   },
   {
     "source": "Helm Hammerhand, Wraith of the Hornburg",
     "previous": "Helm Mano de Martillo, espectro de Cuernavilla",
-    "target": "Helm Manomartillo, espectro de Cuernavilla",
+    "target": "Helm Mano de Martillo, espectro de Cuernavilla",
     "document": "MESBG perfiles unidos.pdf",
     "page": 70,
     "pdfFile": "02_MESBG_Perfiles_pag_070-137.pdf",
-    "pdfPage": 1
+    "pdfPage": 1,
+    "referenceText": "Helm Manomartillo, espectro de Cuernavilla",
+    "overrideReason": "Corrección expresa del usuario: el personaje se llama Helm Mano de Martillo; Manomartillo es el nombre de su habilidad."
   },
   {
     "source": "Grim Hammer Captain",
