@@ -72,31 +72,40 @@ p. 269 identifica explícitamente al Guerrero. La página 205 distingue visualme
 los dos integrantes del equipo y sus armas. Los nombres se aplican también a las
 opciones de equipo, evitando que otro catálogo sobrescriba la traducción.
 
-## Discrepancias que siguen requiriendo una fuente normativa
+## Aclaraciones acordadas para la presentación española
 
-1. **Protector jurado**, reglamento p. 131: la imagen también omite «Coraje» y dice
-   todas las pruebas. No es un fallo de extracción. El builder mantiene las
-   pruebas de Coraje que especifica el original inglés.
-2. **Petrificar**, reglamento p. 119: el PDF impide efectuar golpes o levantarse si
-   la miniatura **gana** el duelo. El texto inglés de `keywords.json` dice
-   **loses**, y su traducción actual dice **pierde**. Se registra la contradicción;
-   no se cambia una condición de juego apoyándose únicamente en una traducción
-   no oficial. Las FAQ aportadas hablan de pasar un estandarte, pero no resuelven
-   esta diferencia concreta. Para cerrarla se necesita la regla inglesa vigente
-   o una errata explícita que determine la condición.
-3. **Control**, reglamento p. 118: la versión española enumera «tumbarlo» entre
-   las prohibiciones; el inglés del repositorio enumera permitir u obligar a
-   desmontar. El builder conserva la formulación inglesa. No se ha inferido una
-   condición nueva del párrafo traducido.
-4. **Protección de los Valar**, reglamento p. 120: el PDF explicita que el −1 para
-   impactar se aplica al disparo. La descripción inglesa del repositorio omite
-   esa precisión, y la traducción sigue su alcance. Se documenta sin modificar el
-   original ni extender por cuenta propia la aplicación de la regla.
-5. **Diagramas de la FAQ comunitaria**: las páginas 108–111 de la parte 11 fueron
-   renderizadas. Son tablas, enlaces y páginas vacías o casi vacías; los casos que
-   remiten a fotos externas no contienen esas fotos incrustadas. Recibir el PDF
-   no resuelve esta ausencia. Sus criterios siguen siendo comunitarios, no erratas
-   oficiales. No se han seguido enlaces ni enviado consultas a terceros.
+Tras el contraste, el usuario indicó el criterio que debe reflejar la traducción.
+Se han precisado estas tres explicaciones, sin alterar el catálogo inglés, las
+estadísticas, los costes ni el motor. Estas aclaraciones no se atribuyen a una FAQ
+oficial ni implican que se haya consultado el reglamento inglés publicado.
+
+- **Petrificar**, reglamento p. 119: la miniatura paralizada no puede efectuar
+  golpes ni levantarse aunque su bando gane el duelo. Sus aliados no paralizados
+  pueden efectuar sus golpes normalmente. Se elimina la formulación ambigua
+  «si pierde el duelo» de la presentación española; el original inglés conserva
+  `loses`. La limitación afecta a la miniatura paralizada, no a todo su bando.
+- **Control**, reglamento p. 118: se explicita que el movimiento provocado por el
+  poder no permite tumbar a la miniatura. Se conservan las prohibiciones de
+  permitirle u obligarla a desmontar y las demás condiciones del texto original.
+- **Protección de los Valar**, reglamento p. 120: se explicita que el −1 para
+  impactar se aplica a los ataques de disparo contra la miniatura protegida.
+
+La búsqueda posterior encontró las mismas redacciones en el
+[catálogo del repositorio original](https://github.com/mhollink/mesbg-list-builder-v2024/blob/main/src/assets/data/keywords.json),
+sin correcciones en las búsquedas de incidencias por los nombres de estos poderes.
+Warhammer Community y Google no pudieron consultarse: el proxy del entorno rechazó
+las conexiones con 403. No se infiere de ello que no exista una aclaración oficial.
+
+## Otras limitaciones de la referencia
+
+- **Protector jurado**, reglamento p. 131: la imagen también omite «Coraje» y dice
+  todas las pruebas. No es un fallo de extracción. El builder mantiene las
+  pruebas de Coraje que especifica el original inglés.
+- **Diagramas de la FAQ comunitaria**: las páginas 108–111 de la parte 11 fueron
+  renderizadas. Son tablas, enlaces y páginas vacías o casi vacías; los casos que
+  remiten a fotos externas no contienen esas fotos incrustadas. Recibir el PDF
+  no resuelve esta ausencia. Sus criterios siguen siendo comunitarios, no erratas
+  oficiales. No se han seguido enlaces ni enviado consultas a terceros.
 
 MuPDF emitió avisos sobre algunos recursos gráficos de la parte 11. La extracción
 completa y el renderizado de las muestras utilizadas terminaron, pero no se
@@ -105,7 +114,7 @@ perfiles españoles no se han importado al motor ni a las cartas originales.
 
 ## Validación y alcance
 
-- 69 pruebas unitarias, incluidas las 89 entradas del glosario, los hechos de las
+- 70 pruebas unitarias, incluidas las 89 entradas del glosario, los hechos de las
   FAQ y los límites entre efectos mágicos de columnas distintas.
 - Compilación de producción mediante `npm run build:standalone`, que ejecuta
   `npm run build`, más formato y ESLint.

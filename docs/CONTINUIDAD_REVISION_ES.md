@@ -40,8 +40,9 @@ El PDF superaba el límite de transferencia, pero el usuario aportó después
 - Los 11 PDF posteriores están preservados en `/workspace/mesbg-reference/pdfs/`.
 - Contraste completo de texto y revisión visual selectiva: `docs/CONTRASTE_PDF_ES.md`.
   Las 825 páginas coinciden con el TXT. Se añaden 17 términos (36 entradas de
-  catálogo) y se documentan diferencias pendientes en Petrificar, Control y
-  Protección de los Valar. No importar sus condiciones sin contraste normativo.
+  catálogo) y se documentan las aclaraciones posteriores del usuario para Petrificar,
+  Control y Protección de los Valar. Sus explicaciones españolas precisan ese
+  criterio, sin atribuirlo a una FAQ oficial ni modificar los datos ingleses.
 - Informe, alcance y discrepancias: `docs/REVISION_REFERENCIA_ES.md`.
 - Glosario contrastado de 89 términos: `docs/glosario-revisado-es.json`.
 - 177 entradas de traducción corregidas. Datos originales y motor intactos.

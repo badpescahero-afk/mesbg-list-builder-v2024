@@ -55,4 +55,29 @@ describe("terminology checked against the supplied reference", () => {
     expect(explanation("Transfix")).toContain("Hasta la fase final del turno");
     expect(explanation("Transfix")).toContain("no puede efectuar golpes");
   });
+
+  it("clarifies the three agreed spell scopes without rewriting English rules", () => {
+    const before = JSON.stringify(keywords);
+    const explanation = (name: string) => {
+      const source = keywords.find((rule) => rule.name === name)!.description;
+      expect(translateGameText("en", source)).toBe(source);
+      return translateGameText("es", source);
+    };
+    const paralyse = explanation("Paralyse");
+    expect(paralyse).toContain("aunque su bando gane el duelo");
+    expect(paralyse).toContain(
+      "Las miniaturas aliadas que no estén paralizadas pueden efectuar sus golpes normalmente",
+    );
+    expect(paralyse).not.toContain("si pierde el duelo");
+    expect(explanation("Compel")).toContain(
+      "ni tumbarla, ni permitirle u obligarla a desmontar",
+    );
+    expect(explanation("Protection of the Valar")).toContain(
+      "objetivo de un ataque de disparo",
+    );
+    expect(explanation("Protection of the Valar")).toContain(
+      "-1 a su tirada para impactar",
+    );
+    expect(JSON.stringify(keywords)).toBe(before);
+  });
 });
