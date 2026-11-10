@@ -64,8 +64,9 @@ Ejemplos relevantes:
 Criterios de coherencia:
 
 - Se prioriza el manual para los nombres de reglas generales, aunque el libro de
-  perfiles use otra variante: por ejemplo, Cachas/Corpulento y Criatura de la
-  naturaleza/Criatura de los bosques. Las abreviaturas de los encabezados se
+  perfiles use otra variante: por ejemplo, Criatura de la naturaleza/Criatura de los bosques.
+  Por indicación posterior del usuario, Burly se presenta como **Corpulento**
+  en lugar de «Cachas», de forma coherente con las descripciones de perfiles. Las abreviaturas de los encabezados se
   desarrollan para su lectura, como Habitante de las cavernas y Movimiento rápido.
 - Se mantienen «de los Valar» y Coraje en la prosa; el TXT alterna formas y no
   justifica introducir una inconsistencia nueva. Las tablas y abreviaturas

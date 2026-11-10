@@ -152,3 +152,6 @@
   poder. El verbo obligar en la prosa no es por sí mismo un nombre de magia.
 - Conservar las claves inglesas y registrar las denominaciones confirmadas en el
   glosario de referencia.
+
+- Por petición del usuario, `Burly` se presenta como **Corpulento**, también en
+  las referencias dentro de otras reglas; no usar «Cachas».

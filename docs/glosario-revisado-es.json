@@ -44,9 +44,11 @@
   {
     "source": "Burly",
     "previous": "Fornido",
-    "target": "Cachas",
+    "target": "Corpulento",
     "document": "Reglamento Traducido Pucela.pdf",
-    "page": 125
+    "page": 125,
+    "referenceText": "Cachas",
+    "overrideReason": "El usuario pidió sustituir Cachas por Fornido o Corpulento; se adopta Corpulento, ya usado en las descripciones de perfiles."
   },
   {
     "source": "Cave Dweller",
