@@ -1,6 +1,8 @@
 import { DialogContent } from "@mui/material";
+import { useTranslation } from "../../../i18n/LanguageContext";
 import { useAppState } from "../../../state/app";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
+import { SpanishReferenceChart } from "../../common/reference-charts/SpanishReferenceChart";
 import { ToWoundChartTable } from "./ToWoundChartTable.tsx";
 
 export function ChartsModal() {
@@ -8,14 +10,19 @@ export function ChartsModal() {
     modalContext: { selectedChart },
   } = useAppState();
   const { mode } = useThemeContext();
+  const { language } = useTranslation();
 
   const isToWoundChart = selectedChart === "to-wound-chart";
 
   return (
     <DialogContent>
-      <center>
+      <div style={{ textAlign: "center" }}>
         {isToWoundChart ? (
-          <ToWoundChartTable />
+          <div style={{ maxWidth: "100%", overflowX: "auto" }}>
+            <ToWoundChartTable />
+          </div>
+        ) : language === "es" ? (
+          <SpanishReferenceChart chartId={selectedChart} />
         ) : (
           <img
             src={`${RESOURCES_URL}/images/charts/` + selectedChart + ".png"}
@@ -28,7 +35,7 @@ export function ChartsModal() {
             }}
           />
         )}
-      </center>
+      </div>
     </DialogContent>
   );
 }

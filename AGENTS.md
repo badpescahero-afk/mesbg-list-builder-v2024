@@ -155,3 +155,10 @@
 
 - Por petición del usuario, `Burly` se presenta como **Corpulento**, también en
   las referencias dentro de otras reglas; no usar «Cachas».
+
+## Tablas de consulta
+
+- Las diez tablas originales de `static-resources/images/charts/` son imágenes inglesas. En español mostrar `SpanishReferenceChart` con el catálogo `src/i18n/content/charts.es.json`, preservando el diseño de papel claro, títulos granates y filas alternas. Conservar las imágenes y mostrarlas en inglés.
+- Traducir también Fuerza y Defensa en la tabla para herir sin modificar su matriz. Distinguir saltar obstáculos (`jump-table`) de saltar huecos (`leap-table`).
+- Conservar resultados de dados, distancias, Fuerza, Defensa, Heridas y todas las condiciones de las imágenes originales. La referencia española orienta el vocabulario; no copiar erratas de traducción como «Arrojar Piedras» en la fila de lanza arrojadiza.
+- Validar todas las tablas en móvil y escritorio con `node scripts/test-reference-charts.mjs`.

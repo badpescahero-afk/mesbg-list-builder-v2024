@@ -1,0 +1,357 @@
+{
+  "climb-table": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        {
+          "title": "Caída",
+          "text": "La miniatura cae al suelo y queda Tumbada al pie del Obstáculo que intentaba escalar. Si ya estaba a nivel del suelo, no ocurre nada más. Sin embargo, si estaba a mayor altura, sufrirá daño por caída. En ambos casos, su Activación termina inmediatamente."
+        }
+      ],
+      [
+        "2-5",
+        {
+          "title": "Éxito",
+          "text": "La miniatura escala con éxito el Obstáculo hasta alcanzar su valor de Movimiento o llegar a la cima. Si llega a la cima, colócala encima del Obstáculo, con su peana en contacto con el borde. Si la miniatura se encuentra ahora dentro de la Zona de Control de una miniatura enemiga, debe moverse la distancia mínima necesaria para Cargar contra ella, siempre que no exceda su valor de Movimiento. De lo contrario, su movimiento termina inmediatamente, incluso si queda dentro de la Zona de Control de una miniatura enemiga. Si termina en las Zonas de Control de varias miniaturas enemigas, Cargará contra la más cercana de la forma descrita."
+        }
+      ],
+      [
+        "6",
+        {
+          "title": "Ascenso rápido",
+          "text": "La miniatura escala con éxito el Obstáculo hasta alcanzar su valor de Movimiento o llegar a la cima. Si llega a la cima, colócala encima del Obstáculo, con su peana en contacto con el borde. Después puede continuar su Activación normalmente."
+        }
+      ]
+    ]
+  },
+  "jump-table": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        {
+          "title": "Tropieza y falla",
+          "text": "La miniatura no sortea el Obstáculo. Permanece donde está y su Activación termina inmediatamente."
+        }
+      ],
+      [
+        "2-5",
+        {
+          "title": "Éxito",
+          "text": "La miniatura sortea con éxito el Obstáculo; colócala al otro lado, con su peana en contacto con el Obstáculo. Si la miniatura se encuentra ahora dentro de la Zona de Control de una miniatura enemiga, debe moverse la distancia mínima necesaria para Cargar contra ella, siempre que no exceda su valor de Movimiento. De lo contrario, su movimiento termina inmediatamente, incluso si queda dentro de la Zona de Control de una miniatura enemiga. Si termina en las Zonas de Control de varias miniaturas enemigas, Cargará contra la más cercana de la forma descrita."
+        }
+      ],
+      [
+        "6",
+        {
+          "title": "Salta sin esfuerzo",
+          "text": "La miniatura sortea con éxito el Obstáculo; colócala al otro lado, con su peana en contacto con el Obstáculo. Después puede continuar su Activación normalmente."
+        }
+      ]
+    ]
+  },
+  "leap-table": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        {
+          "title": "Tropieza y falla",
+          "text": "El intento de saltar ha salido mal. La miniatura cae al fondo del hueco, a medio camino entre el punto desde el que saltó y el punto al que se dirigía; sufre daño por caída (véase la página 33 del reglamento original) y queda Tumbada. Su Activación termina inmediatamente."
+        }
+      ],
+      [
+        "2-5",
+        {
+          "title": "Éxito",
+          "text": "La miniatura salta con éxito el hueco; colócala al otro lado, con su peana en contacto con el borde. Si la miniatura se encuentra ahora dentro de la Zona de Control de una miniatura enemiga, debe moverse la distancia mínima necesaria para Cargar contra ella, siempre que no exceda su valor de Movimiento. De lo contrario, su movimiento termina inmediatamente, incluso si queda dentro de la Zona de Control de una miniatura enemiga. Si termina en las Zonas de Control de varias miniaturas enemigas, Cargará contra la más cercana de la forma descrita."
+        }
+      ],
+      [
+        "6",
+        {
+          "title": "Salta sin esfuerzo",
+          "text": "La miniatura salta con éxito el hueco; colócala al otro lado, con su peana en contacto con el borde. Después puede continuar su Activación normalmente."
+        }
+      ]
+    ]
+  },
+  "swim-table": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        {
+          "title": "Se hunde",
+          "text": "La miniatura sucumbe al peso de su equipo (o a su completa incapacidad para nadar) y se ahoga. Retírala como baja."
+        }
+      ],
+      [
+        "2-5",
+        {
+          "title": "Nada",
+          "text": "La miniatura puede moverse por el agua hasta la mitad de su valor de Movimiento restante."
+        }
+      ],
+      [
+        "6",
+        {
+          "title": "Nada con vigor",
+          "text": "La miniatura puede moverse por el agua hasta todo su valor de Movimiento restante."
+        }
+      ]
+    ]
+  },
+  "detonation-table": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        {
+          "title": "Carga defectuosa",
+          "text": "La Carga de demolición es defectuosa y no explota. Retírala del juego."
+        }
+      ],
+      [
+        "2-5",
+        {
+          "title": "Reacción instantánea",
+          "text": "La Carga de demolición explota. Todas las miniaturas, amigas y enemigas, a 2″ o menos de la Carga de demolición sufren D6 Heridas. Las miniaturas de Caballería sufren estas Heridas tanto en el jinete como en la Montura. Las miniaturas con puntos de Destino o reglas especiales que puedan evitar Heridas deben efectuar una tirada por cada Herida sufrida; cada tirada exitosa solo evitará una Herida, no todas."
+        }
+      ],
+      [
+        "6",
+        {
+          "title": "Explosión titánica",
+          "text": "La Carga de demolición explota como se describe arriba, con la diferencia de que las miniaturas sufren 2D6 Heridas en lugar de D6."
+        }
+      ]
+    ]
+  },
+  "scatter-table": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        {
+          "title": "Fuera del blanco",
+          "text": "Tu oponente puede elegir un Objetivo del Campo de Batalla de cualquiera de los dos ejércitos a 6″ o menos del objetivo inicial. La miniatura elegida se convierte en el objetivo real y debe estar dentro de la Línea de Visión de la Máquina de Asedio; de lo contrario, no puede elegirse. Si no hay otro Objetivo del Campo de Batalla a 6″ o menos, o tu oponente no desea elegir uno alternativo, el disparo falla por completo."
+        }
+      ],
+      [
+        "2-5",
+        {
+          "title": "Ligera desviación",
+          "text": "Tu oponente puede elegir un Objetivo del Campo de Batalla de su propio ejército a 6″ o menos del objetivo inicial. La miniatura elegida debe estar dentro de la Línea de Visión de la Máquina de Asedio; de lo contrario, no puede elegirse. La miniatura elegida se convierte en el objetivo real. Si no hay objetivos alternativos, trata este resultado como En el blanco."
+        }
+      ],
+      [
+        "6",
+        {
+          "title": "En el blanco",
+          "text": "El disparo impacta en el objetivo inicial, que se convierte en el objetivo real."
+        }
+      ]
+    ]
+  },
+  "sentry-chart": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        "El Centinela está distraído y busca a su alrededor. No puede moverse este turno."
+      ],
+      [
+        "2-3",
+        "El Centinela ha oído un ruido en otro lugar. El jugador contrario puede moverlo hasta la mitad de su valor de Movimiento, siguiendo todas las reglas normales para mover una miniatura."
+      ],
+      [
+        "4-5",
+        "El Centinela sospecha que hay intrusos. El jugador que lo controla puede moverlo hasta la mitad de su valor de Movimiento, siguiendo todas las reglas normales para mover una miniatura."
+      ],
+      [
+        "6",
+        "El Centinela está convencido de haber visto algo acechando en la oscuridad. El jugador que lo controla puede moverlo normalmente."
+      ]
+    ]
+  },
+  "thrown-rider-table": {
+    "columns": [
+      "D6",
+      "Resultado"
+    ],
+    "rows": [
+      [
+        "1",
+        {
+          "title": "Sale despedido",
+          "text": "El jinete golpea el suelo y sufre inmediatamente un impacto de Fuerza 3. Si sobrevive, queda Tumbado. Una miniatura que Sale despedida no puede Activarse, Mover, Disparar, efectuar Golpes ni lanzar Poderes Mágicos durante el resto del turno. Si la Montura ha sobrevivido, coloca al jinete en contacto de peana con ella, en lugar de en el centro del lugar que ocupaba su peana; si no hay espacio suficiente, separa las miniaturas la distancia mínima necesaria para hacerle sitio. Si el jinete está trabado en Combate, lucha como una miniatura Tumbada."
+        }
+      ],
+      [
+        "2-5",
+        {
+          "title": "Se levanta del polvo",
+          "text": "El jinete se libera de su Montura y se pone en pie. Una miniatura que Se levanta del polvo no puede Activarse, Mover, Disparar, efectuar Golpes ni lanzar Poderes Mágicos durante el resto del turno."
+        }
+      ],
+      [
+        "6",
+        {
+          "title": "Salta a la acción",
+          "text": "El jinete salta de la silla y se prepara para actuar. Una miniatura que Salta a la acción permanece en pie y puede actuar normalmente durante el resto del turno."
+        }
+      ]
+    ]
+  },
+  "missile-weapon-chart": {
+    "columns": [
+      "Nombre",
+      "Alcance",
+      "Fuerza"
+    ],
+    "rows": [
+      [
+        "Cerbatana",
+        "12″",
+        "2"
+      ],
+      [
+        "Arco",
+        "24″",
+        "2"
+      ],
+      [
+        "Ballesta",
+        "24″",
+        "4"
+      ],
+      [
+        "Arco enano",
+        "18″",
+        "3"
+      ],
+      [
+        "Arco largo enano",
+        "24″",
+        "3"
+      ],
+      [
+        "Arco élfico",
+        "24″",
+        "3"
+      ],
+      [
+        "Arco de Esgaroth",
+        "24″",
+        "3"
+      ],
+      [
+        "Gran arco",
+        "24″",
+        "4"
+      ],
+      [
+        "Arco largo",
+        "24″",
+        "3"
+      ],
+      [
+        "Arco orco",
+        "18″",
+        "2"
+      ],
+      [
+        "Arco corto",
+        "18″",
+        "2"
+      ],
+      [
+        "Honda",
+        "12″",
+        "1"
+      ],
+      [
+        "Lanza arrojadiza",
+        "8″",
+        "3"
+      ],
+      [
+        "Arma arrojadiza",
+        "6″",
+        "3"
+      ],
+      [
+        "Arco Uruk-hai",
+        "18″",
+        "3"
+      ]
+    ]
+  },
+  "siege-gates-and-doors": {
+    "columns": [
+      "Tipo",
+      "Defensa",
+      "Heridas"
+    ],
+    "rows": [
+      [
+        "Portón de fortaleza o castillo",
+        "10",
+        "3"
+      ],
+      [
+        "Puerta enana",
+        "9",
+        "3"
+      ],
+      [
+        "Puerta con blindaje pesado",
+        "9",
+        "2"
+      ],
+      [
+        "Puerta blindada",
+        "8",
+        "2"
+      ],
+      [
+        "Puerta pesada",
+        "7",
+        "2"
+      ],
+      [
+        "Puerta doméstica exterior",
+        "6",
+        "2"
+      ],
+      [
+        "Puerta doméstica interior",
+        "5",
+        "1"
+      ]
+    ]
+  }
+}

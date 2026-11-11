@@ -9,6 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
+import { useTranslation } from "../../../i18n/LanguageContext";
 
 const TO_WOUND_DATA: string[][] = [
   ["4+", "5+", "5+", "6+", "6+", "6+/4+", "6+/5+", "6+/6+", "-", "-"],
@@ -24,6 +25,7 @@ const TO_WOUND_DATA: string[][] = [
 ];
 
 export function ToWoundChartTable() {
+  const { t } = useTranslation();
   const theme = useTheme();
   const headerBg = theme.palette.grey[900];
   const headerTextColor = theme.palette.getContrastText(headerBg);
@@ -66,7 +68,7 @@ export function ToWoundChartTable() {
             letterSpacing: "0.05em",
           }}
         >
-          STRENGTH
+          {t("Strength").toLocaleUpperCase()}
         </Typography>
       </Box>
       <Table
@@ -101,7 +103,7 @@ export function ToWoundChartTable() {
             borderTopLeftRadius: 0,
           },
         }}
-        aria-label="To Wound Chart (27)"
+        aria-label={t("To Wound Chart")}
       >
         <TableHead>
           <TableRow>
@@ -111,7 +113,7 @@ export function ToWoundChartTable() {
               scope="colgroup"
               sx={{ borderBottom: headerBorder }}
             >
-              DEFENCE
+              {t("Defence").toLocaleUpperCase()}
             </TableCell>
           </TableRow>
           <TableRow>
