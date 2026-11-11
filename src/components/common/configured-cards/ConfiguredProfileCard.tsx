@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import fallbackLogo from "../../../assets/images/default.png";
 import { Profile } from "../../../hooks/profiles/profile-utils/profile.type.ts";
 import { translateGameText } from "../../../i18n/game-text";
+import { statLabel } from "../../../i18n/stat-labels";
 import { RuleReference, RuleHelpEnabled } from "../rules/RuleReference";
 import { ruleDescription } from "../rules/rule-description";
 import { ConfiguredCard, STAT_KEYS } from "./card-model";
@@ -19,9 +20,23 @@ function StatLine({ profile }: { profile: Profile }) {
       <thead>
         <tr>
           {STAT_KEYS.map((key) => (
-            <th key={key}>{key === "Mv" && profile.Range ? "Range" : key}</th>
+            <th
+              key={key}
+              title={statLabel(
+                "es",
+                key === "Mv" && profile.Range ? "Range" : key,
+                true,
+              )}
+            >
+              {statLabel("es", key === "Mv" && profile.Range ? "Range" : key)}
+            </th>
           ))}
-          {heroic && ["M", "W", "F"].map((key) => <th key={key}>{key}</th>)}
+          {heroic &&
+            (["HM", "HW", "HF"] as const).map((key) => (
+              <th key={key} title={statLabel("es", key, true)}>
+                {statLabel("es", key)}
+              </th>
+            ))}
         </tr>
       </thead>
       <tbody>
@@ -106,7 +121,7 @@ function ProfileRules({ profile }: { profile: Profile }) {
             <thead>
               <tr>
                 <th>Poder</th>
-                <th>Range</th>
+                <th>Alcance</th>
                 <th>Lanzamiento</th>
               </tr>
             </thead>

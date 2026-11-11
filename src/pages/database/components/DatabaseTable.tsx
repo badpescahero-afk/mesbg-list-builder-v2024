@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { MouseEvent } from "react";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
-import { TranslatedText } from "../../../i18n/TranslatedText";
+import { StatLabel } from "../../../i18n/StatLabel";
 import { useThemeContext } from "../../../theme/ThemeContext.tsx";
 import { DatabaseRow } from "../data.ts";
 import { Order } from "../utils/sorting.ts";
@@ -74,7 +74,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "Mv" ? order : "asc"}
                     onClick={createSortHandler("Mv")}
                   >
-                    <TranslatedText message="Mv / Range" />
+                    <StatLabel stat="MoveOrRange" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -83,7 +83,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.Fv" ? order : "asc"}
                     onClick={createSortHandler("profile.Fv")}
                   >
-                    <TranslatedText message="Fv" />
+                    <StatLabel stat="Fv" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -92,7 +92,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.Sv" ? order : "asc"}
                     onClick={createSortHandler("profile.Sv")}
                   >
-                    <TranslatedText message="Sv" />
+                    <StatLabel stat="Sv" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -101,7 +101,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.S" ? order : "asc"}
                     onClick={createSortHandler("profile.S")}
                   >
-                    S
+                    <StatLabel stat="S" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -110,7 +110,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.D" ? order : "asc"}
                     onClick={createSortHandler("profile.D")}
                   >
-                    D
+                    <StatLabel stat="D" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -119,7 +119,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.A" ? order : "asc"}
                     onClick={createSortHandler("profile.A")}
                   >
-                    A
+                    <StatLabel stat="A" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -128,7 +128,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.W" ? order : "asc"}
                     onClick={createSortHandler("profile.W")}
                   >
-                    W
+                    <StatLabel stat="W" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -137,7 +137,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.C" ? order : "asc"}
                     onClick={createSortHandler("profile.C")}
                   >
-                    C
+                    <StatLabel stat="C" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -146,7 +146,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "profile.I" ? order : "asc"}
                     onClick={createSortHandler("profile.I")}
                   >
-                    I
+                    <StatLabel stat="I" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -155,7 +155,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "M" ? order : "asc"}
                     onClick={createSortHandler("M")}
                   >
-                    M
+                    <StatLabel stat="HM" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -164,7 +164,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "W" ? order : "asc"}
                     onClick={createSortHandler("W")}
                   >
-                    W
+                    <StatLabel stat="HW" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
@@ -173,7 +173,7 @@ export const DatabaseTable = ({
                     direction={orderBy === "F" ? order : "asc"}
                     onClick={createSortHandler("F")}
                   >
-                    F
+                    <StatLabel stat="HF" />
                   </TableSortLabel>
                 </TableCell>
               </>

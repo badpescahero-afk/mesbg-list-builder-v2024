@@ -18,7 +18,7 @@ import { RuleReference } from "../../../components/common/rules/RuleReference";
 import { ModalTypes } from "../../../components/modal/modals.tsx";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
 import { useTranslation } from "../../../i18n/LanguageContext";
-import { TranslatedText } from "../../../i18n/TranslatedText";
+import { StatLabel } from "../../../i18n/StatLabel";
 import { translateGameText } from "../../../i18n/game-text";
 import { useAppState } from "../../../state/app";
 import { useCollectionState } from "../../../state/collection";
@@ -152,23 +152,41 @@ export const DatabaseTableRow = ({ row }: { row: DatabaseRow }) => {
                       <TableHead>
                         <TableRow>
                           <TableCell align="center">
-                            <TranslatedText message="Mv / Range" />
+                            <StatLabel stat="MoveOrRange" />
                           </TableCell>
                           <TableCell align="center">
-                            <TranslatedText message="Fv" />
+                            <StatLabel stat="Fv" />
                           </TableCell>
                           <TableCell align="center">
-                            <TranslatedText message="Sv" />
+                            <StatLabel stat="Sv" />
                           </TableCell>
-                          <TableCell align="center">S</TableCell>
-                          <TableCell align="center">D</TableCell>
-                          <TableCell align="center">A</TableCell>
-                          <TableCell align="center">W</TableCell>
-                          <TableCell align="center">C</TableCell>
-                          <TableCell align="center">I</TableCell>
-                          <TableCell align="center">M</TableCell>
-                          <TableCell align="center">W</TableCell>
-                          <TableCell align="center">F</TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="S" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="D" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="A" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="W" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="C" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="I" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="HM" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="HW" />
+                          </TableCell>
+                          <TableCell align="center">
+                            <StatLabel stat="HF" />
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>

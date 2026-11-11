@@ -9,6 +9,9 @@ import {
 import Typography from "@mui/material/Typography";
 import { Fragment } from "react";
 import { Profile } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { StatLabel } from "../../../../i18n/StatLabel";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { useUserPreferences } from "../../../../state/preference";
 
 interface QuickReferenceTableProps {
@@ -55,7 +58,7 @@ const ReferenceRow = ({
         size="small"
       >
         {prefix}
-        {row.name}
+        <GameText text={row.name} />
       </TableCell>
       <TableCell size="small">{row.Mv}</TableCell>
       <TableCell size="small">{row.Fv}</TableCell>
@@ -153,24 +156,50 @@ export const QuickReferenceTable = ({
         sx={{ maxWidth: "100%" }}
       >
         {noCaption !== true && (
-          <Typography variant="h5">Quick reference sheet</Typography>
+          <Typography variant="h5">
+            <TranslatedText message="Quick reference sheet" />
+          </Typography>
         )}
         <Table>
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Mv</TableCell>
-              <TableCell>Fv</TableCell>
-              <TableCell>Sv</TableCell>
-              <TableCell>S</TableCell>
-              <TableCell>D</TableCell>
-              <TableCell>A</TableCell>
-              <TableCell>W</TableCell>
-              <TableCell>C</TableCell>
-              <TableCell>I</TableCell>
-              <TableCell>M</TableCell>
-              <TableCell>W</TableCell>
-              <TableCell>F</TableCell>
+              <TableCell>
+                <StatLabel stat="Mv" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="Fv" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="Sv" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="S" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="D" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="A" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="W" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="C" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="I" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="HM" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="HW" />
+              </TableCell>
+              <TableCell>
+                <StatLabel stat="HF" />
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -213,23 +242,47 @@ export const QuickReferenceTable = ({
                 padding: "0px",
               }}
             >
-              Mounts
+              <TranslatedText message="Mounts" />
             </Typography>
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell>Mv</TableCell>
-                <TableCell>Fv</TableCell>
-                <TableCell>Sv</TableCell>
-                <TableCell>S</TableCell>
-                <TableCell>D</TableCell>
-                <TableCell>A</TableCell>
-                <TableCell>W</TableCell>
-                <TableCell>C</TableCell>
-                <TableCell>I</TableCell>
-                <TableCell>M</TableCell>
-                <TableCell>W</TableCell>
-                <TableCell>F</TableCell>
+                <TableCell>
+                  <StatLabel stat="Mv" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="Fv" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="Sv" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="S" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="D" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="A" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="W" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="C" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="I" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="HM" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="HW" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="HF" />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -250,15 +303,23 @@ export const QuickReferenceTable = ({
                 padding: "0px",
               }}
             >
-              Siege engines
+              <TranslatedText message="Siege engines" />
             </Typography>
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell>Range</TableCell>
-                <TableCell>S</TableCell>
-                <TableCell>D</TableCell>
-                <TableCell>W</TableCell>
+                <TableCell>
+                  <StatLabel stat="Range" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="S" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="D" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="W" />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -274,7 +335,7 @@ export const QuickReferenceTable = ({
                       }}
                       size="small"
                     >
-                      {row.name}
+                      <GameText text={row.name} />
                     </TableCell>
                     <TableCell size="small">{row.Range}</TableCell>
 

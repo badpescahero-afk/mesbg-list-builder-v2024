@@ -25,18 +25,18 @@
 - Aplicar la traducción a etiquetas de resultados en pantalla, manteniendo `Won`, `Draw` y `Lost` en los datos. Lo mismo se aplica a `Good` y `Evil`.
 - Ejecutar `npx vitest run src/i18n --environment node` y `node scripts/test-i18n.mjs` para validar catálogo, interpolación y conservación de datos en flujos reales. El script de navegador detiene su servidor al terminar.
 
-## Atributos y cartas: excepción permanente
+## Atributos y cartas
 
-- Por instrucción del usuario, las estadísticas/atributos conservan su idioma original, incluidos `Mv`, `Fv`, `Sv`, `S`, `D`, `A`, `W`, `C`, `I`, `Might`, `Will` y `Fate`. No traducir sus valores ni abreviaturas.
+- Petición vigente (2026-11-11): traducir también los encabezados de las tablas de atributos, incluidas las cartas españolas. Centralizar en `src/i18n/stat-labels.ts`; distinguir Heridas (`W`) de Voluntad (`HW`). Conservar todos los valores, claves y cálculos originales. En inglés mantener las etiquetas originales.
 - Mantener las cartas originales y sus recursos. Las cartas españolas configuradas son una alternativa adicional; no sobrescribir los JPG originales.
 - Los avisos del constructor se traducen solo en los renderizadores mediante `WarningText`; no modificar ni reemplazar las reglas de validación originales para traducir sus mensajes.
 
 ## Reglas, descripciones y equipo
 
 - La revisión terminológica vigente traduce también los atributos dentro de las
-  frases: Defensa, Fuerza, Coraje, Inteligencia, Poder, Voluntad y Destino. La
-  excepción de atributos originales se aplica a las tablas/abreviaturas y los
-  datos, no a la prosa. Usar Prioridad, pruebas, Guerrero, Caballería e Infantería
+  frases: Defensa, Fuerza, Coraje, Inteligencia, Poder, Voluntad y Destino. Los
+  datos originales se conservan; los encabezados y abreviaturas visibles se
+  traducen según la petición vigente. Usar Prioridad, pruebas, Guerrero, Caballería e Infantería
   de forma coherente. Centralizar palabras clave en `content/terms.es.json` y
   traducir parámetros visibles como `Fury (Orc)` sin cambiar el nombre fuente.
 - Mostrar los nombres españoles del catálogo también en las tarjetas del
@@ -44,13 +44,13 @@
   rutas de imágenes, identificadores, comparaciones y almacenamiento.
 
 - El alcance vigente incluye las reglas y descripciones en español. Usar `GameText` o `translateGameText` solo en el renderizado de texto; conservar comparaciones, filtros del motor, claves React, valores de formularios y serialización originales.
-- Centralizar estas traducciones en `src/i18n/content/*.es.json`. Mantener números, modificadores, límites, condiciones y etiquetas HTML del texto fuente. Las estadísticas siguen en inglés.
+- Centralizar estas traducciones en `src/i18n/content/*.es.json`. Mantener números, modificadores, límites, condiciones y etiquetas HTML del texto fuente. Las claves y cifras de las estadísticas permanecen intactas.
 - Para una regla o perfil nuevo, añadir su traducción al catálogo y comprobar `game-text.test.ts`, que recorre todos los textos de los datos actuales. Mantener el fallback inglés para futuras entradas desconocidas.
 - Los nombres canónicos de miniaturas y ejércitos permanecen como referencia e identificadores internos. En las cartas configuradas se permiten nombres españoles de presentación; conservar el fallback canónico para nombres aún no traducidos.
 
 ## Cartas configuradas: etapa autorizada
 
-- Usar el diseño de referencia (fondo pergamino claro, títulos granates, retrato circular, atributos originales y monturas separadas) con datos reales de la lista. Las cifras de las imágenes no sustituyen los datos del repositorio.
+- Usar el diseño de referencia (fondo pergamino claro, títulos granates, retrato circular, valores originales y monturas separadas) con datos reales de la lista. Las cifras de las imágenes no sustituyen los datos del repositorio.
 - Coste por miniatura desde `pointsPerUnit`, no el coste total del grupo. Incluir las opciones seleccionadas y aplicar solo los modificadores declarados mediante el transformador existente. No inventar efectos condicionales de combate ni reglas de equipo.
 - Mantener una carta por configuración distinta; agrupar únicamente configuraciones idénticas. Exportar PNG dentro de un ZIP sin modificar la lista.
 - Entregar una copia del perfil al transformador de consulta, para que los casos históricos que asignan atributos (Nazgûl) no escriban en los datos compartidos. El comportamiento predeterminado del constructor no cambia.

@@ -12,6 +12,9 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useRosterInformation } from "../../../../hooks/calculations-and-displays/useRosterInformation.ts";
+import { GameText } from "../../../../i18n/GameText";
+import { StatLabel } from "../../../../i18n/StatLabel";
+import { TranslatedText } from "../../../../i18n/TranslatedText";
 import { createGameState } from "../../../../state/gamemode/gamestate/create-game-state.ts";
 import { useThemeContext } from "../../../../theme/ThemeContext.tsx";
 
@@ -67,30 +70,34 @@ export const StatTrackers = () => {
 
   return (
     <Box id="pdf-stat-trackers" className="page-break">
-      <Typography variant="h5">Might / Will / Fate trackers</Typography>
+      <Typography variant="h5">
+        <TranslatedText message="Might / Will / Fate trackers" />
+      </Typography>
       <TableContainer component="div" sx={{ py: 1 }}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell size="small" sx={cellStyling} />
               <TableCell size="small" align="center" sx={cellStyling}>
-                Might
+                <StatLabel stat="HM" full />
               </TableCell>
               <TableCell size="small" align="center" sx={cellStyling}>
-                Will
+                <StatLabel stat="HW" full />
               </TableCell>
               <TableCell size="small" align="center" sx={cellStyling}>
-                Fate
+                <StatLabel stat="HF" full />
               </TableCell>
               <TableCell size="small" align="center" sx={cellStyling}>
-                Wounds
+                <StatLabel stat="W" full />
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
               <TableRow key={index}>
-                <TableCell sx={cellStyling}>{row.name}</TableCell>
+                <TableCell sx={cellStyling}>
+                  <GameText text={row.name} />
+                </TableCell>
                 <TableCell sx={cellStyling}>
                   <CheckboxList amount={row.might} />
                 </TableCell>
@@ -107,7 +114,9 @@ export const StatTrackers = () => {
             ))}
             {additionalWoundTrackers.map((row, index) => (
               <TableRow key={index}>
-                <TableCell sx={cellStyling}>{row.name}</TableCell>
+                <TableCell sx={cellStyling}>
+                  <GameText text={row.name} />
+                </TableCell>
                 <TableCell sx={cellStyling} />
                 <TableCell sx={cellStyling} />
                 <TableCell sx={cellStyling} />

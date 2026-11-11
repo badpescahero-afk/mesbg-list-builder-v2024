@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Profile } from "../../../../hooks/profiles/profile-utils/profile.type.ts";
 import { GameText } from "../../../../i18n/GameText";
+import { StatLabel } from "../../../../i18n/StatLabel";
 
 export const Stats = ({ profile }: { profile: Profile }) => {
   const skippedParentRow = [
@@ -17,24 +18,51 @@ export const Stats = ({ profile }: { profile: Profile }) => {
   ].includes(profile.name);
   return (
     <TableContainer component="div" sx={{ mb: 2 }}>
-      <Table size="small">
+      <Table
+        size="small"
+        sx={{ "& th, & td": { px: { xs: 0.5, sm: 2 }, textAlign: "center" } }}
+      >
         <TableHead>
           <TableRow>
             {profile.additional_stats && <TableCell />}
-            <TableCell>Mv</TableCell>
-            <TableCell>Fv</TableCell>
-            <TableCell>Sv</TableCell>
-            <TableCell>S</TableCell>
-            <TableCell>D</TableCell>
-            <TableCell>A</TableCell>
-            <TableCell>W</TableCell>
-            <TableCell>C</TableCell>
-            <TableCell>I</TableCell>
+            <TableCell>
+              <StatLabel stat="Mv" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="Fv" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="Sv" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="S" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="D" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="A" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="W" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="C" />
+            </TableCell>
+            <TableCell>
+              <StatLabel stat="I" />
+            </TableCell>
             {(profile.HM || profile.HW || profile.HF) && (
               <>
-                <TableCell>M</TableCell>
-                <TableCell>W</TableCell>
-                <TableCell>F</TableCell>
+                <TableCell>
+                  <StatLabel stat="HM" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="HW" />
+                </TableCell>
+                <TableCell>
+                  <StatLabel stat="HF" />
+                </TableCell>
               </>
             )}
           </TableRow>
@@ -67,7 +95,9 @@ export const Stats = ({ profile }: { profile: Profile }) => {
           )}
           {profile.additional_stats?.map((stats, index) => (
             <TableRow key={index}>
-              <TableCell>{stats.name}</TableCell>
+              <TableCell>
+                <GameText text={stats.name} />
+              </TableCell>
               <TableCell>{stats.Mv}</TableCell>
               <TableCell>{stats.Fv}</TableCell>
               <TableCell>{stats.Sv}</TableCell>

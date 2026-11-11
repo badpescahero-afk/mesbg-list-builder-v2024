@@ -13,9 +13,14 @@ import { ModalTypes } from "../../components/modal/modals";
 import { useTranslation } from "../../i18n/LanguageContext";
 import { translateGameText } from "../../i18n/game-text";
 import { useAppState } from "../../state/app";
+import { profileAlignment } from "./profile-alignment";
 
 const entries = Object.entries(profileData).flatMap(([origin, profiles]) =>
-  Object.keys(profiles).map((name) => ({ origin, name })),
+  Object.keys(profiles).map((name) => ({
+    origin,
+    name,
+    alignment: profileAlignment(origin, name),
+  })),
 );
 
 export function CardLibrary() {
@@ -70,11 +75,19 @@ export function CardLibrary() {
         {filtered.length} {t("profiles")}
       </Typography>
       <Stack component="ul" gap={1} sx={{ p: 0, listStyle: "none" }}>
-        {filtered.map(({ origin, name }) => (
+        {filtered.map(({ origin, name, alignment }) => (
           <li key={`${origin}:${name}`}>
             <Button
               fullWidth
               variant="outlined"
+              color={
+                alignment === "Evil"
+                  ? "error"
+                  : alignment === "Good"
+                    ? "primary"
+                    : "inherit"
+              }
+              data-alignment={alignment}
               sx={{ justifyContent: "flex-start", textAlign: "left" }}
               onClick={() =>
                 setCurrentModal(ModalTypes.PROFILE_CARD, {
@@ -86,7 +99,16 @@ export function CardLibrary() {
               <span>
                 {language === "es" ? cardName(name) : name}
                 <Typography component="span" variant="caption" display="block">
-                  {name} · {translateGameText(language, origin)}
+                  {name} · {translateGameText(language, origin)} ·{" "}
+                  {t(
+                    alignment === "Shared"
+                      ? "Shared profile"
+                      : alignment === "Unknown"
+                        ? "Unassigned allegiance"
+                        : alignment === "Good"
+                          ? "Forces of Good"
+                          : "Forces of Evil",
+                  )}
                 </Typography>
               </span>
             </Button>

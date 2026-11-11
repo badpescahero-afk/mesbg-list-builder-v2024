@@ -171,8 +171,21 @@ try {
   }
   await page.getByRole("table").waitFor();
   assert.ok((await page.getByRole("row").count()) > 1);
-  // Spanish UI deliberately keeps the original stat headers and values.
-  for (const header of ["Mv / Range", "Fv", "Sv", "S", "D", "A", "C", "I"]) {
+  // Spanish headers are localised; switching language must preserve every value.
+  for (const header of [
+    "Movimiento / Alcance",
+    "Combate",
+    "Disparo",
+    "Fuerza",
+    "Defensa",
+    "Ataques",
+    "Coraje",
+    "Inteligencia",
+    "Heridas",
+    "Poder",
+    "Voluntad",
+    "Destino",
+  ]) {
     await page
       .getByRole("columnheader", { name: header, exact: true })
       .waitFor();
@@ -195,7 +208,93 @@ try {
     .getByRole("heading", { name: "Base de datos de perfiles", exact: true })
     .waitFor();
   console.log(
-    "PASS: original stat headers and values remain unchanged in both languages",
+    "PASS: translated stat headers and unchanged values in both languages",
+  );
+
+  // The profile drawer must render the translated result, not just match it.
+  await page.getByText("Perfiles", { exact: true }).click();
+  const profileDrawer = page.locator(
+    ".MuiDrawer-root.MuiModal-root .MuiDrawer-paper",
+  );
+  for (const query of ["Guerrero de mi", "Warrior of Minas Tirith"]) {
+    await profileDrawer.getByPlaceholder("Buscar...").fill(query);
+    await profileDrawer
+      .getByText("Guerrero de Minas Tirith", { exact: true })
+      .waitFor();
+    assert.equal(
+      await profileDrawer
+        .getByText("Warrior of Minas Tirith", { exact: true })
+        .count(),
+      0,
+    );
+  }
+  await profileDrawer
+    .getByRole("button", { name: "Guerrero de Minas Tirith", exact: true })
+    .click();
+  const profileTable = profileDrawer.getByRole("table");
+  assert.deepEqual(await profileTable.locator("thead th").allTextContents(), [
+    "Mov",
+    "C",
+    "Dis",
+    "F",
+    "D",
+    "A",
+    "H",
+    "Cor",
+    "I",
+  ]);
+  const profileValues = await profileTable
+    .locator("tbody td")
+    .allTextContents();
+  assert.deepEqual(profileValues.slice(1), [
+    "4",
+    "4+",
+    "3",
+    "5",
+    "1",
+    "1",
+    "7+",
+    "7+",
+  ]);
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.screenshot({
+    path: join(directory, "profile-search-es-mobile.png"),
+    animations: "disabled",
+  });
+  assert.equal(
+    await profileTable.evaluate(
+      (el) => el.getBoundingClientRect().right <= innerWidth,
+    ),
+    true,
+  );
+  await profileDrawer.locator('button:has([data-testid="CloseIcon"])').click();
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await switchLanguage("Idioma", "English");
+  await page.getByText("Profiles", { exact: true }).click();
+  await profileDrawer
+    .getByPlaceholder("Search...")
+    .fill("Warrior of Minas Tirith");
+  await profileDrawer
+    .getByRole("button", { name: "Warrior of Minas Tirith", exact: true })
+    .click();
+  assert.deepEqual(
+    await profileDrawer
+      .getByRole("table")
+      .locator("thead th")
+      .allTextContents(),
+    ["Mv", "Fv", "Sv", "S", "D", "A", "W", "C", "I"],
+  );
+  assert.deepEqual(
+    await profileDrawer
+      .getByRole("table")
+      .locator("tbody td")
+      .allTextContents(),
+    profileValues,
+  );
+  await profileDrawer.locator('button:has([data-testid="CloseIcon"])').click();
+  await switchLanguage("Language", "Español");
+  console.log(
+    "PASS: Spanish/English profile results and tables, mobile rendering, original values",
   );
 
   // Common rules are translated in the drawer and searchable in both languages.

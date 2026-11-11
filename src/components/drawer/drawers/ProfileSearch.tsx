@@ -11,6 +11,7 @@ import {
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Fragment, useState } from "react";
+import { GameText } from "../../../i18n/GameText";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { translateGameText } from "../../../i18n/game-text";
@@ -32,7 +33,9 @@ const ProfileRow = ({
     <Accordion expanded={expanded} onClick={() => setExpanded(!expanded)}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="body1" component="div">
-          <b>{name}</b>
+          <b>
+            <GameText text={name} />
+          </b>
         </Typography>
       </AccordionSummary>
       <AccordionDetails>

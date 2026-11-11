@@ -69,6 +69,35 @@ try {
   await page.getByRole("heading", { name: "Biblioteca de cartas" }).waitFor();
   assert.match(await page.getByRole("status").innerText(), /535/);
   const search = page.getByRole("textbox", { name: "Buscar...", exact: true });
+  // Mixed source books must still distinguish sides. Check actual rendered colors.
+  await search.fill("Arnor & Angmar");
+  const good = page
+    .locator('main button[data-alignment="Good"]')
+    .filter({ hasText: "Aranarth" });
+  const evil = page
+    .locator('main button[data-alignment="Evil"]')
+    .filter({ hasText: "Angmar Orc Captain" });
+  await good.waitFor();
+  await evil.waitFor();
+  assert.equal(
+    await good.evaluate((el) => getComputedStyle(el).color),
+    "rgb(25, 118, 210)",
+  );
+  assert.equal(
+    await evil.evaluate((el) => getComputedStyle(el).color),
+    "rgb(211, 47, 47)",
+  );
+  await page.setViewportSize({ width: 360, height: 800 });
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+    true,
+  );
+  await page.screenshot({
+    path: join(directory, "card-library-sides-mobile.png"),
+  });
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await search.fill("Gandalf el Blanco");
   await page.locator("main li button").first().click();
   let dialog = page.getByRole("dialog").last();

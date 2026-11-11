@@ -1,38 +1,9 @@
 import { describe, expect, it } from "vitest";
 import warnings from "../assets/data/warning_rules.json";
-import { translate } from "./locale";
 import { translateWarning } from "./warnings";
 import { spanishWarnings } from "./warnings.es";
 
 describe("original stats and localised warnings", () => {
-  it("keeps stat labels in their original language", () => {
-    for (const label of [
-      "Mv / Range",
-      "Mv",
-      "Fv",
-      "Sv",
-      "S",
-      "D",
-      "A",
-      "W",
-      "C",
-      "I",
-      "M",
-      "F",
-      "Might",
-      "Will",
-      "Fate",
-      "Wounds",
-      "Range",
-      "Stats",
-      "Stats table",
-      "Might / Will / Fate",
-    ]) {
-      expect(translate("es", label)).toBe(label);
-      expect(translate("en", label)).toBe(label);
-    }
-  });
-
   it("covers every data-driven warning without changing any source rule", () => {
     const before = JSON.stringify(warnings);
     for (const rules of Object.values(warnings)) {
