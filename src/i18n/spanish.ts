@@ -1,5 +1,8 @@
 // English source messages are keys; never use these labels as game identifiers.
 export const spanish = {
+  "Warband limit reached": "Límite de compañía alcanzado",
+  "This change would exceed the hero's warband limit. Remove or move models to another warband first.":
+    "Este cambio superaría el límite de compañía del héroe. Retira miniaturas o muévelas a otra compañía primero.",
   "Forces of Good": "Luz",
   "Forces of Evil": "Oscuridad",
   Mounts: "Monturas",

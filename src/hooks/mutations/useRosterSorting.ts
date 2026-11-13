@@ -1,10 +1,13 @@
 import { DragStart, DropResult } from "@hello-pangea/dnd";
+import { AlertTypes } from "../../components/notifications/alert-types";
+import { useAppState } from "../../state/app";
 import { useRosterBuildingState } from "../../state/roster-building";
 import { SiegeEquipment } from "../../types/mesbg-data.types.ts";
 import { FreshUnit, SelectedUnit, Warband } from "../../types/roster.ts";
 import { moveItem, moveItemBetweenLists } from "../../utils/array.ts";
 import { useCalculator } from "../calculations-and-displays/useCalculator.ts";
 import { useRosterInformation } from "../calculations-and-displays/useRosterInformation.ts";
+import { hasWarbandCapacityViolation } from "./warband-capacity";
 
 function byId(id: string) {
   return (warband) => warband.id === id;
@@ -78,18 +81,28 @@ export const useRosterSorting = () => {
         result.destination.index,
       );
 
-      updateRoster(
-        calculator.recalculateRoster({
-          ...roster,
-          warbands: roster.warbands.map((wb) =>
-            wb.id === srcWarband.id
-              ? getResortedWarband(wb, reorderedSource)
-              : wb.id === dstWarband.id
-                ? getResortedWarband(wb, reorderedDestination)
-                : wb,
-          ),
-        }),
-      );
+      const updatedRoster = calculator.recalculateRoster({
+        ...roster,
+        warbands: roster.warbands.map((wb) =>
+          wb.id === srcWarband.id
+            ? getResortedWarband(wb, reorderedSource)
+            : wb.id === dstWarband.id
+              ? getResortedWarband(wb, reorderedDestination)
+              : wb,
+        ),
+      });
+      if (
+        hasWarbandCapacityViolation(
+          roster.warbands.map(calculator.recalculateWarband),
+          updatedRoster.warbands,
+        )
+      ) {
+        useAppState
+          .getState()
+          .triggerAlert(AlertTypes.WARBAND_CAPACITY_EXCEEDED);
+        return;
+      }
+      updateRoster(updatedRoster);
     }
   }
 

@@ -10,6 +10,7 @@ import { useCollectionWarnings } from "../../../hooks/calculations-and-displays/
 import { useOptionDependencies } from "../../../hooks/calculations-and-displays/useOptionDependencies.ts";
 import { useRosterInformation } from "../../../hooks/calculations-and-displays/useRosterInformation.ts";
 import { useScreenSize } from "../../../hooks/calculations-and-displays/useScreenSize.ts";
+import { exceedsWarbandCapacity } from "../../../hooks/mutations/warband-capacity";
 import { useTranslation } from "../../../i18n/LanguageContext";
 import { TranslatedText } from "../../../i18n/TranslatedText";
 import { translateGameText } from "../../../i18n/game-text";
@@ -53,7 +54,7 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
 }) => {
   const { language } = useTranslation();
   const { mode } = useThemeContext();
-  const { isCustomRoster } = useRosterInformation();
+  const { roster, isCustomRoster } = useRosterInformation();
   const calculator = useCalculator();
   const { checkDependency } = useOptionDependencies(warbandId);
   const screen = useScreenSize();
@@ -106,6 +107,21 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
       return optionAvailable;
     });
   }
+
+  const warband = roster?.warbands.find(({ id }) => id === warbandId);
+  const incrementDisabled = warband
+    ? exceedsWarbandCapacity(
+        calculator.recalculateWarband(warband),
+        calculator.recalculateWarband({
+          ...warband,
+          units: warband.units.map((item) =>
+            item.id === unit.id
+              ? { ...unit, quantity: unit.quantity + 1 }
+              : item,
+          ),
+        }),
+      )
+    : false;
 
   const selectedOptions = unit.options
     .filter((option) => option.included !== true)
@@ -235,6 +251,7 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
           <QuantityButtons
             quantity={unit.quantity}
             updateQuantity={updateQuantity}
+            incrementDisabled={incrementDisabled}
             warbandNum={warbandNum}
             index={index}
             unitName={unit.name}
@@ -300,6 +317,7 @@ export const WarriorCard: FunctionComponent<WarriorCardProps> = ({
           <QuantityButtons
             quantity={unit.quantity}
             updateQuantity={updateQuantity}
+            incrementDisabled={incrementDisabled}
             warbandNum={warbandNum}
             index={index}
             unitName={unit.name}

@@ -33,10 +33,10 @@ export const UnitSelector = () => {
     );
     switch (selectionType) {
       case "hero":
-        handleHeroSelection(unit);
+        if (!handleHeroSelection(unit)) return;
         break;
       case "unit":
-        handleUnitSelection(unitId, unit);
+        if (!handleUnitSelection(unitId, unit)) return;
         break;
     }
 
@@ -48,7 +48,7 @@ export const UnitSelector = () => {
       `select ${selectionType} for wb ${warbandId} in ${roster.name}; ${equipment.name}`,
     );
 
-    handleSiegeSelection(equipment);
+    if (!handleSiegeSelection(equipment)) return;
 
     closeSidebar();
   }

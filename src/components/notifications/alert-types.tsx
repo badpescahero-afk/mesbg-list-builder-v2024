@@ -1,4 +1,4 @@
-import { AlertColor } from "@mui/material";
+import { AlertColor, AlertTitle } from "@mui/material";
 import { Fragment, ReactNode } from "react";
 import { TranslatedText } from "../../i18n/TranslatedText";
 import { ApiErrorAlert } from "./alerts/ApiErrorAlert.tsx";
@@ -8,6 +8,7 @@ import { ExportHistoryAlert } from "./alerts/ExportHistoryAlert.tsx";
 import { ScreenshotCopiedAlert } from "./alerts/ScreenshotCopiedAlert.tsx";
 
 export enum AlertTypes {
+  WARBAND_CAPACITY_EXCEEDED = "WARBAND_CAPACITY_EXCEEDED",
   EXPORT_ALERT = "EXPORT_ALERT",
   EXPORT_HISTORY_ALERT = "EXPORT_HISTORY_ALERT",
   RECORD_MATCH_SUCCESS = "RECORD_MATCH_SUCCESS",
@@ -47,6 +48,21 @@ export type AlertProps = {
 };
 
 export const alertMap = new Map<AlertTypes, AlertProps>([
+  [
+    AlertTypes.WARBAND_CAPACITY_EXCEEDED,
+    {
+      variant: "warning",
+      content: (
+        <>
+          <AlertTitle>
+            <TranslatedText message="Warband limit reached" />
+          </AlertTitle>
+          <TranslatedText message="This change would exceed the hero's warband limit. Remove or move models to another warband first." />
+        </>
+      ),
+      options: { autoHideAfter: 6000 },
+    },
+  ],
   [
     AlertTypes.EXPORT_ALERT,
     {

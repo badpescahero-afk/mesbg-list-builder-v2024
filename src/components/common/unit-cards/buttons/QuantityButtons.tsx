@@ -12,6 +12,7 @@ type QuantityButtonsProps = {
   warbandNum: number;
   index: number;
   collapsed?: boolean;
+  incrementDisabled?: boolean;
 };
 export const QuantityButtons: FunctionComponent<QuantityButtonsProps> = ({
   quantity,
@@ -20,6 +21,7 @@ export const QuantityButtons: FunctionComponent<QuantityButtonsProps> = ({
   index,
   unitName,
   collapsed,
+  incrementDisabled = false,
 }) => {
   const { palette } = useTheme();
 
@@ -59,6 +61,7 @@ export const QuantityButtons: FunctionComponent<QuantityButtonsProps> = ({
         backgroundColorHover={palette.primary.dark}
         iconPadding="1"
         onClick={handleIncrement}
+        disabled={incrementDisabled}
         testId={`quantity--increment--w${warbandNum}-i${index}`}
         testName={`quantity--increment--${slugify(unitName)}`}
       />

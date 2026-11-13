@@ -15,6 +15,7 @@ import {
 import { useCalculator } from "../calculations-and-displays/useCalculator.ts";
 
 import { useRosterSync } from "../cloud-sync/RosterCloudSyncProvider.tsx";
+import { hasWarbandCapacityViolation } from "./warband-capacity";
 
 function getBrotherId(unit: Unit, [left, right]: [string, string]) {
   const otherBrotherName = unit.name === left ? right : left;
@@ -67,15 +68,28 @@ export const useWarbandMutations = (
     (state) => state.updateBuilderSidebar,
   );
   const [roster, recalculateAndUpdate] = useRosterBuildingState(
-    (state): [Roster, (roster: Roster) => void] => [
+    (state): [Roster, (roster: Roster) => boolean] => [
       state.rosters.find(({ id }) => id === rosterId),
       (roster) => {
         const rosterUpdate = calculator.recalculateRoster({
           ...roster,
           warbands: roster.warbands.map(calculator.recalculateWarband),
         });
+        const current = useRosterBuildingState
+          .getState()
+          .rosters.find(({ id }) => id === rosterUpdate.id);
+        if (
+          hasWarbandCapacityViolation(
+            (current?.warbands || []).map(calculator.recalculateWarband),
+            rosterUpdate.warbands,
+          )
+        ) {
+          triggerAlert(AlertTypes.WARBAND_CAPACITY_EXCEEDED);
+          return false;
+        }
         state.updateRoster(rosterUpdate);
         sync(rosterUpdate);
+        return true;
       },
     ],
   );
@@ -114,7 +128,7 @@ export const useWarbandMutations = (
       addWarbandWithSpecificUnit(updatedRoster, otherBrotherId);
     }
 
-    recalculateAndUpdate(updatedRoster);
+    return recalculateAndUpdate(updatedRoster);
   }
 
   function handleUnitSelection(unitId: string, unit: Unit) {
@@ -143,7 +157,7 @@ export const useWarbandMutations = (
           : wb;
       }),
     };
-    recalculateAndUpdate(updatedRoster);
+    return recalculateAndUpdate(updatedRoster);
   }
 
   function addEmptyUnit() {
@@ -160,7 +174,7 @@ export const useWarbandMutations = (
           : wb,
       ),
     };
-    recalculateAndUpdate(updatedRoster);
+    if (!recalculateAndUpdate(updatedRoster)) return;
     updateBuilderSidebar({
       armyList: rosterId,
       selectionType: "unit",
@@ -203,7 +217,7 @@ export const useWarbandMutations = (
           : wb;
       }),
     };
-    recalculateAndUpdate(updatedRoster);
+    return recalculateAndUpdate(updatedRoster);
   }
 
   function toggleArmyGeneral(value: boolean) {
@@ -215,7 +229,7 @@ export const useWarbandMutations = (
         leader: value ? warbandId : null,
       },
     };
-    recalculateAndUpdate(updatedRoster);
+    return recalculateAndUpdate(updatedRoster);
   }
 
   function updateHero(unit: SelectedUnit) {
@@ -231,7 +245,7 @@ export const useWarbandMutations = (
           : wb,
       ),
     };
-    recalculateAndUpdate(updatedRoster);
+    return recalculateAndUpdate(updatedRoster);
   }
 
   function updateUnit(unit: SelectedUnit) {
@@ -247,7 +261,7 @@ export const useWarbandMutations = (
           : wb,
       ),
     };
-    recalculateAndUpdate(updatedRoster);
+    return recalculateAndUpdate(updatedRoster);
   }
 
   function duplicateUnit(unitId: string) {
@@ -269,7 +283,7 @@ export const useWarbandMutations = (
           : wb,
       ),
     };
-    recalculateAndUpdate(updatedRoster);
+    if (!recalculateAndUpdate(updatedRoster)) return;
     triggerAlert(AlertTypes.DUPLICATE_UNIT_SUCCESS);
   }
 
@@ -286,7 +300,7 @@ export const useWarbandMutations = (
           : wb,
       ),
     };
-    recalculateAndUpdate(updatedRoster);
+    if (!recalculateAndUpdate(updatedRoster)) return;
     triggerAlert(AlertTypes.DELETE_UNIT_SUCCESS);
   }
 
@@ -298,7 +312,7 @@ export const useWarbandMutations = (
         wb.id === warbandId ? { ...wb, units: [] } : wb,
       ),
     };
-    recalculateAndUpdate(updatedRoster);
+    if (!recalculateAndUpdate(updatedRoster)) return;
     triggerAlert(AlertTypes.EMPTY_WARBAND_SUCCESS);
   }
 
@@ -316,7 +330,7 @@ export const useWarbandMutations = (
           },
         })),
     };
-    recalculateAndUpdate(updatedRoster);
+    if (!recalculateAndUpdate(updatedRoster)) return;
     triggerAlert(AlertTypes.DELETE_WARBAND_SUCCESS);
   }
 
@@ -350,7 +364,7 @@ export const useWarbandMutations = (
         },
       ],
     };
-    recalculateAndUpdate(updatedRoster);
+    if (!recalculateAndUpdate(updatedRoster)) return;
     triggerAlert(AlertTypes.DUPLICATE_WARBAND_SUCCESS);
   }
 

@@ -162,3 +162,8 @@
 - Traducir también Fuerza y Defensa en la tabla para herir sin modificar su matriz. Distinguir saltar obstáculos (`jump-table`) de saltar huecos (`leap-table`).
 - Conservar resultados de dados, distancias, Fuerza, Defensa, Heridas y todas las condiciones de las imágenes originales. La referencia española orienta el vocabulario; no copiar erratas de traducción como «Arrojar Piedras» en la fila de lanza arrojadiza.
 - Validar todas las tablas en móvil y escritorio con `node scripts/test-reference-charts.mjs`.
+
+## Límite de compañía
+
+- Corrección autorizada por el usuario: impedir cambios interactivos que superen la capacidad del héroe. Reutilizar `useCalculator.recalculateWarband` para contar pasajeros, dotaciones y excepciones; no cambiar los datos ni inventar reglas.
+- Comprobar selección, incrementos, duplicación, cambios de héroe/equipo y traslados entre compañías antes de guardar. Las listas ya excedidas no se borran ni se recortan: permitir reducirlas y editar cambios que no aumenten su exceso ni sus efectivos. No impedir importar o recuperar una lista antigua.
